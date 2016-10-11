@@ -6,19 +6,26 @@
 <html>
 
 <jsp:include page="fragments/header.jsp" />
-
-<body>
-<jsp:include page="fragments/navBar.jsp" />
-	<div class="generic-container">
-		
-		<div class="alert alert-success lead">
-	    	${success}
-		</div>
-		
-		<span class="well floatRight">
-			Go to <a href="<c:url value='/list' />">Users List</a>
-		</span>
-	</div>
-</body>
+<!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="clearfix"></div>
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_content">          
+	                  <div class="alert alert-success alert-dismissible fade in" role="alert">
+	                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+	                    </button>
+	                   ${success}
+	                  </div>
+						Go to <a href="<c:url value='/users' />">Users List</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /page content -->
 <jsp:include page="fragments/footer.jsp" />
 </html>

@@ -138,12 +138,12 @@ public class AppController {
 		if(!userService.isUserUsernameUnique(user.getId(), user.getUsername())){
 			FieldError usernameError =new FieldError("user","username",messageSource.getMessage("non.unique.username", new String[]{user.getUsername()}, Locale.getDefault()));
 		    result.addError(usernameError);
-			return "registration";
+			return "createUser";
 		}
 		
 		userService.saveUser(user);
 
-		model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " registered successfully");
+		model.addAttribute("success", "User: " + user.getUsername() + " was registered successfully");
 		model.addAttribute("loggedinuser", getPrincipal());
 		//return "success";
 		return "registrationsuccess";
@@ -154,12 +154,13 @@ public class AppController {
 	 * This method will provide the medium to update an existing user.
 	 */
 	@RequestMapping(value = { "/edit-user-{username}" }, method = RequestMethod.GET)
-	public String editUser(@PathVariable String username, ModelMap model) {
+	public String editUser(@PathVariable String username, ModelMap model) 
+	{
 		User user = userService.findByUsername(username);
 		model.addAttribute("user", user);
 		model.addAttribute("edit", true);
 		model.addAttribute("loggedinuser", getPrincipal());
-		return "registration";
+		return "createUser";
 	}
 	
 	/**
@@ -167,11 +168,11 @@ public class AppController {
 	 * updating user in database. It also validates the user input
 	 */
 	@RequestMapping(value = { "/edit-user-{username}" }, method = RequestMethod.POST)
-	public String updateUser(@Valid User user, BindingResult result,
-			ModelMap model, @PathVariable String username) {
-
-		if (result.hasErrors()) {
-			return "registration";
+	public String updateUser(@Valid User user, BindingResult result, ModelMap model, @PathVariable String username) 
+	{
+		if (result.hasErrors()) 
+		{
+			return "createUser";
 		}
 
 		/*//Uncomment below 'if block' if you WANT TO ALLOW UPDATING USERNAME in UI which is a unique key to a User.
@@ -181,10 +182,9 @@ public class AppController {
 			return "registration";
 		}*/
 
-
 		userService.updateUser(user);
 
-		model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " updated successfully");
+		model.addAttribute("success", "User: " + user.getUsername() +  " was updated successfully");
 		model.addAttribute("loggedinuser", getPrincipal());
 		return "registrationsuccess";
 	}
@@ -194,9 +194,10 @@ public class AppController {
 	 * This method will delete an user by it's username value.
 	 */
 	@RequestMapping(value = { "/delete-user-{username}" }, method = RequestMethod.GET)
-	public String deleteUser(@PathVariable String username) {
+	public String deleteUser(@PathVariable String username) 
+	{
 		userService.deleteUserByUsername(username);
-		return "redirect:/list";
+		return "redirect:/users";
 	}
 	
 
@@ -204,7 +205,8 @@ public class AppController {
 	 * This method will provide UserProfile list to views
 	 */
 	@ModelAttribute("roles")
-	public List<UserProfile> initializeProfiles() {
+	public List<UserProfile> initializeProfiles() 
+	{
 		return userProfileService.findAll();
 	}
 	
@@ -212,7 +214,8 @@ public class AppController {
 	 * This method handles Access-Denied redirect.
 	 */
 	@RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
-	public String accessDeniedPage(ModelMap model) {
+	public String accessDeniedPage(ModelMap model) 
+	{
 		model.addAttribute("loggedinuser", getPrincipal());
 		return "accessDenied";
 	}
@@ -222,11 +225,15 @@ public class AppController {
 	 * If users is already logged-in and tries to goto login page again, will be redirected to list page.
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String loginPage() {
-		if (isCurrentAuthenticationAnonymous()) {
+	public String loginPage() 
+	{
+		if (isCurrentAuthenticationAnonymous()) 
+		{
 			return "login";
-	    } else {
-	    	return "redirect:/list";  
+	    } 
+		else 
+		{
+	    	return "redirect:/users";  
 	    }
 	}
 
@@ -235,7 +242,8 @@ public class AppController {
 	 * Toggle the handlers if you are RememberMe functionality is useless in your app.
 	 */
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
-	public String logoutPage (HttpServletRequest request, HttpServletResponse response){
+	public String logoutPage (HttpServletRequest request, HttpServletResponse response)
+	{
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth != null){    
 			//new SecurityContextLogoutHandler().logout(request, response, auth);
@@ -248,7 +256,8 @@ public class AppController {
 	/**
 	 * This method returns the principal[user-name] of logged-in user.
 	 */
-	private String getPrincipal(){
+	private String getPrincipal()
+	{
 		String userName = null;
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 

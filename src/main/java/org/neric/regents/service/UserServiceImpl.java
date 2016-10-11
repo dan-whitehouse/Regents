@@ -53,15 +53,18 @@ public class UserServiceImpl implements UserService{
 	}
 
 	
-	public void deleteUserByUsername(String username) {
+	public void deleteUserByUsername(String username) 
+	{
 		dao.deleteByUsername(username);
 	}
 
-	public List<User> findAllUsers() {
+	public List<User> findAllUsers() 
+	{
 		return dao.findAllUsers();
 	}
 
-	public boolean isUserUsernameUnique(Integer id, String username) {
+	public boolean isUserUsernameUnique(Integer id, String username) 
+	{
 		User user = findByUsername(username);
 		return ( user == null || ((id != null) && (user.getId() == id)));
 	}

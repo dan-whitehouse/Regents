@@ -23,14 +23,18 @@
 		<link href="<c:url value='/resources/vendors/font-awesome/css/font-awesome.min.css' />" rel="stylesheet">
 		<!-- NProgress -->
 		<link href="<c:url value='resources/vendors/nprogress/nprogress.css' />" rel="stylesheet">
+		
+		<!-- Custom Theme Style -->
+		<link href="<c:url value='/resources/build/css/custom.min.css' />" rel="stylesheet">
+		
 		<!-- Datatables -->
 		<link href="<c:url value='resources/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css' />" rel="stylesheet">
 		<link href="<c:url value='resources/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css' />" rel="stylesheet">
 		<link href="<c:url value='resources/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css' />" rel="stylesheet">
 		<link href="<c:url value='resources/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css' />" rel="stylesheet">
 		<link href="<c:url value='resources/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css' />" rel="stylesheet">
-		<!-- Custom Theme Style -->
-		<link href="<c:url value='/resources/build/css/custom.min.css' />" rel="stylesheet">
+		
+		
 	</head>
 	<body class="nav-md footer_fixed">
 		<div class="container body">
@@ -58,7 +62,7 @@
 						<h3>General</h3>
 						<ul class="nav side-menu">
 							<li><a href="${home}"><i class="fa fa-home"></i> Home</span></a></li>
-							<li><a href="${order}"><i class="fa fa-edit"></i> Order</span></a></li>
+							<li><a href="${order}"><i class="fa fa-edit"></i> Order Form</span></a></li>
 							<sec:authorize access="hasRole('ADMIN')">
 								<li>
 									<a><i class="fa fa-gears"></i> Admin <span class="fa fa-chevron-down"></span></a>

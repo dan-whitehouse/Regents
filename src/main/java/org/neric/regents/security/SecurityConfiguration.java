@@ -19,8 +19,8 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter 
+{
 	@Autowired
 	@Qualifier("customUserDetailsService")
 	UserDetailsService userDetailsService;
@@ -29,29 +29,39 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	PersistentTokenRepository tokenRepository;
 
 	@Autowired
-	public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
+	public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception 
+	{
 		auth.userDetailsService(userDetailsService);
 		auth.authenticationProvider(authenticationProvider());
 	}
 
 	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/", "/users")
-				.access("hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')")
-				.antMatchers("/newuser/**", "/delete-user-*").access("hasRole('ADMIN')").antMatchers("/edit-user-*")
-				.access("hasRole('ADMIN') or hasRole('DBA')").and().formLogin().loginPage("/login")
-				.loginProcessingUrl("/login").usernameParameter("username").passwordParameter("password").and()
-				.rememberMe().rememberMeParameter("remember-me").tokenRepository(tokenRepository)
-				.tokenValiditySeconds(86400).and().csrf().and().exceptionHandling().accessDeniedPage("/Access_Denied");
+	protected void configure(HttpSecurity http) throws Exception 
+	{
+		http.authorizeRequests()
+				.antMatchers("/", "/users").access("hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')")
+				.antMatchers("/newuser/**", "/delete-user-*").access("hasRole('ADMIN')")
+				.antMatchers("/edit-user-*").access("hasRole('ADMIN') or hasRole('DBA')")
+				.and().formLogin()
+					.loginPage("/login")
+					.loginProcessingUrl("/login")
+						.usernameParameter("username")
+						.passwordParameter("password")
+						.and().rememberMe().rememberMeParameter("remember-me")
+						.tokenRepository(tokenRepository).tokenValiditySeconds(86400)
+						.and().csrf()
+						.and().exceptionHandling().accessDeniedPage("/accessDenied");
 	}
 
 	@Bean
-	public PasswordEncoder passwordEncoder() {
+	public PasswordEncoder passwordEncoder() 
+	{
 		return new BCryptPasswordEncoder();
 	}
 
 	@Bean
-	public DaoAuthenticationProvider authenticationProvider() {
+	public DaoAuthenticationProvider authenticationProvider() 
+	{
 		DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
 		authenticationProvider.setUserDetailsService(userDetailsService);
 		authenticationProvider.setPasswordEncoder(passwordEncoder());
@@ -59,15 +69,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	}
 
 	@Bean
-	public PersistentTokenBasedRememberMeServices getPersistentTokenBasedRememberMeServices() {
-		PersistentTokenBasedRememberMeServices tokenBasedservice = new PersistentTokenBasedRememberMeServices(
-				"remember-me", userDetailsService, tokenRepository);
+	public PersistentTokenBasedRememberMeServices getPersistentTokenBasedRememberMeServices() 
+	{
+		PersistentTokenBasedRememberMeServices tokenBasedservice = new PersistentTokenBasedRememberMeServices("remember-me", userDetailsService, tokenRepository);
 		return tokenBasedservice;
 	}
 
 	@Bean
-	public AuthenticationTrustResolver getAuthenticationTrustResolver() {
+	public AuthenticationTrustResolver getAuthenticationTrustResolver() 
+	{
 		return new AuthenticationTrustResolverImpl();
 	}
-
 }

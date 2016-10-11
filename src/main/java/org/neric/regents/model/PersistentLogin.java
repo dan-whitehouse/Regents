@@ -14,9 +14,6 @@ import javax.persistence.TemporalType;
 @Table(name="PERSISTENT_LOGINS")
 public class PersistentLogin implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -62,6 +59,4 @@ public class PersistentLogin implements Serializable{
 	public void setLast_used(Date last_used) {
 		this.last_used = last_used;
 	}
-	
-	
 }
