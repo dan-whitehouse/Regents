@@ -233,7 +233,7 @@ public class AppController {
 	    } 
 		else 
 		{
-	    	return "redirect:/users";  
+	    	return "redirect:/";  
 	    }
 	}
 
