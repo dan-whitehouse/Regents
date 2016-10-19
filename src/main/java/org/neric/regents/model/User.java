@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -23,7 +24,9 @@ public class User implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Id 
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 
 	@NotEmpty
@@ -57,6 +60,11 @@ public class User implements Serializable
              inverseJoinColumns = { @JoinColumn(name = "USER_PROFILE_ID") })
 	private Set<UserProfile> userProfiles = new HashSet<UserProfile>();
 
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private Set<Order> orders = new HashSet<Order>(0);
+	
+	
 	public Integer getId() {
 		return id;
 	}
@@ -109,8 +117,19 @@ public class User implements Serializable
 		return userProfiles;
 	}
 
-	public void setUserProfiles(Set<UserProfile> userProfiles) {
+	public void setUserProfiles(Set<UserProfile> userProfiles) 
+	{
 		this.userProfiles = userProfiles;
+	}
+	
+	public Set<Order> getOrders()
+	{
+		return orders;
+	}
+
+	public void setOrders(Set<Order> orders)
+	{
+		this.orders = orders;
 	}
 
 	public String getDistrict()
