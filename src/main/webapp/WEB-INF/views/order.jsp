@@ -84,7 +84,7 @@
 										<a href="#step-4">
 										<span class="step_no">4</span>
 										<span class="step_descr">
-										Step 3<br />
+										Step 4<br />
 										<small>Options</small>
 										</span>
 										</a>
@@ -94,7 +94,16 @@
 										<span class="step_no">5</span>
 										<span class="step_descr">
 										Step 5<br />
-										<small>Authorize</small>
+										<small>Order Contact</small>
+										</span>
+										</a>
+									</li>
+									<li>
+										<a href="#step-6">
+										<span class="step_no">6</span>
+										<span class="step_descr">
+										Step 6<br />
+										<small>Review</small>
 										</span>
 										</a>
 									</li>
@@ -338,7 +347,7 @@
 						                          </div>
 						                          <div class="radio">
 						                            <label>
-						                              <input type="radio" class="flat" name="iCheck"> Score answer sheets In-District by deadline. 
+						                              <input type="radio" class="flat" name="iCheck"> Scan answer sheets In-District by deadline. 
 						                            </label>
 						                          </div>
 		                        			</div>
@@ -380,7 +389,50 @@
 		                      		</form>
 								</div>
 								<div id="step-5">
-									<h2 class="StepTitle">Step 5 Content</h2>
+									<h2 class="StepTitle">Order Contact</h2>
+					                    <form class="form-horizontal form-label-left input_mask">
+										  <div class="col-md-6 col-sm-6 col-xs-12">
+				                            <select class="select2_single form-control select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+				                            	<option>Select LEA Name</option>
+				                            	<option value="000001">District 1</option>
+				                            	<option value="000002">District 2</option>
+				                            	<option value="000003">District 3</option>
+				                            </select><span></span> 
+				                       	  </div>
+				                       	  
+				                       	  <div class="col-md-6 col-sm-6 col-xs-12">
+				                            <select class="select2_single form-control select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+				                            	<option>Select School/Building Name</option>
+				                            	<option value="000001001">School 1</option>
+				                            	<option value="000002002">School 2</option>
+				                            	<option value="000003003">School 3</option>
+				                            </select><span></span>
+				                       	  </div>
+				                       	  
+					                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+					                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="First Name">
+					                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+					                      </div>
+					
+					                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+					                        <input type="text" class="form-control" id="inputSuccess3" placeholder="Last Name">
+					                        <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+					                      </div>
+					
+					                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+					                        <input type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="Email">
+					                        <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
+					                      </div>
+					
+					                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+					                        <input type="text" class="form-control" id="inputSuccess5" placeholder="Phone">
+					                        <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
+					                      </div>
+					
+					                    </form>
+								</div>
+								<div id="step-6">
+									<h2 class="StepTitle">Review and Submit Order</h2>
 									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 										Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 									</p>

@@ -45,6 +45,10 @@ public class User implements Serializable
 	@NotEmpty
 	@Column(name="EMAIL", nullable=false)
 	private String email;
+	
+	@NotEmpty
+	@Column(name="LEA", nullable=false)
+	private String lea;
 
 	@NotEmpty
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -109,6 +113,16 @@ public class User implements Serializable
 		this.userProfiles = userProfiles;
 	}
 
+	public String getDistrict()
+	{
+		return lea;
+	}
+
+	public void setDistrict(String district)
+	{
+		this.lea = district;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -140,15 +154,10 @@ public class User implements Serializable
 		return true;
 	}
 
-	/*
-	 * DO-NOT-INCLUDE passwords in toString function.
-	 * It is done here just for convenience purpose.
-	 */
 	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password
-				+ ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", email=" + email + "]";
+	public String toString()
+	{
+		return "User [id=" + id + ", username=" + username + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", district=" + lea + ", userProfiles=" + userProfiles + "]";
 	}
 
 
