@@ -45,6 +45,9 @@
     <script src="<c:url value='/resources/vendors/pdfmake/build/pdfmake.min.js' />"></script>
     <script src="<c:url value='/resources/vendors/pdfmake/build/vfs_fonts.js' />"></script>
     
+    
+    <script src="<c:url value='/resources/vendors/iCheck/icheck.min.js'/>"></script>
+    
      <!-- Custom Theme Scripts -->
     <script src="<c:url value='/resources/build/js/custom.min.js' />"></script>
     

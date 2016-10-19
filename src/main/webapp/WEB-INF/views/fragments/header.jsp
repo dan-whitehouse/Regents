@@ -16,23 +16,26 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Gentellela Alela! | </title>
-		<!-- Bootstrap -->
-		<link href="<c:url value='/resources/vendors/bootstrap/dist/css/bootstrap.min.css' />" rel="stylesheet">
-		<!-- Font Awesome -->
-		<link href="<c:url value='/resources/vendors/font-awesome/css/font-awesome.min.css' />" rel="stylesheet">
+		<title>NERIC - Regents Order Form</title>
+		
 		<!-- NProgress -->
 		<link href="<c:url value='resources/vendors/nprogress/nprogress.css' />" rel="stylesheet">
+		<link href="<c:url value='resources/vendors/iCheck/skins/flat/green.css' />" rel="stylesheet">
 		
-		<!-- Custom Theme Style -->
-		<link href="<c:url value='/resources/build/css/custom.min.css' />" rel="stylesheet">
+		<!-- Bootstrap -->
+		<link href="<c:url value='/resources/vendors/bootstrap/dist/css/bootstrap.min.css' />" rel="stylesheet" type="text/css">
+		<!-- Font Awesome -->
+		<link href="<c:url value='/resources/vendors/font-awesome/css/font-awesome.min.css' />" rel="stylesheet" type="text/css">
 		
 		<!-- Datatables -->
-		<link href="<c:url value='resources/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css' />" rel="stylesheet">
-		<link href="<c:url value='resources/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css' />" rel="stylesheet">
-		<link href="<c:url value='resources/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css' />" rel="stylesheet">
-		<link href="<c:url value='resources/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css' />" rel="stylesheet">
-		<link href="<c:url value='resources/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css' />" rel="stylesheet">
+		<link href="<c:url value='resources/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css' />" rel="stylesheet" type="text/css">
+		<link href="<c:url value='resources/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css' />" rel="stylesheet" type="text/css">
+		<link href="<c:url value='resources/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css' />" rel="stylesheet" type="text/css">
+		<link href="<c:url value='resources/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css' />" rel="stylesheet" type="text/css">
+		<link href="<c:url value='resources/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css' />" rel="stylesheet" type="text/css">
+		
+		<!-- Custom Theme Style -->
+		<link href="<c:url value='/resources/build/css/custom.min.css' />" rel="stylesheet" type="text/css">
 		
 		
 	</head>
@@ -42,7 +45,7 @@
 		<div class="col-md-3 left_col">
 			<div class="left_col scroll-view">
 				<div class="navbar nav_title" style="border: 0;">
-					<a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentellela Alela!</span></a>
+					<a href="${home}" class="site_title"><i class="fa fa-paw"></i> <span>Regents Order Form</span></a>
 				</div>
 				<div class="clearfix"></div>
 				<!-- menu profile quick info -->

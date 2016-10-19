@@ -50,7 +50,7 @@ public class AppController {
 	@Autowired
 	AuthenticationTrustResolver authenticationTrustResolver;
 	
-	
+    	
 	/**
 	 * This method will list all existing users.
 	 */
@@ -81,6 +81,8 @@ public class AppController {
 	public String order(ModelMap model) {
 
 		model.addAttribute("loggedinuser", getPrincipal());
+		model.addAttribute("dueDate", "[dueDate FROM AppController.java]");
+		model.addAttribute("billingYear", "[billingYear FROM AppController.java]");
 		return "order";
 	}
 	
@@ -233,7 +235,7 @@ public class AppController {
 	    } 
 		else 
 		{
-	    	return "redirect:/";  
+	    	return "redirect:/users";  
 	    }
 	}
 
