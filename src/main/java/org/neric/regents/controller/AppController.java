@@ -96,6 +96,18 @@ public class AppController {
 	}
 	
 	/**
+	 * Display configurable settings in the database
+	 */
+	@RequestMapping(value = { "/settings" }, method = RequestMethod.GET)
+	public String listSettings(ModelMap model) {
+
+		List<User> users = userService.findAllUsers();
+		model.addAttribute("users", users);
+		model.addAttribute("loggedinuser", getPrincipal());
+		return "settings";
+	}
+	
+	/**
 	 * This method will display home page.
 	 */
 	@RequestMapping(value = { "/" }, method = RequestMethod.GET)

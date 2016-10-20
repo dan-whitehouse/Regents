@@ -8,6 +8,7 @@
 <c:url value="/users" var="users" />
 <c:url value="/createUser" var="createUser" />
 <c:url value="/orders" var="orders" />
+<c:url value="/settings" var="settings" />
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -78,6 +79,7 @@
 				                          	</ul>
 				                        </li>
 										<li><a href="${orders}">Orders</a></li>
+										<li><a href="${settings}">Settings</a></li>
 									</ul>
 								</li>
 							</sec:authorize>

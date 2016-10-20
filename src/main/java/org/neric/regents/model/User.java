@@ -49,9 +49,8 @@ public class User implements Serializable
 	@Column(name="EMAIL", nullable=false)
 	private String email;
 	
-	@NotEmpty
-	@Column(name="LEA", nullable=false)
-	private String lea;
+//	@Column(name="LEA", nullable=true)
+//	private String lea;
 
 	@NotEmpty
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -132,15 +131,15 @@ public class User implements Serializable
 		this.orders = orders;
 	}
 
-	public String getDistrict()
-	{
-		return lea;
-	}
-
-	public void setDistrict(String district)
-	{
-		this.lea = district;
-	}
+//	public String getDistrict()
+//	{
+//		return lea;
+//	}
+//
+//	public void setDistrict(String district)
+//	{
+//		this.lea = district;
+//	}
 
 	@Override
 	public int hashCode() {
@@ -173,11 +172,11 @@ public class User implements Serializable
 		return true;
 	}
 
-	@Override
-	public String toString()
-	{
-		return "User [id=" + id + ", username=" + username + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", district=" + lea + ", userProfiles=" + userProfiles + "]";
-	}
+//	@Override
+//	public String toString()
+//	{
+//		return "User [id=" + id + ", username=" + username + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", district=" + lea + ", userProfiles=" + userProfiles + "]";
+//	}
 
 
 	
