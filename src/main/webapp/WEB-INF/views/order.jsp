@@ -392,23 +392,23 @@
 									<h2 class="StepTitle">Order Contact</h2>
 					                    <form class="form-horizontal form-label-left input_mask">
 										  <div class="col-md-6 col-sm-6 col-xs-12">
-				                            <select class="select2_single form-control select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+				                            <select class="form-control">
 				                            	<option>Select LEA Name</option>
 				                            	<option value="000001">District 1</option>
 				                            	<option value="000002">District 2</option>
 				                            	<option value="000003">District 3</option>
-				                            </select><span></span> 
+				                            </select><br />			              
 				                       	  </div>
-				                       	  
+
 				                       	  <div class="col-md-6 col-sm-6 col-xs-12">
-				                            <select class="select2_single form-control select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+				                            <select class="form-control">
 				                            	<option>Select School/Building Name</option>
 				                            	<option value="000001001">School 1</option>
 				                            	<option value="000002002">School 2</option>
 				                            	<option value="000003003">School 3</option>
-				                            </select><span></span>
+				                            </select><br />
 				                       	  </div>
-				                       	  
+
 					                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
 					                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="First Name">
 					                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>

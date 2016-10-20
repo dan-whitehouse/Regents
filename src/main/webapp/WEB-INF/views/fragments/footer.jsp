@@ -2,7 +2,10 @@
 <!-- footer content -->
         <footer>
           <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+<!--             Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a> -->
+			<p style="font-size:13px;"> NERIC - Northeaster Regional Information Center</p>
+			<p style="font-size:10px;">900 Watervliet-Shaker Road | Albany, New York 12205</p>
+			<p style="font-size:10px;">Tel: 518.862.5300 | Fax: 518.862.5378</p>
           </div>
           <div class="clearfix"></div>
         </footer>
