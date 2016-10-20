@@ -21,7 +21,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Plain Page</h3>
+                <h3>NERIC Regents Order Form</h3>
               </div>
 
               <div class="title_right">
@@ -42,7 +42,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Plain Page</h2>
+                    <h2>Home</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -61,7 +61,8 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                      Add content to the page ...
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis iaculis feugiat egestas. Integer scelerisque nisl et quam dapibus, ut efficitur felis ullamcorper. Suspendisse ipsum diam, posuere in tincidunt eget, gravida vitae urna. Mauris fermentum fringilla nisl sit amet vehicula. Proin et interdum quam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc turpis elit, euismod sit amet lacus vel, auctor lobortis nulla. Donec eu laoreet tellus. Donec ut egestas leo. Aenean a mollis leo, id aliquam lectus. Nunc sollicitudin rutrum diam. Aenean posuere commodo tempus. Morbi dictum risus nunc, sagittis molestie risus mattis et. Curabitur molestie ornare justo, quis sagittis odio hendrerit in. Aliquam venenatis nulla vitae arcu venenatis, et ullamcorper leo interdum. Sed elit nunc, pretium sit amet tempus blandit, lacinia a mauris.</p>
+                      <p>Nullam eu velit non quam vehicula tristique. In hac habitasse platea dictumst. Nunc diam augue, viverra sed dui a, volutpat fringilla orci. Maecenas tempor eros ac purus malesuada semper. Proin facilisis ut felis ut consequat. In laoreet mollis diam hendrerit consectetur. Integer feugiat porta laoreet. Sed dictum nulla vitae convallis accumsan. Duis sit amet dui rhoncus, eleifend sapien et, tincidunt nulla. Nulla in volutpat tellus, sed vulputate urna. Aenean in gravida ligula, vel ornare odio. Nullam imperdiet, risus sed faucibus varius, neque augue porta mi, non convallis nulla sapien eu diam. Ut egestas vehicula odio at porttitor. Phasellus vitae metus neque. Phasellus non leo varius, gravida odio id, efficitur enim. Vivamus venenatis in lorem non ornare.</p>
                   </div>
                 </div>
               </div>
