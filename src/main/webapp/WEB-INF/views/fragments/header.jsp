@@ -67,6 +67,7 @@
 						<ul class="nav side-menu">
 							<li><a href="${home}"><i class="fa fa-home"></i> Home</span></a></li>
 							<li><a href="${order}"><i class="fa fa-edit"></i> Order Form</span></a></li>
+							<li><a href="${orders}"><i class="fa fa-truck"></i>Orders</a></li>
 							<sec:authorize access="hasRole('ADMIN')">
 								<li>
 									<a><i class="fa fa-gears"></i> Admin <span class="fa fa-chevron-down"></span></a>
@@ -78,7 +79,6 @@
 				                            	<li><a href="${createUser}">Create User</a></li>
 				                          	</ul>
 				                        </li>
-										<li><a href="${orders}"><i class="fa fa-truck"></i>Orders</a></li>
 										<li><a href="${settings}"><i class="fa fa-wrench"></i>Settings</a></li>
 									</ul>
 								</li>
