@@ -78,8 +78,8 @@
 				                            	<li><a href="${createUser}">Create User</a></li>
 				                          	</ul>
 				                        </li>
-										<li><a href="${orders}">Orders</a></li>
-										<li><a href="${settings}">Settings</a></li>
+										<li><a href="${orders}"><i class="fa fa-truck"></i>Orders</a></li>
+										<li><a href="${settings}"><i class="fa fa-wrench"></i>Settings</a></li>
 									</ul>
 								</li>
 							</sec:authorize>
