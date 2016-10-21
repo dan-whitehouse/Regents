@@ -22,6 +22,13 @@
 								    <p>You have been logged out successfully.</p>
 							    </div>
 						    </c:if>
+						    <br />
+						    <br />
+						    <br />
+						    <div>
+						    	<img src="resources/images/NericLogo_horizontal_2c_sanstxt.png" style="width:90%;">
+						    </div>
+						    <br />
 						    <div class="input-group input-sm">
 							    <label class="input-group-addon" for="username"><i class="fa fa-user"></i></label>
 							    <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username" required>
