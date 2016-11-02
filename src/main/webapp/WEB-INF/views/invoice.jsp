@@ -59,7 +59,7 @@
                         <div class="col-xs-12 invoice-header">
                           <h1>
                                           <i class="fa fa-globe"></i> Invoice.
-                                          <small class="pull-right">Date: 16/08/2016</small>
+                                          <small class="pull-right">Date: ${order.orderDate}</small>
                                       </h1>
                         </div>
                         <!-- /.col -->
@@ -70,8 +70,8 @@
                           From
                           <address>
                                           <strong>Iron Admin, Inc.</strong>
-                                          <br>795 Freedom Ave, Suite 600
-                                          <br>New York, CA 94107
+                                          <br>900 Watervliet-Shaker Road
+                                          <br>Albany, NY 12205
                                           <br>Phone: 1 (804) 123-9876
                                           <br>Email: ironadmin.com
                                       </address>
@@ -110,19 +110,44 @@
                               <tr>
                                 <th>Qty</th>
                                 <th>Product</th>
-                                <th>Serial #</th>
-                                <th style="width: 59%">Description</th>
                                 <th>Subtotal</th>
                               </tr>
                             </thead>
                             <tbody>
-                            	<c:forEach items="${orders}" var="order">
+                            	<c:forEach items="${order.orderExams}" var="orderExam">
 									<tr>
-										<td>${order.uuid}</td>
-										<td>${order.orderDate}</td>
-										<td>${order.user.username}</td>
+										<td>${orderExam.examAmount}</td>
+										<td>${orderExam.exam.name} - ${orderExam.exam.code}</td>
+										<td>${orderExam.examAmount * 2.10} </td> 
 									</tr>
 								</c:forEach>	
+                            </tbody>
+                          </table>
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+                      
+                      
+                       <!-- Table row -->
+                      <div class="row">
+                        <div class="col-xs-12 table">
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th>Qty</th>
+                                <th>Product</th>
+                                <th>Subtotal</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+<%--                             	<c:forEach items="${order.orderExams}" var="orderExam"> --%>
+<!-- 									<tr> -->
+<%-- 										<td>${orderExam.examAmount}</td> --%>
+<%-- 										<td>${orderExam.exam.name} - ${orderExam.exam.code}</td> --%>
+<%-- 										<td>${orderExam.examAmount * 2.10} </td>
+<!-- 									</tr> -->
+<%-- 								</c:forEach>	 --%>
                             </tbody>
                           </table>
                         </div>

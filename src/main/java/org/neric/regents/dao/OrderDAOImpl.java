@@ -7,6 +7,7 @@ import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
 import org.neric.regents.model.District;
 import org.neric.regents.model.Order;
+import org.neric.regents.model.OrderExam;
 import org.springframework.stereotype.Repository;
 
 
@@ -31,7 +32,12 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 				
 		if(order!=null)
 		{
-			Hibernate.initialize(order.getUser());
+			Hibernate.initialize(order.getOrderExams());
+			
+			for(OrderExam e : order.getOrderExams())
+			{
+				Hibernate.initialize(e.getExam());
+			}
 		}
 		return order;
 	}
