@@ -46,12 +46,21 @@ public class OrderController {
 	MessageSource messageSource;
 
     	
+	@RequestMapping(value = { "/order" }, method = RequestMethod.GET)
+	public String order(ModelMap model) {
+
+		model.addAttribute("loggedinuser", getPrincipal());
+		model.addAttribute("dueDate", "[dueDate FROM AppController.java]");
+		model.addAttribute("billingYear", "[billingYear FROM AppController.java]");
+		return "order";
+	}
+	
 	@RequestMapping(value = { "/order-{uuid}" }, method = RequestMethod.GET)
 	public String order(@PathVariable String uuid, ModelMap model) {
 
 		Order order = orderService.findByUUID(uuid);
 		model.addAttribute("order", order);
-		return "order";
+		return "invoice";
 	}
 	
 	@RequestMapping(value = { "/orders" }, method = RequestMethod.GET)
