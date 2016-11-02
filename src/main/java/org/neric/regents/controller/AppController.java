@@ -77,23 +77,23 @@ public class AppController {
 	}
 
 	
-	@RequestMapping(value = { "/order" }, method = RequestMethod.GET)
-	public String order(ModelMap model) {
-
-		model.addAttribute("loggedinuser", getPrincipal());
-		model.addAttribute("dueDate", "[dueDate FROM AppController.java]");
-		model.addAttribute("billingYear", "[billingYear FROM AppController.java]");
-		return "order";
-	}
-	
-	@RequestMapping(value = { "/orders" }, method = RequestMethod.GET)
-	public String listOrders(ModelMap model) {
-
-		List<User> users = userService.findAllUsers();
-		model.addAttribute("users", users);
-		model.addAttribute("loggedinuser", getPrincipal());
-		return "orders";
-	}
+//	@RequestMapping(value = { "/order" }, method = RequestMethod.GET)
+//	public String order(ModelMap model) {
+//
+//		model.addAttribute("loggedinuser", getPrincipal());
+//		model.addAttribute("dueDate", "[dueDate FROM AppController.java]");
+//		model.addAttribute("billingYear", "[billingYear FROM AppController.java]");
+//		return "order";
+//	}
+//	
+//	@RequestMapping(value = { "/orders" }, method = RequestMethod.GET)
+//	public String listOrders(ModelMap model) {
+//
+//		List<User> users = userService.findAllUsers();
+//		model.addAttribute("users", users);
+//		model.addAttribute("loggedinuser", getPrincipal());
+//		return "orders";
+//	}
 	
 	/**
 	 * Display configurable settings in the database
