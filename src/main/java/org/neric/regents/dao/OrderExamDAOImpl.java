@@ -8,7 +8,7 @@ import org.neric.regents.model.OrderExam;
 import org.springframework.stereotype.Repository;
 
 
-@Repository("orderDAO")
+@Repository("orderExamDAO")
 public class OrderExamDAOImpl extends AbstractDao<Integer, OrderExam> implements OrderExamDAO{
 
 	public OrderExam findById(int id) 

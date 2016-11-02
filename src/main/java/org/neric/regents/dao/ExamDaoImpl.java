@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 
 
 
-@Repository("userDao")
+@Repository("examDao")
 public class ExamDaoImpl extends AbstractDao<Integer, Exam> implements ExamDao {
 
 	static final Logger logger = LoggerFactory.getLogger(ExamDaoImpl.class);
