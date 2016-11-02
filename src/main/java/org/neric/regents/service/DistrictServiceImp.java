@@ -3,11 +3,8 @@ package org.neric.regents.service;
 import java.util.List;
 
 import org.neric.regents.dao.DistrictDAO;
-import org.neric.regents.dao.UserDao;
 import org.neric.regents.model.District;
-import org.neric.regents.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
