@@ -25,6 +25,11 @@ public class OrderServiceImpl implements OrderService
 	{
 		return dao.findById(id);
 	}
+	
+	public Order findByUUID(String uuid)
+	{
+		return dao.findByUUID(uuid);
+	}
 
 	public List<Order> findAllOrders()
 	{

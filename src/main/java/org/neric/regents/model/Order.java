@@ -1,8 +1,10 @@
 package org.neric.regents.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +16,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -27,6 +32,15 @@ public class Order implements Serializable
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "order_id", unique = true, nullable = false)
 	private Integer id;
+	
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	@Column(name = "uuid", unique = true, nullable = false)
+	private String uuid;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "order_date", unique = true, nullable = false)
+	private Date orderDate;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id", nullable = false)
@@ -118,5 +132,25 @@ public class Order implements Serializable
 	public void setOrderDocuments(Set<OrderDocument> orderDocuments)
 	{
 		this.orderDocuments = orderDocuments;
+	}
+
+	public String getUuid()
+	{
+		return uuid;
+	}
+
+	public void setUuid(String uuid)
+	{
+		this.uuid = uuid;
+	}
+
+	public Date getOrderDate()
+	{
+		return orderDate;
+	}
+
+	public void setOrderDate(Date orderDate)
+	{
+		this.orderDate = orderDate;
 	}
 }

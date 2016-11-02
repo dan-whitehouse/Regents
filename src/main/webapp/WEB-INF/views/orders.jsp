@@ -54,9 +54,7 @@
 									<tr>
 										<th>Order Number</th>
 										<th>Date</th>
-										<th>School Year</th>
-										<th>District</th>
-										<th>School</th>
+										<th>Ordered By</th>
 <%-- 										<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')"> --%>
 <!-- 											<th>Edit</th> -->
 <!-- 											<th>Delete</th> -->
@@ -64,24 +62,15 @@
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach items="${orders}" var="user">
+									<c:forEach items="${orders}" var="order">
 										<tr>
-											<td>${order.id}</td>
-											<td>bbbbb</td>
-											<td>2016-2017</td>
-											<td>District 2</td>
-											<td>School 1</td>
+											<td><a href="<c:url value='/order-${order.uuid}' />"> ${order.uuid} </a></td>
+											<td>${order.orderDate}</td>
+											<td>${order.user.username}</td>
 <%-- 										    <sec:authorize access="hasRole('ADMIN')"> --%>
 <%-- 												<td><a href="<c:url value='/edit-user-${user.username}' />" class="btn btn-success custom-width">edit</a></td> --%>
 <%-- 												<td><a href="<c:url value='/delete-user-${user.username}' />" class="btn btn-danger custom-width">delete</a></td> --%>
 <%-- 					        				</sec:authorize> --%>
-										</tr>
-										<tr>
-											<td>ffff</td>
-											<td>jjjj</td>
-											<td>2016-2017</td>
-											<td>District 1</td>
-											<td>School 1</td>
 										</tr>
 									</c:forEach>									
 								</tbody>

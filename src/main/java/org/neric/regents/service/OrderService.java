@@ -14,6 +14,8 @@ public interface OrderService
 {
 	Order findById(int id);
 	
+	Order findByUUID(String uuid);
+	
 	List<Order> findAllOrders();
 	
 	void saveOrder(Order order);

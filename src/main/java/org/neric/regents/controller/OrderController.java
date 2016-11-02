@@ -46,10 +46,10 @@ public class OrderController {
 	MessageSource messageSource;
 
     	
-	@RequestMapping(value = { "/order-{id}" }, method = RequestMethod.GET)
-	public String order(@PathVariable int id, ModelMap model) {
+	@RequestMapping(value = { "/order-{uuid}" }, method = RequestMethod.GET)
+	public String order(@PathVariable String uuid, ModelMap model) {
 
-		Order order = orderService.findById(id);
+		Order order = orderService.findByUUID(uuid);
 		model.addAttribute("order", order);
 		return "order";
 	}

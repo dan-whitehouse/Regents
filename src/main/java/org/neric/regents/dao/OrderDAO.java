@@ -8,6 +8,8 @@ public interface OrderDAO {
 
 	Order findById(int id);
 	
+	Order findByUUID(String uuid);
+	
 	List<Order> findAllOrders();
 	
 	void saveOrder(Order order);

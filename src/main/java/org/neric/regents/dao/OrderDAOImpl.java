@@ -3,7 +3,9 @@ package org.neric.regents.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
+import org.neric.regents.model.District;
 import org.neric.regents.model.Order;
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +15,25 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 
 	public Order findById(int id) 
 	{
-		return getByKey(id);
+		Order order = getByKey(id);
+		if(order!=null)
+		{
+			Hibernate.initialize(order.getUser());
+		}
+		return order;
+	}
+	
+	public Order findByUUID(String uuid) 
+	{
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("uuid", uuid));
+		Order order = (Order)crit.uniqueResult();
+				
+		if(order!=null)
+		{
+			Hibernate.initialize(order.getUser());
+		}
+		return order;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -21,6 +41,15 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 	{
 		Criteria crit = createEntityCriteria();
 		crit.addOrder(org.hibernate.criterion.Order.asc("id"));
+		
+		List<Order> orders = (List<Order>)crit.list();
+		if(orders!=null)
+		{
+			for(Order o : orders)
+			{
+				Hibernate.initialize(o.getUser());
+			}	
+		}		
 		return (List<Order>)crit.list();
 	}
 
