@@ -64,10 +64,10 @@
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach items="${users}" var="user">
+									<c:forEach items="${orders}" var="user">
 										<tr>
-											<td>${user.firstName}</td>
-											<td>${user.lastName}</td>
+											<td>${order.id}</td>
+											<td>bbbbb</td>
 											<td>2016-2017</td>
 											<td>District 2</td>
 											<td>School 1</td>
@@ -77,8 +77,8 @@
 <%-- 					        				</sec:authorize> --%>
 										</tr>
 										<tr>
-											<td>${user.firstName}</td>
-											<td>${user.lastName}</td>
+											<td>ffff</td>
+											<td>jjjj</td>
 											<td>2016-2017</td>
 											<td>District 1</td>
 											<td>School 1</td>

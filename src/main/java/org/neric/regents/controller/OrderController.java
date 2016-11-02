@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.neric.regents.model.Order;
 import org.neric.regents.model.User;
 import org.neric.regents.model.UserProfile;
+import org.neric.regents.service.OrderService;
 import org.neric.regents.service.UserProfileService;
 import org.neric.regents.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
