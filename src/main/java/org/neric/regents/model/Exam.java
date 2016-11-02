@@ -29,6 +29,10 @@ public class Exam implements Serializable
 	@Column(name="name", unique=true, nullable=false)
 	private String name;
 	
+	@NotEmpty
+	@Column(name="code", unique=true, nullable=false)
+	private String code;
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "exam")
 	private Set<OrderExam> exams = new HashSet<OrderExam>(0);
 
@@ -60,5 +64,15 @@ public class Exam implements Serializable
 	public void setName(String name)
 	{
 		this.name = name;
+	}
+
+	public String getCode()
+	{
+		return code;
+	}
+
+	public void setCode(String code)
+	{
+		this.code = code;
 	}
 }
