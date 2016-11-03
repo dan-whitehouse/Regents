@@ -165,110 +165,120 @@
 					                        </tr>
 					                      </thead>
 					                      <tbody>
-					                        <tr>
-					                          <th scope="row"><input type="checkbox" class="flat"></th>
-					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Algebra 1 (Common Core) - 02106" class="form-control col-md-7 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <th scope="row"></th>
-					                        </tr>
-					                        <tr>
-					                          <th scope="row"><input type="checkbox" class="flat"></th>
-					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Algebra 2 (Common Core) - 20106CC" class="form-control col-md-7 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <th scope="row"><input type="checkbox" class="flat"></th>
-					                        </tr>
-					                        <tr>
-					                          <th scope="row"><input type="checkbox" class="flat"></th>
-					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Algebra 2 / Trigonometry - 02052CC" class="form-control col-md-7 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <th scope="row"></th>
-					                        </tr>
-					                        <tr>
-					                          <th scope="row"><input type="checkbox" class="flat"></th>
-					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Comprehensive English - 01003" class="form-control col-md-7 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <th scope="row"></th>
-					                        </tr>
-					                        <tr>
-					                          <th scope="row"><input type="checkbox" class="flat"></th>
-					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="ELA (Common Core) - 01003CC" class="form-control col-md-7 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <th scope="row"></th>
-					                        </tr>
-					                        <tr>
-					                          <th scope="row"><input type="checkbox" class="flat"></th>
-					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Geometry (Common Core) - 02072CC" class="form-control col-md-7 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <th scope="row"></th>
-					                        </tr>
-					                        <tr>
-					                          <th scope="row"><input type="checkbox" class="flat"></th>
-					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Global History & Geography - 04052" class="form-control col-md-7 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <th scope="row"></th>
-					                        </tr>
-					                        <tr>
-					                          <th scope="row"><input type="checkbox" class="flat"></th>
-					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Integrated Algebra - 02052" class="form-control col-md-7 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <th scope="row"></th>
-					                        </tr>
-					                        <tr>
-					                          <th scope="row"><input type="checkbox" class="flat"></th>
-					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Living Environment - 03051" class="form-control col-md-7 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <th scope="row"></th>
-					                        </tr>
-					                        <tr>
-					                          <th scope="row"><input type="checkbox" class="flat"></th>
-					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Physical Settings / Chemstry - 03101" class="form-control col-md-7 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <th scope="row"></th>
-					                        </tr>
-					                        <tr>
-					                          <th scope="row"><input type="checkbox" class="flat"></th>
-					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Physical Settings / Earth Science - 03001" class="form-control col-md-7 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <th scope="row"></th>
-					                        </tr>
-					                        <tr>
-					                          <th scope="row"><input type="checkbox" class="flat"></th>
-					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Physical Settings / Physics - 03151" class="form-control col-md-7 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <th scope="row"></th>
-					                        </tr>
-					                        <tr>
-					                          <th scope="row"><input type="checkbox" class="flat"></th>
-					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="US History & Government - 04101" class="form-control col-md-7 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          <th scope="row"></th>
-					                        </tr>
+					                      	<c:forEach items="${exams}" var="exam">
+					                      		<tr>
+					                      			<td><th scope="row"><input type="checkbox" class="flat"></th></td>
+					                      			<td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="${exam.name}" class="form-control col-md-7 col-xs-12"></td>
+					                      			<td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
+					                          		<td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
+					                          		<td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
+					                          		<th scope="row"><input type="checkbox" class="flat"></th>
+					                      		</tr>
+					                      	</c:forEach>
+<!-- 					                        <tr> -->
+<!-- 					                          <th scope="row"><input type="checkbox" class="flat"></th> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Algebra 1 (Common Core) - 02106" class="form-control col-md-7 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <th scope="row"></th> -->
+<!-- 					                        </tr> -->
+<!-- 					                        <tr> -->
+<!-- 					                          <th scope="row"><input type="checkbox" class="flat"></th> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Algebra 2 (Common Core) - 20106CC" class="form-control col-md-7 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <th scope="row"><input type="checkbox" class="flat"></th> -->
+<!-- 					                        </tr> -->
+<!-- 					                        <tr> -->
+<!-- 					                          <th scope="row"><input type="checkbox" class="flat"></th> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Algebra 2 / Trigonometry - 02052CC" class="form-control col-md-7 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <th scope="row"></th> -->
+<!-- 					                        </tr> -->
+<!-- 					                        <tr> -->
+<!-- 					                          <th scope="row"><input type="checkbox" class="flat"></th> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Comprehensive English - 01003" class="form-control col-md-7 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <th scope="row"></th> -->
+<!-- 					                        </tr> -->
+<!-- 					                        <tr> -->
+<!-- 					                          <th scope="row"><input type="checkbox" class="flat"></th> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="ELA (Common Core) - 01003CC" class="form-control col-md-7 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <th scope="row"></th> -->
+<!-- 					                        </tr> -->
+<!-- 					                        <tr> -->
+<!-- 					                          <th scope="row"><input type="checkbox" class="flat"></th> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Geometry (Common Core) - 02072CC" class="form-control col-md-7 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <th scope="row"></th> -->
+<!-- 					                        </tr> -->
+<!-- 					                        <tr> -->
+<!-- 					                          <th scope="row"><input type="checkbox" class="flat"></th> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Global History & Geography - 04052" class="form-control col-md-7 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <th scope="row"></th> -->
+<!-- 					                        </tr> -->
+<!-- 					                        <tr> -->
+<!-- 					                          <th scope="row"><input type="checkbox" class="flat"></th> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Integrated Algebra - 02052" class="form-control col-md-7 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <th scope="row"></th> -->
+<!-- 					                        </tr> -->
+<!-- 					                        <tr> -->
+<!-- 					                          <th scope="row"><input type="checkbox" class="flat"></th> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Living Environment - 03051" class="form-control col-md-7 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <th scope="row"></th> -->
+<!-- 					                        </tr> -->
+<!-- 					                        <tr> -->
+<!-- 					                          <th scope="row"><input type="checkbox" class="flat"></th> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Physical Settings / Chemstry - 03101" class="form-control col-md-7 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <th scope="row"></th> -->
+<!-- 					                        </tr> -->
+<!-- 					                        <tr> -->
+<!-- 					                          <th scope="row"><input type="checkbox" class="flat"></th> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Physical Settings / Earth Science - 03001" class="form-control col-md-7 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <th scope="row"></th> -->
+<!-- 					                        </tr> -->
+<!-- 					                        <tr> -->
+<!-- 					                          <th scope="row"><input type="checkbox" class="flat"></th> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Physical Settings / Physics - 03151" class="form-control col-md-7 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <th scope="row"></th> -->
+<!-- 					                        </tr> -->
+<!-- 					                        <tr> -->
+<!-- 					                          <th scope="row"><input type="checkbox" class="flat"></th> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="US History & Government - 04101" class="form-control col-md-7 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
+<!-- 					                          <th scope="row"></th> -->
+<!-- 					                        </tr> -->
 					                      </tbody>
 					                    </table>
 					                </div>

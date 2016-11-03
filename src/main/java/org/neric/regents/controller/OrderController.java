@@ -7,9 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.neric.regents.model.Exam;
 import org.neric.regents.model.Order;
 import org.neric.regents.model.User;
 import org.neric.regents.model.UserProfile;
+import org.neric.regents.service.ExamService;
 import org.neric.regents.service.OrderService;
 import org.neric.regents.service.UserProfileService;
 import org.neric.regents.service.UserService;
@@ -37,6 +39,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 public class OrderController {
 
 	@Autowired
+	ExamService examService;
+	
+	@Autowired
 	OrderService orderService;
 	
 	@Autowired
@@ -45,22 +50,21 @@ public class OrderController {
 	@Autowired
 	MessageSource messageSource;
 
-    	
 	@RequestMapping(value = { "/order" }, method = RequestMethod.GET)
-	public String order(ModelMap model) {
+	public String listExams(ModelMap model) {
 
+		List<Exam> exams = examService.findAllExams();
+		model.addAttribute("exams", exams); // exams (left) references (${exams} on jsp page)
 		model.addAttribute("loggedinuser", getPrincipal());
-		model.addAttribute("dueDate", "[dueDate FROM AppController.java]");
-		model.addAttribute("billingYear", "[billingYear FROM AppController.java]");
-		return "order";
+		return "order"; // jsp page reference
 	}
-	
+    	
 	@RequestMapping(value = { "/order-{uuid}" }, method = RequestMethod.GET)
 	public String order(@PathVariable String uuid, ModelMap model) {
 
 		Order order = orderService.findByUUID(uuid);
 		model.addAttribute("order", order);
-		return "invoice";
+		return "order";
 	}
 	
 	@RequestMapping(value = { "/orders" }, method = RequestMethod.GET)
