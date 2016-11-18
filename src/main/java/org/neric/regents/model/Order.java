@@ -42,6 +42,9 @@ public class Order implements Serializable
 	@Column(name = "order_date", unique = true, nullable = false)
 	private Date orderDate;
 	
+	@Column(name="order_status", nullable=false)
+	private String orderStatus;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
@@ -153,4 +156,16 @@ public class Order implements Serializable
 	{
 		this.orderDate = orderDate;
 	}
+
+	public String getOrderStatus()
+	{
+		return orderStatus;
+	}
+
+	public void setOrderStatus(String orderStatus)
+	{
+		this.orderStatus = orderStatus;
+	}
+	
+	
 }

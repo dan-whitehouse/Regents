@@ -55,10 +55,10 @@
 										<th>Order Number</th>
 										<th>Date</th>
 										<th>Ordered By</th>
-<%-- 										<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')"> --%>
-<!-- 											<th>Edit</th> -->
-<!-- 											<th>Delete</th> -->
-<%-- 										</sec:authorize> --%>
+										<th>Order Status</th>
+										<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
+											<th>Manage</th>
+										</sec:authorize>
 									</tr>
 								</thead>
 								<tbody>
@@ -66,11 +66,14 @@
 										<tr>
 											<td><a href="<c:url value='/order-${order.uuid}' />"> ${order.uuid} </a></td>
 											<td>${order.orderDate}</td>
-											<td>${order.user.username}</td>
-<%-- 										    <sec:authorize access="hasRole('ADMIN')"> --%>
-<%-- 												<td><a href="<c:url value='/edit-user-${user.username}' />" class="btn btn-success custom-width">edit</a></td> --%>
-<%-- 												<td><a href="<c:url value='/delete-user-${user.username}' />" class="btn btn-danger custom-width">delete</a></td> --%>
-<%-- 					        				</sec:authorize> --%>
+											<td>${order.user.firstName} ${order.user.lastName}</td>
+											<td>${order.orderStatus}</td>
+										    <sec:authorize access="hasRole('ADMIN')">
+												<td>
+														<a href="<c:url value='/edit-user-${user.username}' />" class="btn btn-success custom-width">edit</a>
+														<a href="<c:url value='/delete-user-${user.username}' />" class="btn btn-danger custom-width">delete</a>
+												</td>
+					        				</sec:authorize>
 										</tr>
 									</c:forEach>									
 								</tbody>
