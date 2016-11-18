@@ -23,7 +23,7 @@ public class DocumentServiceImpl implements DocumentService{
 //		return dao.findByType(type);
 //	}
 
-	public List<Document> findAll() {
+	public List<Document> findAllDocuments() {
 		return dao.findAll();
 	}
 }

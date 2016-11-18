@@ -13,6 +13,6 @@ public interface DocumentService {
 
 //	School findByType(String type);
 	
-	List<Document> findAll();
+	List<Document> findAllDocuments();
 	
 }

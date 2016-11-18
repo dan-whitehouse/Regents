@@ -167,118 +167,21 @@
 					                      <tbody>
 					                      	<c:forEach items="${exams}" var="exam">
 					                      		<tr>
-					                      			<td><th scope="row"><input type="checkbox" class="flat"></th></td>
-					                      			<td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="${exam.name}" class="form-control col-md-7 col-xs-12"></td>
+					                      			<th scope="row"><input type="checkbox" class="flat"></th>
+					                      			<td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="${exam.name} - ${exam.code}" class="form-control col-md-7 col-xs-12"></td>
 					                      			<td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
 					                          		<td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
 					                          		<td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                          		<th scope="row"><input type="checkbox" class="flat"></th>
+					                          		<c:choose>
+					                          			<c:when test="${exam.name == 'Algebra 2 (Common Core)'}">
+					                          				<th scope="row"><input type="checkbox" class="flat"></th>
+					                          			</c:when>
+					                          			<c:otherwise>
+					                          				<th scope="row"></th>
+					                          			</c:otherwise>
+					                          		</c:choose>
 					                      		</tr>
 					                      	</c:forEach>
-<!-- 					                        <tr> -->
-<!-- 					                          <th scope="row"><input type="checkbox" class="flat"></th> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Algebra 1 (Common Core) - 02106" class="form-control col-md-7 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <th scope="row"></th> -->
-<!-- 					                        </tr> -->
-<!-- 					                        <tr> -->
-<!-- 					                          <th scope="row"><input type="checkbox" class="flat"></th> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Algebra 2 (Common Core) - 20106CC" class="form-control col-md-7 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <th scope="row"><input type="checkbox" class="flat"></th> -->
-<!-- 					                        </tr> -->
-<!-- 					                        <tr> -->
-<!-- 					                          <th scope="row"><input type="checkbox" class="flat"></th> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Algebra 2 / Trigonometry - 02052CC" class="form-control col-md-7 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <th scope="row"></th> -->
-<!-- 					                        </tr> -->
-<!-- 					                        <tr> -->
-<!-- 					                          <th scope="row"><input type="checkbox" class="flat"></th> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Comprehensive English - 01003" class="form-control col-md-7 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <th scope="row"></th> -->
-<!-- 					                        </tr> -->
-<!-- 					                        <tr> -->
-<!-- 					                          <th scope="row"><input type="checkbox" class="flat"></th> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="ELA (Common Core) - 01003CC" class="form-control col-md-7 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <th scope="row"></th> -->
-<!-- 					                        </tr> -->
-<!-- 					                        <tr> -->
-<!-- 					                          <th scope="row"><input type="checkbox" class="flat"></th> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Geometry (Common Core) - 02072CC" class="form-control col-md-7 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <th scope="row"></th> -->
-<!-- 					                        </tr> -->
-<!-- 					                        <tr> -->
-<!-- 					                          <th scope="row"><input type="checkbox" class="flat"></th> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Global History & Geography - 04052" class="form-control col-md-7 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <th scope="row"></th> -->
-<!-- 					                        </tr> -->
-<!-- 					                        <tr> -->
-<!-- 					                          <th scope="row"><input type="checkbox" class="flat"></th> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Integrated Algebra - 02052" class="form-control col-md-7 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <th scope="row"></th> -->
-<!-- 					                        </tr> -->
-<!-- 					                        <tr> -->
-<!-- 					                          <th scope="row"><input type="checkbox" class="flat"></th> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Living Environment - 03051" class="form-control col-md-7 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <th scope="row"></th> -->
-<!-- 					                        </tr> -->
-<!-- 					                        <tr> -->
-<!-- 					                          <th scope="row"><input type="checkbox" class="flat"></th> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Physical Settings / Chemstry - 03101" class="form-control col-md-7 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <th scope="row"></th> -->
-<!-- 					                        </tr> -->
-<!-- 					                        <tr> -->
-<!-- 					                          <th scope="row"><input type="checkbox" class="flat"></th> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Physical Settings / Earth Science - 03001" class="form-control col-md-7 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <th scope="row"></th> -->
-<!-- 					                        </tr> -->
-<!-- 					                        <tr> -->
-<!-- 					                          <th scope="row"><input type="checkbox" class="flat"></th> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Physical Settings / Physics - 03151" class="form-control col-md-7 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <th scope="row"></th> -->
-<!-- 					                        </tr> -->
-<!-- 					                        <tr> -->
-<!-- 					                          <th scope="row"><input type="checkbox" class="flat"></th> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="US History & Government - 04101" class="form-control col-md-7 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td> -->
-<!-- 					                          <th scope="row"></th> -->
-<!-- 					                        </tr> -->
 					                      </tbody>
 					                    </table>
 					                </div>
@@ -296,41 +199,13 @@
 					                        </tr>
 					                      </thead>
 					                      <tbody>
-					                        <tr>
-					                          <th scope="row"><input type="checkbox" class="flat"></th>
-					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Chemistry" class="form-control col-md-7 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                        </tr>
-					                        <tr>
-					                          <th scope="row"><input type="checkbox" class="flat"></th>
-					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Comprehensive English" class="form-control col-md-7 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                        </tr>
-					                        <tr>
-					                          <th scope="row"><input type="checkbox" class="flat"></th>
-					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="ELA Common Core" class="form-control col-md-7 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                        </tr>
-					                        <tr>
-					                          <th scope="row"><input type="checkbox" class="flat"></th>
-					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Global History & Geography" class="form-control col-md-7 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                        </tr>
-					                        <tr>
-					                          <th scope="row"><input type="checkbox" class="flat"></th>
-					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Physical Settings/Earth Science" class="form-control col-md-7 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                        </tr>
-					                        <tr>
-					                          <th scope="row"><input type="checkbox" class="flat"></th>
-					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="Physics" class="form-control col-md-7 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                        </tr>
-					                        <tr>
-					                          <th scope="row"><input type="checkbox" class="flat"></th>
-					                          <td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="US History & Government" class="form-control col-md-7 col-xs-12"></td>
-					                          <td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
-					                        </tr>
+					                      	<c:forEach items="${documents }" var="document">
+					                      		<tr>
+					                          		<th scope="row"><input type="checkbox" class="flat"></th>
+					                          		<td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="${document.name}" class="form-control col-md-7 col-xs-12"></td>
+					                          		<td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
+					                        	</tr>
+					                      	</c:forEach>
 					                      </tbody>
 					                    </table>
 					                </div>
@@ -345,21 +220,13 @@
  					                          	     </span> -->
 					                        </label>
 					                        <div class="col-md-6 col-sm-6 col-xs-12">
-						                          <div class="radio">
+					                        	<c:forEach items="${optionScans}" var="optionScan">
+					                        		<div class="radio">
 						                            <label>
-						                              <input type="radio" class="flat" checked name="iCheck"> Scan answer sheets at a Regional BOCES Scan Site by deadline.
+						                              <input type="radio" class="flat" checked name="iCheck">${optionScan.name }
 						                            </label>
 						                          </div>
-						                          <div class="radio">
-						                            <label>
-						                              <input type="radio" class="flat" name="iCheck"> Manually score exams and mail or hand-deliver sheets to NERIC by deadline.
-						                            </label>
-						                          </div>
-						                          <div class="radio">
-						                            <label>
-						                              <input type="radio" class="flat" name="iCheck"> Scan answer sheets In-District by deadline. 
-						                            </label>
-						                          </div>
+					                        	</c:forEach>
 		                        			</div>
 		                      			</div>
 		                      			<br />
@@ -370,7 +237,7 @@
  					                          	     </span> -->
 					                        </label>
 					                        <div class="col-md-6 col-sm-6 col-xs-12">
-					                        	  
+					                        		
 						                          <div class="checkbox">
 						                            <label>
 						                              <input type="checkbox" class="flat"> NERIC will load scores into Level 1
@@ -386,60 +253,96 @@
 					                          	</span>
 					                        </label>
 					                        <div class="col-md-6 col-sm-6 col-xs-12">
-						                          <select class="form-control">
-							                            <option>Choose option</option>
-							                            <option>Alpha (Building/Student)</option>
-							                            <option>Teacher (Building/Teacher/Student)</option>
-							                            <option>Course Section (Building/Course Section/Student)</option>
-						                          </select>
+					                       		<select class="form-control">
+						                        	<c:forEach items="${optionPrints}" var="optionPrint">
+						                        		<option>${optionPrint.name }</option>
+			                      					</c:forEach>
+		                      					</select>
 		                        			</div>
 		                      			</div>
-		                      			
-
 		                      		</form>
 								</div>
 								<div id="step-5">
 									<h2 class="StepTitle">Order Contact</h2>
-					                    <form class="form-horizontal form-label-left input_mask">
-										  <div class="col-md-6 col-sm-6 col-xs-12">
-				                            <select class="form-control">
-				                            	<option>Select LEA Name</option>
-				                            	<option value="000001">District 1</option>
-				                            	<option value="000002">District 2</option>
-				                            	<option value="000003">District 3</option>
-				                            </select><br />			              
-				                       	  </div>
+					                    <form class="form-horizontal form-label-left">
+<!-- 					                    <div class="form-group"> -->
+<!-- 										  <div class="col-md-6 col-sm-6 col-xs-12"> -->
+<!-- 				                            <select class="form-control"> -->
+<!-- 				                            	<option>Select LEA Name</option> -->
+<%-- 				                            	<c:forEach items="${districts}" var="district"> --%>
+<%-- 				                            		<option value="${district.id}">"${district.name}"</option> --%>
+<!-- 				                            		<br />	 -->
+<%-- 				                            	</c:forEach> --%>
+<!-- 				                            </select>		               -->
+<!-- 				                       	  </div> -->
+<!-- 				                       	  </div> -->
 
-				                       	  <div class="col-md-6 col-sm-6 col-xs-12">
-				                            <select class="form-control">
-				                            	<option>Select School/Building Name</option>
-				                            	<option value="000001001">School 1</option>
-				                            	<option value="000002002">School 2</option>
-				                            	<option value="000003003">School 3</option>
-				                            </select><br />
-				                       	  </div>
+<!-- 				                       	  <div class="col-md-6 col-sm-6 col-xs-12"> -->
+<!-- 				                            <select class="form-control"> -->
+<!-- 				                            	<option>Select School/Building Name</option> -->
+<!-- 				                            	<option value="000001001">School 1</option> -->
+<!-- 				                            	<option value="000002002">School 2</option> -->
+<!-- 				                            	<option value="000003003">School 3</option> -->
+<!-- 				                            </select><br /> -->
+<!-- 				                       	  </div> -->
+										
+										<!-- try populating user data based on checked field -->
+										<div class="form-group">
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input type="checkbox" class="flat"> I am the order contact
+											</div>
+										</div>
+										<div class="form-group">
+											<div
+												class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+												<input type="text" class="form-control has-feedback-left"
+													readonly="readonly"
+													id="inputSuccess1" value="${loggedindistrict}"> <span
+													class="fa fa-university form-control-feedback left"
+													aria-hidden="true"></span>
+											</div>
+										</div>
+										<div class="form-group">
+											<div
+												class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+												<input type="text" class="form-control has-feedback-left"
+													id="inputSuccess2" placeholder="First Name"> <span
+													class="fa fa-user form-control-feedback left"
+													aria-hidden="true"></span>
+											</div>
+										</div>
+		
+										<div class="form-group">
+											<div
+												class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+												<input type="text" class="form-control has-feedback-left"
+													id="inputSuccess3" placeholder="Last Name"> <span
+													class="fa fa-user form-control-feedback left"
+													aria-hidden="true"></span>
+											</div>
+										</div>
+		
+										<div class="form-group">
+											<div
+												class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+												<input type="text" class="form-control has-feedback-left"
+													id="inputSuccess4" placeholder="Email"> <span
+													class="fa fa-envelope form-control-feedback left"
+													aria-hidden="true"></span>
+											</div>
+										</div>
+		
+										<div class="form-group">
+											<div
+												class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+												<input type="text" class="form-control has-feedback-left"
+													id="inputSuccess5" placeholder="Phone"> <span
+													class="fa fa-phone form-control-feedback left"
+													aria-hidden="true"></span>
+											</div>
+										</div>
 
-					                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-					                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="First Name">
-					                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-					                      </div>
-					
-					                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-					                        <input type="text" class="form-control" id="inputSuccess3" placeholder="Last Name">
-					                        <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
-					                      </div>
-					
-					                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-					                        <input type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="Email">
-					                        <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
-					                      </div>
-					
-					                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-					                        <input type="text" class="form-control" id="inputSuccess5" placeholder="Phone">
-					                        <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
-					                      </div>
-					
-					                    </form>
+								</form>
 								</div>
 								<div id="step-6">
 									<h2 class="StepTitle">Review and Submit Order</h2>

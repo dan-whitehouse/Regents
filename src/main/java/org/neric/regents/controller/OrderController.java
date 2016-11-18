@@ -7,11 +7,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
+import org.neric.regents.model.District;
+import org.neric.regents.model.Document;
 import org.neric.regents.model.Exam;
+import org.neric.regents.model.OptionPrint;
+import org.neric.regents.model.OptionScan;
 import org.neric.regents.model.Order;
 import org.neric.regents.model.User;
 import org.neric.regents.model.UserProfile;
+import org.neric.regents.service.DistrictService;
+import org.neric.regents.service.DocumentService;
 import org.neric.regents.service.ExamService;
+import org.neric.regents.service.OptionPrintService;
+import org.neric.regents.service.OptionScanService;
 import org.neric.regents.service.OrderService;
 import org.neric.regents.service.UserProfileService;
 import org.neric.regents.service.UserService;
@@ -42,10 +51,25 @@ public class OrderController {
 	ExamService examService;
 	
 	@Autowired
+	DocumentService documentService;
+	
+	@Autowired
+	OptionScanService optionScanService;
+	
+	@Autowired
+	OptionPrintService optionPrintService;
+	
+	@Autowired
+	DistrictService districtService;
+	
+	@Autowired
 	OrderService orderService;
 	
 	@Autowired
 	UserProfileService userProfileService;
+	
+	@Autowired
+	UserService userService;
 	
 	@Autowired
 	MessageSource messageSource;
@@ -59,13 +83,32 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value = { "/order" }, method = RequestMethod.GET)
-	public String listExams(ModelMap model) {
+	public String listExams(String username, ModelMap model) {
 
 		List<Exam> exams = examService.findAllExams();
+		List<Document> documents = documentService.findAllDocuments();
+		List<OptionScan> optionScans = optionScanService.findAllOptionScans();
+		List<OptionPrint> optionPrints = optionPrintService.findAllOptionPrints();
+		List<District> districts = districtService.findAllDistricts();
+
+		
 		model.addAttribute("exams", exams); // exams (left) references (${exams} on jsp page)
+		model.addAttribute("documents", documents);
+		model.addAttribute("optionScans", optionScans);
+		model.addAttribute("optionPrints", optionPrints);
+		model.addAttribute("loggedindistrict", getLeaCurrentUser());
 		model.addAttribute("loggedinuser", getPrincipal());
 		return "order"; // jsp page reference
 	}
+	
+//	@RequestMapping(value = { "/order" }, method = RequestMethod.POST)
+//	public String listExams(ModelMap model) {
+//
+//		List<Exam> exams = examService.findAllExams();
+//		model.addAttribute("exams", exams); // exams (left) references (${exams} on jsp page)
+//		model.addAttribute("loggedinuser", getPrincipal());
+//		return "order"; // jsp page reference
+//	}
 
 	@RequestMapping(value = { "/orders" }, method = RequestMethod.GET)
 	public String listOrders(ModelMap model) {
@@ -89,6 +132,21 @@ public class OrderController {
 		return userName;
 	}
 	
-
+	private String getLeaCurrentUser()
+	{
+		String lea = null;
+		String username = getPrincipal();
+		List<User> users = userService.findAllUsers();
+		
+		for(User u : users)
+		{
+			if(StringUtils.equalsIgnoreCase(username, u.getUsername()))
+			{
+				lea = u.getDistrict();
+			}
+		}
+		
+		return lea;
+	}
 
 }
