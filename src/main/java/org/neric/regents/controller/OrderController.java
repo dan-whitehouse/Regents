@@ -50,6 +50,14 @@ public class OrderController {
 	@Autowired
 	MessageSource messageSource;
 
+	@RequestMapping(value = { "/order-{uuid}" }, method = RequestMethod.GET)
+	public String order(@PathVariable String uuid, ModelMap model) {
+
+		Order order = orderService.findByUUID(uuid);
+		model.addAttribute("order", order);
+		return "invoice";
+	}
+	
 	@RequestMapping(value = { "/order" }, method = RequestMethod.GET)
 	public String listExams(ModelMap model) {
 
@@ -58,15 +66,7 @@ public class OrderController {
 		model.addAttribute("loggedinuser", getPrincipal());
 		return "order"; // jsp page reference
 	}
-    	
-	@RequestMapping(value = { "/order-{uuid}" }, method = RequestMethod.GET)
-	public String order(@PathVariable String uuid, ModelMap model) {
 
-		Order order = orderService.findByUUID(uuid);
-		model.addAttribute("order", order);
-		return "order";
-	}
-	
 	@RequestMapping(value = { "/orders" }, method = RequestMethod.GET)
 	public String listOrders(ModelMap model) {
 
