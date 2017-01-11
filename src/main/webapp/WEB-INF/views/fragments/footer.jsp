@@ -51,8 +51,41 @@
     
     <script src="<c:url value='/resources/vendors/iCheck/icheck.min.js'/>"></script>
     
+    <!-- bootstrap-daterangepicker -->
+    <script src="<c:url value='/resources/js/moment/moment.min.js' />"></script>
+    <script src="<c:url value='/resources/js/datepicker/daterangepicker.js' />"></script>
+
+	<!-- bootstrap-wysiwyg -->
+    <script src="<c:url value='/resources/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js' />"></script>
+    <script src="<c:url value='/resources/vendors/google-code-prettify/src/prettify.js' />"></script>
+
+	<!-- Switchery -->
+	<script src="<c:url value='/resources/vendors/switchery/dist/switchery.min.js' />"></script>
+	
+    <!-- Select2 -->
+	<script src="<c:url value='/resources/vendors/select2/dist/js/select2.full.min.js' />"></script>
+    
      <!-- Custom Theme Scripts -->
     <script src="<c:url value='/resources/build/js/custom.min.js' />"></script>
+    
+       
+    <!-- Select2 -->
+    <script>
+      $(document).ready(function() {
+        $(".select2_single").select2({
+          placeholder: "Select a state",
+          allowClear: true
+        });
+        $(".select2_group").select2({});
+        $(".select2_multiple").select2({
+          maximumSelectionLength: 50,
+          placeholder: "With Max Selection limit 50",
+          allowClear: true
+        });
+      });
+    </script>
+    <!-- /Select2 -->
+    
     
     <!-- jQuery Smart Wizard -->
     <script>

@@ -34,18 +34,54 @@
 							<div class="clearfix"></div>
 						</div>
 						<div class="x_content">
-							<!-- Smart Wizard -->
+						
+						<!-- Date Picker -->
+						<form class="form-horizontal form-label-left">
 							<div class="form-group">
-								<label class="control-label col-md-3 col-sm-3 col-xs-12">Exams</label>
-								<div class="col-md-9 col-sm-9 col-xs-12">
-								  <select class="select2_multiple form-control select2-hidden-accessible" multiple="" tabindex="-1" aria-hidden="true">
-								  	<c:forEach items="${exams}" var="exam">
+	                        	<label class="control-label col-md-3 col-sm-3 col-xs-12">Start Date <span class="required">*</span></label>
+	                        	<div class="col-md-6 col-sm-6 col-xs-12">
+	                          		<input id="birthday" class="date-picker form-control col-md-7 col-xs-12 active" required="required" type="text">
+	                        	</div>
+							</div>
+							<div class="form-group">
+	                        	<label class="control-label col-md-3 col-sm-3 col-xs-12">End Date <span class="required">*</span></label>
+	                        	<div class="col-md-6 col-sm-6 col-xs-12">
+	                          		<input id="birthday2" class="date-picker form-control col-md-7 col-xs-12 active" required="required" type="text">
+	                        	</div>
+							</div>
+						</form>		
+						<!-- Date Picker -->
+
+
+							<!-- Exam Selection -->
+							<form class="form-horizontal form-label-left">
+		                      <div class="form-group">
+		                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Exams</label>
+		                        <div class="col-md-9 col-sm-9 col-xs-12">
+		                          <select class="select2_multiple form-control" multiple="multiple">
+		                          	<c:forEach items="${exams}" var="exam">
 										<option value="${exam.id}">${exam.name}</option>
 									</c:forEach>
-								  </select><span class="select2 select2-container select2-container--default select2-container--below" dir="ltr" style="width: 460px;"><span class="selection"><span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1"><ul class="select2-selection__rendered"><span class="select2-selection__clear">×</span><li class="select2-selection__choice" title="Option one"><span class="select2-selection__choice__remove" role="presentation">×</span>Option one</li><li class="select2-selection__choice" title="Option three"><span class="select2-selection__choice__remove" role="presentation">×</span>Option three</li><li class="select2-selection__choice" title="Option four"><span class="select2-selection__choice__remove" role="presentation">×</span>Option four</li><li class="select2-selection__choice" title="Option six"><span class="select2-selection__choice__remove" role="presentation">×</span>Option six</li><li class="select2-search select2-search--inline"><input class="select2-search__field" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="" style="width: 0.75em;"></li></ul></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
-								</div>
-							</div>					
-							<!-- End SmartWizard Content -->
+		                          </select>
+		                        </div>
+		                      </div>
+		                    </form>				
+							<!-- Exam Selection -->
+							
+							<!-- Document Selection -->
+							<form class="form-horizontal form-label-left">
+		                      <div class="form-group">
+		                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Documents</label>
+		                        <div class="col-md-9 col-sm-9 col-xs-12">
+		                          <select class="select2_multiple form-control" multiple="multiple">
+		                          	<c:forEach items="${documents}" var="document">
+										<option value="${document.id}">${document.name}</option>
+									</c:forEach>
+		                          </select>
+		                        </div>
+		                      </div>
+		                    </form>				
+							<!-- Document Selection -->
 						</div>
 					</div>
 				</div>
@@ -53,5 +89,44 @@
 		</div>
 	</div>
 	<!-- /page content -->
+	
+	<!-- bootstrap-daterangepicker -->
+    <script src="<c:url value='/resources/js/moment/moment.min.js' />"></script>
+    <script src="<c:url value='/resources/js/datepicker/daterangepicker.js' />"></script>
+
+    <!-- Select2 -->
+	<script src="<c:url value='/resources/vendors/select2/dist/js/select2.full.min.js' />"></script>
+	
+	
+	<!-- bootstrap-daterangepicker -->
+    <script>
+      $(document).ready(function() {
+        $('#birthday').daterangepicker({
+          singleDatePicker: true,
+          calender_style: "picker_4"
+        }, function(start, end, label) {
+          console.log(start.toISOString(), end.toISOString(), label);
+        });
+      });
+    </script>
+    <!-- /bootstrap-daterangepicker -->
+	
+	<!-- Select2 -->
+    <script>
+      $(document).ready(function() {
+        $(".select2_single").select2({
+          placeholder: "Select a state",
+          allowClear: true
+        });
+        $(".select2_group").select2({});
+        $(".select2_multiple").select2({
+          maximumSelectionLength: 50,
+          placeholder: "With Max Selection limit 50",
+          allowClear: true
+        });
+      });
+    </script>
+    <!-- /Select2 -->
+	
 	<jsp:include page="fragments/footer.jsp" />
 </html>

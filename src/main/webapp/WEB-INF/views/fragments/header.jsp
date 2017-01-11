@@ -28,6 +28,9 @@
 		<!-- Font Awesome -->
 		<link href="<c:url value='/resources/vendors/font-awesome/css/font-awesome.min.css' />" rel="stylesheet" type="text/css">
 		
+		<!-- Select2 -->
+		<link href="<c:url value='/resources/vendors/select2/dist/css/select2.min.css' />" rel="stylesheet" type="text/css">
+		
 		<!-- Datatables -->
 		<link href="<c:url value='resources/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css' />" rel="stylesheet" type="text/css">
 		<link href="<c:url value='resources/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css' />" rel="stylesheet" type="text/css">
