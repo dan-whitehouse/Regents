@@ -3,6 +3,7 @@ package org.neric.regents.dao;
 import java.util.List;
 
 import org.neric.regents.model.Document;
+import org.neric.regents.model.Exam;
 import org.neric.regents.model.School;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
@@ -29,6 +30,16 @@ public class DocumentDAOImpl extends AbstractDao<Integer, Document> implements D
 		Criteria crit = createEntityCriteria();
 		crit.addOrder(Order.asc("id"));
 		return (List<Document>)crit.list();
+	}
+
+	@Override
+	public void deleteByDocumentId(int id)
+	{
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("id", id));
+		Document document = (Document)crit.uniqueResult();
+		delete(document);
+		
 	}
 	
 }

@@ -61,9 +61,18 @@ public class ExamDaoImpl extends AbstractDao<Integer, Exam> implements ExamDao {
 		persist(exam);
 	}
 
-	public void deleteByExam(String examName) {
+	public void deleteByExamName(String examName) 
+	{
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.eq("name", examName));
+		Exam exam = (Exam)crit.uniqueResult();
+		delete(exam);
+	}
+	
+	public void deleteByExamId(int id) 
+	{
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("id", id));
 		Exam exam = (Exam)crit.uniqueResult();
 		delete(exam);
 	}

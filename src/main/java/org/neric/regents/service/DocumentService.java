@@ -14,5 +14,9 @@ public interface DocumentService {
 //	School findByType(String type);
 	
 	List<Document> findAllDocuments();
+
+	void updateDocument(Document document);
+
+	void deleteByDocumentId(int id);
 	
 }

@@ -17,8 +17,8 @@ public interface ExamService {
 	
 	void updateExam(Exam exam);
 	
-	void deleteByExam(String examName);
-
-	 
+	void deleteByExamName(String examName);
+	
+	void deleteByExamId(int id);
 
 }

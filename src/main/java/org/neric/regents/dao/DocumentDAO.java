@@ -12,4 +12,6 @@ public interface DocumentDAO {
 	//School findByType(String type);
 	
 	Document findById(int id);
+
+	void deleteByDocumentId(int id);
 }

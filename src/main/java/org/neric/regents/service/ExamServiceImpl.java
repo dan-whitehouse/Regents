@@ -47,9 +47,15 @@ public class ExamServiceImpl implements ExamService{
 		}
 	}
 
-	public void deleteByExam(String examName) 
+	public void deleteByExamName(String examName) 
 	{
-		dao.deleteByExam(examName);
+		dao.deleteByExamName(examName);
+	}
+
+	@Override
+	public void deleteByExamId(int id)
+	{
+		dao.deleteByExamId(id);
 	}
 	
 }

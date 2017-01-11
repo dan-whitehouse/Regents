@@ -15,7 +15,9 @@ public interface ExamDao {
 	
 	void save(Exam exam);
 	
-	void deleteByExam(String examName);
+	void deleteByExamName(String examName);
+	
+	void deleteByExamId(int id);
 
 }
 
