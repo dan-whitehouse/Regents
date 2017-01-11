@@ -264,96 +264,58 @@
 								</div>
 								<div id="step-5">
 									<h2 class="StepTitle">Order Contact</h2>
-					                    <form class="form-horizontal form-label-left">
-<!-- 					                    <div class="form-group"> -->
-<!-- 										  <div class="col-md-6 col-sm-6 col-xs-12"> -->
-<!-- 				                            <select class="form-control"> -->
-<!-- 				                            	<option>Select LEA Name</option> -->
-<%-- 				                            	<c:forEach items="${districts}" var="district"> --%>
-<%-- 				                            		<option value="${district.id}">"${district.name}"</option> --%>
-<!-- 				                            		<br />	 -->
-<%-- 				                            	</c:forEach> --%>
-<!-- 				                            </select>		               -->
-<!-- 				                       	  </div> -->
-<!-- 				                       	  </div> -->
-
-<!-- 				                       	  <div class="col-md-6 col-sm-6 col-xs-12"> -->
-<!-- 				                            <select class="form-control"> -->
-<!-- 				                            	<option>Select School/Building Name</option> -->
-<!-- 				                            	<option value="000001001">School 1</option> -->
-<!-- 				                            	<option value="000002002">School 2</option> -->
-<!-- 				                            	<option value="000003003">School 3</option> -->
-<!-- 				                            </select><br /> -->
-<!-- 				                       	  </div> -->
+					                      <div class="x_content">
+						                    <br />
+						                    <form class="form-horizontal form-label-left input_mask">
+						                    <!-- try populating user data based on checked field -->
 										
-										<!-- try populating user data based on checked field -->
-										<div class="col-md-6 col-sm-6 col-xs-12">
-										<div class="form-group" >
-											<div class="col-md-6 col-sm-6 col-xs-12">
-												<input type="checkbox" class="flat"> I am the order contact
+										
+											<div class="form-group" >
+												<div class="col-md-6 col-sm-6 col-xs-12">
+													<input type="checkbox" class="flat"> I am the order contact
+												</div>
 											</div>
-										</div>
-										<div class="form-group">
-											<div
-												class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<input type="text" class="form-control has-feedback-left"
-													readonly="readonly"
-													id="inputSuccess1" value="${loggedindistrict}"> <span
-													class="fa fa-university form-control-feedback left"
-													aria-hidden="true"></span>
-											</div>
-										</div>
-										<div class="form-group">
-											<div
-												class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<input type="text" class="form-control has-feedback-left"
-													id="inputSuccess1" value="School3"> <span
-													class="fa fa-graduation-cap form-control-feedback left"
-													aria-hidden="true"></span>
-											</div>
-										</div>
-										<div class="form-group">
-											<div
-												class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<input type="text" class="form-control has-feedback-left"
-													id="inputSuccess2" placeholder="First Name"> <span
-													class="fa fa-user form-control-feedback left"
-													aria-hidden="true"></span>
-											</div>
-										</div>
-		
-										<div class="form-group">
-											<div
-												class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<input type="text" class="form-control has-feedback-left"
-													id="inputSuccess3" placeholder="Last Name"> <span
-													class="fa fa-user form-control-feedback left"
-													aria-hidden="true"></span>
-											</div>
-										</div>
-		
-										<div class="form-group">
-											<div
-												class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<input type="text" class="form-control has-feedback-left"
-													id="inputSuccess4" placeholder="Email"> <span
-													class="fa fa-envelope form-control-feedback left"
-													aria-hidden="true"></span>
-											</div>
-										</div>
-		
-										<div class="form-group">
-											<div
-												class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<input type="text" class="form-control has-feedback-left"
-													id="inputSuccess5" placeholder="Phone"> <span
-													class="fa fa-phone form-control-feedback left"
-													aria-hidden="true"></span>
-											</div>
-										</div>
-									</div>
-								</form>
-								</div>
+						
+						                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+						                        <input type="text" class="form-control has-feedback-left"
+						                        	readonly="readonly"
+													id="inputSuccess1" value="${loggedindistrict}">
+													<span class="fa fa-university form-control-feedback left" aria-hidden="true"></span>
+						                      </div>
+						
+						                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+						                        <input type="text" class="form-control has-feedback-left"
+													id="inputSuccess1" placeholder="School"> 
+													<span class="fa fa-graduation-cap form-control-feedback left" aria-hidden="true"></span>
+						                      </div>
+						
+						                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+						                        <input type="text" class="form-control has-feedback-left"
+													id="inputSuccess2" placeholder="First Name"> 
+													<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+						                      </div>
+						
+						                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+						                        <input type="text" class="form-control has-feedback-left"
+													id="inputSuccess3" placeholder="Last Name"> 
+													<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+						                      </div>
+						                      
+						                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+						                      	<input type="text" class="form-control has-feedback-left"
+													id="inputSuccess4" placeholder="Email">
+													<span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
+						                      </div>
+						                      
+						                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+						                      	<input type="text" class="form-control has-feedback-left"
+													id="inputSuccess5" placeholder="Phone">
+												<span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
+						                      </div>
+						                    </form>
+						                  </div>
+						                </div>
+
 								<div id="step-6">
 								<!-- START STEP 6 -->
 									<div class="col-md-12 col-sm-12 col-xs-12" >
