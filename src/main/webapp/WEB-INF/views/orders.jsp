@@ -28,21 +28,21 @@
 					<div class="x_panel">
 						<div class="x_title">
 							<h2>Orders</h2>
-							<ul class="nav navbar-right panel_toolbox">
-								<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-								</li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-									<ul class="dropdown-menu" role="menu">
-										<li><a href="#">Settings 1</a>
-										</li>
-										<li><a href="#">Settings 2</a>
-										</li>
-									</ul>
-								</li>
-								<li><a class="close-link"><i class="fa fa-close"></i></a>
-								</li>
-							</ul>
+<!-- 							<ul class="nav navbar-right panel_toolbox"> -->
+<!-- 								<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> -->
+<!-- 								</li> -->
+<!-- 								<li class="dropdown"> -->
+<!-- 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a> -->
+<!-- 									<ul class="dropdown-menu" role="menu"> -->
+<!-- 										<li><a href="#">Settings 1</a> -->
+<!-- 										</li> -->
+<!-- 										<li><a href="#">Settings 2</a> -->
+<!-- 										</li> -->
+<!-- 									</ul> -->
+<!-- 								</li> -->
+<!-- 								<li><a class="close-link"><i class="fa fa-close"></i></a> -->
+<!-- 								</li> -->
+<!-- 							</ul> -->
 							<div class="clearfix"></div>
 						</div>
 						<div class="x_content">
@@ -54,6 +54,8 @@
 									<tr>
 										<th>Order Number</th>
 										<th>Date</th>
+										<th>Regents Period</th>
+										<th>District</th>
 										<th>Ordered By</th>
 										<th>Order Status</th>
 										<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
@@ -64,8 +66,10 @@
 								<tbody>
 									<c:forEach items="${orders}" var="order">
 										<tr>
-											<td><a href="<c:url value='/order-${order.uuid}' />"> ${order.uuid} </a></td>
+											<td><span style="text-decoration: underline;"><a href="<c:url value='/order-${order.uuid}' />"> ${order.uuid} </a></span></td>
 											<td>${order.orderDate}</td>
+											<td>June 2017</td>
+											<td>Albany County Super District</td>
 											<td>${order.user.firstName} ${order.user.lastName}</td>
 											<td>${order.orderStatus}</td>
 										    <sec:authorize access="hasRole('ADMIN')">
