@@ -71,6 +71,18 @@
                         </div>
                       </div>
                       
+                      <div class="row invoice-info">
+                      	<div class="col-sm-4 invoice-col"> 
+                       		<strong>Contact: </strong> ${order.user.firstName} ${order.user.lastName} 
+                      	</div>
+                      	<div class="col-sm-4 invoice-col"> 
+                       		<strong>Email: </strong> ${order.user.email} 
+                      	</div>
+                      	<div class="col-sm-4 invoice-col"> 
+                       		<strong>District: </strong> ${order.user.district} 
+                      	</div>
+                      </div>
+                      
                       <br />
 
 

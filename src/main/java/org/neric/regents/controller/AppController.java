@@ -71,6 +71,7 @@ public class AppController {
 		model.addAttribute("firstName", user.getFirstName());
 		model.addAttribute("lastName", user.getLastName());
 		model.addAttribute("email", user.getEmail());
+		model.addAttribute("district", user.getDistrict());
 		model.addAttribute("edit", false);
 		model.addAttribute("loggedinuser", getPrincipal());
 		return "profile";
