@@ -59,57 +59,20 @@
 									</tr>
 								</thead>
 								<tbody>
-<%-- 									<c:forEach items="${users}" var="user"> --%>
-<!-- 										<tr> -->
-<%-- 											<td>${user.firstName}</td> --%>
-<%-- 											<td>${user.lastName}</td> --%>
-<%-- 											<td>${user.email}</td> --%>
-<%-- 											<td>${user.username}</td> --%>
-<%-- 										    <sec:authorize access="hasRole('ADMIN')"> --%>
-<!-- 												<td> -->
-<%-- 													<a href="<c:url value='/edit-user-${user.username}' />" class="btn btn-success custom-width">edit</a> --%>
-<%-- 													<a href="<c:url value='/delete-user-${user.username}' />" class="btn btn-danger custom-width">delete</a> --%>
-<!-- 												</td> -->
-<%-- 					        				</sec:authorize> --%>
-<!-- 										</tr> -->
-<%-- 									</c:forEach>									 --%>
-
-									<!-- Demo Item 1 -->
-									<tr>
-										<td>January 2016</td>
-										<td>12/01/2015</td>
-										<td>01/01/2016</td>
-										<td><span class="label label-default">Complete</span></td>
-										<td>
-											<a href="<c:url value='/edit-user-${user.username}' />" class="btn btn-success custom-width">edit</a>
-											<a href="<c:url value='/delete-user-${user.username}' />" class="btn btn-danger custom-width">delete</a>
-										</td>
-									</tr>
-									
-									<!-- Demo Item 2 -->
-									<tr>
-										<td>June 2016</td>
-										<td>5/01/2016</td>
-										<td>6/01/2016</td>
-										<td><span class="label label-primary">Active</span></td>
-										<td>
-											<a href="<c:url value='/edit-user-${user.username}' />" class="btn btn-success custom-width">edit</a>
-											<a href="<c:url value='/delete-user-${user.username}' />" class="btn btn-danger custom-width">delete</a>
-										</td>
-									</tr>
-									
-									<!-- Demo Item 3 -->
-									<tr>
-										<td>June 2017</td>
-										<td>5/01/2017</td>
-										<td>6/01/2017</td>
-										<td><span class="label label-danger">Inactive</span></td>
-										<td>
-											<a href="<c:url value='/edit-user-${user.username}' />" class="btn btn-success custom-width">edit</a>
-											<a href="<c:url value='/delete-user-${user.username}' />" class="btn btn-danger custom-width">delete</a>
-										</td>
-									</tr>
- 												
+									<c:forEach items="${orderForms}" var="orderForm">
+										<tr>
+											<td><a href="<c:url value='/orderForm-${orderForm.uuid}' />">${orderForm.name}</a></td>
+											<td>${orderForm.startDate}</td>
+											<td>${orderForm.endDate}</td>
+											<td><span class="label label-default">Complete</span></td>
+											<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
+												<td>
+													<a href="<c:url value='/edit-orderForm-${orderForm.uuid}' />" class="btn btn-success custom-width">edit</a>
+													<a href="<c:url value='/delete-orderForm-${orderForm.uuid}' />" class="btn btn-danger custom-width">delete</a>
+												</td>
+											</sec:authorize>
+										</tr>
+									</c:forEach>	
 								</tbody>
 							</table>
 						</div>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <c:url value="/createUser" var="createUser" />
@@ -36,76 +37,92 @@
 						<div class="x_content">
 						
 						<!-- Date Picker -->
-						<div class="form-horizontal form-label-left">
+						<form:form method="POST" modelAttribute="orderForm" class="form-horizontal form-label-left">
+							<form:input type="hidden" path="id" id="id"/>	
 							<div class="form-group">
-	                        	<label class="control-label col-md-3 col-sm-3 col-xs-12">Title:</label>
+	                        	<label class="control-label col-md-3 col-sm-3 col-xs-12">Title <span class="required">*</span></label>
 	                        	<div class="col-md-6 col-sm-6 col-xs-12">
-	                        		<div class="form-control col-md-7 col-xs-12 active">
-	                        			${orderForm.name}
-                        			</div>
+	                        		<form:input type="text" path="name" id="name" class="form-control col-md-7 col-xs-12 active" name="name" placeholder="Order Form Name" required="required"/>
 	                        	</div>
 							</div>
 							<div class="form-group">
-	                        	<label class="control-label col-md-3 col-sm-3 col-xs-12">Start Date:</label>
+	                        	<label class="control-label col-md-3 col-sm-3 col-xs-12">Start Date <span class="required">*</span></label>
 	                        	<div class="col-md-6 col-sm-6 col-xs-12">
-	                        		<div class="form-control col-md-7 col-xs-12 active">
-	                        			${orderForm.startDate}
-                        			</div>
+	                          		<form:input type="text" path="startDate" id="orderFormStartDate" class="date-picker form-control col-md-7 col-xs-12 active" name="startDate" placeholder="Order Form Start Date" required="required"/>
 	                        	</div>
 							</div>
 							<div class="form-group">
-	                        	<label class="control-label col-md-3 col-sm-3 col-xs-12">End Date:</label>
+	                        	<label class="control-label col-md-3 col-sm-3 col-xs-12">End Date <span class="required">*</span></label>
 	                        	<div class="col-md-6 col-sm-6 col-xs-12">
-	                        		<div class="form-control col-md-7 col-xs-12 active">
-	                        			${orderForm.endDate}
-                        			</div>
+	                          		<form:input type="text" path="endDate" id="orderFormEndDate" class="date-picker form-control col-md-7 col-xs-12 active" name="endDate" placeholder="Order Form End Date" required="required"/>
 	                        	</div>
 							</div>
 
 							<!-- Exam Selection -->
 		                      <div class="form-group">
-		                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Exams:</label>
+		                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Exams</label>
 		                        <div class="col-md-6 col-sm-6 col-xs-12">
-		                        	<span class="select2 select2-container select2-container--default select2-container--below select2-container--focus" dir="ltr">
-										<span class="selection">
-											<span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1">
-					                      		<ul class="select2-selection__rendered">	  
-		                        					<c:forEach items="${orderForm.exams}" var="exam">    			
-							                      			<li class="select2-selection__choice" title="${exam.name}">
-							                      				${exam.name}
-							                      			</li>
-							                      	</c:forEach>
-					                      		</ul>
-											</span>
-										</span>
-										<span class="dropdown-wrapper" aria-hidden="true"></span>
-									</span>
+		                        	<c:choose>
+										<c:when test="${edit}">
+											<select class="select2_multiple form-control" multiple="multiple">
+					                          	<c:forEach items="${orderForm.exams}" var="exam">
+													<option value="${exam.id}">${exam.name}</option>
+												</c:forEach>
+				                          	</select>
+										</c:when>
+										<c:otherwise>
+											<select class="select2_multiple form-control" multiple="multiple">
+					                          	<c:forEach items="${exams}" var="exam">
+													<option value="${exam.id}">${exam.name}</option>
+												</c:forEach>
+				                          	</select>
+										</c:otherwise>
+									</c:choose>
 		                        </div>
 		                      </div>   	
+
 							<!-- Exam Selection -->
 							
 							<!-- Document Selection -->
-		                    <div class="form-group">
-		                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Documents:</label>
+		                      <div class="form-group">
+		                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Documents</label>
 		                        <div class="col-md-6 col-sm-6 col-xs-12">
-		                        	<span class="select2 select2-container select2-container--default select2-container--below select2-container--focus" dir="ltr">
-										<span class="selection">
-											<span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1">
-					                      		<ul class="select2-selection__rendered">	  
-		                        					<c:forEach items="${orderForm.documents}" var="document">    			
-							                      			<li class="select2-selection__choice" title="${document.name}">
-							                      				${document.name}
-							                      			</li>
-							                      	</c:forEach>
-					                      		</ul>
-											</span>
-										</span>
-										<span class="dropdown-wrapper" aria-hidden="true"></span>
-									</span>
+		                        	<c:choose>
+										<c:when test="${edit}">
+											<select class="select2_multiple form-control" multiple="multiple">
+					                          	<c:forEach items="${orderForm.documents}" var="document">
+													<option value="${document.id}">${document.name}</option>
+												</c:forEach>
+				                          	</select>
+										</c:when>
+										<c:otherwise>
+											<select class="select2_multiple form-control" multiple="multiple">
+					                          	<c:forEach items="${documents}" var="document">
+													<option value="${document.id}">${document.name}</option>
+												</c:forEach>
+				                          	</select>
+										</c:otherwise>
+									</c:choose>
 		                        </div>
 		                      </div>   	
 							<!-- Document Selection -->
-							</div>
+							
+							<div class="form-group">
+									<div class="col-md-6 col-md-offset-3">
+										<c:choose>
+											<c:when test="${edit}">
+												<input type="submit" value="Update" class="btn btn-success"/> <a href="<c:url value='/orderForms' />" class="btn btn-primary">Cancel</a>
+											</c:when>
+											<c:otherwise>
+												<input type="submit" value="Add" class="btn btn-success"/> <a href="<c:url value='/orderForms' />" class="btn btn-primary">Cancel</a>
+											</c:otherwise>
+										</c:choose>
+									</div>
+								</div>
+							
+							
+							
+							</form:form>
 						</div>
 					</div>
 				</div>

@@ -6,6 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
 import org.neric.regents.model.District;
+import org.neric.regents.model.Exam;
 import org.neric.regents.model.Order;
 import org.neric.regents.model.OrderDocument;
 import org.neric.regents.model.OrderExam;
@@ -18,39 +19,27 @@ public class OrderFormDAOImpl extends AbstractDao<Integer, OrderForm> implements
 
 	public OrderForm findById(int id) 
 	{
-		OrderForm order = getByKey(id);
-		if(order!=null)
+		OrderForm orderForm = getByKey(id);
+		if(orderForm!=null)
 		{
-			//Hibernate.initialize(order.getUser());
+			Hibernate.initialize(orderForm.getExams());			
+			Hibernate.initialize(orderForm.getDocuments());	
 		}
-		return order;
+		return orderForm;
 	}
 	
 	public OrderForm findByUUID(String uuid) 
 	{
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.eq("uuid", uuid));
-		OrderForm order = (OrderForm)crit.uniqueResult();
+		OrderForm orderForm = (OrderForm)crit.uniqueResult();
 				
-		if(order!=null)
+		if(orderForm!=null)
 		{
-//			Hibernate.initialize(order.getUser());
-//			
-//			Hibernate.initialize(order.getOrderExams());			
-//			for(OrderExam e : order.getOrderExams())
-//			{
-//				Hibernate.initialize(e.getExam());
-//			}
-//			
-//			Hibernate.initialize(order.getOrderDocuments());			
-//			for(OrderDocument d : order.getOrderDocuments())
-//			{
-//				Hibernate.initialize(d.getDocument());
-//			}
-			
-			
+			Hibernate.initialize(orderForm.getExams());			
+			Hibernate.initialize(orderForm.getDocuments());			
 		}
-		return order;
+		return orderForm;
 	}
 
 	@SuppressWarnings("unchecked")

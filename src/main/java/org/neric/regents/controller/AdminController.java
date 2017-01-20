@@ -14,6 +14,7 @@ import org.neric.regents.model.Exam;
 import org.neric.regents.model.OptionPrint;
 import org.neric.regents.model.OptionScan;
 import org.neric.regents.model.Order;
+import org.neric.regents.model.OrderForm;
 import org.neric.regents.model.User;
 import org.neric.regents.model.UserProfile;
 import org.neric.regents.service.DistrictService;
@@ -21,6 +22,7 @@ import org.neric.regents.service.DocumentService;
 import org.neric.regents.service.ExamService;
 import org.neric.regents.service.OptionPrintService;
 import org.neric.regents.service.OptionScanService;
+import org.neric.regents.service.OrderFormService;
 import org.neric.regents.service.OrderService;
 import org.neric.regents.service.UserProfileService;
 import org.neric.regents.service.UserService;
@@ -66,6 +68,9 @@ public class AdminController {
 	OrderService orderService;
 	
 	@Autowired
+	OrderFormService orderFormService;
+	
+	@Autowired
 	UserProfileService userProfileService;
 	
 	@Autowired
@@ -77,24 +82,39 @@ public class AdminController {
 	@RequestMapping(value = { "/orderForm-{uuid}" }, method = RequestMethod.GET)
 	public String order(@PathVariable String uuid, ModelMap model) 
 	{
-//		Order order = orderService.findByUUID(uuid);
-//		model.addAttribute("order", order);
+		OrderForm orderForm = orderFormService.findByUUID(uuid);
+		model.addAttribute("orderForm", orderForm);
+		model.addAttribute("edit", false);
+		model.addAttribute("loggedinuser", getPrincipal());
 		return "orderForm";
 	}
 	
-	@RequestMapping(value = { "/orderForm" }, method = RequestMethod.GET)
-	public String listExams(String username, ModelMap model) {
-
+	
+	@RequestMapping(value = { "/createOrderForm" }, method = RequestMethod.GET)
+	public String createOrderForm(ModelMap model) 
+	{
 		List<Exam> exams = examService.findAllExams();
 		List<Document> documents = documentService.findAllDocuments();
 
-		model.addAttribute("exams", exams); // exams (left) references (${exams} on jsp page)
+		model.addAttribute("exams", exams);
 		model.addAttribute("documents", documents);
-
-		model.addAttribute("loggedindistrict", getLeaCurrentUser());
+		OrderForm orderForm = new OrderForm();
+		model.addAttribute("orderForm", orderForm);
+		model.addAttribute("edit", false);
 		model.addAttribute("loggedinuser", getPrincipal());
-		return "orderForm"; // jsp page reference
+		return "createOrEditOrderForm";
 	}
+	
+	@RequestMapping(value = { "/edit-orderForm-{uuid}" }, method = RequestMethod.GET)
+	public String editOrderForm(@PathVariable String uuid, ModelMap model) 
+	{
+		OrderForm orderForm = orderFormService.findByUUID(uuid);
+		model.addAttribute("orderForm", orderForm);
+		model.addAttribute("edit", true);
+		model.addAttribute("loggedinuser", getPrincipal());
+		return "createOrEditOrderForm";
+	}
+
 	
 //	@RequestMapping(value = { "/order" }, method = RequestMethod.POST)
 //	public String listExams(ModelMap model) {
@@ -108,8 +128,8 @@ public class AdminController {
 	@RequestMapping(value = { "/orderForms" }, method = RequestMethod.GET)
 	public String listOrderForms(ModelMap model) {
 
-		List<Order> orders = orderService.findAllOrders();
-		model.addAttribute("orders", orders);
+		List<OrderForm> orderForms = orderFormService.findAllOrderForms();
+		model.addAttribute("orderForms", orderForms);
 		model.addAttribute("loggedinuser", getPrincipal());
 		return "orderForms";
 	}
