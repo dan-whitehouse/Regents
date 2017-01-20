@@ -38,15 +38,21 @@
 						<!-- Date Picker -->
 						<form class="form-horizontal form-label-left">
 							<div class="form-group">
+	                        	<label class="control-label col-md-3 col-sm-3 col-xs-12">Title <span class="required">*</span></label>
+	                        	<div class="col-md-6 col-sm-6 col-xs-12">
+	                          		<input id="title" class="form-control col-md-7 col-xs-12 active" required="required" type="text">
+	                        	</div>
+							</div>
+							<div class="form-group">
 	                        	<label class="control-label col-md-3 col-sm-3 col-xs-12">Start Date <span class="required">*</span></label>
 	                        	<div class="col-md-6 col-sm-6 col-xs-12">
-	                          		<input id="birthday" class="date-picker form-control col-md-7 col-xs-12 active" required="required" type="text">
+	                          		<input id="orderFormStartDate" class="date-picker form-control col-md-7 col-xs-12 active" required="required" type="text">
 	                        	</div>
 							</div>
 							<div class="form-group">
 	                        	<label class="control-label col-md-3 col-sm-3 col-xs-12">End Date <span class="required">*</span></label>
 	                        	<div class="col-md-6 col-sm-6 col-xs-12">
-	                          		<input id="birthday2" class="date-picker form-control col-md-7 col-xs-12 active" required="required" type="text">
+	                          		<input id="orderFormEndDate" class="date-picker form-control col-md-7 col-xs-12 active" required="required" type="text">
 	                        	</div>
 							</div>
 						</form>		
@@ -57,7 +63,7 @@
 							<form class="form-horizontal form-label-left">
 		                      <div class="form-group">
 		                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Exams</label>
-		                        <div class="col-md-9 col-sm-9 col-xs-12">
+		                        <div class="col-md-6 col-sm-6 col-xs-12">
 		                          <select class="select2_multiple form-control" multiple="multiple">
 		                          	<c:forEach items="${exams}" var="exam">
 										<option value="${exam.id}">${exam.name}</option>
@@ -72,7 +78,7 @@
 							<form class="form-horizontal form-label-left">
 		                      <div class="form-group">
 		                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Documents</label>
-		                        <div class="col-md-9 col-sm-9 col-xs-12">
+		                        <div class="col-md-6 col-sm-6 col-xs-12">
 		                          <select class="select2_multiple form-control" multiple="multiple">
 		                          	<c:forEach items="${documents}" var="document">
 										<option value="${document.id}">${document.name}</option>
@@ -90,24 +96,39 @@
 	</div>
 	<!-- /page content -->
 	
-	<!-- bootstrap-daterangepicker -->
+	<jsp:include page="fragments/footer.jsp" />
+	
+	  <!-- bootstrap-daterangepicker -->
     <script src="<c:url value='/resources/js/moment/moment.min.js' />"></script>
     <script src="<c:url value='/resources/js/datepicker/daterangepicker.js' />"></script>
 
     <!-- Select2 -->
 	<script src="<c:url value='/resources/vendors/select2/dist/js/select2.full.min.js' />"></script>
 	
-	
-	<!-- bootstrap-daterangepicker -->
+	 <!-- bootstrap-daterangepicker -->
     <script>
-      $(document).ready(function() {
-        $('#birthday').daterangepicker({
-          singleDatePicker: true,
-          calender_style: "picker_4"
-        }, function(start, end, label) {
-          console.log(start.toISOString(), end.toISOString(), label);
-        });
-      });
+		$(document).ready(function() 
+		{
+		    $('#orderFormStartDate').daterangepicker(
+		    {
+		      singleDatePicker: true,
+		      calender_style: "picker_4"
+	    	}, 
+		    function(start, end, label) 
+		    {
+		      console.log(start.toISOString(), end.toISOString(), label);
+		    });
+		    
+		    $('#orderFormEndDate').daterangepicker(
+	    	{
+		      singleDatePicker: true,
+		      calender_style: "picker_4"
+	    	}, 
+		    function(start, end, label) 
+		    {
+		      console.log(start.toISOString(), end.toISOString(), label);
+		    });
+		});
     </script>
     <!-- /bootstrap-daterangepicker -->
 	
@@ -128,5 +149,4 @@
     </script>
     <!-- /Select2 -->
 	
-	<jsp:include page="fragments/footer.jsp" />
 </html>

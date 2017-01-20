@@ -4,14 +4,18 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.JoinColumn;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -36,6 +40,14 @@ public class Exam implements Serializable
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "exam")
 	private Set<OrderExam> exams = new HashSet<OrderExam>(0);
 
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "orderForm_exam", joinColumns = { @JoinColumn(name = "exam_id", nullable = false, updatable = false)},
+								 inverseJoinColumns = { @JoinColumn(name = "orderForm_id",nullable = false, updatable = false)})
+	private Set<OrderForm> orderForms = new HashSet<OrderForm>(0);
+	
+
+	
 	public Integer getId()
 	{
 		return id;
@@ -74,5 +86,15 @@ public class Exam implements Serializable
 	public void setCode(String code)
 	{
 		this.code = code;
+	}
+
+	public Set<OrderForm> getOrderForms()
+	{
+		return orderForms;
+	}
+
+	public void setOrderForms(Set<OrderForm> orderForms)
+	{
+		this.orderForms = orderForms;
 	}
 }
