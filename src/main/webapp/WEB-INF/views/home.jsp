@@ -73,10 +73,10 @@
 						<p>Matthew Coleman<br />
 						matthew.coleman@neric.org</p>
 						<p>Andrea Vamvas<br />
-						andrea.vamvas@neric.org<br />
-						Phone: (518) 862-5314<br />
-						Fax: (518) 862-5396</p>
+						andrea.vamvas@neric.org<br /></p>
 						<p>Testing and Evaluation Services<br />
+						Phone: (518) 862-5314<br />
+						Fax: (518) 862-5396<br />
 						testing@neric.org</p>
                       </div>
                   </div>
