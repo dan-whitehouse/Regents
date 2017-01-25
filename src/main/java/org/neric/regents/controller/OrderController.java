@@ -74,7 +74,7 @@ public class OrderController {
 	@Autowired
 	MessageSource messageSource;
 
-	@RequestMapping(value = { "/order-{uuid}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "order-{uuid}" }, method = RequestMethod.GET)
 	public String order(@PathVariable String uuid, ModelMap model) {
 
 		Order order = orderService.findByUUID(uuid);
@@ -82,16 +82,17 @@ public class OrderController {
 		return "invoice";
 	}
 	
-	@RequestMapping(value = { "/order" }, method = RequestMethod.GET)
-	public String listExams(String username, ModelMap model) {
+	@RequestMapping(value = { "order" }, method = RequestMethod.GET)
+	public String newOrder(String username, ModelMap model) {
 
+		Order order = new Order();
 		List<Exam> exams = examService.findAllExams();
 		List<Document> documents = documentService.findAllDocuments();
 		List<OptionScan> optionScans = optionScanService.findAllOptionScans();
 		List<OptionPrint> optionPrints = optionPrintService.findAllOptionPrints();
 		List<District> districts = districtService.findAllDistricts();
 
-		
+		model.addAttribute("order", order);
 		model.addAttribute("exams", exams); // exams (left) references (${exams} on jsp page)
 		model.addAttribute("documents", documents);
 		model.addAttribute("optionScans", optionScans);
@@ -101,16 +102,22 @@ public class OrderController {
 		return "order"; // jsp page reference
 	}
 	
-//	@RequestMapping(value = { "/order" }, method = RequestMethod.POST)
-//	public String listExams(ModelMap model) {
-//
-//		List<Exam> exams = examService.findAllExams();
-//		model.addAttribute("exams", exams); // exams (left) references (${exams} on jsp page)
-//		model.addAttribute("loggedinuser", getPrincipal());
-//		return "order"; // jsp page reference
-//	}
+	@RequestMapping(value = { "order" }, method = RequestMethod.POST)
+	public String saveOrder(@Valid Order order, BindingResult result, ModelMap model) 
+	{
+		if (result.hasErrors()) 
+		{
+			return "order";
+		}
+		
+		orderService.saveOrder(order);
+		model.addAttribute("success", "Order: " + order.getUuid() + " was submitted successfully!");
+		model.addAttribute("loggedinuser", getPrincipal());
+		
+		return "orderSuccess"; // jsp page reference
+	}
 
-	@RequestMapping(value = { "/orders" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "orders" }, method = RequestMethod.GET)
 	public String listOrders(ModelMap model) {
 
 		List<Order> orders = orderService.findAllOrders();

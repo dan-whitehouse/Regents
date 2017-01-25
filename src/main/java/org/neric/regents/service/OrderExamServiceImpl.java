@@ -43,7 +43,7 @@ public class OrderExamServiceImpl implements OrderExamService
 		OrderExam entity = dao.findById(orderExam.getId());
 		if(entity != null)
 		{
-			entity.setAnswerSheetName(orderExam.getAnswerSheetName());
+			entity.setAnswerSheetAmount(orderExam.getAnswerSheetAmount());
 			entity.setExam(orderExam.getExam());
 			entity.setExamAmount(orderExam.getExamAmount());
 			entity.setOrder(orderExam.getOrder());

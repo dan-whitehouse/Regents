@@ -36,7 +36,7 @@ public class OrderExam implements Serializable
 	private Integer examAmount;
 
 	@Column(name="answer_sheet_amount", nullable=true)
-	private String answerSheetName;
+	private String answerSheetAmount;
 	
 	@Column(name="students_per_csv", nullable=true)
 	private String studentsPerCSV;
@@ -84,14 +84,14 @@ public class OrderExam implements Serializable
 		this.examAmount = examAmount;
 	}
 
-	public String getAnswerSheetName()
+	public String getAnswerSheetAmount()
 	{
-		return answerSheetName;
+		return answerSheetAmount;
 	}
 
-	public void setAnswerSheetName(String answerSheetName)
+	public void setAnswerSheetAmount(String answerSheetAmount)
 	{
-		this.answerSheetName = answerSheetName;
+		this.answerSheetAmount = answerSheetAmount;
 	}
 
 	public String getStudentsPerCSV()
