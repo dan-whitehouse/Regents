@@ -7,8 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.neric.regents.model.District;
 import org.neric.regents.model.User;
 import org.neric.regents.model.UserProfile;
+import org.neric.regents.service.DistrictService;
 import org.neric.regents.service.UserProfileService;
 import org.neric.regents.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +51,10 @@ public class AppController {
 	
 	@Autowired
 	AuthenticationTrustResolver authenticationTrustResolver;
+	
+	@Autowired
+	DistrictService districtService;
+	
 	
     	
 	/**
@@ -122,9 +128,12 @@ public class AppController {
 	 * This method will provide the medium to add a new user.
 	 */
 	@RequestMapping(value = { "createUser" }, method = RequestMethod.GET)
-	public String newUser(ModelMap model) {
+	public String newUser(ModelMap model) 
+	{
 		User user = new User();
+		List<District> districts = districtService.findAllDistricts();
 		model.addAttribute("user", user);
+		model.addAttribute("districts", districts);
 		model.addAttribute("edit", false);
 		model.addAttribute("loggedinuser", getPrincipal());
 		return "createUser";

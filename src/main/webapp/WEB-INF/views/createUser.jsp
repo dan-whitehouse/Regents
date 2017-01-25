@@ -118,13 +118,11 @@
 								<div class="item form-group">
 									<label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">LEA <span class="required">*</span>
 									</label>
-										<div class="col-md-3 col-sm-3 col-xs-12">
-				                          <select class="select2_single form-control select2-hidden-accessible" tabindex="-1" aria-hidden="true">
-				                            <option></option>
-				                            <option value="000001">District 1</option>
-				                            <option value="000002">District 2</option>
-				                            <option value="000003">District 3</option>
-				                          </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 251px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1" aria-labelledby="select2-taf7-container"><span class="select2-selection__rendered" id="select2-taf7-container"><span class="select2-selection__placeholder">Select LEA</span></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+				                          <form:select path="district" items="${districts}" multiple="false" itemValue="id" itemLabel="name" class="form-control col-md-7 col-xs-12" required="required"/>
+											<div class="has-error">
+												<form:errors path="district" class="help-inline"/>
+											</div>
 				                        </div>
 								</div>
 								
