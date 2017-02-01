@@ -79,6 +79,16 @@ public class AdminController {
 	@Autowired
 	MessageSource messageSource;
 
+	
+	@RequestMapping(value = { "/orderForms" }, method = RequestMethod.GET)
+	public String listOrderForms(ModelMap model) {
+
+		List<OrderForm> orderForms = orderFormService.findAllOrderForms();
+		model.addAttribute("orderForms", orderForms);
+		model.addAttribute("loggedinuser", getPrincipal());
+		return "orderForms";
+	}
+	
 	@RequestMapping(value = { "/orderForm-{uuid}" }, method = RequestMethod.GET)
 	public String order(@PathVariable String uuid, ModelMap model) 
 	{
@@ -88,8 +98,7 @@ public class AdminController {
 		model.addAttribute("loggedinuser", getPrincipal());
 		return "orderForm";
 	}
-	
-	
+		
 	@RequestMapping(value = { "/createOrderForm" }, method = RequestMethod.GET)
 	public String createOrderForm(ModelMap model) 
 	{
@@ -105,6 +114,26 @@ public class AdminController {
 		return "createOrEditOrderForm";
 	}
 	
+	/**
+	 * This method will be called on form submission, handling POST requests for
+	 * saving Exams in database. It also validates the user input
+	 */
+	@RequestMapping(value = { "/createOrderForm" }, method = RequestMethod.POST)
+	public String createOrderForm(@Valid OrderForm orderForm, BindingResult result, ModelMap model) 
+	{
+		if (result.hasErrors()) 
+		{
+			return "createOrEditOrderForm";
+		}
+		
+		orderFormService.saveOrderForm(orderForm);
+
+		model.addAttribute("success", "OrderForm: " + orderForm.getName() + " was created successfully");
+		model.addAttribute("loggedinuser", getPrincipal());
+
+		return "createOrEditOrderFormSuccess";
+	}
+	
 	@RequestMapping(value = { "/edit-orderForm-{uuid}" }, method = RequestMethod.GET)
 	public String editOrderForm(@PathVariable String uuid, ModelMap model) 
 	{
@@ -115,24 +144,8 @@ public class AdminController {
 		return "createOrEditOrderForm";
 	}
 
+
 	
-//	@RequestMapping(value = { "/order" }, method = RequestMethod.POST)
-//	public String listExams(ModelMap model) {
-//
-//		List<Exam> exams = examService.findAllExams();
-//		model.addAttribute("exams", exams); // exams (left) references (${exams} on jsp page)
-//		model.addAttribute("loggedinuser", getPrincipal());
-//		return "order"; // jsp page reference
-//	}
-
-	@RequestMapping(value = { "/orderForms" }, method = RequestMethod.GET)
-	public String listOrderForms(ModelMap model) {
-
-		List<OrderForm> orderForms = orderFormService.findAllOrderForms();
-		model.addAttribute("orderForms", orderForms);
-		model.addAttribute("loggedinuser", getPrincipal());
-		return "orderForms";
-	}
 	
 	/************************** EXAMS **************************/
 	@RequestMapping(value = { "/exams" }, method = RequestMethod.GET)

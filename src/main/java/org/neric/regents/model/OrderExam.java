@@ -44,6 +44,17 @@ public class OrderExam implements Serializable
 	@Column(name="pas", nullable=true)
 	private Boolean pearsonAnswerSheet;
 
+	public OrderExam()
+	{
+		super();
+	}
+	
+	public OrderExam(Exam exam)
+	{
+		super();
+		this.exam = exam;
+	}
+
 	public Integer getId()
 	{
 		return id;
@@ -58,7 +69,7 @@ public class OrderExam implements Serializable
 	{
 		return order;
 	}
-
+	
 	public void setOrder(Order order)
 	{
 		this.order = order;

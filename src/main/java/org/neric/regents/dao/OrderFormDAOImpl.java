@@ -1,11 +1,13 @@
 package org.neric.regents.dao;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
 import org.neric.regents.model.District;
+import org.neric.regents.model.Document;
 import org.neric.regents.model.Exam;
 import org.neric.regents.model.Order;
 import org.neric.regents.model.OrderDocument;
@@ -62,6 +64,19 @@ public class OrderFormDAOImpl extends AbstractDao<Integer, OrderForm> implements
 	@Override
 	public void saveOrderForm(OrderForm order)
 	{
+		order.setUuid(UUID.randomUUID().toString());
+		
+		for(Exam o : order.getExams())
+		{
+			System.err.println("Exams in OrderForm: " + o.getName());
+		}
+		
+		for(Document o : order.getDocuments())
+		{
+			System.err.println("Documents in OrderForm: " + o.getName());
+		}
+		
+		
 		persist(order);
 		
 	}

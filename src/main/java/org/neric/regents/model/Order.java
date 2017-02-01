@@ -58,7 +58,7 @@ public class Order implements Serializable
 	private OptionScan orderScan;
 	
 	@NotEmpty
-	@Column(name="report_to_level_one", unique=true, nullable=false)
+	@Column(name="report_to_level_one", unique=false, nullable=false)
 	private Boolean reportToLevelOne;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order")

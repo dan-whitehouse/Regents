@@ -2,27 +2,12 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-<c:url value="admin/addUser" var="addUser" />
+<c:url value="/createOrderForm" var="createOrderForm" />
 <html>
 	<jsp:include page="fragments/header.jsp" />
 	<!-- page content -->
 	<div class="right_col" role="main">
 		<div class="">
-			<!--             <div class="page-title"> -->
-			<!--               <div class="title_left"> -->
-			<!--                 <h3>Users <small>Some examples to get you started</small></h3> -->
-			<!--               </div> -->
-			<!--               <div class="title_right"> -->
-			<!--                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search"> -->
-			<!--                   <div class="input-group"> -->
-			<!--                     <input type="text" class="form-control" placeholder="Search for..."> -->
-			<!--                     <span class="input-group-btn"> -->
-			<!--                       <button class="btn btn-default" type="button">Go!</button> -->
-			<!--                     </span> -->
-			<!--                   </div> -->
-			<!--                 </div> -->
-			<!--               </div> -->
-			<!--             </div> -->
 			<div class="clearfix"></div>
 			<div class="row">
 				<div class="col-md-12 col-sm-12 col-xs-12">
@@ -34,7 +19,7 @@
 								<li class="dropdown">
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
 									<ul class="dropdown-menu" role="menu">
-										<li><a href="${addUser}">Add User</a>
+										<li><a href="${createOrderForm}">Add Order Form</a>
 										</li>
 									</ul>
 								</li>

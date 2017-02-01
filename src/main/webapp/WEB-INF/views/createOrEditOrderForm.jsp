@@ -72,8 +72,9 @@
 										</c:when>
 										<c:otherwise>
 											<select class="select2_multiple form-control" multiple="multiple">
-					                          	<c:forEach items="${exams}" var="exam">
-													<option value="${exam.id}">${exam.name}</option>
+					                          	<c:forEach items="${exams}" var="exam" varStatus="status">
+<%-- 													<option value="${exam.id}">${exam.name}</option> --%>
+														<option value="exams[${status.index}]">${exam.name}</option>
 												</c:forEach>
 				                          	</select>
 										</c:otherwise>

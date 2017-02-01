@@ -44,11 +44,11 @@ public class OrderForm implements Serializable
 	private String name;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "startDate", unique = true, nullable = false)
+	@Column(name = "startDate", unique = false, nullable = false)
 	private Date startDate;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "endDate", unique = true, nullable = false)
+	@Column(name = "endDate", unique = false, nullable = false)
 	private Date endDate;
 	
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "orderForms")

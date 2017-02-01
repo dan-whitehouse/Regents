@@ -35,6 +35,18 @@ public class OrderDocument implements Serializable
 	@Column(name="document_amount", nullable=true)
 	private Integer documentAmount;
 
+	
+	public OrderDocument()
+	{
+		super();
+	}
+	
+	public OrderDocument(Document document)
+	{
+		super();
+		this.document = document;
+	}
+
 	public Integer getId()
 	{
 		return id;
