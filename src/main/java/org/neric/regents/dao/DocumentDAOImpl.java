@@ -41,5 +41,11 @@ public class DocumentDAOImpl extends AbstractDao<Integer, Document> implements D
 		delete(document);
 		
 	}
+
+	@Override
+	public void save(Document document)
+	{
+		persist(document);
+	}
 	
 }

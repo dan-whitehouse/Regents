@@ -144,8 +144,42 @@ public class AdminController {
 		return "exams";
 	}
 	
+	
+	/**
+	 * This method will provide the medium to add a new Exam.
+	 */
+	@RequestMapping(value = { "/createExam" }, method = RequestMethod.GET)
+	public String createExam(ModelMap model) 
+	{
+		Exam exam = new Exam();
+		model.addAttribute("exam", exam);
+		model.addAttribute("edit", false);
+		model.addAttribute("loggedinuser", getPrincipal());
+		return "createOrEditExam";
+	}
+
+	/**
+	 * This method will be called on form submission, handling POST requests for
+	 * saving Exams in database. It also validates the user input
+	 */
+	@RequestMapping(value = { "/createExam" }, method = RequestMethod.POST)
+	public String createExam(@Valid Exam exam, BindingResult result, ModelMap model) 
+	{
+		if (result.hasErrors()) 
+		{
+			return "createOrEditExam";
+		}
+		
+		examService.saveExam(exam);
+
+		model.addAttribute("success", "Exam: " + exam.getName() + " was created successfully");
+		model.addAttribute("loggedinuser", getPrincipal());
+
+		return "createOrEditExamSuccess";
+	}
+	
 	@RequestMapping(value = { "/edit-exam-{id}" }, method = RequestMethod.GET)
-	public String editUser(@PathVariable int id, ModelMap model) 
+	public String editExam(@PathVariable int id, ModelMap model) 
 	{
 		Exam exam = examService.findById(id);
 		model.addAttribute("exam", exam);
@@ -155,7 +189,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = { "/edit-exam-{id}" }, method = RequestMethod.POST)
-	public String updateExam(@Valid Exam exam, BindingResult result, ModelMap model, @PathVariable int id) 
+	public String editExam(@Valid Exam exam, BindingResult result, ModelMap model, @PathVariable int id) 
 	{
 		if (result.hasErrors()) 
 		{
@@ -185,6 +219,36 @@ public class AdminController {
 		model.addAttribute("documents", documents);
 		model.addAttribute("loggedinuser", getPrincipal());
 		return "documents";
+	}
+		
+	@RequestMapping(value = { "/createDocument" }, method = RequestMethod.GET)
+	public String createDocument(ModelMap model) 
+	{
+		Document document = new Document();
+		model.addAttribute("document", document);
+		model.addAttribute("edit", false);
+		model.addAttribute("loggedinuser", getPrincipal());
+		return "createOrEditDocument";
+	}
+
+	/**
+	 * This method will be called on form submission, handling POST requests for
+	 * saving Exams in database. It also validates the user input
+	 */
+	@RequestMapping(value = { "/createDocument" }, method = RequestMethod.POST)
+	public String createDocument(@Valid Document document, BindingResult result, ModelMap model) 
+	{
+		if (result.hasErrors()) 
+		{
+			return "createOrEditDocument";
+		}
+		
+		documentService.saveDocument(document);
+
+		model.addAttribute("success", "Document: " + document.getName() + " was created successfully");
+		model.addAttribute("loggedinuser", getPrincipal());
+
+		return "createOrEditDocumentSuccess";
 	}
 	
 	@RequestMapping(value = { "/edit-document-{id}" }, method = RequestMethod.GET)

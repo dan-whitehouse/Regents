@@ -44,4 +44,10 @@ public class DocumentServiceImpl implements DocumentService{
 	{
 		dao.deleteByDocumentId(id);
 	}
+
+	@Override
+	public void saveDocument(Document document)
+	{
+		dao.save(document);
+	}
 }

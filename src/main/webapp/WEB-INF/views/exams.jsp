@@ -2,7 +2,7 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-<c:url value="admin/addUser" var="addUser" />
+<c:url value="/createExam" var="createExam" />
 <html>
 	<jsp:include page="fragments/header.jsp" />
 	<!-- page content -->
@@ -20,7 +20,7 @@
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
 									<ul class="dropdown-menu" role="menu">
 										<li>
-											<a href="${addExam}">Add Exam</a>
+											<a href="${createExam}">Add Exam</a>
 										</li>
 									</ul>
 								</li>

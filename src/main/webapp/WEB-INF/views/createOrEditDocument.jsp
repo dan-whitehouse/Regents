@@ -55,7 +55,7 @@
 												<input type="submit" value="Update" class="btn btn-success"/> <a href="<c:url value='/list' />" class="btn btn-primary">Cancel</a>
 											</c:when>
 											<c:otherwise>
-												<input type="submit" value="Register" class="btn btn-success"/> <a href="<c:url value='/list' />" class="btn btn-primary">Cancel</a>
+												<input type="submit" value="Create" class="btn btn-success"/> <a href="<c:url value='/list' />" class="btn btn-primary">Cancel</a>
 											</c:otherwise>
 										</c:choose>
 										<!--                           	<button type="submit" class="btn btn-primary">Cancel</button> -->
