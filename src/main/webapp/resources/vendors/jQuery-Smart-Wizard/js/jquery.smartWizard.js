@@ -440,7 +440,7 @@ $.fn.smartWizard.defaults = {
     errorSteps:[],    // Array Steps with errors
     labelNext:'Next',
     labelPrevious:'Previous',
-    labelFinish:'Finish',
+    labelFinish:'Submit',
     noForwardJumping: false,
     onLeaveStep: null, // triggers when leaving a step
     onShowStep: null,  // triggers when showing a step

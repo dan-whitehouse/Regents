@@ -111,8 +111,7 @@
 										</li>
 									</ul>
 									
-									<form:form method="POST" modelAttribute="order">
-									<form:input type="hidden" path="id" id="id"/>
+									<form:form method="POST" modelAttribute="wizard" class="form-horizontal form-label-left">
 									<div id="step-1">
 										<div class="col-md-2 col-sm-2 col-xs-12"></div><!-- Empty div for proper spacing -->
 										<div class="col-md-7 col-sm-7 col-xs-12">
@@ -170,21 +169,21 @@
 						                        </tr>
 						                      </thead>
 						                      <tbody>
-						                      	<c:forEach items="${exams}" var="exam" varStatus="status">
+						                      	<c:forEach items="${wizard.allAvailableExams}" var="w" varStatus="status">
 						                      		<tr>
-						                      			<td><input type="checkbox" class="flat"></td>
-						                      			<td><form:input path="${orderExam.exam.id }" name="exam" readonly="readonly" value="${exam.name} - ${exam.code}" class="form-control col-md-7 col-xs-12" /></td>
-						                      			<td><form:input path="${orderExam.examAmount }" name="examAmount" class="form-control col-md-3 col-xs-12" /></td>
-						                          		<td><form:input path="${orderExam.answerSheetAmount }" name="answerSheetAmount" class="form-control col-md-3 col-xs-12" /></td>
-						                          		<td><form:input path="${orderExam.studentsPerCSV }" name="studentsPerCSV" class="form-control col-md-3 col-xs-12" /></td>
-						                          		<c:choose>
-						                          			<c:when test="${exam.name == 'Algebra 2 (Common Core)'}">
-						                          				<th scope="row"><input type="checkbox" class="flat"></th>
-						                          			</c:when>
-						                          			<c:otherwise>
-						                          				<th scope="row"></th>
-						                          			</c:otherwise>
-						                          		</c:choose>
+						                      			<td><input path="allAvailableExams[${status.index}].selected" type="checkbox" class="flat" /></td>
+						                      			<td><form:input path="allAvailableExams[${status.index}].orderExam.exam.name" value="${w.orderExam.exam.name } - ${w.orderExam.exam.code}"  class="form-control col-md-3 col-xs-12" /></td>
+						                      			<td><form:input path="allAvailableExams[${status.index}].orderExam.examAmount" class="form-control col-md-3 col-xs-12" /></td>
+<%-- 						                          		<td><form:input path="allAvailableExams[${status.index}]orderExam.exam.answerSheetAmount" name="answerSheetAmount" class="form-control col-md-3 col-xs-12" /></td> --%>
+<%-- 						                          		<td><form:input path="allAvailableExams[${status.index}]orderExam.exam.studentsPerCSV" name="studentsPerCSV" class="form-control col-md-3 col-xs-12" /></td> --%>
+<%-- 						                          		<c:choose> --%>
+<%-- 						                          			<c:when test="${w.orderExam.exam.name == 'Algebra 2 (Common Core)'}"> --%>
+<!-- 						                          				<th scope="row"><input type="checkbox" class="flat"></th> -->
+<%-- 						                          			</c:when> --%>
+<%-- 						                          			<c:otherwise> --%>
+<!-- 						                          				<th scope="row"></th> -->
+<%-- 						                          			</c:otherwise> --%>
+<%-- 						                          		</c:choose> --%>
 						                      		</tr>
 						                      	</c:forEach>
 						                      </tbody>
@@ -193,7 +192,7 @@
 										</form>
 									</div>
 									<div id="step-3">
-										<div class="col-md-3 col-sm-3 col-xs-12"></div><!-- Empty div for proper spacing -->
+										<div class="col-md-3 col-sm-3 col-xs-12"></div>Empty div for proper spacing
 										<div class="col-md-6 col-sm-6 col-xs-12">
 											<table class="table">
 						                      <thead>
@@ -220,7 +219,7 @@
 										
 											<div class="form-group">
 				                        		<label class="control-label col-md-3 col-sm-3 col-xs-12">Scanning/Scoring Option: 
-														<!-- <span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default." >
+ 														<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default." >
 						                          		<span class=" fa fa-info"></span>
 	 					                          	     </span> -->
 						                        </label>
@@ -237,7 +236,7 @@
 			                      			<br />
 			                      			<div class="form-group">
 				                        		<label class="control-label col-md-3 col-sm-3 col-xs-12">Reporting Option: 
-														<!-- <span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default." >
+ 														<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default." >
 						                          		<span class=" fa fa-info"></span>
 	 					                          	     </span> -->
 						                        </label>
@@ -272,7 +271,7 @@
 						                      <div class="x_content">
 							                    <br />
 							                    <form class="form-horizontal form-label-left input_mask">
-							                    <!-- try populating user data based on checked field -->
+							                    try populating user data based on checked field
 											
 											
 												<div class="form-group" >
@@ -408,9 +407,9 @@
 										
 											<div class="form-group">
 				                        		<label class="control-label col-md-3 col-sm-3 col-xs-12">Scanning/Scoring Option: 
-														<!-- <span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default." >
+ 														<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default." >
 						                          		<span class=" fa fa-info"></span>
-	 					                          	     </span> -->
+	 					                          	     </span>
 						                        </label>
 						                        <div
 													class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
@@ -423,9 +422,9 @@
 			                      			<br />
 			                      			<div class="form-group">
 				                        		<label class="control-label col-md-3 col-sm-3 col-xs-12">Reporting Option: 
-														<!-- <span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default." >
+ 														<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default." >
 						                          		<span class=" fa fa-info"></span>
-	 					                          	     </span> -->
+	 					                          	     </span>
 						                        </label>
 						                        <div class="col-md-6 col-sm-6 col-xs-12">
 						                        	<div
@@ -442,7 +441,7 @@
 				                        		<label class="control-label col-md-3 col-sm-3 col-xs-12">Printing Option: 
 						                        </label>
 						                         <div class="col-md-6 col-sm-6 col-xs-12">
-						                        	<div
+						                        	<div>
 														class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
 														<input type="text" class="form-control"
 															readonly="readonly"
@@ -450,6 +449,10 @@
 															aria-hidden="true"></span>
 													</div>
 			                        			</div>
+			                      			</div>
+			                      			<br />
+			                      			<div class="form-group">
+			                      				<p>By clicking "Submit", you signify that you have permission to order these Regents forms from an appropriate person who can authorize this expenditure.</p>
 			                      			</div>
 			                      		</form>
 							              <!-- END OPTIONS -->

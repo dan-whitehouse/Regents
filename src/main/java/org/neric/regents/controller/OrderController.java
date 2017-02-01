@@ -11,11 +11,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.neric.regents.model.District;
 import org.neric.regents.model.Document;
 import org.neric.regents.model.Exam;
+import org.neric.regents.model.ExamWrapper;
 import org.neric.regents.model.OptionPrint;
 import org.neric.regents.model.OptionScan;
 import org.neric.regents.model.Order;
+import org.neric.regents.model.OrderExam;
 import org.neric.regents.model.User;
 import org.neric.regents.model.UserProfile;
+import org.neric.regents.model.Wizard;
 import org.neric.regents.service.DistrictService;
 import org.neric.regents.service.DocumentService;
 import org.neric.regents.service.ExamService;
@@ -82,40 +85,85 @@ public class OrderController {
 		return "invoice";
 	}
 	
-	@RequestMapping(value = { "order" }, method = RequestMethod.GET)
-	public String newOrder(String username, ModelMap model) {
+	//model populated by the method below
+    //moved as we also need it populated on POST
+    @RequestMapping(value = { "/order" }, method = RequestMethod.GET)
+    public String order() 
+    {
+        return "order"; 
+    }
+    
+    //handles for submit
+    //model atribute is automatically populated by the framework
+    @RequestMapping(value = { "/order" }, method = RequestMethod.POST)
+    public String order(@ModelAttribute("wizard") Wizard orderForm) 
+    {
 
-		Order order = new Order();
-		List<Exam> exams = examService.findAllExams();
-		List<Document> documents = documentService.findAllDocuments();
-		List<OptionScan> optionScans = optionScanService.findAllOptionScans();
-		List<OptionPrint> optionPrints = optionPrintService.findAllOptionPrints();
-		List<District> districts = districtService.findAllDistricts();
+        for(ExamWrapper s : orderForm.getAllAvailableExams() )
+        {
+        	if(s.isSelected())
+        	{
+        		System.err.println(s.getOrderExam().getExam().getName());
+        		System.err.println(s.getOrderExam().getExamAmount());
+        	}
+        }
 
-		model.addAttribute("order", order);
-		model.addAttribute("exams", exams); // exams (left) references (${exams} on jsp page)
-		model.addAttribute("documents", documents);
-		model.addAttribute("optionScans", optionScans);
-		model.addAttribute("optionPrints", optionPrints);
-		model.addAttribute("loggedindistrict", getLeaCurrentUser());
-		model.addAttribute("loggedinuser", getPrincipal());
-		return "order"; // jsp page reference
-	}
+        return "nextView"; 
+    }
+
+    //on get populates the initial model for display
+    //on post create an instance which the form params will be bound to
+    @ModelAttribute("wizard")
+    public Wizard getOrderForm()
+    {
+    	Wizard orderForm = new Wizard();
+        List<Exam> exams = examService.findAllExams();
+        List<Document> documents = documentService.findAllDocuments();
+        List<OptionScan> optionScans = optionScanService.findAllOptionScans();
+        List<OptionPrint> optionPrints = optionPrintService.findAllOptionPrints();
+
+        for(Exam exam : exams)
+        {
+            orderForm.getAllAvailableExams().add(new ExamWrapper(new OrderExam(exam)));
+        }
+
+        return orderForm;
+    }
 	
-	@RequestMapping(value = { "order" }, method = RequestMethod.POST)
-	public String saveOrder(@Valid Order order, BindingResult result, ModelMap model) 
-	{
-		if (result.hasErrors()) 
-		{
-			return "order";
-		}
-		
-		orderService.saveOrder(order);
-		model.addAttribute("success", "Order: " + order.getUuid() + " was submitted successfully!");
-		model.addAttribute("loggedinuser", getPrincipal());
-		
-		return "orderSuccess"; // jsp page reference
-	}
+//	@RequestMapping(value = { "order" }, method = RequestMethod.GET)
+//	public String newOrder(String username, ModelMap model) {
+//
+//		Order order = new Order();
+//		List<Exam> exams = examService.findAllExams();
+//		List<Document> documents = documentService.findAllDocuments();
+//		List<OptionScan> optionScans = optionScanService.findAllOptionScans();
+//		List<OptionPrint> optionPrints = optionPrintService.findAllOptionPrints();
+//		List<District> districts = districtService.findAllDistricts();
+//
+//		model.addAttribute("order", order);
+//		model.addAttribute("exams", exams); // exams (left) references (${exams} on jsp page)
+//		model.addAttribute("documents", documents);
+//		model.addAttribute("optionScans", optionScans);
+//		model.addAttribute("optionPrints", optionPrints);
+//		model.addAttribute("loggedindistrict", getLeaCurrentUser());
+//		model.addAttribute("loggedinuser", getPrincipal());
+//		return "order"; // jsp page reference
+//	}
+//	
+//	@RequestMapping(value = { "order" }, method = RequestMethod.POST)
+//	public String saveOrder(@Valid Order order, BindingResult result, ModelMap model) 
+//	{
+//		if (result.hasErrors()) 
+//		{
+//			return "order";
+//		}
+//		
+//		orderService.saveOrder(order);
+//		model.addAttribute("success", "Order: " + order.getUuid() + " was submitted successfully!");
+//		model.addAttribute("loggedinuser", getPrincipal());
+//		
+//		return "orderSuccess"; // jsp page reference
+//	}
 
 	@RequestMapping(value = { "orders" }, method = RequestMethod.GET)
 	public String listOrders(ModelMap model) {
