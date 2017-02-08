@@ -106,6 +106,11 @@ public class OrderController {
         		System.err.println(s.getOrderExam().getExam().getName());
         		System.err.println(s.getOrderExam().getExamAmount());
         	}
+        	
+        	if(s.isPasSelected())
+        	{
+        		System.err.println(s.getOrderExam().getPearsonAnswerSheet());
+        	}
         }
 
         return "nextView"; 

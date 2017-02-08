@@ -174,16 +174,16 @@
 						                      			<td><input path="allAvailableExams[${status.index}].selected" type="checkbox" class="flat" /></td>
 						                      			<td><form:input path="allAvailableExams[${status.index}].orderExam.exam.name" value="${w.orderExam.exam.name } - ${w.orderExam.exam.code}"  class="form-control col-md-3 col-xs-12" /></td>
 						                      			<td><form:input path="allAvailableExams[${status.index}].orderExam.examAmount" class="form-control col-md-3 col-xs-12" /></td>
-<%-- 						                          		<td><form:input path="allAvailableExams[${status.index}]orderExam.exam.answerSheetAmount" name="answerSheetAmount" class="form-control col-md-3 col-xs-12" /></td> --%>
-<%-- 						                          		<td><form:input path="allAvailableExams[${status.index}]orderExam.exam.studentsPerCSV" name="studentsPerCSV" class="form-control col-md-3 col-xs-12" /></td> --%>
-<%-- 						                          		<c:choose> --%>
-<%-- 						                          			<c:when test="${w.orderExam.exam.name == 'Algebra 2 (Common Core)'}"> --%>
-<!-- 						                          				<th scope="row"><input type="checkbox" class="flat"></th> -->
-<%-- 						                          			</c:when> --%>
-<%-- 						                          			<c:otherwise> --%>
-<!-- 						                          				<th scope="row"></th> -->
-<%-- 						                          			</c:otherwise> --%>
-<%-- 						                          		</c:choose> --%>
+						                          		<td><form:input path="allAvailableExams[${status.index}].orderExam.answerSheetAmount" class="form-control col-md-3 col-xs-12" /></td>
+						                          		<td><form:input path="allAvailableExams[${status.index}].orderExam.studentsPerCSV" class="form-control col-md-3 col-xs-12" /></td>
+						                          		<c:choose>
+						                          			<c:when test="${w.orderExam.exam.name == 'Algebra 2 (Common Core)'}">
+						                          				<th scope="row"><input path="allAvailableExams[${status.index}].pasSelected" type="checkbox" class="flat"></th>
+						                          			</c:when>
+						                          			<c:otherwise>
+						                          				<th scope="row"></th>
+						                          			</c:otherwise>
+						                          		</c:choose>
 						                      		</tr>
 						                      	</c:forEach>
 						                      </tbody>
@@ -221,13 +221,13 @@
 				                        		<label class="control-label col-md-3 col-sm-3 col-xs-12">Scanning/Scoring Option: 
  														<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default." >
 						                          		<span class=" fa fa-info"></span>
-	 					                          	     </span> -->
+	 					                          	     </span>
 						                        </label>
 						                        <div class="col-md-6 col-sm-6 col-xs-12">
 						                        	<c:forEach items="${optionScans}" var="optionScan">
 						                        		<div class="radio">
 							                            <label>
-							                              <input type="radio" class="flat" checked name="iCheck">${optionScan.name }
+							                              <input type="radio" class="flat" checked name="iCheck"/>${optionScan.name }
 							                            </label>
 							                          </div>
 						                        	</c:forEach>
@@ -238,7 +238,7 @@
 				                        		<label class="control-label col-md-3 col-sm-3 col-xs-12">Reporting Option: 
  														<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default." >
 						                          		<span class=" fa fa-info"></span>
-	 					                          	     </span> -->
+	 					                          	     </span>
 						                        </label>
 						                        <div class="col-md-6 col-sm-6 col-xs-12">
 						                        		

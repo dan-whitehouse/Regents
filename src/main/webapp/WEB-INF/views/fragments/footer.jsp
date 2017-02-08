@@ -56,15 +56,26 @@
     <!-- jQuery Smart Wizard -->
     <script>
       $(document).ready(function() {
-        $('#wizard').smartWizard();
+        $('#wizard').smartWizard({
+        	hideButtonsOnDisabled: true,
+        	labelFinish: 'Submit',
+        	onFinish: onFinishCallback
+        });
 
         $('#wizard_verticle').smartWizard({
           transitionEffect: 'slide'
         });
+        
+        function onFinishCallback(){
+        	$('form').submit();
+            $('#wizard').smartWizard('showMessage','Finish Clicked');
+            alert('O.M.G. YOU SUBMITTED!');
+          } 
 
         $('.buttonNext').addClass('btn btn-success');
         $('.buttonPrevious').addClass('btn btn-primary');
         $('.buttonFinish').addClass('btn btn-default');
+
       });
     </script>
     <!-- /jQuery Smart Wizard -->
