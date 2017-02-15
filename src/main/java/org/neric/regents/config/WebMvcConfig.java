@@ -1,5 +1,6 @@
 package org.neric.regents.config;
 
+import org.neric.regents.converture.OptionPrintEditor;
 import org.neric.regents.converture.RoleToUserProfileConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -25,7 +26,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	
 	@Autowired
 	RoleToUserProfileConverter roleToUserProfileConverter;	
-	
+
 //	@Override
 //    public void addViewControllers(ViewControllerRegistry registry) {
 //        registry.addViewController("/login").setViewName("login");
@@ -56,7 +57,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
      * In our example, we need a converter to convert string values[Roles] to UserProfiles in newUser.jsp
      */
     @Override
-    public void addFormatters(FormatterRegistry registry) {
+    public void addFormatters(FormatterRegistry registry) 
+    {
         registry.addConverter(roleToUserProfileConverter);
     }
 	

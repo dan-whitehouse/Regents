@@ -1,5 +1,6 @@
 package org.neric.regents.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -88,8 +89,18 @@ public class XController
 	//model populated by the method below
     //moved as we also need it populated on POST
     @RequestMapping(value = { "/xorder" }, method = RequestMethod.GET)
-    public String order() 
+    public String order(ModelMap modelMap) 
     {
+    	//only needed on GET so put in model here
+        List<XOptionPrintWrapper> availablePrintOptions = new ArrayList<>();
+        for(OptionPrint optionPrint : optionPrintService.findAllOptionPrints())
+        {
+        	availablePrintOptions.add(new XOptionPrintWrapper(optionPrint));
+        }
+        
+        //Stuff shit in here, it will go to the  form
+        modelMap.put("availablePrintOptions", availablePrintOptions);
+        
         return "xorder"; 
     }
 
@@ -107,21 +118,12 @@ public class XController
 	        	System.err.println(w.getOrderExam().getExam().getName());
 	        	System.err.println(w.getOrderExam().getExamAmount());
 	        	System.err.println(w.getOrderExam().getAnswerSheetAmount());
-	        	System.err.println("---------------------");
         	}
         }
         
-        System.err.println("Options: ");
-        for(XOptionPrintWrapper op : orderForm.getAllAvailableOptionPrints())
-        {
-        	if(op.isSelected())
-        	{
-	        	System.err.println(op.getOptionPrint().getName());
-	        	System.err.println("---------------------");
-        	}
-        }
+        System.err.println("Options: " + orderForm.getSelectedOptionPrint());
 
-        return "nextView"; 
+        return "xorder"; 
     }
 
     //on get populates the initial model for display
@@ -132,25 +134,17 @@ public class XController
         XForm xForm = new XForm();
         List<Exam> exams = examService.findAllExams();
         List<Document> documents = documentService.findAllDocuments();
-        List<OptionPrint> printOptions = optionPrintService.findAllOptionPrints();
-
+        
         for(Exam exam : exams)
         {
-        	//System.err.println("to getAllAvailableExams: " + exam.getName());
             xForm.getAllAvailableExams().add(new XExamWrapper(new OrderExam(exam)));
         }
-        System.err.println("----------------------------");
+        
         for(Document document : documents)
         {
-        	//System.err.println("to getAllAvailableDocuments: " + document.getName());
             xForm.getAllAvailableDocuments().add(new XDocumentWrapper(new OrderDocument(document)));
         }
-        System.err.println("----------------------------");
-        for(OptionPrint optionPrint : printOptions)
-        {
-        	//System.err.println("to getAllAvailableDocuments: " + document.getName());
-            xForm.getAllAvailableOptionPrints().add(new XOptionPrintWrapper(optionPrint));
-        }
+
         return xForm;
     }
 	

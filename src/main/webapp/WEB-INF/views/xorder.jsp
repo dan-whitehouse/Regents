@@ -34,7 +34,7 @@
 							<form:form method="POST" modelAttribute="xForm" class="form-horizontal form-label-left">
 							
 								 <!-- EXAMS -->
-								<h2>Exams3</h2>
+								<h2>Exams</h2>
 								<table>
 									<tr>
 										<th width="200px">Select</th>
@@ -51,7 +51,7 @@
 							    </table>
 							    
 							     <!-- DOCUMENTS -->
-							    <h2>Documents2</h2>
+							    <h2>Documents</h2>
 							    <table>
 									<tr>
 										<th width="200px">Select</th>
@@ -66,7 +66,7 @@
 							    </table>
 							    
 							    <!-- PRINTING -->
-							    <h2>Printing4</h2>
+							    <h2>Printing</h2>
 							    <div class="form-group">
 	                        		<label class="control-label col-md-3 col-sm-3 col-xs-12">Printing Option: 
 	                        			<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default." >
@@ -81,8 +81,11 @@
 <%-- 	                      					</c:forEach> --%>
 <!--                       					</select> -->
                       					
-                      					<form:select path="allAvailableOptionPrints[${status.index}].selected" items="${xForm.allAvailableOptionPrints}" var="x" varStatus="status" />
+<%--                       					<form:select path="allAvailableOptionPrints" items="${xForm.allAvailableOptionPrints}"/> --%>
                       					
+                      					<form:select path="selectedOptionPrint" name="xForm.selectedOptionPrint">
+								        	<form:options items="${availablePrintOptions}" itemValue="optionPrint" itemLabel="optionPrint.name"/>
+								        </form:select>
                       					
 <%--                       					<c:forEach items="${xForm.allAvailableOptionPrints}" var="x" varStatus="status"> --%>
 <!-- 			                        		<div class="radio"> -->
@@ -91,6 +94,14 @@
 <!-- 					                            </label> -->
 <!-- 				                          	</div> -->
 <%-- 			                        	</c:forEach> --%>
+
+
+										<h1>10</h1>
+<!-- 										<select name="xForm.optionPrintWrapper" > -->
+<%-- 											<c:forEach items="${xForm.allAvailableOptionPrints}" var="x" varStatus="status"> --%>
+<%-- 					                            <option value="${x}" class="flat">${x.optionPrint.name} - ${x}</option> --%>
+<%-- 			                        		</c:forEach> --%>
+<!-- 			                        	</select> -->
 
                         			</div>
                       			</div>

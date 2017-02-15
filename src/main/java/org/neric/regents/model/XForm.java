@@ -7,9 +7,8 @@ public class XForm
 {
 	private List<XExamWrapper> allAvailableExams = new ArrayList<>();
 	private List<XDocumentWrapper> allAvailableDocuments = new ArrayList<>();
-	private List<XOptionPrintWrapper> allAvailableOptionPrints = new ArrayList<>();
-	private OptionScan optionScan;
-	
+	private OptionPrint selectedOptionPrint;
+
     public XForm()
     {
 
@@ -35,24 +34,13 @@ public class XForm
 		this.allAvailableDocuments = allAvailableDocuments;
 	}
 
-
-	public List<XOptionPrintWrapper> getAllAvailableOptionPrints()
+	public OptionPrint getSelectedOptionPrint()
 	{
-		return allAvailableOptionPrints;
+		return selectedOptionPrint;
 	}
 
-	public void setAllAvailableOptionPrints(List<XOptionPrintWrapper> allAvailableOptionPrints)
+	public void setSelectedOptionPrint(OptionPrint selectedOptionPrint)
 	{
-		this.allAvailableOptionPrints = allAvailableOptionPrints;
-	}
-
-	public OptionScan getOptionScan()
-	{
-		return optionScan;
-	}
-
-	public void setOptionScan(OptionScan optionScan)
-	{
-		this.optionScan = optionScan;
+		this.selectedOptionPrint = selectedOptionPrint;
 	}
 }

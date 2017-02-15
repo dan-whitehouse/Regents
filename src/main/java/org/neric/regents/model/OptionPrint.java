@@ -21,6 +21,18 @@ public class OptionPrint implements Serializable
 { 
 	private static final long serialVersionUID = 1L;
 
+	public OptionPrint(Integer id, String name)
+	{
+		super();
+		this.id = id;
+		this.name = name;
+	}
+	
+	public OptionPrint()
+	{
+		super();
+	}
+	
 	@Id 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "option_print_id", unique = true, nullable = false)
@@ -62,4 +74,14 @@ public class OptionPrint implements Serializable
 	{
 		this.ordersPrint = ordersPrint;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "OptionPrint [id=" + id + ", name=" + name + "]";
+	}
+	
+	
+	
+	
 }
