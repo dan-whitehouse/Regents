@@ -192,7 +192,7 @@
 										</form>
 									</div>
 									<div id="step-3">
-										<div class="col-md-3 col-sm-3 col-xs-12"></div>Empty div for proper spacing
+										<div class="col-md-3 col-sm-3 col-xs-12"></div>
 										<div class="col-md-6 col-sm-6 col-xs-12">
 											<table class="table">
 						                      <thead>
@@ -203,11 +203,11 @@
 						                        </tr>
 						                      </thead>
 						                      <tbody>
-						                      	<c:forEach items="${documents }" var="document">
+						                      	<c:forEach items="${wizard.allAvailableDocuments }" var="d" varStatus="status">
 						                      		<tr>
-						                          		<th scope="row"><input type="checkbox" class="flat"></th>
-						                          		<td><input id="middle-name" type="text" name="middle-name" readonly="readonly" value="${document.name}" class="form-control col-md-7 col-xs-12"></td>
-						                          		<td><input id="middle-name" type="text" name="middle-name" value="0" class="form-control col-md-3 col-xs-12"></td>
+						                          		<td><input path="allAvailableDocuments[${status.index}].selected" type="checkbox" class="flat" /></td>
+						                          		<td><form:input path="allAvailableDocuments[${status.index}].orderDocument.document.name" value="${d.orderDocument.document.name }"  class="form-control col-md-3 col-xs-12" /></td>
+						                      			<td><form:input path="allAvailableDocuments[${status.index}].orderDocument.documentAmount" class="form-control col-md-3 col-xs-12" /></td>
 						                        	</tr>
 						                      	</c:forEach>
 						                      </tbody>
@@ -257,11 +257,7 @@
 						                          	</span>
 						                        </label>
 						                        <div class="col-md-6 col-sm-6 col-xs-12">
-						                       		<select class="form-control">
-							                        	<c:forEach items="${optionPrints}" var="optionPrint">
-							                        		<option>${optionPrint.name }</option>
-				                      					</c:forEach>
-			                      					</select>
+						                       		<form:select path="selectedOptionPrint" items="${allPrintOptions}" itemValue="id" itemLabel="name" />
 			                        			</div>
 			                      			</div>
 			                      		</form>

@@ -10,11 +10,13 @@ import javax.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
 import org.neric.regents.model.District;
 import org.neric.regents.model.Document;
+import org.neric.regents.model.DocumentWrapper;
 import org.neric.regents.model.Exam;
 import org.neric.regents.model.ExamWrapper;
 import org.neric.regents.model.OptionPrint;
 import org.neric.regents.model.OptionScan;
 import org.neric.regents.model.Order;
+import org.neric.regents.model.OrderDocument;
 import org.neric.regents.model.OrderExam;
 import org.neric.regents.model.User;
 import org.neric.regents.model.UserProfile;
@@ -112,6 +114,15 @@ public class OrderController {
         		System.err.println(s.getOrderExam().getPearsonAnswerSheet());
         	}
         }
+        
+        for(DocumentWrapper d : orderForm.getAllAvailableDocuments())
+        {
+        	if(d.isSelected())
+        	{
+        		System.err.println(d.getOrderDocument().getDocument().getName());
+        		System.err.println(d.getOrderDocument().getDocumentAmount());
+        	}
+        }
 
         return "nextView"; 
     }
@@ -130,6 +141,11 @@ public class OrderController {
         for(Exam exam : exams)
         {
             orderForm.getAllAvailableExams().add(new ExamWrapper(new OrderExam(exam)));
+        }
+        
+        for(Document document : documents)
+        {
+        	orderForm.getAllAvailableDocuments().add(new DocumentWrapper(new OrderDocument(document)));
         }
 
         return orderForm;
