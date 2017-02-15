@@ -10,6 +10,11 @@ public class XExamWrapper
         this.orderExam = orderExam;
 	 }
 
+	public XExamWrapper()
+	{
+		super();
+	}
+
 	public boolean isSelected()
 	{
 		return selected;
@@ -29,4 +34,12 @@ public class XExamWrapper
 	{
 		this.orderExam = orderExam;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "XExamWrapper [selected=" + selected + ", orderExam=" + orderExam + "]";
+	}
+	
+	
 }

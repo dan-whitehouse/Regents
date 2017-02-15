@@ -23,6 +23,18 @@ public class OptionScan implements Serializable
 { 
 	private static final long serialVersionUID = 1L;
 
+	public OptionScan(Integer id, String name)
+	{
+		super();
+		this.id = id;
+		this.name = name;
+	}
+	
+	public OptionScan()
+	{
+		super();
+	}
+
 	@Id 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "option_scan_id", unique = true, nullable = false)
@@ -63,5 +75,11 @@ public class OptionScan implements Serializable
 	public void setOrdersScan(Set<Order> ordersScan)
 	{
 		this.ordersScan = ordersScan;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "OptionScan [id=" + id + ", name=" + name + "]";
 	}
 }

@@ -1,5 +1,6 @@
 package org.neric.regents.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -9,9 +10,16 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 import org.neric.regents.converture.OptionPrintEditor;
+import org.neric.regents.converture.OptionScanEditor;
+import org.neric.regents.model.Exam;
 import org.neric.regents.model.OptionPrint;
+import org.neric.regents.model.OptionScan;
+import org.neric.regents.model.OrderExam;
+import org.neric.regents.model.XExamWrapper;
 import org.neric.regents.model.XForm2;
+import org.neric.regents.service.ExamService;
 import org.neric.regents.service.OptionPrintService;
+import org.neric.regents.service.OptionScanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +32,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+
+/**
+ *
+ * @author daniel.whitehouse
+ * http://howtodoinjava.com/spring/spring-mvc/spring-mvc-populate-and-validate-dropdown-example/
+ * http://docs.spring.io/spring/docs/current/spring-framework-reference/html/spring-form-tld.html#spring-form.tld.hidden
+ * https://www.mkyong.com/spring-mvc/spring-mvc-radiobutton-and-radiobuttons-example/
+ * https://stackoverflow.com/questions/41861528/spring-4-mvc-form-create-object-with-list-of-sub-objects/41870452?noredirect=1#comment71414339_41870452
+ */
+
 
 @Controller
 @RequestMapping("/")
@@ -39,17 +57,40 @@ public class XController2
     }
 	
 	@Autowired
+	ExamService examService;
+	
+	@Autowired
 	OptionPrintService optionPrintService;
+	
+	@Autowired
+	OptionScanService optionScanService;
 	
 	@Autowired
 	OptionPrintEditor optionPrintEditor;
 	
+	@Autowired
+	OptionScanEditor optionScanEditor;
 	
+
 	@InitBinder
-    public void initBinder(WebDataBinder binder) {
+    public void initBinder(WebDataBinder binder) 
+	{
         binder.registerCustomEditor(OptionPrint.class, optionPrintEditor);
+        binder.registerCustomEditor(OptionScan.class, optionScanEditor);
     }
 
+	@ModelAttribute("allExamOptions")
+    public List<XExamWrapper> populateExamOptions() 
+    {
+        List<XExamWrapper> options = new ArrayList<>();
+        
+        for(Exam e : examService.findAllExams())
+        {
+        	options.add(new XExamWrapper(new OrderExam(e)));
+        }
+        return options;
+    }
+	
 	@ModelAttribute("allPrintOptions")
     public List<OptionPrint> populatePrintOptions() 
     {
@@ -57,17 +98,13 @@ public class XController2
         return options;
     }
 	
+	@ModelAttribute("allScanOptions")
+    public List<OptionScan> populateScanOptions() 
+    {
+        List<OptionScan> options = optionScanService.findAllOptionScans();
+        return options;
+    }
 	
-//	@ModelAttribute("allPrintOptions")
-//    public List<OptionPrint> populatePrintOptions() 
-//    {
-//        ArrayList<OptionPrint> options = new ArrayList<OptionPrint>();
-//        options.add(new OptionPrint(-1,  "Select Department"));
-//        options.add(new OptionPrint(1,  "Human Resource"));
-//        options.add(new OptionPrint(2,  "Finance"));
-//        options.add(new OptionPrint(3,  "Information Technology"));
-//        return options;
-//    }
 	
 	@RequestMapping(value = { "/xorder2" }, method = RequestMethod.GET)
     public String setupForm(Model model) 
@@ -101,6 +138,19 @@ public class XController2
 		// manager.createNewRecord(employeeVO);
 		         
         System.out.println(xForm);
+        System.out.println(xForm.getSelectedOptionPrint().getName());
+        System.out.println(xForm.getSelectedOptionScan().getName());
+        
+        for(XExamWrapper e : xForm.getSelectedExams())
+        {
+        	if(e.isSelected())
+        	{
+        		System.out.println(e.getOrderExam().getExam().getId() + " - " + e.getOrderExam().getExamAmount());
+        	}
+        }
+        
+        
+        
 		 
 		// Mark Session Complete
 		status.setComplete();

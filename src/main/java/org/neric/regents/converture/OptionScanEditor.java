@@ -4,30 +4,32 @@ import java.beans.PropertyEditorSupport;
 
 import org.apache.commons.lang3.StringUtils;
 import org.neric.regents.model.OptionPrint;
+import org.neric.regents.model.OptionScan;
 import org.neric.regents.service.OptionPrintService;
 import org.neric.regents.service.OptionPrintServiceImpl;
+import org.neric.regents.service.OptionScanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Component("optionPrintEditor")
-@Service("optionPrintEditor")
-public class OptionPrintEditor extends PropertyEditorSupport 
+@Component("optionScanEditor")
+@Service("optionScanEditor")
+public class OptionScanEditor extends PropertyEditorSupport 
 {	
 	@Autowired
-	OptionPrintService optionPrintService;
+	OptionScanService optionScanService;
 	
     @Override
     public void setAsText(String id) 
     {    	
-        OptionPrint optionPrint = null;
+        OptionScan optionPrint = null;
         Integer opId = Integer.parseInt(id);
 
-        for(OptionPrint op :  optionPrintService.findAllOptionPrints())
+        for(OptionScan os :  optionScanService.findAllOptionScans())
         {
-        	if(op.getId().intValue() == opId.intValue())	
+        	if(os.getId().intValue() == opId.intValue())	
 			{
-        		optionPrint = new OptionPrint(op.getId(), op.getName());
+        		optionPrint = new OptionScan(os.getId(), os.getName());
 			}
         }
         this.setValue(optionPrint);

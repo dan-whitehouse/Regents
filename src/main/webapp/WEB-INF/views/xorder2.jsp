@@ -33,10 +33,36 @@
 						<div class="x_content">
 							<form:form method="POST" modelAttribute="xForm2" class="form-horizontal form-label-left">
 							
-							<!-- DROPDOWN code -->
+							<!-- EXAMS -->
+							<h2>Exams</h2>
+							<table>
+								<tr>
+									<th width="200px">Select</th>
+									<th width="200px">Name</th>
+									<th width="200px">Exam Amount</th>
+								</tr>
+							    <c:forEach items="${allExamOptions}" var="x" varStatus="status">
+							        <tr>
+							            <th scope="row"><form:checkbox path="selectedExams[${status.index}].selected" class="flat"/></th>
+							            <td scope="row">${x.orderExam.exam.name}</td>
+							            <form:hidden path="selectedExams[${status.index}].orderExam.exam.name" value="${x.orderExam.exam.name}"/>
+							            <form:hidden path="selectedExams[${status.index}].orderExam.exam.id" value="${x.orderExam.exam.id}"/>
+							            
+							            <th scope="row"><form:input path="selectedExams[${status.index}].orderExam.examAmount" type="text" class="form-control col-md-3 col-xs-12"/></th>
+							            
+							        </tr>
+							    </c:forEach>
+						    </table>
+							
+							<br /> <br /> 
+							<!-- PRINT OPTIONS - Dropdown -->
 							<form:select path="selectedOptionPrint" items="${allPrintOptions}" itemValue="id" itemLabel="name" />
-							    
-							    
+							
+							<br /> <br /> 
+							<!-- SCAN OPTIONS - RadioButtons -->
+							<form:radiobuttons path="selectedOptionScan" items="${allScanOptions}" itemValue="id" itemLabel="name" cssClass="radio flat"/>
+							
+
 							    <!-- SUBMIT -->
 							    <div class="ln_solid"></div>
 								<div class="form-group">
