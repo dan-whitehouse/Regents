@@ -62,23 +62,65 @@
                   </div>
                   <div class="x_content">
                       <div class="col-md-8 col-lg-8 col-sm-7">
-                      	 <p>
-                      	 Welcome to the NERIC Regents Order Form. For support, please contact the Testing and Evaluations Services team.
-                      	  </p>
+                      
+	                      <div class="bs-example" data-example-id="simple-jumbotron">
+	                    		<div class="jumbotron">
+	                      			<h1>Welcome!</h1>
+	                      			<p>For support, please contact the Testing and Evaluations Services team.</p>
+	                    		</div>
+						   </div>
+
                       </div>
+                     
                       <div class="col-md-4 col-lg-4 col-sm-5">
-                      <h3>Contact</h3>
-                      	<p>Anne Marie Bertram<br />
-						annemarie.bertram@neric.org</p>
-						<p>Matthew Coleman<br />
-						matthew.coleman@neric.org</p>
-						<p>Andrea Vamvas<br />
-						andrea.vamvas@neric.org<br /></p>
-						<p>Testing and Evaluation Services<br />
-						Phone: (518) 862-5314<br />
-						Fax: (518) 862-5396<br />
-						testing@neric.org</p>
-                      </div>
+		                  <ul class="list-unstyled msg_list">
+		                    <li>
+		                      <a>
+		                        <span>
+		                          <span>Anne Marie Bertram</span>
+		                        </span>
+		                        <span class="message">
+		                          annemarie.bertram@neric.org
+		                        </span>
+		                      </a>
+		                    </li>
+		                    <li>
+		                      <a>
+		                        <span>
+		                          <span>Matthew Coleman</span>
+		                        </span>
+		                        <span class="message">
+		                          matthew.coleman@neric.org
+		                        </span>
+		                      </a>
+		                    </li>
+		                    <li>
+		                      <a>
+		                        <span>
+		                          <span>Andrea Vamvas</span>
+		                        </span>
+		                        <span class="message">
+		                          andrea.vamvas@neric.org
+		                        </span>
+		                      </a>
+		                    </li>
+		                    <li>
+		                      <a>
+		                        <span>
+		                          <span>Testing and Evaluation Services</span>
+		                        </span>
+		                        <span class="message">
+		                          	Phone: (518) 862-5314<br />
+									Fax: (518) 862-5396<br />
+									testing@neric.org
+		                        </span>
+		                      </a>
+		                    </li>
+		                  </ul>
+		                </div>
+                      
+                      
+                      
                   </div>
                 </div>
               </div>

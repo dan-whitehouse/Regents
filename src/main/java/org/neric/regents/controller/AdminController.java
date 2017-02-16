@@ -297,6 +297,20 @@ public class AdminController {
 		return "redirect:/documents";
 	}
 	
+	@RequestMapping(value = { "/lock-document-{id}-{isLocked}" }, method = RequestMethod.GET)
+	public String lockDocument(@PathVariable int id, @PathVariable boolean isLocked) 
+	{
+		documentService.lockByDocumentId(id, isLocked);
+		return "redirect:/documents";
+	}
+	
+	@RequestMapping(value = { "/hide-document-{id}-{isHidden}" }, method = RequestMethod.GET)
+	public String hideDocument(@PathVariable int id, @PathVariable boolean isHidden) 
+	{
+		documentService.hideByDocumentId(id, isHidden);
+		return "redirect:/documents";
+	}
+	
 	
 	/************************** OTHER **************************/
 	private String getPrincipal()

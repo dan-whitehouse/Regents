@@ -49,6 +49,26 @@
 												<td>
 													<a href="<c:url value='/edit-document-${document.id}' />" class="btn btn-success custom-width">edit</a>
 													<a href="<c:url value='/delete-document-${document.id}' />" class="btn btn-danger custom-width">delete</a>
+													<!-- Visible -->
+													<c:choose>
+														<c:when test="${document.visible == true}">
+															<a href="<c:url value='/hide-document-${document.id}-false' />" class="btn btn-default custom-width">Unhide</a>
+														</c:when>
+														<c:otherwise>
+															<a href="<c:url value='/hide-document-${document.id}-true' />" class="btn btn-default custom-width">Hide</a>
+														</c:otherwise>
+													</c:choose>
+													<!-- Lock -->
+													<c:choose>
+														<c:when test="${document.locked == true}">
+															<a href="<c:url value='/lock-document-${document.id}-${!document.locked}' />" class="btn btn-dark custom-width">Unlock</a>
+														</c:when>
+														<c:otherwise>
+														
+															<a href="<c:url value='/lock-document-${document.id}-${!document.locked}' />" class="btn btn-dark custom-width">Lock</a>
+														</c:otherwise>
+													</c:choose>
+													
 												</td>
 					        				</sec:authorize>
 										</tr>

@@ -57,6 +57,10 @@ public class OrderForm implements Serializable
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "orderForms")
 	private Set<Document> documents = new HashSet<Document>(0);
 	
+	private boolean approved;
+	private boolean locked;
+	private boolean visible;
+	
 	public Integer getId()
 	{
 		return id;

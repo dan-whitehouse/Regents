@@ -36,7 +36,6 @@ public class DocumentServiceImpl implements DocumentService{
 		{
 			entity.setName(entity.getName());
 		}
-		
 	}
 
 	@Override
@@ -49,5 +48,29 @@ public class DocumentServiceImpl implements DocumentService{
 	public void saveDocument(Document document)
 	{
 		dao.save(document);
+	}
+
+	@Override
+	public void lockByDocumentId(int id, Boolean isLocked)
+	{
+		Document entity = dao.findById(id);
+		
+		System.err.println(id + " - " + isLocked + " - " + entity);
+		
+		if(entity != null)
+		{
+			entity.setLocked(isLocked);
+		}
+	}
+
+	@Override
+	public void hideByDocumentId(int id, Boolean isHidden)
+	{
+		Document entity = dao.findById(id);
+		if(entity != null)
+		{
+			entity.setVisible(isHidden);
+		}
+		
 	}
 }

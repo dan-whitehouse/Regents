@@ -23,6 +23,11 @@ public class OptionScan implements Serializable
 { 
 	private static final long serialVersionUID = 1L;
 
+	public OptionScan()
+	{
+		super();
+	}
+	
 	public OptionScan(Integer id, String name)
 	{
 		super();
@@ -30,9 +35,13 @@ public class OptionScan implements Serializable
 		this.name = name;
 	}
 	
-	public OptionScan()
+	public OptionScan(Integer id, String name, Boolean visible, Boolean locked)
 	{
 		super();
+		this.id = id;
+		this.name = name;
+		this.visible = visible;
+		this.locked = locked;
 	}
 
 	@Id 
@@ -43,10 +52,16 @@ public class OptionScan implements Serializable
 	@NotEmpty
 	@Column(name="name", unique=true, nullable=false)
 	private String name;
-		
+			
+	@Column(name="visible", unique=false, nullable=true)	
+	private Boolean visible;
+	
+	@Column(name="locked", unique=false, nullable=true)	
+	private Boolean locked;
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderScan")
 	private Set<Order> ordersScan = new HashSet<Order>(0);
-
+	
 	public Integer getId()
 	{
 		return id;
@@ -76,10 +91,30 @@ public class OptionScan implements Serializable
 	{
 		this.ordersScan = ordersScan;
 	}
+	
+	public Boolean getVisible()
+	{
+		return visible;
+	}
+
+	public void setVisible(Boolean visible)
+	{
+		this.visible = visible;
+	}
+
+	public Boolean getLocked()
+	{
+		return locked;
+	}
+
+	public void setLocked(Boolean locked)
+	{
+		this.locked = locked;
+	}
 
 	@Override
 	public String toString()
 	{
-		return "OptionScan [id=" + id + ", name=" + name + "]";
+		return "OptionScan [id=" + id + ", name=" + name + ", visible=" + visible + ", locked=" + locked + "]";
 	}
 }

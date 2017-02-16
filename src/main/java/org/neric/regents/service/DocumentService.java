@@ -22,4 +22,8 @@ public interface DocumentService {
 
 	void deleteByDocumentId(int id);
 	
+	void lockByDocumentId(int id, Boolean locked);
+	
+	void hideByDocumentId(int id, Boolean hidden);
+	
 }
