@@ -21,4 +21,9 @@ public interface OptionScanService
 	void update(OptionScan optionScan);
 	
 	void delete(int id);
+	
+	void lockByOptionScanId(int id, Boolean isLocked);
+	
+	void hideByOptionScanId(int id, Boolean isHidden);
+	
 }

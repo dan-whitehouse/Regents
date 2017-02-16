@@ -9,6 +9,7 @@ package org.neric.regents.service;
 import java.util.List;
 
 import org.neric.regents.dao.OptionPrintDao;
+import org.neric.regents.model.Document;
 import org.neric.regents.model.OptionPrint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,5 +52,25 @@ public class OptionPrintServiceImpl implements OptionPrintService
 	{
 		dao.delete(id);
 		
+	}
+
+	@Override
+	public void lockByOptionPrintId(int id, Boolean isLocked)
+	{
+		OptionPrint entity = dao.findById(id);
+		if(entity != null)
+		{
+			entity.setLocked(isLocked);
+		}
+	}
+
+	@Override
+	public void hideByOptionPrintId(int id, Boolean isHidden)
+	{
+		OptionPrint entity = dao.findById(id);
+		if(entity != null)
+		{
+			entity.setVisible(isHidden);
+		}
 	}
 }

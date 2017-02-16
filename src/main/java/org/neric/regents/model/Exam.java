@@ -24,6 +24,29 @@ public class Exam implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 
+	public Exam()
+	{
+		super();
+	}
+
+	public Exam(Integer id, String name, String code)
+	{
+		super();
+		this.id = id;
+		this.name = name;
+		this.code = code;
+	}
+	
+	public Exam(Integer id, String name, String code, Boolean visible, Boolean locked)
+	{
+		super();
+		this.id = id;
+		this.name = name;
+		this.code = code;
+		this.visible = visible;
+		this.locked = locked;
+	}
+
 	@Id 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "exam_id", unique = true, nullable = false)
@@ -37,9 +60,14 @@ public class Exam implements Serializable
 	@Column(name="code", unique=true, nullable=false)
 	private String code;
 	
+	@Column(name="visible", unique=false, nullable=true)	
+	private Boolean visible;
+	
+	@Column(name="locked", unique=false, nullable=true)	
+	private Boolean locked;
+		
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "exam")
 	private Set<OrderExam> exams = new HashSet<OrderExam>(0);
-
 	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "orderForm_exam", joinColumns = { @JoinColumn(name = "exam_id", nullable = false, updatable = false)},
@@ -96,5 +124,25 @@ public class Exam implements Serializable
 	public void setOrderForms(Set<OrderForm> orderForms)
 	{
 		this.orderForms = orderForms;
+	}
+
+	public Boolean getVisible()
+	{
+		return visible;
+	}
+
+	public void setVisible(Boolean visible)
+	{
+		this.visible = visible;
+	}
+
+	public Boolean getLocked()
+	{
+		return locked;
+	}
+
+	public void setLocked(Boolean locked)
+	{
+		this.locked = locked;
 	}
 }

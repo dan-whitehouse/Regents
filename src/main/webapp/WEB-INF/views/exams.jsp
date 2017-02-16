@@ -51,6 +51,24 @@
 												<td>
 													<a href="<c:url value='/edit-exam-${exam.id}' />" class="btn btn-success custom-width">edit</a>
 													<a href="<c:url value='/delete-exam-${exam.id}' />" class="btn btn-danger custom-width">delete</a>
+													<!-- Visible -->
+													<c:choose>
+														<c:when test="${exam.visible == true}">
+															<a href="<c:url value='/hide-exam-${exam.id}-false' />" class="btn btn-default custom-width">Hide</a>
+														</c:when>
+														<c:otherwise>
+															<a href="<c:url value='/hide-exam-${exam.id}-true' />" class="btn btn-default custom-width">Unhide</a>
+														</c:otherwise>
+													</c:choose>
+													<!-- Lock -->
+													<c:choose>
+														<c:when test="${exam.locked == true}">
+															<a href="<c:url value='/lock-exam-${exam.id}-false' />" class="btn btn-dark custom-width">Unlock</a>
+														</c:when>
+														<c:otherwise>
+															<a href="<c:url value='/lock-exam-${exam.id}-true' />" class="btn btn-dark custom-width">Lock</a>
+														</c:otherwise>
+													</c:choose>
 												</td>
 
 					        				</sec:authorize>

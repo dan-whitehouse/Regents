@@ -8,8 +8,12 @@ import org.neric.regents.model.Setting;
 public interface SettingDAO {
 
 	List<Setting> findAll();
-	
-	//School findByType(String type);
-	
+
 	Setting findById(int id);
+	
+	Setting findByKey(String key);
+
+	void deleteBySettingId(int id);
+
+	void save(Setting setting);
 }

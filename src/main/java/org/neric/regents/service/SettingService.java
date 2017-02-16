@@ -1,18 +1,19 @@
 package org.neric.regents.service;
 
 import java.util.List;
-
-import org.neric.regents.model.School;
 import org.neric.regents.model.Setting;
-import org.neric.regents.model.UserProfile;
-
 
 public interface SettingService {
 
 	Setting findById(int id);
 
-//	School findByType(String type);
+	Setting findByKey(String key);
 	
 	List<Setting> findAll();
 	
+	void saveSetting(Setting setting);
+
+	void updateSetting(Setting setting);
+
+	void deleteBySettingId(int id);
 }

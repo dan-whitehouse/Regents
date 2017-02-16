@@ -9,6 +9,7 @@ package org.neric.regents.service;
 import java.util.List;
 import org.neric.regents.dao.OrderDAO;
 import org.neric.regents.dao.OrderFormDAO;
+import org.neric.regents.model.Document;
 import org.neric.regents.model.OrderForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,5 +62,25 @@ public class OrderFormServiceImpl implements OrderFormService
 	{
 		dao.deleteOrderForm(id);
 		
+	}
+
+	@Override
+	public void lockByOrderFormId(int id, Boolean isLocked)
+	{
+		OrderForm entity = dao.findById(id);
+		if(entity != null)
+		{
+			entity.setLocked(isLocked);
+		}
+	}
+
+	@Override
+	public void hideByOrderFormId(int id, Boolean isHidden)
+	{
+		OrderForm entity = dao.findById(id);
+		if(entity != null)
+		{
+			entity.setVisible(isHidden);
+		}
 	}
 }

@@ -20,5 +20,9 @@ public interface ExamService {
 	void deleteByExamName(String examName);
 	
 	void deleteByExamId(int id);
+	
+	void lockByExamId(int id, Boolean locked);
+	
+	void hideByExamId(int id, Boolean hidden);
 
 }

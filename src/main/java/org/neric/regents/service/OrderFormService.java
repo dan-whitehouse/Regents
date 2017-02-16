@@ -24,4 +24,8 @@ public interface OrderFormService
 	void updateOrderForm(OrderForm orderForm);
 	
 	void deleteOrderForm(int id);
+	
+	void lockByOrderFormId(int id, Boolean locked);
+	
+	void hideByOrderFormId(int id, Boolean hidden);
 }

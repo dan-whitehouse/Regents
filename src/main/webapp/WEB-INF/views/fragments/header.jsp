@@ -9,9 +9,11 @@
 <c:url value="/users" var="users" />
 <c:url value="/createUser" var="createUser" />
 <c:url value="/orderForms" var="orderForms" />
-<c:url value="/orderForm" var="orderForm" />
+<c:url value="/createOrderForm" var="createOrderForm" />
 <c:url value="/documents" var="documents" />
 <c:url value="/exams" var="exams" />
+<c:url value="/printOptions" var="printOptions" />
+<c:url value="/scanOptions" var="scanOptions" />
 <c:url value="/settings" var="settings" />
 <!DOCTYPE html>
 <html lang="en">
@@ -89,11 +91,13 @@
 					                        <li><a><i class="fa fa-check-square"></i> Order Forms <span class="fa fa-chevron-down"></span></a>
 					                        	<ul class="nav child_menu">
 				                        			<li class="sub_menu"><a href="${orderForms}">Form List</a></li>
-					                        		<li class="sub_menu"><a href="${orderForm}">Create Form</a></li>
+					                        		<li class="sub_menu"><a href="${createOrderForm}">Create Form</a></li>
 				                        		</ul>
 			                        		</li>
 			                        		<li><a href="${documents}"><i class="fa fa-file-text"></i> Documents </a></li>
 			                        		<li><a href="${exams}"><i class="fa fa-list"></i> Exams </a></li>
+			                        		<li><a href="${printOptions}"><i class="fa fa-print"></i> Print Options </a></li>
+			                        		<li><a href="${scanOptions}"><i class="fa fa-clipboard"></i> Scan Options </a></li>
 										</ul>
 									</li>
 								</ul>

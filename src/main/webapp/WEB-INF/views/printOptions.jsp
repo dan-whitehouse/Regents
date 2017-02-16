@@ -2,7 +2,7 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-<c:url value="/createDocument" var="createDocument" />
+<c:url value="/createPrintOption" var="createPrintOption" />
 <html>
 	<jsp:include page="fragments/header.jsp" />
 	<!-- page content -->
@@ -13,14 +13,14 @@
 				<div class="col-md-12 col-sm-12 col-xs-12">
 					<div class="x_panel">
 						<div class="x_title">
-							<h2>Documents</h2>
+							<h2>Print Options</h2>
 							<ul class="nav navbar-right panel_toolbox">
 								<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
 								<li class="dropdown">
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
 									<ul class="dropdown-menu" role="menu">
 										<li>
-											<a href="${createDocument}">Add Document</a>
+											<a href="${createPrintOption}">Add Print Option</a>
 										</li>
 									</ul>
 								</li>
@@ -35,36 +35,36 @@
 							<table id="datatable" class="table table-striped table-bordered">
 								<thead>
 									<tr>
-										<th>Document Name</th>
+										<th>Option Name</th>
 										<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
 											<th>Management</th>
 										</sec:authorize>
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach items="${documents}" var="document">
+									<c:forEach items="${printOptions}" var="printOption">
 										<tr>
-											<td>${document.name}</td>
+											<td>${printOption.name}</td>
 										    <sec:authorize access="hasRole('ADMIN')">
 												<td>
-													<a href="<c:url value='/edit-document-${document.id}' />" class="btn btn-success custom-width">edit</a>
-													<a href="<c:url value='/delete-document-${document.id}' />" class="btn btn-danger custom-width">delete</a>
+													<a href="<c:url value='/edit-printOption-${printOption.id}' />" class="btn btn-success custom-width">edit</a>
+													<a href="<c:url value='/delete-printOption-${printOption.id}' />" class="btn btn-danger custom-width">delete</a>
 													<!-- Visible -->
 													<c:choose>
-														<c:when test="${document.visible == true}">
-															<a href="<c:url value='/hide-document-${document.id}-false' />" class="btn btn-default custom-width">Unhide</a>
+														<c:when test="${printOption.visible == true}">
+															<a href="<c:url value='/hide-printOption-${printOption.id}-false' />" class="btn btn-default custom-width">Unhide</a>
 														</c:when>
 														<c:otherwise>
-															<a href="<c:url value='/hide-document-${document.id}-true' />" class="btn btn-default custom-width">Hide</a>
+															<a href="<c:url value='/hide-printOption-${printOption.id}-true' />" class="btn btn-default custom-width">Hide</a>
 														</c:otherwise>
 													</c:choose>
 													<!-- Lock -->
 													<c:choose>
 														<c:when test="${document.locked == true}">
-															<a href="<c:url value='/lock-document-${document.id}-${!document.locked}' />" class="btn btn-dark custom-width">Unlock</a>
+															<a href="<c:url value='/lock-printOption-${printOption.id}-false' />" class="btn btn-dark custom-width">Unlock</a>
 														</c:when>
 														<c:otherwise>
-															<a href="<c:url value='/lock-document-${document.id}-${!document.locked}' />" class="btn btn-dark custom-width">Lock</a>
+															<a href="<c:url value='/lock-printOption-${printOption.id}-true' />" class="btn btn-dark custom-width">Lock</a>
 														</c:otherwise>
 													</c:choose>
 												</td>

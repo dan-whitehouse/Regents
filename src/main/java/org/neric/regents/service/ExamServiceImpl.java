@@ -3,6 +3,7 @@ package org.neric.regents.service;
 import java.util.List;
 
 import org.neric.regents.dao.ExamDao;
+import org.neric.regents.model.Document;
 import org.neric.regents.model.Exam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,5 +58,25 @@ public class ExamServiceImpl implements ExamService{
 	{
 		dao.deleteByExamId(id);
 	}
-	
+
+	@Override
+	public void lockByExamId(int id, Boolean isLocked)
+	{
+		Exam entity = dao.findById(id);
+		if(entity != null)
+		{
+			entity.setLocked(isLocked);
+		}
+		
+	}
+
+	@Override
+	public void hideByExamId(int id, Boolean isHidden)
+	{
+		Exam entity = dao.findById(id);
+		if(entity != null)
+		{
+			entity.setVisible(isHidden);
+		}
+	}
 }

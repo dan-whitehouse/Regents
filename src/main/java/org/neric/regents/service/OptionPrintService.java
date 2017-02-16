@@ -21,4 +21,8 @@ public interface OptionPrintService
 	void update(OptionPrint optionPrint);
 	
 	void delete(int id);
+	
+	void lockByOptionPrintId(int id, Boolean isLocked);
+	
+	void hideByOptionPrintId(int id, Boolean isHidden);
 }

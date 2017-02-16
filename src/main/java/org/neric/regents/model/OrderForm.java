@@ -29,6 +29,33 @@ public class OrderForm implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 
+	public OrderForm()
+	{
+		super();
+	}
+
+	public OrderForm(Integer id, String uuid, String name, Date startDate, Date endDate)
+	{
+		super();
+		this.id = id;
+		this.uuid = uuid;
+		this.name = name;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+
+	public OrderForm(Integer id, String uuid, String name, Date startDate, Date endDate, Boolean visible, Boolean locked)
+	{
+		super();
+		this.id = id;
+		this.uuid = uuid;
+		this.name = name;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.visible = visible;
+		this.locked = locked;
+	}
+
 	@Id 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "orderForm_id", unique = true, nullable = false)
@@ -50,6 +77,12 @@ public class OrderForm implements Serializable
 	@Temporal(TemporalType.DATE)
 	@Column(name = "endDate", unique = false, nullable = false)
 	private Date endDate;
+		
+	@Column(name="visible", unique=false, nullable=true)	
+	private Boolean visible;
+	
+	@Column(name="locked", unique=false, nullable=true)	
+	private Boolean locked;
 	
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "orderForms")
 	private Set<Exam> exams = new HashSet<Exam>(0);
@@ -57,9 +90,7 @@ public class OrderForm implements Serializable
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "orderForms")
 	private Set<Document> documents = new HashSet<Document>(0);
 	
-	private boolean approved;
-	private boolean locked;
-	private boolean visible;
+	
 	
 	public Integer getId()
 	{
@@ -130,4 +161,26 @@ public class OrderForm implements Serializable
 	{
 		this.documents = documents;
 	}
+
+	public Boolean getVisible()
+	{
+		return visible;
+	}
+
+	public void setVisible(Boolean visible)
+	{
+		this.visible = visible;
+	}
+
+	public Boolean getLocked()
+	{
+		return locked;
+	}
+
+	public void setLocked(Boolean locked)
+	{
+		this.locked = locked;
+	}
+	
+	
 }

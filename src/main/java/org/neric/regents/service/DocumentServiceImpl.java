@@ -54,9 +54,6 @@ public class DocumentServiceImpl implements DocumentService{
 	public void lockByDocumentId(int id, Boolean isLocked)
 	{
 		Document entity = dao.findById(id);
-		
-		System.err.println(id + " - " + isLocked + " - " + entity);
-		
 		if(entity != null)
 		{
 			entity.setLocked(isLocked);
