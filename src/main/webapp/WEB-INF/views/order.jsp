@@ -111,7 +111,7 @@
 										</li>
 									</ul>
 									
-									<form:form method="POST" modelAttribute="wizard" class="form-horizontal form-label-left">
+									<form:form method="POST" modelAttribute="formWizard" class="form-horizontal form-label-left">
 									<div id="step-1">
 										<div class="col-md-2 col-sm-2 col-xs-12"></div><!-- Empty div for proper spacing -->
 										<div class="col-md-7 col-sm-7 col-xs-12">
@@ -169,16 +169,17 @@
 						                        </tr>
 						                      </thead>
 						                      <tbody>
-						                      	<c:forEach items="${wizard.allAvailableExams}" var="w" varStatus="status">
+						                      	<c:forEach items="${allExamOptions}" var="e" varStatus="status">
+						                      		<form:hidden path="selectedExams[${status.index}].orderExam.exam.id" value="${e.orderExam.exam.id}"/>
 						                      		<tr>
-						                      			<td><input path="allAvailableExams[${status.index}].selected" type="checkbox" class="flat" /></td>
-						                      			<td><form:input path="allAvailableExams[${status.index}].orderExam.exam.name" value="${w.orderExam.exam.name } - ${w.orderExam.exam.code}"  class="form-control col-md-3 col-xs-12" /></td>
-						                      			<td><form:input path="allAvailableExams[${status.index}].orderExam.examAmount" class="form-control col-md-3 col-xs-12" /></td>
-						                          		<td><form:input path="allAvailableExams[${status.index}].orderExam.answerSheetAmount" class="form-control col-md-3 col-xs-12" /></td>
-						                          		<td><form:input path="allAvailableExams[${status.index}].orderExam.studentsPerCSV" class="form-control col-md-3 col-xs-12" /></td>
+						                      			<td><form:checkbox path="selectedExams[${status.index}].selected" class="flat"/></td>
+						                      			<td><form:input path="selectedExams[${status.index}].orderExam.exam.name" value="${e.orderExam.exam.name } - ${e.orderExam.exam.code}"  class="form-control col-md-3 col-xs-12" /></td>
+						                      			<td><form:input path="selectedExams[${status.index}].orderExam.examAmount" class="form-control col-md-3 col-xs-12" /></td>
+						                          		<td><form:input path="selectedExams[${status.index}].orderExam.answerSheetAmount" class="form-control col-md-3 col-xs-12" /></td>
+						                          		<td><form:input path="selectedExams[${status.index}].orderExam.studentsPerCSV" class="form-control col-md-3 col-xs-12" /></td>
 						                          		<c:choose>
-						                          			<c:when test="${w.orderExam.exam.name == 'Algebra 2 (Common Core)'}">
-						                          				<th scope="row"><input path="allAvailableExams[${status.index}].pasSelected" type="checkbox" class="flat"></th>
+						                          			<c:when test="${e.orderExam.exam.name == 'Algebra 2 (Common Core)'}">
+						                          				<th scope="row"><form:checkbox path="selectedExams[${status.index}].pasSelected" class="flat"/></th>
 						                          			</c:when>
 						                          			<c:otherwise>
 						                          				<th scope="row"></th>
@@ -203,11 +204,12 @@
 						                        </tr>
 						                      </thead>
 						                      <tbody>
-						                      	<c:forEach items="${wizard.allAvailableDocuments }" var="d" varStatus="status">
+						                      	<c:forEach items="${allDocumentOptions}" var="d" varStatus="status">
+						                      		<form:hidden path="selectedDocuments[${status.index}].orderDocument.document.id" value="${d.orderDocument.document.id}"/>
 						                      		<tr>
-						                          		<td><input path="allAvailableDocuments[${status.index}].selected" type="checkbox" class="flat" /></td>
-						                          		<td><form:input path="allAvailableDocuments[${status.index}].orderDocument.document.name" value="${d.orderDocument.document.name }"  class="form-control col-md-3 col-xs-12" /></td>
-						                      			<td><form:input path="allAvailableDocuments[${status.index}].orderDocument.documentAmount" class="form-control col-md-3 col-xs-12" /></td>
+						                          		<td><input path="selectedDocuments[${status.index}].selected" type="checkbox" class="flat" /></td>
+						                          		<td><form:input path="selectedDocuments[${status.index}].orderDocument.document.name" value="${d.orderDocument.document.name }"  class="form-control col-md-3 col-xs-12" /></td>
+						                      			<td><form:input path="selectedDocuments[${status.index}].orderDocument.documentAmount" class="form-control col-md-3 col-xs-12" /></td>
 						                        	</tr>
 						                      	</c:forEach>
 						                      </tbody>
@@ -224,13 +226,13 @@
 	 					                          	     </span>
 						                        </label>
 						                        <div class="col-md-6 col-sm-6 col-xs-12">
-						                        	<c:forEach items="${optionScans}" var="optionScan">
-						                        		<div class="radio">
-							                            <label>
-							                              <input type="radio" class="flat" checked name="iCheck"/>${optionScan.name }
-							                            </label>
-							                          </div>
-						                        	</c:forEach>
+<%-- 						                        	<c:forEach items="${optionScans}" var="optionScan"> --%>
+<!-- 						                        		<div class="radio"> -->
+<!-- 							                            <label> -->
+<%-- 							                              <input type="radio" class="flat" checked name="iCheck"/>${optionScan.name } --%>
+<!-- 							                            </label> -->
+<!-- 							                          </div> -->
+<%-- 						                        	</c:forEach> --%>
 			                        			</div>
 			                      			</div>
 			                      			<br />
@@ -257,7 +259,7 @@
 						                          	</span>
 						                        </label>
 						                        <div class="col-md-6 col-sm-6 col-xs-12">
-						                       		<form:select path="selectedOptionPrint" items="${allPrintOptions}" itemValue="id" itemLabel="name" />
+<%-- 						                       		<form:select path="selectedOptionPrint" items="${allPrintOptions}" itemValue="id" itemLabel="name" /> --%>
 			                        			</div>
 			                      			</div>
 			                      		</form>
