@@ -28,4 +28,8 @@ public interface OrderFormService
 	void lockByOrderFormId(int id, Boolean locked);
 	
 	void hideByOrderFormId(int id, Boolean hidden);
+	
+	void lockByOrderFormUUID(String uuid, Boolean locked);
+	
+	void hideByOrderFormUUID(String uuid, Boolean hidden);
 }

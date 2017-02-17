@@ -2,7 +2,7 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-<c:url value="/createDocument" var="createDocument" />
+<c:url value="/admin/documents/create" var="createDocument" />
 <html>
 	<jsp:include page="fragments/header.jsp" />
 	<!-- page content -->
@@ -47,24 +47,24 @@
 											<td>${document.name}</td>
 										    <sec:authorize access="hasRole('ADMIN')">
 												<td>
-													<a href="<c:url value='/edit-document-${document.id}' />" class="btn btn-success custom-width">edit</a>
-													<a href="<c:url value='/delete-document-${document.id}' />" class="btn btn-danger custom-width">delete</a>
+													<a href="<c:url value='/admin/documents/${document.id}/edit' />" class="btn btn-success custom-width">edit</a>
+													<a href="<c:url value='/admin/documents/${document.id}/delete' />" class="btn btn-danger custom-width">delete</a>
 													<!-- Visible -->
 													<c:choose>
 														<c:when test="${document.visible == true}">
-															<a href="<c:url value='/hide-document-${document.id}-false' />" class="btn btn-default custom-width">Unhide</a>
+															<a href="<c:url value='/admin/documents/${document.id}/hide/false' />" class="btn btn-default custom-width">Hide</a>
 														</c:when>
 														<c:otherwise>
-															<a href="<c:url value='/hide-document-${document.id}-true' />" class="btn btn-default custom-width">Hide</a>
+															<a href="<c:url value='/admin/documents/${document.id}/hide/true' />" class="btn btn-default custom-width">Unhide</a>
 														</c:otherwise>
 													</c:choose>
 													<!-- Lock -->
 													<c:choose>
 														<c:when test="${document.locked == true}">
-															<a href="<c:url value='/lock-document-${document.id}-${!document.locked}' />" class="btn btn-dark custom-width">Unlock</a>
+															<a href="<c:url value='/admin/documents/${document.id}/lock/false' />" class="btn btn-dark custom-width">Unlock</a>
 														</c:when>
 														<c:otherwise>
-															<a href="<c:url value='/lock-document-${document.id}-${!document.locked}' />" class="btn btn-dark custom-width">Lock</a>
+															<a href="<c:url value='/admin/documents/${document.id}/lock/true' />" class="btn btn-dark custom-width">Lock</a>
 														</c:otherwise>
 													</c:choose>
 												</td>

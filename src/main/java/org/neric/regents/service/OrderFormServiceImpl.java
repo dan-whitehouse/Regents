@@ -83,4 +83,25 @@ public class OrderFormServiceImpl implements OrderFormService
 			entity.setVisible(isHidden);
 		}
 	}
+
+	@Override
+	public void lockByOrderFormUUID(String uuid, Boolean isLocked) 
+	{	
+		OrderForm entity = dao.findByUUID(uuid);
+		if(entity != null)
+		{
+			entity.setLocked(isLocked);
+		}	
+	}
+
+	@Override
+	public void hideByOrderFormUUID(String uuid, Boolean isHidden) 
+	{
+		OrderForm entity = dao.findByUUID(uuid);
+		if(entity != null)
+		{
+			entity.setVisible(isHidden);
+		}	
+		
+	}
 }

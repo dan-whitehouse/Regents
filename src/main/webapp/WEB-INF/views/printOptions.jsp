@@ -2,7 +2,7 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-<c:url value="/createPrintOption" var="createPrintOption" />
+<c:url value="/admin/printOptions/create" var="createPrintOption" />
 <html>
 	<jsp:include page="fragments/header.jsp" />
 	<!-- page content -->
@@ -47,24 +47,24 @@
 											<td>${printOption.name}</td>
 										    <sec:authorize access="hasRole('ADMIN')">
 												<td>
-													<a href="<c:url value='/edit-printOption-${printOption.id}' />" class="btn btn-success custom-width">edit</a>
-													<a href="<c:url value='/delete-printOption-${printOption.id}' />" class="btn btn-danger custom-width">delete</a>
+													<a href="<c:url value='/admin/printOptions/${printOption.id}/edit' />" class="btn btn-success custom-width">edit</a>
+													<a href="<c:url value='/admin/printOptions/${printOption.id}/delete' />" class="btn btn-danger custom-width">delete</a>
 													<!-- Visible -->
 													<c:choose>
 														<c:when test="${printOption.visible == true}">
-															<a href="<c:url value='/hide-printOption-${printOption.id}-false' />" class="btn btn-default custom-width">Unhide</a>
+															<a href="<c:url value='/admin/printOptions/${printOption.id}/hide/false' />" class="btn btn-default custom-width">Hide</a>
 														</c:when>
 														<c:otherwise>
-															<a href="<c:url value='/hide-printOption-${printOption.id}-true' />" class="btn btn-default custom-width">Hide</a>
+															<a href="<c:url value='/admin/printOptions/${printOption.id}/hide/true' />" class="btn btn-default custom-width">Unide</a>
 														</c:otherwise>
 													</c:choose>
 													<!-- Lock -->
 													<c:choose>
 														<c:when test="${document.locked == true}">
-															<a href="<c:url value='/lock-printOption-${printOption.id}-false' />" class="btn btn-dark custom-width">Unlock</a>
+															<a href="<c:url value='/admin/printOptions/${printOption.id}/lock/false' />" class="btn btn-dark custom-width">Unlock</a>
 														</c:when>
 														<c:otherwise>
-															<a href="<c:url value='/lock-printOption-${printOption.id}-true' />" class="btn btn-dark custom-width">Lock</a>
+															<a href="<c:url value='/admin/printOptions/${printOption.id}/lock/true' />" class="btn btn-dark custom-width">Lock</a>
 														</c:otherwise>
 													</c:choose>
 												</td>

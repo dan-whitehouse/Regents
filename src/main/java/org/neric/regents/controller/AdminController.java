@@ -83,9 +83,101 @@ public class AdminController {
 	
 	@Autowired
 	SettingService settingService;
+	
+	@Autowired
+	AuthenticationTrustResolver authenticationTrustResolver;
 
+	
+	/************************** USERS **************************/
+	@RequestMapping(value = { "/admin/users" }, method = RequestMethod.GET)
+	public String listUsers(ModelMap model) 
+	{
+		List<User> users = userService.findAllUsers();
+		model.addAttribute("users", users);
+		model.addAttribute("loggedinuser", getPrincipal());
+		return "users";
+	}
+	
+	@RequestMapping(value = { "admin/users/create" }, method = RequestMethod.GET)
+	public String newUser(ModelMap model) 
+	{
+		User user = new User();
+		List<District> districts = districtService.findAllDistricts();
+		model.addAttribute("user", user);
+		model.addAttribute("districts", districts);
+		model.addAttribute("edit", false);
+		model.addAttribute("loggedinuser", getPrincipal());
+		return "createUser";
+	}
+	
+	@RequestMapping(value = { "admin/users/create" }, method = RequestMethod.POST)
+	public String saveUser(@Valid User user, BindingResult result, ModelMap model) 
+	{
+		if (result.hasErrors()) 
+		{
+			return "createUser";
+		}
+
+		if(!userService.isUserUsernameUnique(user.getId(), user.getUsername()))
+		{
+			FieldError usernameError =new FieldError("user","username",messageSource.getMessage("non.unique.username", new String[]{user.getUsername()}, Locale.getDefault()));
+		    result.addError(usernameError);
+			return "createUser";
+		}
+		
+		userService.saveUser(user);
+
+		model.addAttribute("success", "User: " + user.getUsername() + " was registered successfully");
+		model.addAttribute("returnLink", "/admin/users");
+		model.addAttribute("returnLinkText", "Users");
+		model.addAttribute("loggedinuser", getPrincipal());
+		return "success";
+	}
+	
+	@RequestMapping(value = { "/admin/users/{username}/edit" }, method = RequestMethod.POST)
+	public String updateUser(@Valid User user, BindingResult result, ModelMap model, @PathVariable String username) 
+	{
+		if (result.hasErrors()) 
+		{
+			return "createUser";
+		}
+
+		/*//Uncomment below 'if block' if you WANT TO ALLOW UPDATING USERNAME in UI which is a unique key to a User.
+		if(!userService.isUserUsernameUnique(user.getId(), user.getUsername())){
+			FieldError usernameError =new FieldError("user","username",messageSource.getMessage("non.unique.username", new String[]{user.getUsername()}, Locale.getDefault()));
+		    result.addError(usernameError);
+			return "registration";
+		}*/
+
+		userService.updateUser(user);
+
+		model.addAttribute("success", "User: " + user.getUsername() +  " was updated successfully");
+		model.addAttribute("returnLink", "/admin/users");
+		model.addAttribute("returnLinkText", "Users");
+		model.addAttribute("loggedinuser", getPrincipal());
+		return "success";
+	}
+	
+	@RequestMapping(value = { "/admin/users/{username}/edit" }, method = RequestMethod.GET)
+	public String editUser(@PathVariable String username, ModelMap model) 
+	{
+		User user = userService.findByUsername(username);
+		model.addAttribute("user", user);
+		model.addAttribute("edit", true);
+		model.addAttribute("loggedinuser", getPrincipal());
+		return "createUser";
+	}
+	
+	@RequestMapping(value = { "/admin/users/{username}/delete" }, method = RequestMethod.GET)
+	public String deleteUser(@PathVariable String username) 
+	{
+		userService.deleteUserByUsername(username);
+		return "redirect:/admin/users";
+	}
+	
+	
 	/************************** ORDER FORMS **************************/
-	@RequestMapping(value = { "/orderForms" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/orderForms" }, method = RequestMethod.GET)
 	public String listOrderForms(ModelMap model) {
 
 		List<OrderForm> orderForms = orderFormService.findAllOrderForms();
@@ -94,7 +186,7 @@ public class AdminController {
 		return "orderForms";
 	}
 	
-	@RequestMapping(value = { "/orderForm-{uuid}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/orderForms/{uuid}" }, method = RequestMethod.GET)
 	public String order(@PathVariable String uuid, ModelMap model) 
 	{
 		OrderForm orderForm = orderFormService.findByUUID(uuid);
@@ -104,38 +196,39 @@ public class AdminController {
 		return "orderForm";
 	}
 		
-	@RequestMapping(value = { "/createOrderForm" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/orderForms/create" }, method = RequestMethod.GET)
 	public String createOrderForm(ModelMap model) 
 	{
 		List<Exam> exams = examService.findAllExams();
 		List<Document> documents = documentService.findAllDocuments();
 
+		OrderForm orderForm = new OrderForm();
 		model.addAttribute("exams", exams);
 		model.addAttribute("documents", documents);
-		OrderForm orderForm = new OrderForm();
 		model.addAttribute("orderForm", orderForm);
 		model.addAttribute("edit", false);
 		model.addAttribute("loggedinuser", getPrincipal());
+		
 		return "createOrEditOrderForm";
 	}
 
-	@RequestMapping(value = { "/createOrderForm" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/admin/orderForms/create" }, method = RequestMethod.POST)
 	public String createOrderForm(@Valid OrderForm orderForm, BindingResult result, ModelMap model) 
 	{
 		if (result.hasErrors()) 
 		{
 			return "createOrEditOrderForm";
-		}
-		
+		}		
 		orderFormService.saveOrderForm(orderForm);
 
 		model.addAttribute("success", "OrderForm: " + orderForm.getName() + " was created successfully");
+		model.addAttribute("returnLink", "/admin/orderForms");
+		model.addAttribute("returnLinkText", "Order Forms");
 		model.addAttribute("loggedinuser", getPrincipal());
-
-		return "createOrEditOrderFormSuccess";
+		return "success";
 	}
 	
-	@RequestMapping(value = { "/edit-orderForm-{uuid}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/orderForms/{uuid}/edit" }, method = RequestMethod.GET)
 	public String editOrderForm(@PathVariable String uuid, ModelMap model) 
 	{
 		OrderForm orderForm = orderFormService.findByUUID(uuid);
@@ -144,10 +237,24 @@ public class AdminController {
 		model.addAttribute("loggedinuser", getPrincipal());
 		return "createOrEditOrderForm";
 	}
+	
+	@RequestMapping(value = { "/admin/orderForms/{uuid}/lock/{isLocked}" }, method = RequestMethod.GET)
+	public String lockOrderForm(@PathVariable String uuid, @PathVariable boolean isLocked) 
+	{
+		orderFormService.lockByOrderFormUUID(uuid, isLocked);
+		return "redirect:/admin/orderForms";
+	}
+	
+	@RequestMapping(value = { "/admin/orderForms/{uuid}/hide/{isHidden}" }, method = RequestMethod.GET)
+	public String hideOrderForm(@PathVariable String uuid, @PathVariable boolean isHidden) 
+	{
+		orderFormService.hideByOrderFormUUID(uuid, isHidden);
+		return "redirect:/admin/orderForms";
+	}
 
 
 	/************************** EXAMS **************************/
-	@RequestMapping(value = { "/exams" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/exams" }, method = RequestMethod.GET)
 	public String listExams(ModelMap model) {
 
 		List<Exam> exams = examService.findAllExams();
@@ -156,7 +263,7 @@ public class AdminController {
 		return "exams";
 	}
 	
-	@RequestMapping(value = { "/createExam" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/exams/create" }, method = RequestMethod.GET)
 	public String createExam(ModelMap model) 
 	{
 		Exam exam = new Exam();
@@ -166,23 +273,23 @@ public class AdminController {
 		return "createOrEditExam";
 	}
 
-	@RequestMapping(value = { "/createExam" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/admin/exams/create" }, method = RequestMethod.POST)
 	public String createExam(@Valid Exam exam, BindingResult result, ModelMap model) 
 	{
 		if (result.hasErrors()) 
 		{
 			return "createOrEditExam";
-		}
-		
+		}		
 		examService.saveExam(exam);
 
 		model.addAttribute("success", "Exam: " + exam.getName() + " was created successfully");
+		model.addAttribute("returnLink", "/admin/exams");
+		model.addAttribute("returnLinkText", "Exams");
 		model.addAttribute("loggedinuser", getPrincipal());
-
-		return "createOrEditExamSuccess";
+		return "success";
 	}
 	
-	@RequestMapping(value = { "/edit-exam-{id}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/exams/{id}/edit" }, method = RequestMethod.GET)
 	public String editExam(@PathVariable int id, ModelMap model) 
 	{
 		Exam exam = examService.findById(id);
@@ -192,7 +299,7 @@ public class AdminController {
 		return "createOrEditExam";
 	}
 	
-	@RequestMapping(value = { "/edit-exam-{id}" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/admin/exams/{id}/edit" }, method = RequestMethod.POST)
 	public String editExam(@Valid Exam exam, BindingResult result, ModelMap model, @PathVariable int id) 
 	{
 		if (result.hasErrors()) 
@@ -203,34 +310,36 @@ public class AdminController {
 		examService.updateExam(exam);
 
 		model.addAttribute("success", "Exam: " + exam.getName() + " - " + exam.getCode() +  " was updated successfully");
+		model.addAttribute("returnLink", "/admin/exams");
+		model.addAttribute("returnLinkText", "Exams");
 		model.addAttribute("loggedinuser", getPrincipal());
-		return "createOrEditExamSuccess";
+		return "success";
 	}
 
 
-	@RequestMapping(value = { "/delete-exam-{id}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/exams/{id}/delete" }, method = RequestMethod.GET)
 	public String deleteExam(@PathVariable int id) 
 	{
 		examService.deleteByExamId(id);
-		return "redirect:/exams";
+		return "redirect:/admin/exams";
 	}
 	
-	@RequestMapping(value = { "/lock-exam-{id}-{isLocked}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/exams/{id}/lock/{isLocked}" }, method = RequestMethod.GET)
 	public String lockExam(@PathVariable int id, @PathVariable boolean isLocked) 
 	{
 		examService.lockByExamId(id, isLocked);
-		return "redirect:/exams";
+		return "redirect:/admin/exams";
 	}
 	
-	@RequestMapping(value = { "/hide-exam-{id}-{isHidden}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/exams/{id}/hide/{isHidden}" }, method = RequestMethod.GET)
 	public String hideExam(@PathVariable int id, @PathVariable boolean isHidden) 
 	{
 		examService.hideByExamId(id, isHidden);
-		return "redirect:/exams";
+		return "redirect:/admin/exams";
 	}
 	
 	/************************** DOCUMENTS **************************/
-	@RequestMapping(value = { "/documents" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/documents" }, method = RequestMethod.GET)
 	public String listDocuments(ModelMap model) {
 
 		List<Document> documents = documentService.findAllDocuments();
@@ -239,7 +348,7 @@ public class AdminController {
 		return "documents";
 	}
 		
-	@RequestMapping(value = { "/createDocument" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/documents/create" }, method = RequestMethod.GET)
 	public String createDocument(ModelMap model) 
 	{
 		Document document = new Document();
@@ -249,23 +358,23 @@ public class AdminController {
 		return "createOrEditDocument";
 	}
 
-	@RequestMapping(value = { "/createDocument" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/admin/documents/create" }, method = RequestMethod.POST)
 	public String createDocument(@Valid Document document, BindingResult result, ModelMap model) 
 	{
 		if (result.hasErrors()) 
 		{
 			return "createOrEditDocument";
-		}
-		
+		}		
 		documentService.saveDocument(document);
 
 		model.addAttribute("success", "Document: " + document.getName() + " was created successfully");
+		model.addAttribute("returnLink", "/admin/documents");
+		model.addAttribute("returnLinkText", "Documents");
 		model.addAttribute("loggedinuser", getPrincipal());
-
-		return "createOrEditDocumentSuccess";
+		return "success";
 	}
 	
-	@RequestMapping(value = { "/edit-document-{id}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/documents/{id}/edit" }, method = RequestMethod.GET)
 	public String editDocument(@PathVariable int id, ModelMap model) 
 	{
 		Document document = documentService.findById(id);
@@ -275,7 +384,7 @@ public class AdminController {
 		return "createOrEditDocument";
 	}
 	
-	@RequestMapping(value = { "/edit-document-{id}" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/admin/documents/{id}/edit" }, method = RequestMethod.POST)
 	public String updateDocument(@Valid Document document, BindingResult result, ModelMap model, @PathVariable int id) 
 	{
 		if (result.hasErrors()) 
@@ -286,34 +395,36 @@ public class AdminController {
 		documentService.updateDocument(document);
 
 		model.addAttribute("success", "Document: " + document.getName() + " was updated successfully");
+		model.addAttribute("returnLink", "/admin/documents");
+		model.addAttribute("returnLinkText", "Documents");
 		model.addAttribute("loggedinuser", getPrincipal());
-		return "createOrEditDocumentSuccess";
+		return "success";
 	}
 
 
-	@RequestMapping(value = { "/delete-document-{id}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/documents/{id}/delete" }, method = RequestMethod.GET)
 	public String deleteDocument(@PathVariable int id) 
 	{
 		documentService.deleteByDocumentId(id);
-		return "redirect:/documents";
+		return "redirect:/admin/documents";
 	}
 	
-	@RequestMapping(value = { "/lock-document-{id}-{isLocked}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/documents/{id}/lock/{isLocked}" }, method = RequestMethod.GET)
 	public String lockDocument(@PathVariable int id, @PathVariable boolean isLocked) 
 	{
 		documentService.lockByDocumentId(id, isLocked);
-		return "redirect:/documents";
+		return "redirect:/admin/documents";
 	}
 	
-	@RequestMapping(value = { "/hide-document-{id}-{isHidden}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/documents/{id}/hide/{isHidden}" }, method = RequestMethod.GET)
 	public String hideDocument(@PathVariable int id, @PathVariable boolean isHidden) 
 	{
 		documentService.hideByDocumentId(id, isHidden);
-		return "redirect:/documents";
+		return "redirect:/admin/documents";
 	}
 	
 	/************************** PRINT OPTIONS **************************/
-	@RequestMapping(value = { "/printOptions" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/printOptions" }, method = RequestMethod.GET)
 	public String listPrintOptions(ModelMap model) {
 
 		List<OptionPrint> printOptions = optionPrintService.findAllOptionPrints();
@@ -322,7 +433,7 @@ public class AdminController {
 		return "printOptions";
 	}
 		
-	@RequestMapping(value = { "/createPrintOption" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/printOptions/create" }, method = RequestMethod.GET)
 	public String createPrintOption(ModelMap model) 
 	{
 		OptionPrint printOption = new OptionPrint();
@@ -332,7 +443,7 @@ public class AdminController {
 		return "createOrEditPrintOption";
 	}
 
-	@RequestMapping(value = { "/createPrintOption" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/admin/printOptions/create" }, method = RequestMethod.POST)
 	public String createPrintOption(@Valid OptionPrint optionPrint, BindingResult result, ModelMap model) 
 	{
 		if (result.hasErrors()) 
@@ -342,11 +453,13 @@ public class AdminController {
 		
 		optionPrintService.save(optionPrint);
 		model.addAttribute("success", "Print Option: " + optionPrint.getName() + " was created successfully");
+		model.addAttribute("returnLink", "/admin/printOptions");
+		model.addAttribute("returnLinkText", "Print Options");
 		model.addAttribute("loggedinuser", getPrincipal());
-		return "createOrEditPrintOptionSuccess";
+		return "success";
 	}
 	
-	@RequestMapping(value = { "/edit-printOption-{id}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/printOptions/{id}/edit" }, method = RequestMethod.GET)
 	public String editPrintOption(@PathVariable int id, ModelMap model) 
 	{
 		OptionPrint printOption = optionPrintService.findById(id);
@@ -356,7 +469,7 @@ public class AdminController {
 		return "createOrEditPrintOption";
 	}
 	
-	@RequestMapping(value = { "/edit-printOption-{id}" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/admin/printOptions/{id}/edit" }, method = RequestMethod.POST)
 	public String updatePrintOption(@Valid OptionPrint optionPrint, BindingResult result, ModelMap model, @PathVariable int id) 
 	{
 		if (result.hasErrors()) 
@@ -367,35 +480,37 @@ public class AdminController {
 		optionPrintService.update(optionPrint);
 
 		model.addAttribute("success", "Print Option: " + optionPrint.getName() + " was updated successfully");
+		model.addAttribute("returnLink", "/admin/printOptions");
+		model.addAttribute("returnLinkText", "Print Options");
 		model.addAttribute("loggedinuser", getPrincipal());
-		return "createOrEditPrintOptionSuccess";
+		return "success";
 	}
 
 
-	@RequestMapping(value = { "/delete-printOption-{id}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/printOptions/{id}/delete" }, method = RequestMethod.GET)
 	public String deletePrintOption(@PathVariable int id) 
 	{
 		optionPrintService.delete(id);
-		return "redirect:/printOptions";
+		return "redirect:/admin/printOptions";
 	}
 	
-	@RequestMapping(value = { "/lock-printOption-{id}-{isLocked}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/printOptions/{id}/lock/{isLocked}" }, method = RequestMethod.GET)
 	public String lockPrintOption(@PathVariable int id, @PathVariable boolean isLocked) 
 	{
 		optionPrintService.lockByOptionPrintId(id, isLocked);
-		return "redirect:/printOptions";
+		return "redirect:/admin/printOptions";
 	}
 	
-	@RequestMapping(value = { "/hide-printOption-{id}-{isHidden}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/printOptions/{id}/hide/{isHidden}" }, method = RequestMethod.GET)
 	public String hidePrintOption(@PathVariable int id, @PathVariable boolean isHidden) 
 	{
 		optionPrintService.hideByOptionPrintId(id, isHidden);
-		return "redirect:/printOptions";
+		return "redirect:/admin/printOptions";
 	}
 	
 	
 	/************************** SCAN OPTIONS **************************/
-	@RequestMapping(value = { "/scanOptions" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/scanOptions" }, method = RequestMethod.GET)
 	public String listScanOptions(ModelMap model) {
 
 		List<OptionScan> scanOptions = optionScanService.findAllOptionScans();
@@ -404,7 +519,7 @@ public class AdminController {
 		return "scanOptions";
 	}
 		
-	@RequestMapping(value = { "/createScanOption" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/scanOptions/create" }, method = RequestMethod.GET)
 	public String createScanOption(ModelMap model) 
 	{
 		OptionScan scanOption = new OptionScan();
@@ -414,7 +529,7 @@ public class AdminController {
 		return "createOrEditScanOption";
 	}
 
-	@RequestMapping(value = { "/createScanOption" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/admin/scanOptions/create" }, method = RequestMethod.POST)
 	public String createScanOption(@Valid OptionScan optionScan, BindingResult result, ModelMap model) 
 	{
 		if (result.hasErrors()) 
@@ -424,11 +539,13 @@ public class AdminController {
 		
 		optionScanService.save(optionScan);
 		model.addAttribute("success", "Scan Option: " + optionScan.getName() + " was created successfully");
+		model.addAttribute("returnLink", "/admin/scanOptions");
+		model.addAttribute("returnLinkText", "Scan Options");
 		model.addAttribute("loggedinuser", getPrincipal());
-		return "createOrEditScanOptionSuccess";
+		return "success";
 	}
 	
-	@RequestMapping(value = { "/edit-scanOption-{id}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/scanOptions/{id}/edit" }, method = RequestMethod.GET)
 	public String editScanOption(@PathVariable int id, ModelMap model) 
 	{
 		OptionScan scanOption = optionScanService.findById(id);
@@ -438,7 +555,7 @@ public class AdminController {
 		return "createOrEditScanOption";
 	}
 	
-	@RequestMapping(value = { "/edit-scanOption-{id}" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/admin/scanOptions/{id}/edit" }, method = RequestMethod.POST)
 	public String updateScanOption(@Valid OptionScan optionScan, BindingResult result, ModelMap model, @PathVariable int id) 
 	{
 		if (result.hasErrors()) 
@@ -449,35 +566,37 @@ public class AdminController {
 		optionScanService.update(optionScan);
 
 		model.addAttribute("success", "Scan Option: " + optionScan.getName() + " was updated successfully");
+		model.addAttribute("returnLink", "/admin/scanOptions");
+		model.addAttribute("returnLinkText", "Scan Options");
 		model.addAttribute("loggedinuser", getPrincipal());
-		return "createOrEditScanOptionSuccess";
+		return "success";
 	}
 
 
-	@RequestMapping(value = { "/delete-scanOption-{id}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/scanOptions/{id}/delete" }, method = RequestMethod.GET)
 	public String deleteScanOption(@PathVariable int id) 
 	{
 		optionScanService.delete(id);
-		return "redirect:/scanOptions";
+		return "redirect:/admin/scanOptions";
 	}
 	
-	@RequestMapping(value = { "/lock-scanOption-{id}-{isLocked}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/scanOptions/{id}/lock/{isLocked}" }, method = RequestMethod.GET)
 	public String lockScanOption(@PathVariable int id, @PathVariable boolean isLocked) 
 	{
 		optionScanService.lockByOptionScanId(id, isLocked);
-		return "redirect:/scanOptions";
+		return "redirect:/admin/scanOptions";
 	}
 	
-	@RequestMapping(value = { "/hide-scanOption-{id}-{isHidden}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/scanOptions/{id}/hide/{isHidden}" }, method = RequestMethod.GET)
 	public String hideScanOption(@PathVariable int id, @PathVariable boolean isHidden) 
 	{
 		optionScanService.hideByOptionScanId(id, isHidden);
-		return "redirect:/scanOptions";
+		return "redirect:/admin/scanOptions";
 	}
 	
 	
 	/************************** SETTINGS **************************/
-	@RequestMapping(value = { "/settings" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/settings" }, method = RequestMethod.GET)
 	public String listSettings(ModelMap model) {
 
 		List<Setting> settings = settingService.findAll();
@@ -486,7 +605,7 @@ public class AdminController {
 		return "settings";
 	}
 		
-	@RequestMapping(value = { "/createSetting" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/settings/create" }, method = RequestMethod.GET)
 	public String createSetting(ModelMap model) 
 	{
 		Setting setting = new Setting();
@@ -496,7 +615,7 @@ public class AdminController {
 		return "createOrEditScanOption";
 	}
 
-	@RequestMapping(value = { "/createSetting" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/admin/settings/create" }, method = RequestMethod.POST)
 	public String createSetting(@Valid Setting setting, BindingResult result, ModelMap model) 
 	{
 		if (result.hasErrors()) 
@@ -510,7 +629,7 @@ public class AdminController {
 		return "createOrEditSettingSuccess";
 	}
 	
-	@RequestMapping(value = { "/edit-setting-{id}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/settings/{id}/edit" }, method = RequestMethod.GET)
 	public String editSetting(@PathVariable int id, ModelMap model) 
 	{
 		Setting setting = settingService.findById(id);
@@ -520,7 +639,7 @@ public class AdminController {
 		return "createOrEditSetting";
 	}
 	
-	@RequestMapping(value = { "/edit-setting-{id}" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/admin/settings/{id}/edit" }, method = RequestMethod.POST)
 	public String updateSetting(@Valid Setting setting, BindingResult result, ModelMap model, @PathVariable int id) 
 	{
 		if (result.hasErrors()) 
@@ -534,17 +653,31 @@ public class AdminController {
 		model.addAttribute("loggedinuser", getPrincipal());
 		return "createOrEditSettingSuccess";
 	}
+	
+	
 
 
-	@RequestMapping(value = { "/delete-setting-{id}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/settings/{id}/delete" }, method = RequestMethod.GET)
 	public String deleteSetting(@PathVariable int id) 
 	{
 		settingService.deleteBySettingId(id);
-		return "redirect:/settings";
+		return "redirect:/admin/settings";
 	}
 	
 	
 	/************************** OTHER **************************/
+	
+	@ModelAttribute("roles")
+	public List<UserProfile> initializeProfiles() 
+	{
+		return userProfileService.findAll();
+	}
+	
+	private boolean isCurrentAuthenticationAnonymous() {
+	    final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    return authenticationTrustResolver.isAnonymous(authentication);
+	}
+	
 	private String getPrincipal()
 	{
 		String userName = null;

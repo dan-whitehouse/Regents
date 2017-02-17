@@ -48,10 +48,10 @@
 <!--                   </div> -->
                   <div class="x_content">
                     <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
-                      <h3>${firstName} ${lastName}</h3>
+                      <h3>${user.firstName} ${user.lastName}</h3>
 
                       <ul class="list-unstyled user_data">
-                        <li><i class="fa fa-map-marker user-profile-icon"></i> San Francisco, California, USA
+                        <li><i class="fa fa-map-marker user-profile-icon"></i> ${user.district}
                         </li>
 
                         <li>
@@ -65,7 +65,7 @@
                       </ul>
 					
 						<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
-                      		<a class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>
+                      		<a class="btn btn-success"><i class="fa fa-edit m-right-xs"></i> Edit Profile</a>
                      	</sec:authorize>
                       <br />
 

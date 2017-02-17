@@ -2,7 +2,7 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-<c:url value="admin/addUser" var="addUser" />
+<c:url value="/admin/users/create" var="addUser" />
 <html>
 	<jsp:include page="fragments/header.jsp" />
 	<!-- page content -->
@@ -36,8 +36,6 @@
 									<ul class="dropdown-menu" role="menu">
 										<li><a href="${addUser}">Add User</a>
 										</li>
-										<li><a href="#">Settings 2</a>
-										</li>
 									</ul>
 								</li>
 <!-- 								<li><a class="close-link"><i class="fa fa-close"></i></a> -->
@@ -56,8 +54,7 @@
 										<th>Email</th>
 										<th>Username</th>
 										<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
-											<th>Edit</th>
-											<th>Delete</th>
+											<th>Management</th>
 										</sec:authorize>
 									</tr>
 								</thead>
@@ -67,10 +64,12 @@
 											<td>${user.firstName}</td>
 											<td>${user.lastName}</td>
 											<td>${user.email}</td>
-											<td>${user.username}</td>
+											<td><a href="<c:url value='/profile/${user.username}' />">${user.username}</a></td>
 										    <sec:authorize access="hasRole('ADMIN')">
-												<td><a href="<c:url value='/edit-user-${user.username}' />" class="btn btn-success custom-width">edit</a></td>
-												<td><a href="<c:url value='/delete-user-${user.username}' />" class="btn btn-danger custom-width">delete</a></td>
+												<td>
+													<a href="<c:url value='/admin/users/${user.username}/edit' />" class="btn btn-success custom-width">edit</a>
+													<a href="<c:url value='/admin/users/${user.username}/delete' />" class="btn btn-danger custom-width">delete</a>
+												</td>
 					        				</sec:authorize>
 										</tr>
 									</c:forEach>									

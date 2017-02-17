@@ -6,15 +6,16 @@
 <c:url value="/order" var="order" />
 <c:url value="/orders" var="orders" />
 <c:url value="/profile-${loggedinuser}" var="profile" />
-<c:url value="/users" var="users" />
-<c:url value="/createUser" var="createUser" />
-<c:url value="/orderForms" var="orderForms" />
-<c:url value="/createOrderForm" var="createOrderForm" />
-<c:url value="/documents" var="documents" />
-<c:url value="/exams" var="exams" />
-<c:url value="/printOptions" var="printOptions" />
-<c:url value="/scanOptions" var="scanOptions" />
-<c:url value="/settings" var="settings" />
+<c:url value="/admin/users" var="users" />
+<c:url value="/admin/users/create" var="createUser" />
+<c:url value="/admin/orderForms" var="orderForms" />
+<c:url value="/admin/orderForms/create" var="createOrderForm" />
+<c:url value="/admin/documents" var="documents" />
+<c:url value="/admin/exams" var="exams" />
+<c:url value="/admin/printOptions" var="printOptions" />
+<c:url value="/admin/scanOptions" var="scanOptions" />
+<c:url value="/admin/settings" var="settings" />
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>

@@ -2,7 +2,7 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-<c:url value="/createOrderForm" var="createOrderForm" />
+<c:url value="/admin/orderForms/create" var="createOrderForm" />
 <html>
 	<jsp:include page="fragments/header.jsp" />
 	<!-- page content -->
@@ -49,11 +49,42 @@
 											<td><a href="<c:url value='/orderForm-${orderForm.uuid}' />">${orderForm.name}</a></td>
 											<td>${orderForm.startDate}</td>
 											<td>${orderForm.endDate}</td>
-											<td><span class="label label-default">Complete</span></td>
+											<td>
+											<!-- Start Status Test -->
+												<jsp:useBean id="now" class="java.util.Date"/>
+    											<c:choose>
+													<c:when test="${orderForm.endDate gt now}"> 
+<%-- 														<p>${orderForm.endDate} - ${now} </p> --%>
+														<span class="label label-danger">Expired</span>
+													</c:when>
+													<c:otherwise>
+														<span class="label label-default">Complete</span>
+													</c:otherwise>
+												</c:choose>
+    										<!-- End Status Test -->
+											</td>
 											<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
 												<td>
-													<a href="<c:url value='/edit-orderForm-${orderForm.uuid}' />" class="btn btn-success custom-width">edit</a>
-													<a href="<c:url value='/delete-orderForm-${orderForm.uuid}' />" class="btn btn-danger custom-width">delete</a>
+													<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/edit' />" class="btn btn-success custom-width">edit</a>
+													<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/delete' />" class="btn btn-danger custom-width">delete</a>
+													<!-- Visible -->
+													<c:choose>
+														<c:when test="${orderForm.visible == true}">
+															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/hide/false' />" class="btn btn-default custom-width">Hide</a>
+														</c:when>
+														<c:otherwise>
+															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/hide/true' />" class="btn btn-default custom-width">Unhide</a>
+														</c:otherwise>
+													</c:choose>
+													<!-- Lock -->
+													<c:choose>
+														<c:when test="${orderForm.locked == true}">
+															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/lock/false' />" class="btn btn-dark custom-width">Unlock</a>
+														</c:when>
+														<c:otherwise>
+															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/lock/true' />" class="btn btn-dark custom-width">Lock</a>
+														</c:otherwise>
+													</c:choose>
 												</td>
 											</sec:authorize>
 										</tr>

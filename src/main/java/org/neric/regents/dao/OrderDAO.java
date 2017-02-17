@@ -12,6 +12,10 @@ public interface OrderDAO {
 	
 	List<Order> findAllOrders();
 	
+	List<Order> findAllOrdersByUserId(int id);
+	
+	List<Order> findAllOrdersByUsername(String username);
+	
 	void saveOrder(Order order);
 	
 	void updateOrder(Order order);

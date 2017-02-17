@@ -2,7 +2,7 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-<c:url value="/createScanOption" var="createScanOption" />
+<c:url value="/admin/scanOptions/create" var="createScanOption" />
 <html>
 	<jsp:include page="fragments/header.jsp" />
 	<!-- page content -->
@@ -47,24 +47,24 @@
 											<td>${scanOption.name}</td>
 										    <sec:authorize access="hasRole('ADMIN')">
 												<td>
-													<a href="<c:url value='/edit-scanOption-${scanOption.id}' />" class="btn btn-success custom-width">edit</a>
-													<a href="<c:url value='/delete-scanOption-${scanOption.id}' />" class="btn btn-danger custom-width">delete</a>
+													<a href="<c:url value='/admin/scanOptions/${scanOption.id}/edit' />" class="btn btn-success custom-width">edit</a>
+													<a href="<c:url value='/admin/scanOptions/${scanOption.id}/delete' />" class="btn btn-danger custom-width">delete</a>
 													<!-- Visible -->
 													<c:choose>
 														<c:when test="${scanOption.visible == true}">
-															<a href="<c:url value='/hide-scanOption-${scanOption.id}-false' />" class="btn btn-default custom-width">Unhide</a>
+															<a href="<c:url value='/admin/scanOptions/${scanOption.id}/hide/false' />" class="btn btn-default custom-width">Hide</a>
 														</c:when>
 														<c:otherwise>
-															<a href="<c:url value='/hide-scanOption-${scanOption.id}-true' />" class="btn btn-default custom-width">Hide</a>
+															<a href="<c:url value='/admin/scanOptions/${scanOption.id}/hide/true' />" class="btn btn-default custom-width">Unhide</a>
 														</c:otherwise>
 													</c:choose>
 													<!-- Lock -->
 													<c:choose>
 														<c:when test="${scanOption.locked == true}">
-															<a href="<c:url value='/lock-scanOption-${scanOption.id}-false' />" class="btn btn-dark custom-width">Unlock</a>
+															<a href="<c:url value='/admin/scanOptions/${scanOption.id}/lock/false' />" class="btn btn-dark custom-width">Unlock</a>
 														</c:when>
 														<c:otherwise>
-															<a href="<c:url value='/lock-scanOption-${scanOption.id}-true' />" class="btn btn-dark custom-width">Lock</a>
+															<a href="<c:url value='/admin/scanOptions/${scanOption.id}/lock/true' />" class="btn btn-dark custom-width">Lock</a>
 														</c:otherwise>
 													</c:choose>
 												</td>

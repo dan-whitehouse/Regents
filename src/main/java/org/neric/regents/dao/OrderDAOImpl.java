@@ -90,5 +90,43 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 		Order order = (Order)crit.uniqueResult();
 		delete(order);
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Order> findAllOrdersByUserId(int id) 
+	{
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("user.id", id));
+		crit.addOrder(org.hibernate.criterion.Order.asc("id"));
+		
+		List<Order> orders = (List<Order>)crit.list();
+		if(orders!=null)
+		{
+			for(Order o : orders)
+			{
+				Hibernate.initialize(o.getUser());
+			}	
+		}		
+		return (List<Order>)crit.list();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Order> findAllOrdersByUsername(String username) 
+	{
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("user.username", username));
+		crit.addOrder(org.hibernate.criterion.Order.asc("id"));
+		
+		List<Order> orders = (List<Order>)crit.list();
+		if(orders!=null)
+		{
+			for(Order o : orders)
+			{
+				Hibernate.initialize(o.getUser());
+			}	
+		}		
+		return (List<Order>)crit.list();
+	}
 	
 }
