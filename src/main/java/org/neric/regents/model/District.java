@@ -25,12 +25,15 @@ public class District implements Serializable
 	@Column(name = "district_id", unique = true, nullable = false)
 	private Integer id;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "district")
-	private Set<School> schools = new HashSet<School>(0);
-	
 	@NotEmpty
 	@Column(name="name", unique=true, nullable=false)
 	private String name;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "district")
+	private Set<School> schools = new HashSet<School>(0);
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "district")
+	private Set<User> users = new HashSet<User>(0);
 
 
 	public Integer getId()
@@ -61,6 +64,14 @@ public class District implements Serializable
 	public void setName(String name)
 	{
 		this.name = name;
+	}
+	
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
 	}
 
 	@Override

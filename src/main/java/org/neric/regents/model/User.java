@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -49,8 +50,12 @@ public class User implements Serializable
 	@Column(name="EMAIL", nullable=false)
 	private String email;
 	
-	@Column(name="DISTRICT", nullable=true)
-	private String district;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "district_id", nullable = false)
+	private District district;
+	
+	
 
 	@NotEmpty
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -131,12 +136,12 @@ public class User implements Serializable
 		this.orders = orders;
 	}
 
-	public String getDistrict()
+	public District getDistrict() 
 	{
 		return district;
 	}
 
-	public void setDistrict(String district)
+	public void setDistrict(District district) 
 	{
 		this.district = district;
 	}

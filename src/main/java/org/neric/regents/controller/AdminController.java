@@ -134,6 +134,18 @@ public class AdminController {
 		return "success";
 	}
 	
+	@RequestMapping(value = { "/admin/users/{username}/edit" }, method = RequestMethod.GET)
+	public String editUser(@PathVariable String username, ModelMap model) 
+	{
+		User user = userService.findByUsername(username);
+		//List<District> districts = districtService.findAllDistricts();
+		model.addAttribute("user", user);
+		//model.addAttribute("districts", districts);
+		model.addAttribute("edit", true);
+		model.addAttribute("loggedinuser", getPrincipal());
+		return "createUser";
+	}
+	
 	@RequestMapping(value = { "/admin/users/{username}/edit" }, method = RequestMethod.POST)
 	public String updateUser(@Valid User user, BindingResult result, ModelMap model, @PathVariable String username) 
 	{
@@ -158,15 +170,6 @@ public class AdminController {
 		return "success";
 	}
 	
-	@RequestMapping(value = { "/admin/users/{username}/edit" }, method = RequestMethod.GET)
-	public String editUser(@PathVariable String username, ModelMap model) 
-	{
-		User user = userService.findByUsername(username);
-		model.addAttribute("user", user);
-		model.addAttribute("edit", true);
-		model.addAttribute("loggedinuser", getPrincipal());
-		return "createUser";
-	}
 	
 	@RequestMapping(value = { "/admin/users/{username}/delete" }, method = RequestMethod.GET)
 	public String deleteUser(@PathVariable String username) 
