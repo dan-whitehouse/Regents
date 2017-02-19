@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
+import org.neric.regents.converture.DistrictEditor;
+import org.neric.regents.converture.OptionPrintEditor;
+import org.neric.regents.converture.SchoolEditor;
 import org.neric.regents.model.District;
 import org.neric.regents.model.Document;
 import org.neric.regents.model.Exam;
@@ -15,6 +18,7 @@ import org.neric.regents.model.OptionPrint;
 import org.neric.regents.model.OptionScan;
 import org.neric.regents.model.Order;
 import org.neric.regents.model.OrderForm;
+import org.neric.regents.model.School;
 import org.neric.regents.model.Setting;
 import org.neric.regents.model.User;
 import org.neric.regents.model.UserProfile;
@@ -25,6 +29,7 @@ import org.neric.regents.service.OptionPrintService;
 import org.neric.regents.service.OptionScanService;
 import org.neric.regents.service.OrderFormService;
 import org.neric.regents.service.OrderService;
+import org.neric.regents.service.SchoolService;
 import org.neric.regents.service.SettingService;
 import org.neric.regents.service.UserProfileService;
 import org.neric.regents.service.UserService;
@@ -39,11 +44,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 
 @Controller
@@ -67,6 +75,9 @@ public class AdminController {
 	DistrictService districtService;
 	
 	@Autowired
+	SchoolService schoolService;
+	
+	@Autowired
 	OrderService orderService;
 	
 	@Autowired
@@ -86,6 +97,19 @@ public class AdminController {
 	
 	@Autowired
 	AuthenticationTrustResolver authenticationTrustResolver;
+	
+	@Autowired
+	DistrictEditor districtEditor;
+	
+	@Autowired
+	SchoolEditor schoolEditor;
+	
+	@InitBinder
+    public void initBinder(WebDataBinder binder) 
+	{
+        binder.registerCustomEditor(District.class, districtEditor);
+        binder.registerCustomEditor(School.class, schoolEditor);
+    }
 
 	
 	/************************** USERS **************************/
@@ -615,7 +639,7 @@ public class AdminController {
 		model.addAttribute("setting", setting);
 		model.addAttribute("edit", false);
 		model.addAttribute("loggedinuser", getPrincipal());
-		return "createOrEditScanOption";
+		return "createOrEditSetting";
 	}
 
 	@RequestMapping(value = { "/admin/settings/create" }, method = RequestMethod.POST)
@@ -628,8 +652,10 @@ public class AdminController {
 		
 		settingService.saveSetting(setting);
 		model.addAttribute("success", "Setting: " + setting.getKey() + " was created successfully");
+		model.addAttribute("returnLink", "/admin/settings");
+		model.addAttribute("returnLinkText", "Settings");
 		model.addAttribute("loggedinuser", getPrincipal());
-		return "createOrEditSettingSuccess";
+		return "success";
 	}
 	
 	@RequestMapping(value = { "/admin/settings/{id}/edit" }, method = RequestMethod.GET)
@@ -653,18 +679,167 @@ public class AdminController {
 		settingService.updateSetting(setting);
 
 		model.addAttribute("success", "Setting: " + setting.getKey() + " was updated successfully");
+		model.addAttribute("returnLink", "/admin/settings");
+		model.addAttribute("returnLinkText", "Settings");
 		model.addAttribute("loggedinuser", getPrincipal());
-		return "createOrEditSettingSuccess";
+		return "success";
 	}
 	
-	
-
-
 	@RequestMapping(value = { "/admin/settings/{id}/delete" }, method = RequestMethod.GET)
 	public String deleteSetting(@PathVariable int id) 
 	{
 		settingService.deleteBySettingId(id);
 		return "redirect:/admin/settings";
+	}
+	
+	/************************** DISTRICTS **************************/
+	@RequestMapping(value = { "/admin/districts" }, method = RequestMethod.GET)
+	public String listDistricts(ModelMap model) {
+
+		List<District> districts = districtService.findAllDistricts();
+		model.addAttribute("districts", districts);
+		model.addAttribute("loggedinuser", getPrincipal());
+		return "districts";
+	}
+		
+	@RequestMapping(value = { "/admin/districts/create" }, method = RequestMethod.GET)
+	public String createDistrict(ModelMap model) 
+	{
+		District district = new District();
+		List<School> schools = schoolService.findAll();
+		
+		model.addAttribute("district", district);
+		model.addAttribute("schools", schools);
+		model.addAttribute("edit", false);
+		model.addAttribute("loggedinuser", getPrincipal());
+		return "createOrEditDistrict";
+	}
+
+	@RequestMapping(value = { "/admin/districts/create" }, method = RequestMethod.POST)
+	public String createDistrict(@Valid District district, BindingResult result, ModelMap model) 
+	{
+		if (result.hasErrors()) 
+		{
+			return "createOrEditDistrict";
+		}	
+		
+		districtService.saveDistrict(district);
+		model.addAttribute("success", "District: " + district.getName() + " was created successfully");
+		model.addAttribute("returnLink", "/admin/districts");
+		model.addAttribute("returnLinkText", "Districts");
+		model.addAttribute("loggedinuser", getPrincipal());
+		return "success";
+	}
+	
+	@RequestMapping(value = { "/admin/districts/{id}/edit" }, method = RequestMethod.GET)
+	public String editDistrict(@PathVariable int id, ModelMap model) 
+	{
+		District district = districtService.findById(id);
+		List<School> schools = schoolService.findAll();
+		
+		model.addAttribute("district", district);
+		model.addAttribute("schools", schools);
+		model.addAttribute("edit", true);
+		model.addAttribute("loggedinuser", getPrincipal());
+		return "createOrEditDistrict";
+	}
+	
+	@RequestMapping(value = { "/admin/districts/{id}/edit" }, method = RequestMethod.POST)
+	public String updateDistrict(@Valid District district, BindingResult result, ModelMap model, @PathVariable int id) 
+	{
+		if (result.hasErrors()) 
+		{
+			return "createOrEditDistrict";
+		}
+		districtService.updateDistrict(district);
+
+		model.addAttribute("success", "District: " + district.getName() + " was updated successfully");
+		model.addAttribute("returnLink", "/admin/districts");
+		model.addAttribute("returnLinkText", "Districts");
+		model.addAttribute("loggedinuser", getPrincipal());
+		return "success";
+	}
+	
+	@RequestMapping(value = { "/admin/districts/{bedsCode}/delete" }, method = RequestMethod.GET)
+	public String deleteDistrict(@PathVariable String bedsCode) 
+	{
+		districtService.deleteDistrictByCode(bedsCode);
+		return "redirect:/admin/districts";
+	}
+	
+	/************************** SCHOOLS **************************/
+	@RequestMapping(value = { "/admin/schools" }, method = RequestMethod.GET)
+	public String listSchools(ModelMap model) {
+
+		List<School> schools = schoolService.findAll();
+		model.addAttribute("schools", schools);
+		model.addAttribute("loggedinuser", getPrincipal());
+		return "schools";
+	}
+		
+	@RequestMapping(value = { "/admin/schools/create" }, method = RequestMethod.GET)
+	public String createSchool(ModelMap model) 
+	{
+		School school = new School();
+		List<District> districts = districtService.findAllDistricts();
+		
+		model.addAttribute("school", school);
+		model.addAttribute("districts", districts);
+		model.addAttribute("edit", false);
+		model.addAttribute("loggedinuser", getPrincipal());
+		return "createOrEditSchool";
+	}
+
+	@RequestMapping(value = { "/admin/schools/create" }, method = RequestMethod.POST)
+	public String createSchool(@Valid School school, BindingResult result, ModelMap model) 
+	{
+		if (result.hasErrors()) 
+		{
+			return "createOrEditSchool";
+		}	
+		
+		schoolService.save(school);
+		model.addAttribute("success", "School: " + school.getName() + " was created successfully");
+		model.addAttribute("returnLink", "/admin/schools");
+		model.addAttribute("returnLinkText", "Schools");
+		model.addAttribute("loggedinuser", getPrincipal());
+		return "success";
+	}
+	
+	@RequestMapping(value = { "/admin/schools/{id}/edit" }, method = RequestMethod.GET)
+	public String editSchool(@PathVariable int id, ModelMap model) 
+	{
+		School school = schoolService.findById(id);
+		List<District> districts = districtService.findAllDistricts();
+		
+		model.addAttribute("school", school);
+		model.addAttribute("districts", districts);
+		model.addAttribute("edit", true);
+		model.addAttribute("loggedinuser", getPrincipal());
+		return "createOrEditSchool";
+	}
+	
+	@RequestMapping(value = { "/admin/schools/{id}/edit" }, method = RequestMethod.POST)
+	public String updateSchool(@Valid School school, BindingResult result, ModelMap model, @PathVariable int id) 
+	{
+		if (result.hasErrors()) 
+		{
+			return "createOrEditSchool";
+		}
+		schoolService.update(school);
+
+		model.addAttribute("success", "School: " + school.getName() + " was updated successfully");
+		model.addAttribute("returnLink", "/admin/schools");
+		model.addAttribute("returnLinkText", "Schools");
+		model.addAttribute("loggedinuser", getPrincipal());
+		return "success";
+	}
+	
+	@RequestMapping(value = { "/admin/schools/{id}/delete" }, method = RequestMethod.GET)
+	public String deleteSchool(@PathVariable int id) 
+	{
+		schoolService.deleteById(id);
+		return "redirect:/admin/schools";
 	}
 	
 	

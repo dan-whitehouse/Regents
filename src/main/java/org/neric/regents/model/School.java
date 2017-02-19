@@ -23,6 +23,24 @@ public class School implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 
+
+	public School() {
+		super();
+	}
+
+	public School(Integer id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+	
+	public School(Integer id, District district, String name) {
+		super();
+		this.id = id;
+		this.district = district;
+		this.name = name;
+	}
+
 	@Id 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "school_id", unique = true, nullable = false)

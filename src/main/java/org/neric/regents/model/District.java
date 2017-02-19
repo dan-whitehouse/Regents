@@ -20,6 +20,26 @@ public class District implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 
+	public District() {
+		super();
+	}
+
+	public District(Integer id, String name, String bedsCode) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.bedsCode = bedsCode;
+	}
+
+	public District(Integer id, String name, String bedsCode, Boolean visible, Boolean locked) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.bedsCode = bedsCode;
+		this.visible = visible;
+		this.locked = locked;
+	}
+
 	@Id 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "district_id", unique = true, nullable = false)
@@ -28,6 +48,15 @@ public class District implements Serializable
 	@NotEmpty
 	@Column(name="name", unique=true, nullable=false)
 	private String name;
+	
+	@Column(name="bedsCode", unique=false, nullable=true)	
+	private String bedsCode;
+	
+	@Column(name="visible", unique=false, nullable=true)	
+	private Boolean visible;
+	
+	@Column(name="locked", unique=false, nullable=true)	
+	private Boolean locked;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "district")
 	private Set<School> schools = new HashSet<School>(0);
@@ -46,6 +75,40 @@ public class District implements Serializable
 		this.id = id;
 	}
 
+	public String getName()
+	{
+		return name;
+	}
+
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+
+	public String getBedsCode() {
+		return bedsCode;
+	}
+
+	public void setBedsCode(String bedsCode) {
+		this.bedsCode = bedsCode;
+	}
+
+	public Boolean getVisible() {
+		return visible;
+	}
+
+	public void setVisible(Boolean visible) {
+		this.visible = visible;
+	}
+
+	public Boolean getLocked() {
+		return locked;
+	}
+
+	public void setLocked(Boolean locked) {
+		this.locked = locked;
+	}
+
 	public Set<School> getSchools()
 	{
 		return schools;
@@ -56,15 +119,7 @@ public class District implements Serializable
 		this.schools = schools;
 	}
 
-	public String getName()
-	{
-		return name;
-	}
-
-	public void setName(String name)
-	{
-		this.name = name;
-	}
+	
 	
 	public Set<User> getUsers() {
 		return users;

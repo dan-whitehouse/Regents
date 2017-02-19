@@ -11,4 +11,8 @@ public interface SchoolDAO {
 	//School findByType(String type);
 	
 	School findById(int id);
+
+	void save(School school);
+
+	void deleteById(int id);
 }

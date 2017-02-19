@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <jsp:include page="fragments/header.jsp" />
 <!-- page content -->
@@ -13,7 +14,9 @@
      						<h1 class="error-number">Error</h1>
      						<h2>${errorCode}</h2>
      						<p>${errorMsg}</p>
-     						<p>${exception}</p>
+     						<sec:authorize access="hasRole('ADMIN')">
+     							<p>${exception}</p>
+     						</sec:authorize>
      						<p>${url}</p>
    					</div>
  					</div>

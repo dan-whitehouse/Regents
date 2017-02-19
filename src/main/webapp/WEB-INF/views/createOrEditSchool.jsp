@@ -31,36 +31,48 @@
 							<div class="clearfix"></div>
 						</div>
 						<div class="x_content">
-							<%--                     <form:form method="POST" modelAttribute="user" class="form-horizontal form-label-left" novalidate> --%>
-							<form:form method="POST" modelAttribute="setting" class="form-horizontal form-label-left">								
-								<span class="section">Setting Info</span>
+							<form:form method="POST" modelAttribute="school" class="form-horizontal form-label-left">								
+								<span class="section">School Info</span>
 								<form:input type="hidden" path="id" id="id"/>
 								
+								<!-- Name -->
 								<div class="item form-group">
 									<label class="control-label col-md-3 col-sm-3 col-xs-6"></label>
 									<div class="col-md-3 col-sm-3 col-xs-6" has-feedback>
-										<form:input type="text" path="key" id="key" class="form-control col-md-7 col-xs-12 has-feedback-left" name="key" placeholder="Key" required="required"/>
-										<form:input type="text" path="value" id="value" class="form-control col-md-7 col-xs-12 has-feedback-left" name="value" placeholder="Value" required="required"/>
-										<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+										<span class="fa fa-university form-control-feedback left" aria-hidden="true"></span>
+										<form:input type="text" path="name" id="name" class="form-control col-md-7 col-xs-12 has-feedback-left" name="name" placeholder="Name" required="required"/>
 										<div class="has-error">
 											<form:errors path="name" class="help-inline"/>
 										</div>
 									</div>
 								</div>
+								
+								<!-- Schools -->
+								<div class="item form-group">
+									<label class="control-label col-md-3 col-sm-3 col-xs-6"></label>
+									<div class="col-md-3 col-sm-3 col-xs-6" has-feedback>
+										<span class="fa fa-graduation-cap form-control-feedback left" aria-hidden="true"></span>
 
+											<form:select path="district" items="${districts}" itemValue="id" itemLabel="name" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
+
+										<div class="has-error">
+											<form:errors path="district" class="help-inline"/>
+										</div>
+									</div>
+								</div>
+								
+								<!-- Management -->
 								<div class="ln_solid"></div>
 								<div class="form-group">
 									<div class="col-md-6 col-md-offset-3">
 										<c:choose>
 											<c:when test="${edit}">
-												<input type="submit" value="Update" class="btn btn-success"/> <a href="<c:url value='/list' />" class="btn btn-primary">Cancel</a>
+												<input type="submit" value="Update" class="btn btn-success"/> <a href="<c:url value='/schools' />" class="btn btn-primary">Cancel</a>
 											</c:when>
 											<c:otherwise>
-												<input type="submit" value="Create" class="btn btn-success"/> <a href="<c:url value='/list' />" class="btn btn-primary">Cancel</a>
+												<input type="submit" value="Create" class="btn btn-success"/> <a href="<c:url value='/schools' />" class="btn btn-primary">Cancel</a>
 											</c:otherwise>
 										</c:choose>
-										<!--                           	<button type="submit" class="btn btn-primary">Cancel</button> -->
-										<!--                           	<button id="send" type="submit" class="btn btn-success">Submit</button> -->
 									</div>
 								</div>
 							</form:form>

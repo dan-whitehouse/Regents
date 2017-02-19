@@ -34,7 +34,7 @@ public class DocumentServiceImpl implements DocumentService{
 		Document entity = dao.findById(document.getId());
 		if(entity != null)
 		{
-			entity.setName(entity.getName());
+			entity.setName(document.getName());
 		}
 	}
 

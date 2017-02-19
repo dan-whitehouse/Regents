@@ -14,6 +14,8 @@
 <c:url value="/admin/exams" var="exams" />
 <c:url value="/admin/printOptions" var="printOptions" />
 <c:url value="/admin/scanOptions" var="scanOptions" />
+<c:url value="/admin/districts" var="districts" />
+<c:url value="/admin/schools" var="schools" />
 <c:url value="/admin/settings" var="settings" />
 
 <!DOCTYPE html>
@@ -27,8 +29,8 @@
 		<title>NERIC - Regents Order Form</title>
 		
 		<!-- NProgress -->
-		<link href="<c:url value='resources/vendors/nprogress/nprogress.css' />" rel="stylesheet">
-		<link href="<c:url value='resources/vendors/iCheck/skins/flat/green.css' />" rel="stylesheet">
+		<link href="<c:url value='/resources/vendors/nprogress/nprogress.css' />" rel="stylesheet">
+		<link href="<c:url value='/resources/vendors/iCheck/skins/flat/green.css' />" rel="stylesheet">
 		
 		<!-- Bootstrap -->
 		<link href="<c:url value='/resources/vendors/bootstrap/dist/css/bootstrap.min.css' />" rel="stylesheet" type="text/css">
@@ -39,11 +41,11 @@
 		<link href="<c:url value='/resources/vendors/select2/dist/css/select2.min.css' />" rel="stylesheet" type="text/css">
 		
 		<!-- Datatables -->
-		<link href="<c:url value='resources/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css' />" rel="stylesheet" type="text/css">
-		<link href="<c:url value='resources/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css' />" rel="stylesheet" type="text/css">
-		<link href="<c:url value='resources/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css' />" rel="stylesheet" type="text/css">
-		<link href="<c:url value='resources/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css' />" rel="stylesheet" type="text/css">
-		<link href="<c:url value='resources/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css' />" rel="stylesheet" type="text/css">
+		<link href="<c:url value='/resources/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css' />" rel="stylesheet" type="text/css">
+		<link href="<c:url value='/resources/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css' />" rel="stylesheet" type="text/css">
+		<link href="<c:url value='/resources/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css' />" rel="stylesheet" type="text/css">
+		<link href="<c:url value='/resources/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css' />" rel="stylesheet" type="text/css">
+		<link href="<c:url value='/resources/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css' />" rel="stylesheet" type="text/css">
 		
 		<!-- Custom Theme Style -->
 		<link href="<c:url value='/resources/build/css/custom.min.css' />" rel="stylesheet" type="text/css">
@@ -56,7 +58,7 @@
 		<div class="col-md-3 left_col">
 			<div class="left_col scroll-view">
 				<div class="navbar nav_title" style="border: 0;">
-					<a href="${home}" class="site_title"><i><img src="resources/images/NericLogo_2c_icon.png"/></i><span>Regents Order Form</span></a>
+					<a href="${home}" class="site_title"><i><img src="<c:url value='/resources/images/NericLogo_2c_icon.png' />"/></i><span>Regents Order Form</span></a>
 				</div>
 				<div class="clearfix"></div>
 				<!-- menu profile quick info -->
@@ -99,6 +101,8 @@
 			                        		<li><a href="${exams}"><i class="fa fa-list"></i> Exams </a></li>
 			                        		<li><a href="${printOptions}"><i class="fa fa-print"></i> Print Options </a></li>
 			                        		<li><a href="${scanOptions}"><i class="fa fa-clipboard"></i> Scan Options </a></li>
+			                        		<li><a href="${districts}"><i class="fa fa-university"></i> Districts </a></li>
+			                        		<li><a href="${schools}"><i class="fa fa-graduation-cap"></i> Schools </a></li>
 										</ul>
 									</li>
 								</ul>

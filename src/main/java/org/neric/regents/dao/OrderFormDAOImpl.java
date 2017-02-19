@@ -65,18 +65,6 @@ public class OrderFormDAOImpl extends AbstractDao<Integer, OrderForm> implements
 	public void saveOrderForm(OrderForm order)
 	{
 		order.setUuid(UUID.randomUUID().toString());
-		
-		for(Exam o : order.getExams())
-		{
-			System.err.println("Exams in OrderForm: " + o.getName());
-		}
-		
-		for(Document o : order.getDocuments())
-		{
-			System.err.println("Documents in OrderForm: " + o.getName());
-		}
-		
-		
 		persist(order);
 		
 	}

@@ -42,9 +42,9 @@ public class ExamServiceImpl implements ExamService{
 		Exam entity = dao.findById(exam.getId());
 		if(entity != null)
 		{
-			entity.setCode(entity.getCode());
-			entity.setExams(entity.getExams());
-			entity.setName(entity.getName());
+			entity.setCode(exam.getCode());
+			entity.setExams(exam.getExams());
+			entity.setName(exam.getName());
 		}
 	}
 
