@@ -71,4 +71,9 @@ public class SchoolServiceImpl implements SchoolService{
 		}
 		
 	}
+
+	@Override
+	public List<School> findAllByDistrictId(int id) {
+		return dao.findAllByDistrictId(id);
+	}
 }

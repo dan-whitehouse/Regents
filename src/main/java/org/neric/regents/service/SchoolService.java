@@ -12,6 +12,8 @@ public interface SchoolService {
 
 	School findById(int id);
 
+	List<School> findAllByDistrictId(int id);
+	
 //	School findByType(String type);
 	
 	List<School> findAll();

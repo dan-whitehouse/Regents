@@ -20,8 +20,10 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 	
 	public User findById(int id) {
 		User user = getByKey(id);
-		if(user!=null){
+		if(user!=null)
+		{
 			Hibernate.initialize(user.getUserProfiles());
+			Hibernate.initialize(user.getDistrict());
 		}
 		return user;
 	}
@@ -31,8 +33,10 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.eq("username", username));
 		User user = (User)crit.uniqueResult();
-		if(user!=null){
+		if(user!=null)
+		{
 			Hibernate.initialize(user.getUserProfiles());
+			Hibernate.initialize(user.getDistrict());
 		}
 		return user;
 	}

@@ -46,5 +46,15 @@ public class SchoolDAOImpl extends AbstractDao<Integer, School> implements Schoo
 		School school = (School)crit.uniqueResult();
 		delete(school);
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<School> findAllByDistrictId(int id) 
+	{
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("district.id", id));
+		crit.addOrder(Order.asc("name"));
+		return (List<School>)crit.list();
+	}
 	
 }

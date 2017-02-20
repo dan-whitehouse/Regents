@@ -15,4 +15,6 @@ public interface SchoolDAO {
 	void save(School school);
 
 	void deleteById(int id);
+
+	List<School> findAllByDistrictId(int id);
 }

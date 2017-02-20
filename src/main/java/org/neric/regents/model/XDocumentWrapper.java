@@ -9,6 +9,11 @@ public class XDocumentWrapper
 	 {
         this.orderDocument = orderDocument;
 	 }
+	 
+	public XDocumentWrapper() 
+	{
+		super();
+	}
 
 	public boolean isSelected()
 	{

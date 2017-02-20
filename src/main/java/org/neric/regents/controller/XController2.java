@@ -11,16 +11,26 @@ import javax.validation.ValidatorFactory;
 
 import org.neric.regents.converture.OptionPrintEditor;
 import org.neric.regents.converture.OptionScanEditor;
+import org.neric.regents.model.Document;
 import org.neric.regents.model.Exam;
 import org.neric.regents.model.OptionPrint;
 import org.neric.regents.model.OptionScan;
+import org.neric.regents.model.OrderDocument;
 import org.neric.regents.model.OrderExam;
+import org.neric.regents.model.School;
+import org.neric.regents.model.User;
+import org.neric.regents.model.XDocumentWrapper;
 import org.neric.regents.model.XExamWrapper;
 import org.neric.regents.model.XForm2;
+import org.neric.regents.service.DocumentService;
 import org.neric.regents.service.ExamService;
 import org.neric.regents.service.OptionPrintService;
 import org.neric.regents.service.OptionScanService;
+import org.neric.regents.service.SchoolService;
+import org.neric.regents.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -57,7 +67,16 @@ public class XController2
     }
 	
 	@Autowired
+	UserService userService;
+	
+	@Autowired
+	SchoolService schoolService;
+	
+	@Autowired
 	ExamService examService;
+	
+	@Autowired
+	DocumentService documentService;
 	
 	@Autowired
 	OptionPrintService optionPrintService;
@@ -91,6 +110,18 @@ public class XController2
         return options;
     }
 	
+	@ModelAttribute("allDocumentOptions")
+    public List<XDocumentWrapper> populateDocumentOptions() 
+    {
+        List<XDocumentWrapper> options = new ArrayList<>();
+        
+        for(Document e : documentService.findAllDocuments())
+        {
+        	options.add(new XDocumentWrapper(new OrderDocument(e)));
+        }
+        return options;
+    }
+	
 	@ModelAttribute("allPrintOptions")
     public List<OptionPrint> populatePrintOptions() 
     {
@@ -103,6 +134,20 @@ public class XController2
     {
         List<OptionScan> options = optionScanService.findAllOptionScans();
         return options;
+    }
+	
+	@ModelAttribute("loggedinuser")
+    public User loggedInUser() 
+    {
+		User user = userService.findByUsername(getPrincipal());
+        return user;
+    }
+	
+	@ModelAttribute("schoolsByDistrict")
+    public List<School> populateSchoolsByDistrict() 
+    {
+        List<School> schools = schoolService.findAllByDistrictId(loggedInUser().getDistrict().getId());
+        return schools;
     }
 	
 	
@@ -148,9 +193,6 @@ public class XController2
         		System.out.println(e.getOrderExam().getExam().getId() + " - " + e.getOrderExam().getExamAmount());
         	}
         }
-        
-        
-        
 		 
 		// Mark Session Complete
 		status.setComplete();
@@ -163,5 +205,18 @@ public class XController2
 	 {
         return "xorder2Success";
 	 }
+	 
+	 private String getPrincipal()
+		{
+			String userName = null;
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+			if (principal instanceof UserDetails) {
+				userName = ((UserDetails)principal).getUsername();
+			} else {
+				userName = principal.toString();
+			}
+			return userName;
+		}
 }
 	

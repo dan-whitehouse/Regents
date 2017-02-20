@@ -19,11 +19,16 @@ public class XForm2 implements Serializable
     @NotNull
     private OptionPrint selectedOptionPrint;
     
+    private boolean reportingOption;
+    
     @NotNull
     private OptionScan selectedOptionScan;
     
     @NotNull
     private List<XExamWrapper> selectedExams = new ArrayList<>();
+    
+    @NotNull
+    private List<XDocumentWrapper> selectedDocuments = new ArrayList<>();
 
 	public Integer getId()
 	{
@@ -65,6 +70,18 @@ public class XForm2 implements Serializable
 		this.selectedOptionScan = selectedOptionScan;
 	}
 
+	public boolean isReportingOption() {
+		return reportingOption;
+	}
+
+	public void setReportingOption(boolean reportingOption) {
+		this.reportingOption = reportingOption;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	public List<XExamWrapper> getSelectedExams()
 	{
 		return selectedExams;
@@ -74,10 +91,20 @@ public class XForm2 implements Serializable
 	{
 		this.selectedExams = selectedExams;
 	}
+	
+
+	public List<XDocumentWrapper> getSelectedDocuments() {
+		return selectedDocuments;
+	}
+
+	public void setSelectedDocuments(List<XDocumentWrapper> selectedDocuments) {
+		this.selectedDocuments = selectedDocuments;
+	}
 
 	@Override
-	public String toString()
-	{
-		return "XForm2 [id=" + id + ", title=" + title + ", selectedOptionPrint=" + selectedOptionPrint + ", selectedOptionScan=" + selectedOptionScan + ", selectedExams=" + selectedExams + "]";
+	public String toString() {
+		return "XForm2 [id=" + id + ", title=" + title + ", selectedOptionPrint=" + selectedOptionPrint
+				+ ", reportingOption=" + reportingOption + ", selectedOptionScan=" + selectedOptionScan
+				+ ", selectedExams=" + selectedExams + ", selectedDocuments=" + selectedDocuments + "]";
 	}
 }
