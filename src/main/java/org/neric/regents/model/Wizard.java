@@ -14,6 +14,8 @@ public class Wizard
     
     @NotNull
     private OptionPrint selectedOptionPrint;
+
+	private boolean reportingOption;
     
     @NotNull
     private OptionScan selectedOptionScan;
@@ -52,6 +54,16 @@ public class Wizard
 	public void setSelectedOptionPrint(OptionPrint selectedOptionPrint)
 	{
 		this.selectedOptionPrint = selectedOptionPrint;
+	}
+	
+	public boolean isReportingOption()
+	{
+		return reportingOption;
+	}
+
+	public void setReportingOption(boolean reportingOption)
+	{
+		this.reportingOption = reportingOption;
 	}
 
 	public OptionScan getSelectedOptionScan()

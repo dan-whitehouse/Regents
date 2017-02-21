@@ -156,7 +156,7 @@
 																		<c:choose>
 																			<c:when test="${e.orderExam.exam.name == 'Algebra 2 (Common Core)'}">
 																				<th scope="row">
-																					<form:checkbox path="selectedExams[${status.index}].pasSelected" class="flat"/>
+																					<form:checkbox path="selectedExams[${status.index}].orderExam.pearsonAnswerSheet" class="flat"/>
 																				</th>
 																			</c:when>
 																			<c:otherwise>

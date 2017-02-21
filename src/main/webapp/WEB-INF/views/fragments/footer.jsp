@@ -156,7 +156,7 @@
         });
         
         function onFinishCallback(){
-        	$('form').submit();
+        	$('formWizard').submit();
             $('#wizard').smartWizard('showMessage','Finish Clicked');
             alert('O.M.G. YOU SUBMITTED!');
           } 

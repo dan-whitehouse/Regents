@@ -37,6 +37,7 @@ import org.neric.regents.service.ExamService;
 import org.neric.regents.service.OptionPrintService;
 import org.neric.regents.service.OptionScanService;
 import org.neric.regents.service.OrderService;
+import org.neric.regents.service.SchoolService;
 import org.neric.regents.service.UserProfileService;
 import org.neric.regents.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +75,12 @@ public class OrderController
 	}
 
 	@Autowired
+	UserService userService;
+	
+	@Autowired
+	SchoolService schoolService;
+	
+	@Autowired
 	ExamService examService;
 	
 	@Autowired
@@ -96,9 +103,6 @@ public class OrderController
 	
 	@Autowired
 	OrderService orderService;
-	
-	@Autowired
-	UserService userService;
 
 	@Autowired
 	MessageSource messageSource;
@@ -202,16 +206,16 @@ public class OrderController
 
 		// Mark Session Complete
 		status.setComplete();
-		return "redirect:poop";
+		return "redirect:order2Success";
 	}
 	
-	@RequestMapping(value = "/poop", method = RequestMethod.GET)
+	@RequestMapping(value = "/order2Success", method = RequestMethod.GET)
 	public String success(Model model)
 	{
-		return "poop";
+		return "order2Success";
 	}
 	
-	 @RequestMapping(value = { "order-{uuid}" }, method = RequestMethod.GET)
+	 @RequestMapping(value = { "order/{uuid}" }, method = RequestMethod.GET)
 	 public String order(@PathVariable String uuid, ModelMap model) {
 	
 		 Order order = orderService.findByUUID(uuid);
