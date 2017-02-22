@@ -26,6 +26,7 @@ import org.neric.regents.model.OptionScan;
 import org.neric.regents.model.Order;
 import org.neric.regents.model.OrderDocument;
 import org.neric.regents.model.OrderExam;
+import org.neric.regents.model.School;
 import org.neric.regents.model.User;
 import org.neric.regents.model.UserProfile;
 import org.neric.regents.model.Wizard;
@@ -152,6 +153,20 @@ public class OrderController
 		List<OptionScan> options = optionScanService.findAllOptionScans();
 		return options;
 	}
+	
+	@ModelAttribute("loggedinuser")
+    public User loggedInUser() 
+    {
+		User user = userService.findByUsername(getPrincipal());
+        return user;
+    }
+	
+	@ModelAttribute("schoolsByDistrict")
+    public List<School> populateSchoolsByDistrict() 
+    {
+        List<School> schools = schoolService.findAllByDistrictId(loggedInUser().getDistrict().getId());
+        return schools;
+    }
 
 	@RequestMapping(value = { "/order" }, method = RequestMethod.GET)
 	public String setupForm(Model model)
@@ -212,7 +227,9 @@ public class OrderController
 	@RequestMapping(value = "/order2Success", method = RequestMethod.GET)
 	public String success(Model model)
 	{
-		return "order2Success";
+		model.addAttribute("returnLink", "/orders");
+		model.addAttribute("returnLinkText", "Orders");
+		return "success";
 	}
 	
 	 @RequestMapping(value = { "order/{uuid}" }, method = RequestMethod.GET)
@@ -247,143 +264,4 @@ public class OrderController
 		}
 		return userName;
 	}
-
-	// @Autowired
-	// ExamService examService;
-	//
-	//
-	// @Autowired
-	// OptionScanService optionScanService;
-	//
-	// @Autowired
-	// OptionPrintService optionPrintService;
-	//
-	// @Autowired
-	// DistrictService districtService;
-//	
-	// //model populated by the method below
-	// //moved as we also need it populated on POST
-	// @RequestMapping(value = { "/order" }, method = RequestMethod.GET)
-	// public String order()
-	// {
-	// return "order";
-	// }
-	//
-	// //handles for submit
-	// //model atribute is automatically populated by the framework
-	// @RequestMapping(value = { "/order" }, method = RequestMethod.POST)
-	// public String order(@ModelAttribute("wizard") Wizard orderForm)
-	// {
-	//
-	// for(ExamWrapper s : orderForm.getAllAvailableExams() )
-	// {
-	// if(s.isSelected())
-	// {
-	// System.err.println(s.getOrderExam().getExam().getName());
-	// System.err.println(s.getOrderExam().getExamAmount());
-	// }
-	//
-	// if(s.isPasSelected())
-	// {
-	// System.err.println(s.getOrderExam().getPearsonAnswerSheet());
-	// }
-	// }
-	//
-	// for(DocumentWrapper d : orderForm.getAllAvailableDocuments())
-	// {
-	// if(d.isSelected())
-	// {
-	// System.err.println(d.getOrderDocument().getDocument().getName());
-	// System.err.println(d.getOrderDocument().getDocumentAmount());
-	// }
-	// }
-	//
-	// return "nextView";
-	// }
-	//
-	// //on get populates the initial model for display
-	// //on post create an instance which the form params will be bound to
-	// @ModelAttribute("wizard")
-	// public Wizard getOrderForm()
-	// {
-	// Wizard orderForm = new Wizard();
-	// List<Exam> exams = examService.findAllExams();
-	// List<Document> documents = documentService.findAllDocuments();
-	// List<OptionScan> optionScans = optionScanService.findAllOptionScans();
-	// List<OptionPrint> optionPrints =
-	// optionPrintService.findAllOptionPrints();
-	//
-	// for(Exam exam : exams)
-	// {
-	// orderForm.getAllAvailableExams().add(new ExamWrapper(new
-	// OrderExam(exam)));
-	// }
-	//
-	// for(Document document : documents)
-	// {
-	// orderForm.getAllAvailableDocuments().add(new DocumentWrapper(new
-	// OrderDocument(document)));
-	// }
-	//
-	// return orderForm;
-	// }
-	//
-	// @RequestMapping(value = { "order" }, method = RequestMethod.GET)
-	// public String newOrder(String username, ModelMap model) {
-	//
-	// Order order = new Order();
-	// List<Exam> exams = examService.findAllExams();
-	// List<Document> documents = documentService.findAllDocuments();
-	// List<OptionScan> optionScans = optionScanService.findAllOptionScans();
-	// List<OptionPrint> optionPrints =
-	// optionPrintService.findAllOptionPrints();
-	// List<District> districts = districtService.findAllDistricts();
-	//
-	// model.addAttribute("order", order);
-	// model.addAttribute("exams", exams); // exams (left) references (${exams}
-	// on jsp page)
-	// model.addAttribute("documents", documents);
-	// model.addAttribute("optionScans", optionScans);
-	// model.addAttribute("optionPrints", optionPrints);
-	// model.addAttribute("loggedindistrict", getLeaCurrentUser());
-	// model.addAttribute("loggedinuser", getPrincipal());
-	// return "order"; // jsp page reference
-	// }
-	//
-	// @RequestMapping(value = { "order" }, method = RequestMethod.POST)
-	// public String saveOrder(@Valid Order order, BindingResult result,
-	// ModelMap model)
-	// {
-	// if (result.hasErrors())
-	// {
-	// return "order";
-	// }
-	//
-	// orderService.saveOrder(order);
-	// model.addAttribute("success", "Order: " + order.getUuid() + " was
-	// submitted successfully!");
-	// model.addAttribute("loggedinuser", getPrincipal());
-	//
-	// return "orderSuccess"; // jsp page reference
-	// }
-	//
-	//
-	//
-	// private String getLeaCurrentUser()
-	// {
-	// String lea = null;
-	// String username = getPrincipal();
-	// List<User> users = userService.findAllUsers();
-	//
-	// for(User u : users)
-	// {
-	// if(StringUtils.equalsIgnoreCase(username, u.getUsername()))
-	// {
-	// lea = u.getDistrict();
-	// }
-	// }
-	//
-	// return lea;
-	// }
-
 }
