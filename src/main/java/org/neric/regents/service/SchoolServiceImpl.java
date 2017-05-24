@@ -53,6 +53,7 @@ public class SchoolServiceImpl implements SchoolService{
 		if(entity != null)
 		{
 			entity.setName(school.getName());
+			entity.setDistrict(school.getDistrict());
 		}
 		
 	}
