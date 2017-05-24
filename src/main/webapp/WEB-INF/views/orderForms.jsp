@@ -56,7 +56,7 @@
 										</c:choose>
 									
 										
-											<td><a href="<c:url value='/orderForm-${orderForm.uuid}' />">${orderForm.name}</a></td>
+											<td><a href="<c:url value='/admin/orderForms/${orderForm.uuid}' />">${orderForm.name}</a></td>
 											<td>${orderForm.startDate}</td>
 											<td>${orderForm.endDate}</td>
 											<td>
