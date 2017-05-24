@@ -24,6 +24,7 @@
 								<thead>
 									<tr>
 										<th>Name</th>
+										<th>District</th>
 										<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
 											<th>Management</th>
 										</sec:authorize>
@@ -33,6 +34,7 @@
 									<c:forEach items="${schools}" var="school">
 										<tr>
 											<td>${school.name}</td>
+											<td>${school.district.name}</td>
 										    <sec:authorize access="hasRole('ADMIN')">
 												<td>
 													<a href="<c:url value='/admin/schools/${school.id}/edit' />" class="btn btn-success custom-width">edit</a>

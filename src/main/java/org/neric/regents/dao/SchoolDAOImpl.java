@@ -29,6 +29,12 @@ public class SchoolDAOImpl extends AbstractDao<Integer, School> implements Schoo
 	{
 		Criteria crit = createEntityCriteria();
 		crit.addOrder(Order.asc("name"));
+		
+		for(School school : (List<School>)crit.list())
+		{
+			Hibernate.initialize(school.getDistrict());	
+		}
+		
 		return (List<School>)crit.list();
 	}
 
