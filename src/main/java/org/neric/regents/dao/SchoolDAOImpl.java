@@ -33,8 +33,7 @@ public class SchoolDAOImpl extends AbstractDao<Integer, School> implements Schoo
 		for(School school : (List<School>)crit.list())
 		{
 			Hibernate.initialize(school.getDistrict());	
-		}
-		
+		}	
 		return (List<School>)crit.list();
 	}
 
