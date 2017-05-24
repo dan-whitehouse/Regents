@@ -45,7 +45,17 @@
 								</thead>
 								<tbody>
 									<c:forEach items="${orderForms}" var="orderForm">
-										<tr>
+									
+										<c:choose>
+											<c:when test="${orderForm.locked == true}"> 
+												<tr class="alert-info">
+											</c:when>
+											<c:otherwise>
+												<tr>
+											</c:otherwise>
+										</c:choose>
+									
+										
 											<td><a href="<c:url value='/orderForm-${orderForm.uuid}' />">${orderForm.name}</a></td>
 											<td>${orderForm.startDate}</td>
 											<td>${orderForm.endDate}</td>
