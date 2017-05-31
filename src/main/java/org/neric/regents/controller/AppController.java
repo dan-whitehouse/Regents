@@ -13,6 +13,7 @@ import org.neric.regents.model.UserProfile;
 import org.neric.regents.service.DistrictService;
 import org.neric.regents.service.UserProfileService;
 import org.neric.regents.service.UserService;
+import org.neric.regents.test.UserPassword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -91,6 +93,7 @@ public class AppController {
 	}
 	
 	
+	
 	@RequestMapping(value = { "/profile/{username}" }, method = RequestMethod.GET)
 	public String showUser(@PathVariable String username, ModelMap model) {
 
@@ -99,6 +102,41 @@ public class AppController {
 		model.addAttribute("edit", false);
 		model.addAttribute("loggedinuser", getPrincipal());
 		return "profile";
+	}
+	
+	/* PASSWORD RESET */
+	@RequestMapping(value = { "/changePassword" }, method = RequestMethod.GET)
+	public String editUserPassword(ModelMap model) 
+	{
+		User user = userService.findByUsername(getPrincipal());
+		UserPassword userPassword = new UserPassword(user.getId());
+		model.addAttribute("userPassword", userPassword);
+		model.addAttribute("loggedinuser", getPrincipal());
+		return "changePassword";
+	}
+	
+	@RequestMapping(value = { "/changePassword" }, method = RequestMethod.POST)
+	public String updateUserPassword(@Valid UserPassword userPassword, BindingResult result, ModelMap model) 
+	{
+		System.err.println("!!!!!!!!!");
+		
+		if (result.hasErrors()) 
+		{
+			System.err.println("I HAVE ERRRORS...AHHHHHH!!!!!!!!!!");
+			for(ObjectError error : result.getAllErrors())
+			{
+				System.err.println(error.getObjectName() + " | " + error.getCode() + " | " + error.getDefaultMessage());
+			}
+			return "changePassword";
+		}
+		
+		userService.updatePassword(userPassword);
+
+		model.addAttribute("success", "User: " + getPrincipal() +  "'s password was updated successfully");
+		model.addAttribute("returnLink", "/");
+		model.addAttribute("returnLinkText", "Users");
+		model.addAttribute("loggedinuser", getPrincipal());
+		return "success";
 	}
 
 

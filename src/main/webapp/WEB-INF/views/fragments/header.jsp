@@ -61,71 +61,45 @@
 					<a href="${home}" class="site_title"><i><img src="<c:url value='/resources/images/NericLogo_2c_icon.png' />"/></i><span>Regents Order Form</span></a>
 				</div>
 				<div class="clearfix"></div>
-				<!-- menu profile quick info -->
-				<!--             <div class="profile"> -->
-				<!--               <div class="profile_pic"> -->
-				<!--                 <img src="images/img.jpg" alt="..." class="img-circle profile_img"> -->
-				<!--               </div> -->
-				<!--               <div class="profile_info"> -->
-				<%--                 <span>Welcome, ${loggedinuser}</span> --%>
-				<!--               </div> -->
-				<!--             </div> -->
-				<!-- /menu profile quick info -->
-				<br />
 				<!-- sidebar menu -->
 				<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 					<div class="menu_section">
-							<sec:authorize access="hasRole('ADMIN')">
-								<h3>General</h3>
-								<ul class="nav side-menu">
-									<li><a href="${home}"><i class="fa fa-home"></i> Home</span></a></li>
-									<li><a href="${order}"><i class="fa fa-edit"></i> Order Form</span></a></li>
-									<li><a href="${orders}"><i class="fa fa-truck"></i>Orders</a></li>
-									<li>
-										<a><i class="fa fa-gears"></i> Admin <span class="fa fa-chevron-down"></span></a>
-										<ul class="nav child_menu">
-	<%-- 										<li><a href="${users}">Users</a></li> --%>
-											<li><a><i class="fa fa-sitemap"></i> Users <span class="fa fa-chevron-down"></span></a>
-					                          	<ul class="nav child_menu">
-					                            	<li class="sub_menu"><a href="${users}">Users List</a></li>
-					                            	<li><a href="${createUser}">Create User</a></li>
-					                          	</ul>
-					                        </li>
-					                        <li><a><i class="fa fa-check-square"></i> Order Forms <span class="fa fa-chevron-down"></span></a>
-					                        	<ul class="nav child_menu">
-				                        			<li class="sub_menu"><a href="${orderForms}">Form List</a></li>
-					                        		<li class="sub_menu"><a href="${createOrderForm}">Create Form</a></li>
-				                        		</ul>
-			                        		</li>
-			                        		<li><a href="${documents}"><i class="fa fa-file-text"></i> Documents </a></li>
-			                        		<li><a href="${exams}"><i class="fa fa-list"></i> Exams </a></li>
-			                        		<li><a href="${printOptions}"><i class="fa fa-print"></i> Print Options </a></li>
-			                        		<li><a href="${scanOptions}"><i class="fa fa-clipboard"></i> Scan Options </a></li>
-			                        		<li><a href="${districts}"><i class="fa fa-university"></i> Districts </a></li>
-			                        		<li><a href="${schools}"><i class="fa fa-graduation-cap"></i> Schools </a></li>
-										</ul>
-									</li>
-								</ul>
+						
+						<ul class="nav side-menu">
+							<li><a href="${home}"><i class="fa fa-home"></i> Home</span></a></li>
+							<sec:authorize access="hasAnyRole('USER', 'ADMIN')">
+								<li><a href="${order}"><i class="fa fa-edit"></i> Order Form</span></a></li>
+								<li><a href="${orders}"><i class="fa fa-truck"></i>Orders</a></li>
 							</sec:authorize>
+						
+							<sec:authorize access="hasRole('ADMIN')">
+								<li>
+									<a><i class="fa fa-gears"></i> Admin <span class="fa fa-chevron-down"></span></a>
+									<ul class="nav child_menu">
+										<li><a><i class="fa fa-sitemap"></i> Users <span class="fa fa-chevron-down"></span></a>
+				                          	<ul class="nav child_menu">
+				                            	<li class="sub_menu"><a href="${users}">Users List</a></li>
+				                            	<li><a href="${createUser}">Create User</a></li>
+				                          	</ul>
+				                        </li>
+				                        <li><a><i class="fa fa-check-square"></i> Order Forms <span class="fa fa-chevron-down"></span></a>
+				                        	<ul class="nav child_menu">
+			                        			<li class="sub_menu"><a href="${orderForms}">Form List</a></li>
+				                        		<li class="sub_menu"><a href="${createOrderForm}">Create Form</a></li>
+			                        		</ul>
+		                        		</li>
+		                        		<li><a href="${documents}"><i class="fa fa-file-text"></i> Documents </a></li>
+		                        		<li><a href="${exams}"><i class="fa fa-list"></i> Exams </a></li>
+		                        		<li><a href="${printOptions}"><i class="fa fa-print"></i> Print Options </a></li>
+		                        		<li><a href="${scanOptions}"><i class="fa fa-clipboard"></i> Scan Options </a></li>
+		                        		<li><a href="${districts}"><i class="fa fa-university"></i> Districts </a></li>
+		                        		<li><a href="${schools}"><i class="fa fa-graduation-cap"></i> Schools </a></li>
+									</ul>
+								</li>
+							</sec:authorize>
+						</ul>
 					</div>
 				</div>
-				<!-- /sidebar menu -->
-				<!-- /menu footer buttons -->
-<!-- 				<div class="sidebar-footer hidden-small"> -->
-<!-- 					<a data-toggle="tooltip" data-placement="top" title="Settings"> -->
-<!-- 					<span class="glyphicon glyphicon-cog" aria-hidden="true"></span> -->
-<!-- 					</a> -->
-<!-- 					<a data-toggle="tooltip" data-placement="top" title="FullScreen"> -->
-<!-- 					<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span> -->
-<!-- 					</a> -->
-<!-- 					<a data-toggle="tooltip" data-placement="top" title="Lock"> -->
-<!-- 					<span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span> -->
-<!-- 					</a> -->
-<!-- 					<a data-toggle="tooltip" data-placement="top" title="Logout"> -->
-<!-- 					<span class="glyphicon glyphicon-off" aria-hidden="true"></span> -->
-<!-- 					</a> -->
-<!-- 				</div> -->
-				<!-- /menu footer buttons -->
 			</div>
 		</div>
 		<!-- top navigation -->
@@ -151,9 +125,10 @@
 <!-- 								</li> -->
 <!-- 								<li><a href="javascript:;">Help</a></li> -->
 								<li>
-									<a href="
-									<c:url value="/logout" />
-									"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+									<a href="<c:url value="/logout" />"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+								</li>
+								<li>
+									<a href="<c:url value="/changePassword" />"><i class="fa fa-asterisk pull-right"></i> Change Password</a>
 								</li>
 							</ul>
 						</li>

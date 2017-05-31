@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.neric.regents.dao.UserDao;
 import org.neric.regents.model.User;
+import org.neric.regents.test.UserPassword;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.authentication.PasswordEncoderParser;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +34,8 @@ public class UserServiceImpl implements UserService{
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		dao.save(user);
 	}
-
+	
+	
 	/*
 	 * Since the method is running with Transaction, No need to call hibernate update explicitly.
 	 * Just fetch the entity from db and update it with proper values within transaction.
@@ -49,6 +52,24 @@ public class UserServiceImpl implements UserService{
 			entity.setLastName(user.getLastName());
 			entity.setEmail(user.getEmail());
 			entity.setUserProfiles(user.getUserProfiles());
+		}
+	}
+	
+	public void updatePassword(UserPassword userPassword) 
+	{
+		User entity = dao.findById(userPassword.getUserId());
+		if(entity!=null)
+		{
+			if(userPassword.getNewPassword().equalsIgnoreCase(userPassword.getNewPasswordConfirm())) //Do both new passwords match
+			{
+				if(passwordEncoder.matches(userPassword.getOldPassword(), entity.getPassword())) //Does provided old password match the encrypted old password
+				{
+					if(!passwordEncoder.matches(userPassword.getNewPassword(), entity.getPassword())) //Does the new password not match the old encrypted password
+					{
+						entity.setPassword(passwordEncoder.encode(userPassword.getNewPassword())); //Update the User's password
+					}
+				}
+			}	
 		}
 	}
 
