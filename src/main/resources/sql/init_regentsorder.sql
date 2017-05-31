@@ -62,7 +62,13 @@ ALTER TABLE order_contact
 	MODIFY COLUMN contact_name varchar(255) DEFAULT NULL AFTER school_id,
 	MODIFY COLUMN contact_phone varchar(255) DEFAULT NULL AFTER contact_name,
 	MODIFY COLUMN contact_email varchar(255) DEFAULT NULL AFTER contact_phone,
-	MODIFY COLUMN contact_title varchar(255) DEFAULT NULL AFTER contact_email;
+	MODIFY COLUMN contact_title varchar(255) DEFAULT NULL AFTER contact_email,
+	MODIFY COLUMN alt_contact_name varchar(255) DEFAULT NULL AFTER contact_title,
+	MODIFY COLUMN alt_line1 varchar(255) DEFAULT NULL AFTER alt_contact_name,
+	MODIFY COLUMN alt_line2 varchar(255) DEFAULT NULL AFTER alt_line1,
+	MODIFY COLUMN alt_city varchar(255) DEFAULT NULL AFTER alt_line2,
+	MODIFY COLUMN alt_state varchar(255) DEFAULT NULL AFTER alt_city,
+	MODIFY COLUMN alt_zip_code varchar(255) DEFAULT NULL AFTER alt_state;
 
 ALTER TABLE order_document
 	MODIFY COLUMN document_id int(11) NOT NULL AFTER order_document_id,

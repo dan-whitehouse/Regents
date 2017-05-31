@@ -44,6 +44,23 @@ public class OrderContact implements Serializable
 	@Column(name="contact_phone", nullable=true)
 	private String phone;
 	
+	@Column(name="alt_contact_name", nullable=true)
+	private String altName;
+	
+	@Column(name="alt_line1", nullable=true)
+	private String altLine1;
+	
+	@Column(name="alt_line2", nullable=true)
+	private String altLine2;
+	
+	@Column(name="alt_city", nullable=true)
+	private String altCity;
+	
+	@Column(name="alt_state", nullable=true)
+	private String altState;
+	
+	@Column(name="alt_zip_code", nullable=true)
+	private String altZipCode;
 	
 	public Integer getId()
 	{
@@ -113,5 +130,65 @@ public class OrderContact implements Serializable
 	public void setPhone(String phone)
 	{
 		this.phone = phone;
+	}
+
+	public String getAltName()
+	{
+		return altName;
+	}
+
+	public void setAltName(String altName)
+	{
+		this.altName = altName;
+	}
+
+	public String getAltLine1()
+	{
+		return altLine1;
+	}
+
+	public void setAltLine1(String altLine1)
+	{
+		this.altLine1 = altLine1;
+	}
+
+	public String getAltLine2()
+	{
+		return altLine2;
+	}
+
+	public void setAltLine2(String altLine2)
+	{
+		this.altLine2 = altLine2;
+	}
+
+	public String getAltCity()
+	{
+		return altCity;
+	}
+
+	public void setAltCity(String altCity)
+	{
+		this.altCity = altCity;
+	}
+
+	public String getAltState()
+	{
+		return altState;
+	}
+
+	public void setAltState(String altState)
+	{
+		this.altState = altState;
+	}
+
+	public String getAltZipCode()
+	{
+		return altZipCode;
+	}
+
+	public void setAltZipCode(String altZipCode)
+	{
+		this.altZipCode = altZipCode;
 	}
 }

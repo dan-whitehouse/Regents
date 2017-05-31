@@ -260,37 +260,60 @@
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
 											<h1 class="text-center"> Contact Information</h1>
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"> 
-												<input type="text" class="form-control has-feedback-left" readonly="readonly" id="inputSuccess1" value="${loggedinuser.district.name}">
-												<span class="fa fa-university form-control-feedback left" aria-hidden="true"></span>
-											</div>
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<form:select path="" items="${schoolsByDistrict}" itemValue="id" itemLabel="name" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
-												<span class="fa fa-graduation-cap form-control-feedback left" aria-hidden="true"></span>
-											</div>
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<input type="text" class="form-control has-feedback-left"
-													id="inputSuccess2" placeholder="First Name"> 
-												<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-											</div>
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<input type="text" class="form-control has-feedback-left"
-													id="inputSuccess3" placeholder="Last Name"> 
-												<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-											</div>
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<input type="text" class="form-control has-feedback-left"
-													id="inputSuccess4" placeholder="Email">
-												<span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
-											</div>
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<input type="text" class="form-control has-feedback-left"
-													id="inputSuccess5" placeholder="Phone">
-												<span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
-											</div>
-											<button id="activate-step-6" class="btn btn-primary btn-md">Next</button> 
-										</div>
-									</div>
+													
+											<form class="form-horizontal form-label-left input_mask">
+											  <div class="form-group">
+												  <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+													<input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="First Name"> 
+													<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+												  </div>
+											  </div>
+						
+											  <div class="form-group">
+							                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+													<input type="text" class="form-control has-feedback-left" id="inputSuccess3" placeholder="Last Name"> 
+													<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+												  </div>
+											  </div>
+											  
+											  <div class="form-group">
+							                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+													<input type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="Email">
+													<span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
+												  </div>
+											  </div>
+											  
+											  <div class="form-group">
+							                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+													<input type="text" class="form-control has-feedback-left" id="inputSuccess5" placeholder="Phone">
+													<span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
+												  </div>
+											  </div>
+											  
+											  <div class="form-group">
+						                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Title</label>
+						                        <div class="col-md-9 col-sm-9 col-xs-12">
+						                          <input type="text" class="form-control" placeholder="Contact Title">
+						                        </div>
+						                      </div>
+						                      
+						                      <div class="form-group">
+						                        <label class="control-label col-md-3 col-sm-3 col-xs-12">District</label>
+						                        <div class="col-md-9 col-sm-9 col-xs-12">
+						                          <input type="text" class="form-control" readonly="readonly" value="${loggedinuser.district.name}">
+						                        </div>
+						                      </div>
+						                      <div class="form-group">
+						                        <label class="control-label col-md-3 col-sm-3 col-xs-12">School </label>
+						                        <div class="col-md-9 col-sm-9 col-xs-12">
+						                          <form:select path="" items="${schoolsByDistrict}" itemValue="id" itemLabel="name" cssClass="form-control"/>
+						                        </div>
+						                      </div>
+						                      </form> 
+							                 <br />
+							             	<button id="activate-step-6" class="btn btn-primary btn-md">Activate Step 6</button> 
+						               	</div>
+					                 </div>
 								</div>
 								<!--  STEP 6 - REVIEW -->
 								<div class="row setup-content" id="step-6">
