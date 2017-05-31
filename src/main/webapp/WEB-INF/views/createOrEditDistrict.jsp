@@ -59,20 +59,6 @@
 									</div>
 								</div>
 								
-								<!-- Schools -->
-								<div class="item form-group">
-									<label class="control-label col-md-3 col-sm-3 col-xs-6"></label>
-									<div class="col-md-3 col-sm-3 col-xs-6" has-feedback>
-										<span class="fa fa-graduation-cap form-control-feedback left" aria-hidden="true"></span>
-
-										<form:select path="schools" items="${schools}" itemValue="id" itemLabel="name" cssClass="select2_multiple col-md-12 col-xs-12 has-feedback-left" multiple="multiple"/>
-
-										<div class="has-error">
-											<form:errors path="schools" class="help-inline"/>
-										</div>
-									</div>
-								</div>
-
 								<!-- Management -->
 								<div class="ln_solid"></div>
 								<div class="form-group">

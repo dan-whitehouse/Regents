@@ -22,9 +22,7 @@ public class DistrictDAOImpl extends AbstractDao<Integer, District> implements D
 	public District findById(int id) 
 	{
 		District district = getByKey(id);
-		if(district!=null){
-			Hibernate.initialize(district.getSchools());
-		}
+
 		return district;
 	}
 
@@ -35,10 +33,7 @@ public class DistrictDAOImpl extends AbstractDao<Integer, District> implements D
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.eq("code", bedsCode));
 		District district = (District)crit.uniqueResult();
-		if(district!=null)
-		{
-			Hibernate.initialize(district.getSchools());
-		}
+
 		return district;
 	}
 

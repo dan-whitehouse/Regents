@@ -42,7 +42,6 @@ public class DistrictServiceImp implements DistrictService{
 		{
 			entity.setName(district.getName());
 			entity.setBedsCode(district.getBedsCode());
-			entity.setSchools(district.getSchools());
 		}
 	}
 	

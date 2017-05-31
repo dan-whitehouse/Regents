@@ -706,10 +706,8 @@ public class AdminController {
 	public String createDistrict(ModelMap model) 
 	{
 		District district = new District();
-		List<School> schools = schoolService.findAll();
 		
 		model.addAttribute("district", district);
-		model.addAttribute("schools", schools);
 		model.addAttribute("edit", false);
 		model.addAttribute("loggedinuser", getPrincipal());
 		return "createOrEditDistrict";
@@ -735,10 +733,8 @@ public class AdminController {
 	public String editDistrict(@PathVariable int id, ModelMap model) 
 	{
 		District district = districtService.findById(id);
-		List<School> schools = schoolService.findAll();
 		
 		model.addAttribute("district", district);
-		model.addAttribute("schools", schools);
 		model.addAttribute("edit", true);
 		model.addAttribute("loggedinuser", getPrincipal());
 		return "createOrEditDistrict";

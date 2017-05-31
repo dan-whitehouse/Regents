@@ -7,7 +7,8 @@
 * Order form - make sure school is displayed
 * Import districts to db from Jason's db
 * Order form - check box for not testing for session
-* rename db
+* ~~rename db~~
+* District level permissions (test only seeing their district's stuff)
 
 ### Optional
 * email order form once completed
