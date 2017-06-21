@@ -15,25 +15,7 @@
 	<!-- page content -->
 	<div class="right_col" role="main">
           <div class="">
-<!--             <div class="page-title"> -->
-<!--               <div class="title_left"> -->
-<!--                 <h3>Invoice <small>Some examples to get you started</small></h3> -->
-<!--               </div> -->
-
-<!--               <div class="title_right"> -->
-<!--                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search"> -->
-<!--                   <div class="input-group"> -->
-<!--                     <input type="text" class="form-control" placeholder="Search for..."> -->
-<!--                     <span class="input-group-btn"> -->
-<!--                       <button class="btn btn-default" type="button">Go!</button> -->
-<!--                     </span> -->
-<!--                   </div> -->
-<!--                 </div> -->
-<!--               </div> -->
-<!--             </div> -->
-
             <div class="clearfix"></div>
-
             <div class="row">
               <div class="col-md-12">
                 <div class="x_panel">
@@ -79,7 +61,7 @@
                        		<strong>Email: </strong> ${order.user.email} 
                       	</div>
                       	<div class="col-sm-4 invoice-col"> 
-                       		<strong>District: </strong> ${order.user.district} 
+                       		<strong>District: </strong> ${order.user.district.name} 
                       	</div>
                       </div>
                       
@@ -93,18 +75,21 @@
 		                          <table class="table table-striped">
 		                            <thead>
 		                              <tr>
+		                              	<th width="80%">Product</th>
 		                                <th width="10%">Qty</th>
-	                                	<th width="80%">Product</th>
 	                                	<th width="10%">Subtotal</th>
 		                              </tr>
 		                            </thead>
 		                            <tbody>
 		                            	<c:forEach items="${order.orderExams}" var="orderExam">
 											<tr>
-												<td>${orderExam.examAmount}</td>
 												<td>${orderExam.exam.name} - ${orderExam.exam.code}</td>
-		 										<td>$${(orderExam.examAmount * 2.10)} </td>
+												<td>${orderExam.examAmount}</td>
+		 										<td>
+		 											$<fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${(orderExam.examAmount * 2.10)}" />
+		 										</td>
 		 										
+		 										<!-- Calculate the subtotal cost of exams. Will be used to calculate total  -->
 		 										<c:set var="examTotal" value="${examTotal + (orderExam.examAmount * 2.10)}" />
 											</tr>
 										</c:forEach>	
@@ -122,18 +107,21 @@
 	                          <table class="table table-striped">
 	                            <thead>
 	                              <tr>
+	                              	<th width="80%">Product</th>
 	                                <th width="10%">Qty</th>
-	                                <th width="80%">Product</th>
 	                                <th width="10%">Subtotal</th>
 	                              </tr>
 	                            </thead>
 	                            <tbody>
 	                            	<c:forEach items="${order.orderDocuments}" var="orderDocument">
 										<tr>
-											<td>${orderDocument.documentAmount}</td>
 											<td>${orderDocument.document.name}</td>
-											<td>$${(orderDocument.documentAmount * 0.40)} </td> 
-											
+											<td>${orderDocument.documentAmount}</td>
+											<td>
+												$<fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${(orderDocument.documentAmount * 0.40)}" />
+											</td> 
+
+											<!-- Calculate the subtotal cost of documents. Will be used to calculate total  -->
 											<c:set var="docTotal" value="${docTotal + (orderDocument.documentAmount * 0.40)}" />
 										</tr>
 									</c:forEach>	
@@ -163,19 +151,22 @@
                                   <th style="width:50%">Subtotal:</th>
                                   <td>
                                   		<c:set var="total" value="${(docTotal + examTotal)}" />
-                                  		$${total}
+                                  		$<fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${total}" />
 								  </td>
                                 </tr>
                                 <tr>
                                   <th>Tax (8%)</th>
                                   <td>
                                   		<c:set var="tax" value="${(total * 0.08)}" />
-                                  		$${tax}
+                                  		$<fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${tax}" />
                                   </td>
                                 </tr>
                                 <tr>
                                   <th>Total:</th>
-                                  <td>$${total + tax}</td>
+                                  <td>
+                                  		$<fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${total + tax}" />
+                                  </td>
+                                  
                                 </tr>
                               </tbody>
                             </table>
