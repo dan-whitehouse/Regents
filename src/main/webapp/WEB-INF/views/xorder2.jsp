@@ -318,14 +318,21 @@
 																	</tr>
 																</thead>
 																<tbody>
+																
+																	<c:forEach items="${allExamOptions}" var="e" varStatus="status">
+																		<c:out value = "${'<tag> , &'}"/>
+																	</c:forEach>
+																	
 																	<c:forEach items="${xForm2.selectedExams}" var="e" varStatus="status">
-																		<tr class="pointer">
-																			<td class=" ">${e}</td>
-																			<td class=" ">${e.orderExam.exam.name}</td>
-																			<td class=" "></td>
-																			<td class=" "></td>
-																			<td class=" "></td>
-																		</tr>
+																		<c:if test="${e.selected eq true}">
+																			<tr class="pointer">
+																				<td class=" ">${e.orderExam.exam.name}</td>
+																				<td class=" ">${e.orderExam.examAmount}</td>
+																				<td class=" ">${e.orderExam.answerSheetAmount}</td>
+																				<td class=" ">${e.orderExam.studentsPerCSV}</td>
+																				<td class=" ">${e.orderExam.pearsonAnswerSheet}</td>
+																			</tr>
+																		</c:if>
 																	</c:forEach>
 <%-- 																	<form:hidden path="selectedExams[${status.index}].orderExam.exam.id" value="${e.orderExam.exam.id}"/> --%>
 																
