@@ -19,6 +19,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -39,7 +41,7 @@ public class Order implements Serializable
 	private String uuid;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "order_date", unique = true, nullable = false)
+	@Column(name = "order_date", unique = false, nullable = false)
 	private Date orderDate;
 	
 	@Column(name="order_status", nullable=false)
@@ -57,14 +59,15 @@ public class Order implements Serializable
 	@JoinColumn(name = "option_scan_id", nullable = false)
 	private OptionScan orderScan;
 	
-	@NotEmpty
 	@Column(name="report_to_level_one", unique=false, nullable=false)
 	private Boolean reportToLevelOne;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+	@Cascade(CascadeType.SAVE_UPDATE)
 	private Set<OrderExam> orderExams = new HashSet<OrderExam>(0);
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+	@Cascade(CascadeType.SAVE_UPDATE)
 	private Set<OrderDocument> orderDocuments = new HashSet<OrderDocument>(0);
 
 	public Integer getId()

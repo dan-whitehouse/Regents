@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="order_exam")
+@Table(name="orderform_exam")
 public class OrderFormExam implements Serializable
 {
 	private static final long serialVersionUID = 1L;

@@ -1,20 +1,24 @@
 package org.neric.regents.controller;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.hibernate.id.UUIDGenerator;
 import org.neric.regents.converture.OptionPrintEditor;
 import org.neric.regents.converture.OptionScanEditor;
 import org.neric.regents.model.Document;
 import org.neric.regents.model.Exam;
 import org.neric.regents.model.OptionPrint;
 import org.neric.regents.model.OptionScan;
+import org.neric.regents.model.Order;
 import org.neric.regents.model.OrderDocument;
 import org.neric.regents.model.OrderExam;
 import org.neric.regents.model.School;
@@ -26,8 +30,10 @@ import org.neric.regents.service.DocumentService;
 import org.neric.regents.service.ExamService;
 import org.neric.regents.service.OptionPrintService;
 import org.neric.regents.service.OptionScanService;
+import org.neric.regents.service.OrderService;
 import org.neric.regents.service.SchoolService;
 import org.neric.regents.service.UserService;
+import org.neric.regents.test.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -73,6 +79,9 @@ public class XController2
 	SchoolService schoolService;
 	
 	@Autowired
+	OrderService orderService;
+	
+	@Autowired
 	ExamService examService;
 	
 	@Autowired
@@ -90,7 +99,7 @@ public class XController2
 	@Autowired
 	OptionScanEditor optionScanEditor;
 	
-
+	
 	@InitBinder
     public void initBinder(WebDataBinder binder) 
 	{
@@ -185,19 +194,43 @@ public class XController2
         {
             return "xorder2Errors";
 		}
-		// Store the employee information in database
-		// manager.createNewRecord(employeeVO);
-		         
-        //System.out.println(xForm);
-        //System.out.println(xForm.getSelectedOptionPrint().getName());
-        System.out.println(xForm.getSelectedOptionScan().getName());
-        
-        for(XExamWrapper e : xForm.getSelectedExams())
+
+        System.out.println(xForm);
+        try
         {
-        	if(e.isSelected())
-        	{
-        		System.out.println(e.getOrderExam().getExam().getId() + " - " + e.getOrderExam().getExamAmount());
-        	}
+        	Order order = new Order();
+            order.setOrderDate(DateUtils.asDate(LocalDateTime.now()));
+            order.setOrderPrint(xForm.getSelectedOptionPrint());
+            order.setOrderScan(xForm.getSelectedOptionScan());
+            order.setReportToLevelOne(xForm.isReportingOption());
+            order.setOrderStatus("SOMETHING");
+            order.setUuid(UUID.randomUUID().toString());
+            order.setUser(loggedInUser());
+            
+            for(XExamWrapper ew : xForm.getSelectedExams())
+            {
+            	if(ew.isSelected())
+            	{
+            		OrderExam oe = ew.getOrderExam();
+            		oe.setOrder(order);	
+            		order.getOrderExams().add(oe);
+            	}
+            }
+            
+            for(XDocumentWrapper dw : xForm.getSelectedDocuments())
+            {
+            	if(dw.isSelected())
+            	{
+            		OrderDocument od = dw.getOrderDocument();
+            		od.setOrder(order);
+            		order.getOrderDocuments().add(od);
+            	}
+            }
+            orderService.saveOrder(order);
+        }
+        catch(Exception e)
+        {
+        	e.printStackTrace();
         }
 		 
 		// Mark Session Complete

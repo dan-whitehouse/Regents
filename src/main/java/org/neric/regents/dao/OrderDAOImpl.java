@@ -34,6 +34,7 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 		if(order!=null)
 		{
 			Hibernate.initialize(order.getUser());
+			Hibernate.initialize(order.getUser().getDistrict());
 			
 			Hibernate.initialize(order.getOrderExams());			
 			for(OrderExam e : order.getOrderExams())
