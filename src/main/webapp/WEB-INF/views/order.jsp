@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <c:url value="/order" var="order" />
 
@@ -32,21 +33,6 @@
 					<div class="x_panel">
 						<div class="x_title">
 							<h2>Regents Order Form <small>Beta</small></h2>
-<!-- 							<ul class="nav navbar-right panel_toolbox"> -->
-<!-- 								<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> -->
-<!-- 								</li> -->
-<!-- 								<li class="dropdown"> -->
-<!-- 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a> -->
-<!-- 									<ul class="dropdown-menu" role="menu"> -->
-<!-- 										<li><a href="#">Settings 1</a> -->
-<!-- 										</li> -->
-<!-- 										<li><a href="#">Settings 2</a> -->
-<!-- 										</li> -->
-<!-- 									</ul> -->
-<!-- 								</li> -->
-<!-- 								<li><a class="close-link"><i class="fa fa-close"></i></a> -->
-<!-- 								</li> -->
-<!-- 							</ul> -->
 							<div class="clearfix"></div>
 						</div>
 						
@@ -110,8 +96,8 @@
 											</a>
 										</li>
 									</ul>
-									
-									<form:form method="POST" id="formWizard" name="formWizard" modelAttribute="formWizard" class="form-horizontal form-label-left">
+<!-- 									https://spring.io/guides/gs/handling-form-submission/ -->
+								<form:form action="@{/order}" method="POST" modelAttribute="formWizard" class="container">
 									<div id="step-1">
 										<div class="col-md-2 col-sm-2 col-xs-12"></div><!-- Empty div for proper spacing -->
 										<div class="col-md-7 col-sm-7 col-xs-12">
@@ -136,6 +122,7 @@
 											<div class="highlight">This form must be signed by your superintendent, business official or whoever else is authorized to approve this expenditure.</div>
 										</div>
 									</div>
+									<!-- STEP 2 - EXAMS -->
 									<div id="step-2">
 										<form class="form-horizontal form-label-left">
 										<div class="col-md-1 col-sm-1 col-xs-12"></div>
@@ -192,6 +179,7 @@
 						                </div>
 										</form>
 									</div>
+									<!-- STEP 3 - DOCUMENTS -->
 									<div id="step-3">
 										<div class="col-md-3 col-sm-3 col-xs-12"></div>
 										<div class="col-md-6 col-sm-6 col-xs-12">
@@ -216,6 +204,7 @@
 						                    </table>
 						                </div>
 									</div>
+									<!-- STEP 4 - OPTIONS -->
 									<div id="step-4">
 										<form class="form-horizontal form-label-left">
 										
@@ -226,13 +215,7 @@
 	 					                          	     </span>
 						                        </label>
 						                        <div class="col-md-6 col-sm-6 col-xs-12">
-<%-- 						                        	<c:forEach items="${optionScans}" var="optionScan"> --%>
-<!-- 						                        		<div class="radio"> -->
-<!-- 							                            <label> -->
-<%-- 							                              <input type="radio" class="flat" checked name="iCheck"/>${optionScan.name } --%>
-<!-- 							                            </label> -->
-<!-- 							                          </div> -->
-<%-- 						                        	</c:forEach> --%>
+													<form:radiobuttons path="selectedOptionScan" items="${allScanOptions}" itemValue="id" itemLabel="name" cssClass="radio flat form-control"/>
 			                        			</div>
 			                      			</div>
 			                      			<br />
@@ -246,7 +229,7 @@
 						                        		
 							                          <div class="checkbox">
 							                            <label>
-							                              <input type="checkbox" class="flat"> NERIC will load scores into Level 1
+							                              <form:checkbox path="reportingOption" cssClass="form-control flat" label="NERIC will load scores into Level 1" />
 							                            </label>
 							                          </div>
 			                        			</div>
@@ -259,67 +242,71 @@
 						                          	</span>
 						                        </label>
 						                        <div class="col-md-6 col-sm-6 col-xs-12">
-<%-- 						                       		<form:select path="selectedOptionPrint" items="${allPrintOptions}" itemValue="id" itemLabel="name" /> --%>
+						                       		<form:select path="selectedOptionPrint" items="${allPrintOptions}" itemValue="id" itemLabel="name" cssClass="form-control"/>
 			                        			</div>
 			                      			</div>
 			                      		</form>
 									</div>
+									<!--  STEP 5 - CONTACT -->
+
 									<div id="step-5">
-										<h2 class="StepTitle">Order Contact</h2>
-						                      <div class="x_content">
-							                    <br />
-							                    <form class="form-horizontal form-label-left input_mask">
-							                    try populating user data based on checked field
-											
-											
-												<div class="form-group" >
-													<div class="col-md-6 col-sm-6 col-xs-12">
-														<input type="checkbox" class="flat"> I am the order contact
-													</div>
-												</div>
-							
-							                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-							                        <input type="text" class="form-control has-feedback-left"
-							                        	readonly="readonly"
-														id="inputSuccess1" value="${loggedindistrict}">
-														<span class="fa fa-university form-control-feedback left" aria-hidden="true"></span>
-							                      </div>
-							
-							                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-							                        <input type="text" class="form-control has-feedback-left"
-														id="inputSuccess1" placeholder="School"> 
-														<span class="fa fa-graduation-cap form-control-feedback left" aria-hidden="true"></span>
-							                      </div>
-							
-							                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-							                        <input type="text" class="form-control has-feedback-left"
-														id="inputSuccess2" placeholder="First Name"> 
-														<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-							                      </div>
-							
-							                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-							                        <input type="text" class="form-control has-feedback-left"
-														id="inputSuccess3" placeholder="Last Name"> 
-														<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-							                      </div>
-							                      
-							                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-							                      	<input type="text" class="form-control has-feedback-left"
-														id="inputSuccess4" placeholder="Email">
-														<span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
-							                      </div>
-							                      
-							                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-							                      	<input type="text" class="form-control has-feedback-left"
-														id="inputSuccess5" placeholder="Phone">
-													<span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
-							                      </div>
-							                    </form>
-							                  </div>
-							                </div>
-	
-									<div id="step-6">
+										  <div class="row">
+								              <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+<!-- 								                <div class="x_panel"> -->
+								                  <div class="x_title">
+								                    <h2>Contact Information</h2>
+								                    <div class="clearfix"></div>
+								                  </div>
+								                  <div class="x_content">
+								                    <br />
+								                    <form class="form-horizontal form-label-center input_mask">
+								
+								                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+								                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="First Name">
+								                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+								                      </div>
+								
+								                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+								                        <input type="text" class="form-control" id="inputSuccess3" placeholder="Last Name">
+								                        <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+								                      </div>
+								
+								                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+								                        <input type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="Email">
+								                        <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
+								                      </div>
+								
+								                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+								                        <input type="text" class="form-control" id="inputSuccess5" placeholder="Phone">
+								                        <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
+								                      </div>
+								
+								                      <div class="form-group">
+								                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Title</label>
+								                        <div class="col-md-9 col-sm-9 col-xs-12">
+								                          <input type="text" class="form-control" placeholder="Contact Title">
+								                        </div>
+								                      </div>
+								                      <div class="form-group">
+								                        <label class="control-label col-md-3 col-sm-3 col-xs-12">District </label>
+								                        <div class="col-md-9 col-sm-9 col-xs-12">
+								                          <input type="text" class="form-control" readonly="readonly" value="${loggedinuser.district.name}">
+								                        </div>
+								                      </div>
+								                      <div class="form-group">
+								                        <label class="control-label col-md-3 col-sm-3 col-xs-12">School </label>
+								                        <div class="col-md-9 col-sm-9 col-xs-12">
+								                          <form:select path="" items="${schoolsByDistrict}" itemValue="id" itemLabel="name" cssClass="form-control"/>
+								                        </div>
+								                      </div>
+								                    </form>
+								                  </div>
+								                </div>
+<!-- 								                </div> -->
+								     	</div>	
+							         </div>
 									<!-- START STEP 6 -->
+									<div id="step-6">
 										<div class="col-md-12 col-sm-12 col-xs-12" >
 							                <div class="x_panel">
 							                  <div class="x_title">
@@ -328,132 +315,182 @@
 							                  </div>
 							
 							                  <div class="x_content">
-							                    <div class="table-responsive">
-							                      <table class="table table-striped jambo_table bulk_action">
-							                        <thead>
-							                          <tr class="headings">
-							                            <th class="column-title">Test Name </th>
-							                            <th class="column-title">Number of Test </th>
-							                            <th class="column-title">Answer Sheets </th>
-							                            <th class="column-title">Students Per CSV </th>
-							                            <th class="column-title">P.A.S. </th>
-							                          </tr>
-							                        </thead>
-							
-							                        <tbody>
-							                          <tr class="even pointer">
-							                            <td class=" ">Algebra 2 / Trigonometry - 02052CC</td>
-							                            <td class=" ">61</td>
-							                            <td class=" ">10</td>
-							                            <td class=" ">1</td>
-							                            <td class=" "></td>
-							                          </tr>
-							                          <tr class="odd pointer">
-							                            <td class=" ">ELA (Common Core) - 01003CC</td>
-							                            <td class=" ">116</td>
-							                            <td class=" ">20</td>
-							                            <td class=" ">0</td>
-							                            <td class=" "></td>
-							                          </tr>
-							                          <tr class="even pointer">
-							                            <td class=" ">Global History & Geography - 04052</td>
-							                            <td class=" ">102</td>
-							                            <td class=" ">20</td>
-							                            <td class=" ">12</td>
-							                            <td class=" "></td>
-							                          </tr>
-							                        </tbody>
-							                      </table>
-							                    </div>
-							                  </div>
-							                </div>
-							              </div>
-							              <br />
-							              <!--  START DOCUMENTS -->
-							              <div class="col-md-12 col-sm-12 col-xs-12">
-							                <div class="x_panel">
-							                  <div class="x_title">
-							                    <h2>Non-Secure Documents</h2>
-							                    <div class="clearfix"></div>
-							                  </div>
-							
-							                  <div class="x_content">
-							                    <div class="table-responsive">
-							                      <table class="table table-striped jambo_table bulk_action">
-							                        <thead>
-							                          <tr class="headings">
-							                            <th class="column-title">Name </th>
-							                            <th class="column-title">Number Requested </th>
-							                          </tr>
-							                        </thead>
-							
-							                        <tbody>
-							                          <tr class="even pointer">
-							                            <td class=" ">Chemistry</td>
-							                            <td class=" ">50</td>
-							                          </tr>
-							                        </tbody>
-							                      </table>
-							                    </div>
-							                  </div>
-							                </div>
-							              </div>
-							              <!-- END DOCUMENTSS -->
-							              <br />
-							              <!-- START OPTIONS -->
-							              <form class="form-horizontal form-label-left">
-										
-											<div class="form-group">
-				                        		<label class="control-label col-md-3 col-sm-3 col-xs-12">Scanning/Scoring Option: 
- 														<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default." >
-						                          		<span class=" fa fa-info"></span>
-	 					                          	     </span>
-						                        </label>
-						                        <div
-													class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-													<input type="text" class="form-control"
-														readonly="readonly"
-														id="inputSuccess1" value="Scan answer sheets at a Regional BOCES Scan Site by deadline."> <span
-														aria-hidden="true"></span>
+														<div class="table-responsive">
+															<table class="table table-striped jambo_table bulk_action">
+																<thead>
+																	<tr class="headings">
+																		<th class="column-title">Test Name </th>
+																		<th class="column-title">Number of Test </th>
+																		<th class="column-title">Answer Sheets </th>
+																		<th class="column-title">Students Per CSV </th>
+																		<th class="column-title">P.A.S. </th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<c:forEach items="${xForm2.selectedExams}" var="e" varStatus="status">
+																		<tr class="pointer">
+																			<td class=" ">${e}</td>
+																			<td class=" ">${e.orderExam.exam.name}</td>
+																			<td class=" "></td>
+																			<td class=" "></td>
+																			<td class=" "></td>
+																		</tr>
+																	</c:forEach>
+<%-- 																	<form:hidden path="selectedExams[${status.index}].orderExam.exam.id" value="${e.orderExam.exam.id}"/> --%>
+																
+																	<tr class="even pointer">
+																		<td class=" ">Algebra 2 / Trigonometry - 02052CC</td>
+																		<td class=" ">61</td>
+																		<td class=" ">10</td>
+																		<td class=" ">1</td>
+																		<td class=" "></td>
+																	</tr>
+																	<tr class="odd pointer">
+																		<td class=" ">ELA (Common Core) - 01003CC</td>
+																		<td class=" ">116</td>
+																		<td class=" ">20</td>
+																		<td class=" ">0</td>
+																		<td class=" "></td>
+																	</tr>
+																	<tr class="even pointer">
+																		<td class=" ">Global History & Geography - 04052</td>
+																		<td class=" ">102</td>
+																		<td class=" ">20</td>
+																		<td class=" ">12</td>
+																		<td class=" "></td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</div>
 												</div>
-			                      			</div>
-			                      			<br />
-			                      			<div class="form-group">
-				                        		<label class="control-label col-md-3 col-sm-3 col-xs-12">Reporting Option: 
- 														<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default." >
-						                          		<span class=" fa fa-info"></span>
-	 					                          	     </span>
-						                        </label>
-						                        <div class="col-md-6 col-sm-6 col-xs-12">
-						                        	<div
-														class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-														<input type="text" class="form-control"
-															readonly="readonly"
-															id="inputSuccess1" value="NERIC will load scores into Level 1"> <span
-															aria-hidden="true"></span>
-													</div>
-			                        			</div>
-			                      			</div>
+											</div>
 											<br />
-											<div class="form-group">
-				                        		<label class="control-label col-md-3 col-sm-3 col-xs-12">Printing Option: 
-						                        </label>
-						                         <div class="col-md-6 col-sm-6 col-xs-12">
-						                        	<div>
-														class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-														<input type="text" class="form-control"
-															readonly="readonly"
-															id="inputSuccess1" value="Teacher (Building/Teacher/Student)"> <span
-															aria-hidden="true"></span>
+											<!-- START DOCUMENTS -->
+											<div class="col-md-6 col-sm-6 col-xs-6">
+												<div class="x_panel">
+													<div class="x_title">
+														<h2>Non-Secure Documents</h2>
+														<div class="clearfix"></div>
 													</div>
-			                        			</div>
-			                      			</div>
-			                      			<br />
-			                      			<div class="form-group">
-			                      				<p>By clicking "Submit", you signify that you have permission to order these Regents forms from an appropriate person who can authorize this expenditure.</p>
-			                      			</div>
-			                      		</form>
-							              <!-- END OPTIONS -->
+													<div class="x_content">
+														<div class="table-responsive">
+															<table class="table table-striped jambo_table bulk_action">
+																<thead>
+																	<tr class="headings">
+																		<th class="column-title">Name </th>
+																		<th class="column-title">Number Requested </th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr class="even pointer">
+																		<td class=" ">Chemistry</td>
+																		<td class=" ">50</td>
+																	</tr>
+																	<tr class="even pointer">
+																		<td class=" ">Chemistry</td>
+																		<td class=" ">50</td>
+																	</tr>
+																	<tr class="even pointer">
+																		<td class=" ">Chemistry</td>
+																		<td class=" ">50</td>
+																	</tr>
+																	<tr class="even pointer">
+																		<td class=" ">Chemistry</td>
+																		<td class=" ">50</td>
+																	</tr>
+																	<tr class="even pointer">
+																		<td class=" ">Chemistry</td>
+																		<td class=" ">50</td>
+																	</tr>
+																	<tr class="even pointer">
+																		<td class=" ">Chemistry</td>
+																		<td class=" ">50</td>
+																	</tr>
+																	<tr class="even pointer">
+																		<td class=" ">Chemistry</td>
+																		<td class=" ">50</td>
+																	</tr>
+																	<tr class="even pointer">
+																		<td class=" ">Chemistry</td>
+																		<td class=" ">50</td>
+																	</tr>
+																	<tr class="even pointer">
+																		<td class=" ">Chemistry</td>
+																		<td class=" ">50</td>
+																	</tr>
+																	<tr class="even pointer">
+																		<td class=" ">Chemistry</td>
+																		<td class=" ">50</td>
+																	</tr>
+																	<tr class="even pointer">
+																		<td class=" ">Chemistry</td>
+																		<td class=" ">50</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</div>
+												</div>
+											</div>
+											<!-- END DOCUMENTS -->
+											
+											<!-- START OPTIONS -->
+											<div class="col-md-6 col-sm-6 col-xs-6">
+												<div class="x_panel">
+													<div class="x_title">
+														<h2>Options</h2>
+														<div class="clearfix"></div>
+													</div>
+													<div class="x_content">
+														<div class="table-responsive">
+															<table class="table table-striped jambo_table bulk_action">
+																<thead>
+																	<tr class="headings">
+																		<th class="column-title">Option </th>
+																		<th class="column-title">Number Requested </th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr class="even pointer">
+																		<td class=" ">Scanning/Scoring Option: </td>
+																		<td class=" ">
+																			<input type="text" class="form-control" readonly="readonly" id="inputSuccess1" value="Scan answer sheets at a Regional BOCES Scan Site by deadline.">
+																		 </td>
+																	</tr>
+																	<tr class="even pointer">
+																		<td class=" ">Printing Option: </td>
+																		<td class=" ">
+																			<input type="text" class="form-control" readonly="readonly" id="inputSuccess1" value="Teacher (Building/Teacher/Student)">
+																		 </td>
+																	</tr>
+																	<tr class="even pointer">
+																		<td class=" ">Reporting Option: </td>
+																		<td class=" "> 
+																			<input type="text" class="form-control" readonly="readonly" id="inputSuccess1" value="NERIC will load scores into Level 1"> 
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</div>
+												</div>
+											</div>
+											<!-- END OPTIONS -->
+											<div class="col-md-6 col-sm-6 col-xs-6">
+												<div class="x_panel">
+													<div class="x_title">
+														<h2>Submit</h2>
+														<div class="clearfix"></div>
+													</div>
+													<div class="x_content">
+														<div class="form-group">
+															<p>By clicking "Submit", you signify that you have permission to order these Regents forms from an appropriate person who can authorize this expenditure.</p>
+														</div>
+														<input type="submit" value="Submit" class="btn btn-success"/> <a href="<c:url value='/list' />" class="btn btn-primary">Cancel</a>
+													</div>
+												</div>
+											</div>
 										<!-- END STEP 6 -->
 									</div>
 									</form:form>

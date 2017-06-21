@@ -155,9 +155,7 @@
 																		</td>
 																		<c:choose>
 																			<c:when test="${e.orderExam.exam.name == 'Algebra 2 (Common Core)'}">
-																				<th scope="row">
-																					<form:checkbox path="selectedExams[${status.index}].pasSelected" class="flat"/>
-																				</th>
+																				<th scope="row"><form:checkbox path="selectedExams[${status.index}].pasSelected" class="flat"/></th>
 																			</c:when>
 																			<c:otherwise>
 																				<th scope="row"></th>
@@ -192,7 +190,7 @@
 													<c:forEach items="${allDocumentOptions}" var="d" varStatus="status">
 														<form:hidden path="selectedDocuments[${status.index}].orderDocument.document.id" value="${d.orderDocument.document.id}"/>
 														<tr>
-															<td><input path="selectedDocuments[${status.index}].selected" type="checkbox" class="flat" /></td>
+															<td><form:checkbox path="selectedDocuments[${status.index}].selected" class="flat" /></td>
 															<td>
 																<form:input path="selectedDocuments[${status.index}].orderDocument.document.name" value="${d.orderDocument.document.name }"  class="form-control col-md-3 col-xs-12" />
 															</td>

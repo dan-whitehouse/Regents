@@ -1,9 +1,11 @@
 package org.neric.regents.controller;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,6 +32,7 @@ import org.neric.regents.model.School;
 import org.neric.regents.model.User;
 import org.neric.regents.model.UserProfile;
 import org.neric.regents.model.Wizard;
+import org.neric.regents.model.XDocumentWrapper;
 import org.neric.regents.model.XExamWrapper;
 import org.neric.regents.model.XForm2;
 import org.neric.regents.service.DistrictService;
@@ -41,6 +44,7 @@ import org.neric.regents.service.OrderService;
 import org.neric.regents.service.SchoolService;
 import org.neric.regents.service.UserProfileService;
 import org.neric.regents.service.UserService;
+import org.neric.regents.test.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
@@ -206,24 +210,42 @@ public class OrderController
 		// manager.createNewRecord(employeeVO);
 
 		System.out.println(wizard);
-		System.out.println(wizard.getSelectedOptionPrint().getName());
-		System.out.println(wizard.getSelectedOptionScan().getName());
-
-		for (ExamWrapper e : wizard.getSelectedExams())
-		{
-			if (e.isSelected())
-			{
-				System.out.println(e.getOrderExam().getExam().getId() + " - " + e.getOrderExam().getExamAmount());
-			}
-		}
-		
-		for(DocumentWrapper d : wizard.getSelectedDocuments())
-		{
-			if(d.isSelected())
-			{
-				System.out.println(d.getOrderDocument().getDocument().getId() + " - " + d.getOrderDocument().getDocumentAmount());
-			}
-		}
+		 try
+	        {
+	        	Order order = new Order();
+	            order.setOrderDate(DateUtils.asDate(LocalDateTime.now()));
+	            order.setOrderPrint(wizard.getSelectedOptionPrint());
+	            order.setOrderScan(wizard.getSelectedOptionScan());
+	            order.setReportToLevelOne(wizard.isReportingOption());
+	            order.setOrderStatus("Processing");
+	            order.setUuid(UUID.randomUUID().toString());
+	            order.setUser(loggedInUser());
+	            
+	            for(ExamWrapper ew : wizard.getSelectedExams())
+	            {
+	            	if(ew.isSelected())
+	            	{
+	            		OrderExam oe = ew.getOrderExam();
+	            		oe.setOrder(order);	
+	            		order.getOrderExams().add(oe);
+	            	}
+	            }
+	            
+	            for(DocumentWrapper dw : wizard.getSelectedDocuments())
+	            {
+	            	if(dw.isSelected())
+	            	{
+	            		OrderDocument od = dw.getOrderDocument();
+	            		od.setOrder(order);
+	            		order.getOrderDocuments().add(od);
+	            	}
+	            }
+	            orderService.saveOrder(order);
+	        }
+	        catch(Exception e)
+	        {
+	        	e.printStackTrace();
+	        }
 
 		// Mark Session Complete
 		status.setComplete();
