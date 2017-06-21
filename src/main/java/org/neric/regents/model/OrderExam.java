@@ -124,4 +124,10 @@ public class OrderExam implements Serializable
 	{
 		this.pearsonAnswerSheet = pearsonAnswerSheet;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "OrderExam [id=" + id + ", order=" + order + ", exam=" + exam + ", examAmount=" + examAmount + ", answerSheetAmount=" + answerSheetAmount + ", studentsPerCSV=" + studentsPerCSV + ", pearsonAnswerSheet=" + pearsonAnswerSheet + "]";
+	}
 }

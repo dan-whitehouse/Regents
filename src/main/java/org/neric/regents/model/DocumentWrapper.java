@@ -40,6 +40,4 @@ public class DocumentWrapper
 	{
 		return "DocumentWrapper [selected=" + selected + ", orderDocument=" + orderDocument + "]";
 	}
-
-	
 }

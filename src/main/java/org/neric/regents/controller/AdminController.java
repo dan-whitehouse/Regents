@@ -111,6 +111,18 @@ public class AdminController {
         binder.registerCustomEditor(School.class, schoolEditor);
     }
 
+	@ModelAttribute("loggedinuser")
+    public User loggedInUser() 
+    {
+		User user = userService.findByUsername(getPrincipal());
+        return user;
+    }
+	
+	@ModelAttribute("loggedinusername")
+    public String loggedInUserName() 
+    {
+        return getPrincipal();
+    }
 	
 	/************************** USERS **************************/
 	@RequestMapping(value = { "/admin/users" }, method = RequestMethod.GET)
@@ -118,7 +130,6 @@ public class AdminController {
 	{
 		List<User> users = userService.findAllUsers();
 		model.addAttribute("users", users);
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "users";
 	}
 	
@@ -130,7 +141,6 @@ public class AdminController {
 		model.addAttribute("user", user);
 		model.addAttribute("districts", districts);
 		model.addAttribute("edit", false);
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "createUser";
 	}
 	
@@ -154,7 +164,6 @@ public class AdminController {
 		model.addAttribute("success", "User: " + user.getUsername() + " was registered successfully");
 		model.addAttribute("returnLink", "/admin/users");
 		model.addAttribute("returnLinkText", "Users");
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "success";
 	}
 	
@@ -166,7 +175,6 @@ public class AdminController {
 		model.addAttribute("user", user);
 		//model.addAttribute("districts", districts);
 		model.addAttribute("edit", true);
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "createUser";
 	}
 	
@@ -190,7 +198,6 @@ public class AdminController {
 		model.addAttribute("success", "User: " + user.getUsername() +  " was updated successfully");
 		model.addAttribute("returnLink", "/admin/users");
 		model.addAttribute("returnLinkText", "Users");
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "success";
 	}
 	
@@ -209,7 +216,6 @@ public class AdminController {
 
 		List<OrderForm> orderForms = orderFormService.findAllOrderForms();
 		model.addAttribute("orderForms", orderForms);
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "orderForms";
 	}
 	
@@ -219,7 +225,6 @@ public class AdminController {
 		OrderForm orderForm = orderFormService.findByUUID(uuid);
 		model.addAttribute("orderForm", orderForm);
 		model.addAttribute("edit", false);
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "orderForm";
 	}
 		
@@ -234,7 +239,6 @@ public class AdminController {
 		model.addAttribute("documents", documents);
 		model.addAttribute("orderForm", orderForm);
 		model.addAttribute("edit", false);
-		model.addAttribute("loggedinuser", getPrincipal());
 		
 		return "createOrEditOrderForm";
 	}
@@ -251,7 +255,6 @@ public class AdminController {
 		model.addAttribute("success", "OrderForm: " + orderForm.getName() + " was created successfully");
 		model.addAttribute("returnLink", "/admin/orderForms");
 		model.addAttribute("returnLinkText", "Order Forms");
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "success";
 	}
 	
@@ -261,7 +264,6 @@ public class AdminController {
 		OrderForm orderForm = orderFormService.findByUUID(uuid);
 		model.addAttribute("orderForm", orderForm);
 		model.addAttribute("edit", true);
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "createOrEditOrderForm";
 	}
 	
@@ -286,7 +288,6 @@ public class AdminController {
 
 		List<Exam> exams = examService.findAllExams();
 		model.addAttribute("exams", exams);
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "exams";
 	}
 	
@@ -296,7 +297,6 @@ public class AdminController {
 		Exam exam = new Exam();
 		model.addAttribute("exam", exam);
 		model.addAttribute("edit", false);
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "createOrEditExam";
 	}
 
@@ -312,7 +312,6 @@ public class AdminController {
 		model.addAttribute("success", "Exam: " + exam.getName() + " was created successfully");
 		model.addAttribute("returnLink", "/admin/exams");
 		model.addAttribute("returnLinkText", "Exams");
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "success";
 	}
 	
@@ -322,7 +321,6 @@ public class AdminController {
 		Exam exam = examService.findById(id);
 		model.addAttribute("exam", exam);
 		model.addAttribute("edit", true);
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "createOrEditExam";
 	}
 	
@@ -339,7 +337,6 @@ public class AdminController {
 		model.addAttribute("success", "Exam: " + exam.getName() + " - " + exam.getCode() +  " was updated successfully");
 		model.addAttribute("returnLink", "/admin/exams");
 		model.addAttribute("returnLinkText", "Exams");
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "success";
 	}
 
@@ -371,7 +368,6 @@ public class AdminController {
 
 		List<Document> documents = documentService.findAllDocuments();
 		model.addAttribute("documents", documents);
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "documents";
 	}
 		
@@ -381,7 +377,6 @@ public class AdminController {
 		Document document = new Document();
 		model.addAttribute("document", document);
 		model.addAttribute("edit", false);
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "createOrEditDocument";
 	}
 
@@ -397,7 +392,6 @@ public class AdminController {
 		model.addAttribute("success", "Document: " + document.getName() + " was created successfully");
 		model.addAttribute("returnLink", "/admin/documents");
 		model.addAttribute("returnLinkText", "Documents");
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "success";
 	}
 	
@@ -407,7 +401,6 @@ public class AdminController {
 		Document document = documentService.findById(id);
 		model.addAttribute("document", document);
 		model.addAttribute("edit", true);
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "createOrEditDocument";
 	}
 	
@@ -424,7 +417,6 @@ public class AdminController {
 		model.addAttribute("success", "Document: " + document.getName() + " was updated successfully");
 		model.addAttribute("returnLink", "/admin/documents");
 		model.addAttribute("returnLinkText", "Documents");
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "success";
 	}
 
@@ -456,7 +448,6 @@ public class AdminController {
 
 		List<OptionPrint> printOptions = optionPrintService.findAllOptionPrints();
 		model.addAttribute("printOptions", printOptions);
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "printOptions";
 	}
 		
@@ -466,7 +457,6 @@ public class AdminController {
 		OptionPrint printOption = new OptionPrint();
 		model.addAttribute("printOption", printOption);
 		model.addAttribute("edit", false);
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "createOrEditPrintOption";
 	}
 
@@ -482,7 +472,6 @@ public class AdminController {
 		model.addAttribute("success", "Print Option: " + optionPrint.getName() + " was created successfully");
 		model.addAttribute("returnLink", "/admin/printOptions");
 		model.addAttribute("returnLinkText", "Print Options");
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "success";
 	}
 	
@@ -492,7 +481,6 @@ public class AdminController {
 		OptionPrint printOption = optionPrintService.findById(id);
 		model.addAttribute("printOption", printOption);
 		model.addAttribute("edit", true);
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "createOrEditPrintOption";
 	}
 	
@@ -509,7 +497,6 @@ public class AdminController {
 		model.addAttribute("success", "Print Option: " + optionPrint.getName() + " was updated successfully");
 		model.addAttribute("returnLink", "/admin/printOptions");
 		model.addAttribute("returnLinkText", "Print Options");
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "success";
 	}
 
@@ -542,7 +529,6 @@ public class AdminController {
 
 		List<OptionScan> scanOptions = optionScanService.findAllOptionScans();
 		model.addAttribute("scanOptions", scanOptions);
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "scanOptions";
 	}
 		
@@ -552,7 +538,6 @@ public class AdminController {
 		OptionScan scanOption = new OptionScan();
 		model.addAttribute("scanOption", scanOption);
 		model.addAttribute("edit", false);
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "createOrEditScanOption";
 	}
 
@@ -568,7 +553,6 @@ public class AdminController {
 		model.addAttribute("success", "Scan Option: " + optionScan.getName() + " was created successfully");
 		model.addAttribute("returnLink", "/admin/scanOptions");
 		model.addAttribute("returnLinkText", "Scan Options");
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "success";
 	}
 	
@@ -578,7 +562,6 @@ public class AdminController {
 		OptionScan scanOption = optionScanService.findById(id);
 		model.addAttribute("scanOption", scanOption);
 		model.addAttribute("edit", true);
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "createOrEditScanOption";
 	}
 	
@@ -595,7 +578,6 @@ public class AdminController {
 		model.addAttribute("success", "Scan Option: " + optionScan.getName() + " was updated successfully");
 		model.addAttribute("returnLink", "/admin/scanOptions");
 		model.addAttribute("returnLinkText", "Scan Options");
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "success";
 	}
 
@@ -628,7 +610,6 @@ public class AdminController {
 
 		List<Setting> settings = settingService.findAll();
 		model.addAttribute("settings", settings);
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "settings";
 	}
 		
@@ -638,7 +619,6 @@ public class AdminController {
 		Setting setting = new Setting();
 		model.addAttribute("setting", setting);
 		model.addAttribute("edit", false);
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "createOrEditSetting";
 	}
 
@@ -654,7 +634,6 @@ public class AdminController {
 		model.addAttribute("success", "Setting: " + setting.getKey() + " was created successfully");
 		model.addAttribute("returnLink", "/admin/settings");
 		model.addAttribute("returnLinkText", "Settings");
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "success";
 	}
 	
@@ -664,7 +643,6 @@ public class AdminController {
 		Setting setting = settingService.findById(id);
 		model.addAttribute("setting", setting);
 		model.addAttribute("edit", true);
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "createOrEditSetting";
 	}
 	
@@ -681,7 +659,6 @@ public class AdminController {
 		model.addAttribute("success", "Setting: " + setting.getKey() + " was updated successfully");
 		model.addAttribute("returnLink", "/admin/settings");
 		model.addAttribute("returnLinkText", "Settings");
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "success";
 	}
 	
@@ -698,7 +675,6 @@ public class AdminController {
 
 		List<District> districts = districtService.findAllDistricts();
 		model.addAttribute("districts", districts);
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "districts";
 	}
 		
@@ -709,7 +685,6 @@ public class AdminController {
 		
 		model.addAttribute("district", district);
 		model.addAttribute("edit", false);
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "createOrEditDistrict";
 	}
 
@@ -725,7 +700,6 @@ public class AdminController {
 		model.addAttribute("success", "District: " + district.getName() + " was created successfully");
 		model.addAttribute("returnLink", "/admin/districts");
 		model.addAttribute("returnLinkText", "Districts");
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "success";
 	}
 	
@@ -736,7 +710,6 @@ public class AdminController {
 		
 		model.addAttribute("district", district);
 		model.addAttribute("edit", true);
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "createOrEditDistrict";
 	}
 	
@@ -752,7 +725,6 @@ public class AdminController {
 		model.addAttribute("success", "District: " + district.getName() + " was updated successfully");
 		model.addAttribute("returnLink", "/admin/districts");
 		model.addAttribute("returnLinkText", "Districts");
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "success";
 	}
 	
@@ -769,7 +741,6 @@ public class AdminController {
 
 		List<School> schools = schoolService.findAll();
 		model.addAttribute("schools", schools);
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "schools";
 	}
 		
@@ -782,7 +753,6 @@ public class AdminController {
 		model.addAttribute("school", school);
 		model.addAttribute("districts", districts);
 		model.addAttribute("edit", false);
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "createOrEditSchool";
 	}
 
@@ -798,7 +768,6 @@ public class AdminController {
 		model.addAttribute("success", "School: " + school.getName() + " was created successfully");
 		model.addAttribute("returnLink", "/admin/schools");
 		model.addAttribute("returnLinkText", "Schools");
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "success";
 	}
 	
@@ -811,7 +780,6 @@ public class AdminController {
 		model.addAttribute("school", school);
 		model.addAttribute("districts", districts);
 		model.addAttribute("edit", true);
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "createOrEditSchool";
 	}
 	
@@ -827,7 +795,6 @@ public class AdminController {
 		model.addAttribute("success", "School: " + school.getName() + " was updated successfully");
 		model.addAttribute("returnLink", "/admin/schools");
 		model.addAttribute("returnLinkText", "Schools");
-		model.addAttribute("loggedinuser", getPrincipal());
 		return "success";
 	}
 	

@@ -161,6 +161,12 @@ public class OrderController
         return user;
     }
 	
+	@ModelAttribute("loggedinusername")
+    public String loggedInUserName() 
+    {
+        return getPrincipal();
+    }
+	
 	@ModelAttribute("schoolsByDistrict")
     public List<School> populateSchoolsByDistrict() 
     {

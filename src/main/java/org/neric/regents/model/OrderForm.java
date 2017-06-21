@@ -181,6 +181,10 @@ public class OrderForm implements Serializable
 	{
 		this.locked = locked;
 	}
-	
-	
+
+	@Override
+	public String toString()
+	{
+		return "OrderForm [id=" + id + ", uuid=" + uuid + ", name=" + name + ", startDate=" + startDate + ", endDate=" + endDate + ", visible=" + visible + ", locked=" + locked + ", exams=" + exams + ", documents=" + documents + "]";
+	}
 }

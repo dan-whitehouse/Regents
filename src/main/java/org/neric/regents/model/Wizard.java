@@ -101,7 +101,7 @@ public class Wizard
 	@Override
 	public String toString()
 	{
-		return "Wizard [id=" + id + ", title=" + title + ", selectedOptionPrint=" + selectedOptionPrint + ", selectedOptionScan=" + selectedOptionScan + ", selectedExams=" + selectedExams + ", selectedDocuments=" + selectedDocuments + "]";
+		return "Wizard [id=" + id + ", title=" + title + ", selectedOptionPrint=" + selectedOptionPrint + ", reportingOption=" + reportingOption + ", selectedOptionScan=" + selectedOptionScan + ", selectedExams=" + selectedExams + ", selectedDocuments=" + selectedDocuments + "]";
 	}
 	
 //	private List<ExamWrapper> allAvailableExams = new ArrayList<>();

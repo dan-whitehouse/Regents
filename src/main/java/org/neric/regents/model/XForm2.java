@@ -102,9 +102,8 @@ public class XForm2 implements Serializable
 	}
 
 	@Override
-	public String toString() {
-		return "XForm2 [id=" + id + ", title=" + title + ", selectedOptionPrint=" + selectedOptionPrint
-				+ ", reportingOption=" + reportingOption + ", selectedOptionScan=" + selectedOptionScan
-				+ ", selectedExams=" + selectedExams + ", selectedDocuments=" + selectedDocuments + "]";
+	public String toString()
+	{
+		return "XForm2 [id=" + id + ", title=" + title + ", selectedOptionPrint=" + selectedOptionPrint + ", reportingOption=" + reportingOption + ", selectedOptionScan=" + selectedOptionScan + ", selectedExams=" + selectedExams + ", selectedDocuments=" + selectedDocuments + "]";
 	}
 }

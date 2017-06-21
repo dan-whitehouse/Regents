@@ -61,7 +61,7 @@ public class AppController {
 	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
 	public String homePage(ModelMap model) {
 
-		model.addAttribute("loggedinuser", getPrincipal());
+		model.addAttribute("loggedinusername", getPrincipal());
 		return "home";
 	}
 
@@ -100,7 +100,7 @@ public class AppController {
 		User user = userService.findByUsername(username);
 		model.addAttribute("user", user);
 		model.addAttribute("edit", false);
-		model.addAttribute("loggedinuser", getPrincipal());
+		model.addAttribute("loggedinusername", getPrincipal());
 		return "profile";
 	}
 	
@@ -111,7 +111,7 @@ public class AppController {
 		User user = userService.findByUsername(getPrincipal());
 		UserPassword userPassword = new UserPassword(user.getId());
 		model.addAttribute("userPassword", userPassword);
-		model.addAttribute("loggedinuser", getPrincipal());
+		model.addAttribute("loggedinusername", getPrincipal());
 		return "changePassword";
 	}
 	
@@ -135,7 +135,7 @@ public class AppController {
 		model.addAttribute("success", "User: " + getPrincipal() +  "'s password was updated successfully");
 		model.addAttribute("returnLink", "/");
 		model.addAttribute("returnLinkText", "Users");
-		model.addAttribute("loggedinuser", getPrincipal());
+		model.addAttribute("loggedinusername", getPrincipal());
 		return "success";
 	}
 

@@ -143,6 +143,12 @@ public class XController2
         return user;
     }
 	
+	@ModelAttribute("loggedinusername")
+    public String loggedInUserName() 
+    {
+        return getPrincipal();
+    }
+	
 	@ModelAttribute("schoolsByDistrict")
     public List<School> populateSchoolsByDistrict() 
     {
@@ -182,8 +188,8 @@ public class XController2
 		// Store the employee information in database
 		// manager.createNewRecord(employeeVO);
 		         
-        System.out.println(xForm);
-        System.out.println(xForm.getSelectedOptionPrint().getName());
+        //System.out.println(xForm);
+        //System.out.println(xForm.getSelectedOptionPrint().getName());
         System.out.println(xForm.getSelectedOptionScan().getName());
         
         for(XExamWrapper e : xForm.getSelectedExams())
@@ -207,16 +213,16 @@ public class XController2
 	 }
 	 
 	 private String getPrincipal()
-		{
-			String userName = null;
-			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	{
+		String userName = null;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-			if (principal instanceof UserDetails) {
-				userName = ((UserDetails)principal).getUsername();
-			} else {
-				userName = principal.toString();
-			}
-			return userName;
+		if (principal instanceof UserDetails) {
+			userName = ((UserDetails)principal).getUsername();
+		} else {
+			userName = principal.toString();
 		}
+		return userName;
+	}
 }
 	

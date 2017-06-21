@@ -86,6 +86,20 @@ public class XController
 	@Autowired
 	MessageSource messageSource;
 
+	
+	@ModelAttribute("loggedinuser")
+    public User loggedInUser() 
+    {
+		User user = userService.findByUsername(getPrincipal());
+        return user;
+    }
+	
+	@ModelAttribute("loggedinusername")
+    public String loggedInUserName() 
+    {
+        return getPrincipal();
+    }
+	
 	//model populated by the method below
     //moved as we also need it populated on POST
     @RequestMapping(value = { "/xorder" }, method = RequestMethod.GET)
@@ -147,6 +161,17 @@ public class XController
 
         return xForm;
     }
-	
+    
+    private String getPrincipal()
+   	{
+   		String userName = null;
+   		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
+   		if (principal instanceof UserDetails) {
+   			userName = ((UserDetails)principal).getUsername();
+   		} else {
+   			userName = principal.toString();
+   		}
+   		return userName;
+   	}
 }

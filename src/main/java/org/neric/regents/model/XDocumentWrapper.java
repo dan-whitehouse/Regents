@@ -34,4 +34,10 @@ public class XDocumentWrapper
 	{
 		this.orderDocument = orderDocument;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "XDocumentWrapper [selected=" + selected + ", orderDocument=" + orderDocument + "]";
+	}
 }

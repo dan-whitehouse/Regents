@@ -96,4 +96,10 @@ public class School implements Serializable
 	{
 		this.orderContacts = orderContacts;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "School [id=" + id + ", district=" + district + ", name=" + name + ", orderContacts=" + orderContacts + "]";
+	}
 }

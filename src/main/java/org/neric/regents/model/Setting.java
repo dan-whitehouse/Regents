@@ -62,4 +62,10 @@ public class Setting implements Serializable
 	{
 		this.value = value;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "Setting [id=" + id + ", key=" + key + ", value=" + value + "]";
+	}
 }

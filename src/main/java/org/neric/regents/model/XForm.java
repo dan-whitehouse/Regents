@@ -43,4 +43,10 @@ public class XForm
 	{
 		this.selectedOptionPrint = selectedOptionPrint;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "XForm [allAvailableExams=" + allAvailableExams + ", allAvailableDocuments=" + allAvailableDocuments + ", selectedOptionPrint=" + selectedOptionPrint + "]";
+	}
 }

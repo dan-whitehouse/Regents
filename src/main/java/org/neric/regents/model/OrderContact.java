@@ -191,4 +191,10 @@ public class OrderContact implements Serializable
 	{
 		this.altZipCode = altZipCode;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "OrderContact [id=" + id + ", order=" + order + ", school=" + school + ", name=" + name + ", title=" + title + ", email=" + email + ", phone=" + phone + ", altName=" + altName + ", altLine1=" + altLine1 + ", altLine2=" + altLine2 + ", altCity=" + altCity + ", altState=" + altState + ", altZipCode=" + altZipCode + "]";
+	}
 }

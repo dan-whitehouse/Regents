@@ -86,4 +86,10 @@ public class OrderDocument implements Serializable
 	{
 		this.documentAmount = documentAmount;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "OrderDocument [id=" + id + ", order=" + order + ", document=" + document + ", documentAmount=" + documentAmount + "]";
+	}
 }

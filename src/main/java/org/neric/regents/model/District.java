@@ -115,6 +115,12 @@ public class District implements Serializable
 	}
 
 	@Override
+	public String toString()
+	{
+		return "District [id=" + id + ", name=" + name + ", bedsCode=" + bedsCode + ", visible=" + visible + ", locked=" + locked + "]";
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -122,5 +128,4 @@ public class District implements Serializable
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
-
 }

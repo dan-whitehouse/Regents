@@ -61,4 +61,10 @@ public class OrderFormDocument implements Serializable
 	{
 		this.document = document;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "OrderFormDocument [id=" + id + ", orderForm=" + orderForm + ", document=" + document + "]";
+	}
 }

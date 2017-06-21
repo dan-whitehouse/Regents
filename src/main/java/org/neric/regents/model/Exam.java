@@ -145,4 +145,10 @@ public class Exam implements Serializable
 	{
 		this.locked = locked;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "Exam [id=" + id + ", name=" + name + ", code=" + code + ", visible=" + visible + ", locked=" + locked + ", exams=" + exams + ", orderForms=" + orderForms + "]";
+	}
 }

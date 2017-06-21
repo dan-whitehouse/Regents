@@ -16,5 +16,4 @@ public enum UserProfileType implements Serializable{
 	public String getUserProfileType(){
 		return userProfileType;
 	}
-	
 }

@@ -59,4 +59,10 @@ public class PersistentLogin implements Serializable{
 	public void setLast_used(Date last_used) {
 		this.last_used = last_used;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "PersistentLogin [series=" + series + ", username=" + username + ", token=" + token + ", last_used=" + last_used + "]";
+	}
 }

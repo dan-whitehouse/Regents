@@ -166,6 +166,10 @@ public class Order implements Serializable
 	{
 		this.orderStatus = orderStatus;
 	}
-	
-	
+
+	@Override
+	public String toString()
+	{
+		return "Order [id=" + id + ", uuid=" + uuid + ", orderDate=" + orderDate + ", orderStatus=" + orderStatus + ", user=" + user + ", orderPrint=" + orderPrint + ", orderScan=" + orderScan + ", reportToLevelOne=" + reportToLevelOne + ", orderExams=" + orderExams + ", orderDocuments=" + orderDocuments + "]";
+	}
 }

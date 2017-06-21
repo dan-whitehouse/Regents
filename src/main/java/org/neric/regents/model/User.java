@@ -177,12 +177,11 @@ public class User implements Serializable
 		return true;
 	}
 
-//	@Override
-//	public String toString()
-//	{
-//		return "User [id=" + id + ", username=" + username + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", district=" + lea + ", userProfiles=" + userProfiles + "]";
-//	}
-
+	@Override
+	public String toString()
+	{
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", district=" + district + ", userProfiles=" + userProfiles + "]";
+	}
 
 	
 }

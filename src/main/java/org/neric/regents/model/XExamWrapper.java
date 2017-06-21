@@ -40,6 +40,4 @@ public class XExamWrapper
 	{
 		return "XExamWrapper [selected=" + selected + ", orderExam=" + orderExam + "]";
 	}
-	
-	
 }

@@ -23,4 +23,10 @@ public class XOptionPrintWrapper
 	{
 		this.optionPrint = optionPrint;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "XOptionPrintWrapper [optionPrint=" + optionPrint + "]";
+	}
 }
