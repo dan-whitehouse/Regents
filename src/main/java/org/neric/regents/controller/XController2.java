@@ -171,7 +171,7 @@ public class XController2
 	{
 		XForm2 xForm = new XForm2();
         model.addAttribute("xForm2", xForm);
-        return "xorder2";
+        return "xorder3";
     }
 	
 	 @RequestMapping(value = { "/xorder2" }, method = RequestMethod.POST)

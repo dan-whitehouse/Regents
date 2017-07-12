@@ -24,7 +24,7 @@
 							<div class="container">
 								<div class="row">
 									<div class="col-xs-12">
-										<ul class="nav nav-pills nav-justified thumbnail setup-panel">
+										<ul class="nav nav-pills nav-justified thumbnail2 setup-panel">
 											<li class="active">
 												<a href="#step-1">
 													<h4 class="list-group-item-heading">Step 1</h4>
@@ -56,7 +56,7 @@
 												</a>
 											</li>
 											<li class="disabled">
-												<a href="#step-6">
+												<a href="#step-6" onclick="review();">
 													<h4 class="list-group-item-heading">Step 6</h4>
 													<p class="list-group-item-text">Review</p>
 												</a>
@@ -221,7 +221,7 @@
 												</span>
 												</label>
 												<div class="col-md-6 col-sm-6 col-xs-12">
-													<form:radiobuttons path="selectedOptionScan" name="test" items="${allScanOptions}" itemValue="id" itemLabel="name" cssClass="radio flat form-control"/>
+													<form:radiobuttons path="selectedOptionScan" name="selectedOptionScan" items="${allScanOptions}" itemValue="id" itemLabel="name" cssClass="radio flat form-control"/>
 												</div>
 											</div>
 											<br />
@@ -234,7 +234,7 @@
 												<div class="col-md-6 col-sm-6 col-xs-12">
 													<div class="checkbox">
 														<label>
-															<form:checkbox path="reportingOption" cssClass="form-control flat" label="NERIC will load scores into Level 1" />
+															<form:checkbox path="reportingOption" name="reportingOption" cssClass="form-control flat" label="NERIC will load scores into Level 1" />
 														</label>
 													</div>
 												</div>
@@ -290,7 +290,7 @@
 													id="inputSuccess5" placeholder="Phone">
 												<span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
 											</div>
-											<button id="activate-step-6" class="btn btn-primary btn-md">Next</button> 
+											<button id="activate-step-6" class="btn btn-primary btn-md" onclick="review()">Next</button> 
 										</div>
 									</div>
 								</div>
@@ -317,25 +317,7 @@
 																		<th class="column-title">P.A.S. </th>
 																	</tr>
 																</thead>
-																<tbody>
-																
-																	<c:forEach items="${allExamOptions}" var="e" varStatus="status">
-																		<c:out value = "${'<tag> , &'}"/>
-																	</c:forEach>
-																	
-																	<c:forEach items="${xForm2.selectedExams}" var="e" varStatus="status">
-																		<c:if test="${e.selected eq true}">
-																			<tr class="pointer">
-																				<td class=" ">${e.orderExam.exam.name}</td>
-																				<td class=" ">${e.orderExam.examAmount}</td>
-																				<td class=" ">${e.orderExam.answerSheetAmount}</td>
-																				<td class=" ">${e.orderExam.studentsPerCSV}</td>
-																				<td class=" ">${e.orderExam.pearsonAnswerSheet}</td>
-																			</tr>
-																		</c:if>
-																	</c:forEach>
-<%-- 																	<form:hidden path="selectedExams[${status.index}].orderExam.exam.id" value="${e.orderExam.exam.id}"/> --%>
-																
+																<tbody>															
 																	<tr class="even pointer">
 																		<td class=" ">Algebra 2 / Trigonometry - 02052CC</td>
 																		<td class=" ">61</td>
@@ -453,19 +435,19 @@
 																	<tr class="even pointer">
 																		<td class=" ">Scanning/Scoring Option: </td>
 																		<td class=" ">
-																			<input type="text" class="form-control" readonly="readonly" id="inputSuccess1" value="Scan answer sheets at a Regional BOCES Scan Site by deadline.">
+																			<input type="text" class="form-control" readonly="readonly" id="reviewScanOption" value="">
 																		 </td>
 																	</tr>
 																	<tr class="even pointer">
 																		<td class=" ">Printing Option: </td>
 																		<td class=" ">
-																			<input type="text" class="form-control" readonly="readonly" id="inputSuccess1" value="Teacher (Building/Teacher/Student)">
+																			<input type="text" class="form-control" readonly="readonly" id="reviewPrintOption" value="">
 																		 </td>
 																	</tr>
 																	<tr class="even pointer">
 																		<td class=" ">Reporting Option: </td>
 																		<td class=" "> 
-																			<input type="text" class="form-control" readonly="readonly" id="inputSuccess1" value="NERIC will load scores into Level 1"> 
+																			<input type="text" class="form-control" readonly="readonly" id="reviewReportingOption" value=""> 
 																		</td>
 																	</tr>
 																</tbody>
@@ -502,5 +484,34 @@
 		</div>
 	</div>
 	<!-- /page content -->
+	<script type="text/javascript">
+		function review() 
+		{	
+			//Printing Option
+			var selectedOptionPrint = document.getElementById("selectedOptionPrint");
+			var reviewPrintOption = document.getElementById("reviewPrintOption");
+			reviewPrintOption.value = selectedOptionPrint.options[selectedOptionPrint.selectedIndex].text;
+			
+			//Scanning Option
+			var selectedOptionScanIndex = document.querySelector('input[name = "selectedOptionScan"]:checked').value;
+			var selectedOptionScan = document.querySelector('label[for="selectedOptionScan' + selectedOptionScanIndex + '"]').text;
+			
+			
+			//var selectedOptionScan = document.getElementById("selectedOptionScan"+selectedOptionScanIndex).text;
+			var reviewScanOption = document.getElementById("reviewScanOption");
+			reviewScanOption.value = selectedOptionScan;
+
+					
+			//Reporting Option
+			var reportingOption = false;
+			if(document.getElementById('reportingOption1').checked) 
+			{
+				reportingOption = true;
+			}
+			var reviewReportingOption = document.getElementById("reviewReportingOption");
+			if(reportingOption == true){reviewReportingOption.value = 'NERIC will load scores into Level 1'}
+			else {reviewReportingOption.value = 'NERIC will NOT load scores into Level 1'}
+		}
+	</script>
 	<jsp:include page="fragments/footer.jsp" />
 </html>

@@ -2986,6 +2986,12 @@ ul.project_files li a i {
     height: 190px;
     overflow: hidden
 }
+
+.thumbnail2 {
+    height: 72px;
+    overflow: hidden
+}
+
 .view {
     overflow: hidden;
     position: relative;
