@@ -189,7 +189,7 @@ public class OrderController
 	@RequestMapping(value = { "/order" }, method = RequestMethod.POST)
 	public String submitForm(@ModelAttribute("formWizard") Wizard wizard, BindingResult result, SessionStatus status)
 	{
-
+		System.out.println("AHHHHHHHHHHHHHH");
 		Set<ConstraintViolation<Wizard>> violations = validator.validate(wizard);
 
 		for (ConstraintViolation<Wizard> violation : violations)

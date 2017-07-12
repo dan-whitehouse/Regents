@@ -151,19 +151,19 @@
         	onFinish: onFinishCallback
         });
 
-        $('#wizard_verticle').smartWizard({
+        $('#wizard_horizontal').smartWizard({
           transitionEffect: 'slide'
         });
         
         function onFinishCallback(){
-        	$('#wizard').submit();
-            $('#wizard').smartWizard('showMessage','Finish Clicked');
+        	$('#form').submit();
+          
             alert('O.M.G. YOU SUBMITTED!');
-          } 
+        } 
 
         $('.buttonNext').addClass('btn btn-success');
         $('.buttonPrevious').addClass('btn btn-primary');
-        $('.buttonFinish').addClass('btn btn-default');
+        $('.buttonFinish').addClass('btn btn-success');
 
       });
     </script>

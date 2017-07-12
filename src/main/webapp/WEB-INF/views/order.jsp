@@ -12,21 +12,6 @@
 	<!-- page content -->
 	<div class="right_col" role="main">
 		<div class="">
-			<!--             <div class="page-title"> -->
-			<!--               <div class="title_left"> -->
-			<!--                 <h3>Form Wizards</h3> -->
-			<!--               </div> -->
-			<!--               <div class="title_right"> -->
-			<!--                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search"> -->
-			<!--                   <div class="input-group"> -->
-			<!--                     <input type="text" class="form-control" placeholder="Search for..."> -->
-			<!--                     <span class="input-group-btn"> -->
-			<!--                               <button class="btn btn-default" type="button">Go!</button> -->
-			<!--                           </span> -->
-			<!--                   </div> -->
-			<!--                 </div> -->
-			<!--               </div> -->
-			<!--             </div> -->
 			<div class="clearfix"></div>
 			<div class="row">
 				<div class="col-md-12 col-sm-12 col-xs-12">
@@ -97,7 +82,7 @@
 										</li>
 									</ul>
 <!-- 									https://spring.io/guides/gs/handling-form-submission/ -->
-								<form:form action="@{/order}" method="POST" modelAttribute="formWizard" class="container">
+								<form:form id="form" method="POST" modelAttribute="formWizard" cssClass="container" commandName="userForm">
 									<div id="step-1">
 										<div class="col-md-2 col-sm-2 col-xs-12"></div><!-- Empty div for proper spacing -->
 										<div class="col-md-7 col-sm-7 col-xs-12">
