@@ -64,19 +64,18 @@
 		                        <div class="col-md-6 col-sm-6 col-xs-12">
 		                        	<c:choose>
 										<c:when test="${edit}">
-											<select class="select2_multiple form-control" multiple="multiple">
+											<form:select path="orderFormExams" multiple="true" class="select2_multiple form-control">
 					                          	<c:forEach items="${orderForm.exams}" var="exam">
-													<option value="${exam.id}">${exam.name}</option>
+													<form:option value="${exam.id}">${exam.name}</form:option>
 												</c:forEach>
-				                          	</select>
+				                          	</form:select>
 										</c:when>
 										<c:otherwise>
-											<select class="select2_multiple form-control" multiple="multiple">
+											<form:select path="orderFormExams" multiple="true" class="select2_multiple form-control">
 					                          	<c:forEach items="${exams}" var="exam" varStatus="status">
-<%-- 													<option value="${exam.id}">${exam.name}</option> --%>
-														<option value="exams[${status.index}]">${exam.name}</option>
+														<form:option value="${exam.id}">${exam.name}</form:option>
 												</c:forEach>
-				                          	</select>
+				                          	</form:select>
 										</c:otherwise>
 									</c:choose>
 		                        </div>
@@ -90,18 +89,18 @@
 		                        <div class="col-md-6 col-sm-6 col-xs-12">
 		                        	<c:choose>
 										<c:when test="${edit}">
-											<select class="select2_multiple form-control" multiple="multiple">
+											<form:select path="orderFormDocuments" multiple="true" class="select2_multiple form-control">
 					                          	<c:forEach items="${orderForm.documents}" var="document">
-													<option value="${document.id}">${document.name}</option>
+													<form:option value="${document.id}">${document.name}</form:option>
 												</c:forEach>
-				                          	</select>
+				                          	</form:select>
 										</c:when>
 										<c:otherwise>
-											<select class="select2_multiple form-control" multiple="multiple">
+											<form:select path="orderFormDocuments" multiple="true" class="select2_multiple form-control">
 					                          	<c:forEach items="${documents}" var="document">
-													<option value="${document.id}">${document.name}</option>
+													<form:option value="${document.id}">${document.name}</form:option>
 												</c:forEach>
-				                          	</select>
+				                          	</form:select>
 										</c:otherwise>
 									</c:choose>
 		                        </div>

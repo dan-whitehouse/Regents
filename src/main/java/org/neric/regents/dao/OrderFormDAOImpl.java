@@ -13,6 +13,8 @@ import org.neric.regents.model.Order;
 import org.neric.regents.model.OrderDocument;
 import org.neric.regents.model.OrderExam;
 import org.neric.regents.model.OrderForm;
+import org.neric.regents.model.OrderFormDocument;
+import org.neric.regents.model.OrderFormExam;
 import org.springframework.stereotype.Repository;
 
 
@@ -24,8 +26,17 @@ public class OrderFormDAOImpl extends AbstractDao<Integer, OrderForm> implements
 		OrderForm orderForm = getByKey(id);
 		if(orderForm!=null)
 		{
-			Hibernate.initialize(orderForm.getExams());			
-			Hibernate.initialize(orderForm.getDocuments());	
+			Hibernate.initialize(orderForm.getOrderFormDocuments());	
+			for(OrderFormDocument ofd : orderForm.getOrderFormDocuments())
+			{
+				Hibernate.initialize(ofd.getDocument());
+			}
+					
+			Hibernate.initialize(orderForm.getOrderFormExams());
+			for(OrderFormExam ofe: orderForm.getOrderFormExams())
+			{
+				Hibernate.initialize(ofe.getExam());
+			}
 		}
 		return orderForm;
 	}
@@ -38,8 +49,17 @@ public class OrderFormDAOImpl extends AbstractDao<Integer, OrderForm> implements
 				
 		if(orderForm!=null)
 		{
-			Hibernate.initialize(orderForm.getExams());			
-			Hibernate.initialize(orderForm.getDocuments());			
+			Hibernate.initialize(orderForm.getOrderFormDocuments());	
+			for(OrderFormDocument ofd : orderForm.getOrderFormDocuments())
+			{
+				Hibernate.initialize(ofd.getDocument());
+			}
+					
+			Hibernate.initialize(orderForm.getOrderFormExams());
+			for(OrderFormExam ofe: orderForm.getOrderFormExams())
+			{
+				Hibernate.initialize(ofe.getExam());
+			}		
 		}
 		return orderForm;
 	}

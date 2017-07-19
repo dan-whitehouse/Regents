@@ -20,6 +20,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -84,11 +86,13 @@ public class OrderForm implements Serializable
 	@Column(name="locked", unique=false, nullable=true)	
 	private Boolean locked;
 	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "orderForms")
-	private Set<Exam> exams = new HashSet<Exam>(0);
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderForm")
+	@Cascade(CascadeType.SAVE_UPDATE)
+	private Set<OrderFormExam> orderFormExams = new HashSet<OrderFormExam>(0);
 	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "orderForms")
-	private Set<Document> documents = new HashSet<Document>(0);
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderForm")
+	@Cascade(CascadeType.SAVE_UPDATE)
+	private Set<OrderFormDocument> orderFormDocuments = new HashSet<OrderFormDocument>(0);
 	
 	
 	
@@ -142,24 +146,24 @@ public class OrderForm implements Serializable
 		this.endDate = endDate;
 	}
 
-	public Set<Exam> getExams()
+	public Set<OrderFormExam> getOrderFormExams()
 	{
-		return exams;
+		return orderFormExams;
 	}
 
-	public void setExams(Set<Exam> exams)
+	public void setOrderFormExams(Set<OrderFormExam> orderFormExams)
 	{
-		this.exams = exams;
+		this.orderFormExams = orderFormExams;
 	}
 
-	public Set<Document> getDocuments()
+	public Set<OrderFormDocument> getOrderFormDocuments()
 	{
-		return documents;
+		return orderFormDocuments;
 	}
 
-	public void setDocuments(Set<Document> documents)
+	public void setOrderFormDocuments(Set<OrderFormDocument> orderFormDocuments)
 	{
-		this.documents = documents;
+		this.orderFormDocuments = orderFormDocuments;
 	}
 
 	public Boolean getVisible()
@@ -185,6 +189,6 @@ public class OrderForm implements Serializable
 	@Override
 	public String toString()
 	{
-		return "OrderForm [id=" + id + ", uuid=" + uuid + ", name=" + name + ", startDate=" + startDate + ", endDate=" + endDate + ", visible=" + visible + ", locked=" + locked + ", exams=" + exams + ", documents=" + documents + "]";
+		return "OrderForm [id=" + id + ", uuid=" + uuid + ", name=" + name + ", startDate=" + startDate + ", endDate=" + endDate + ", visible=" + visible + ", locked=" + locked + ", orderFormExams=" + orderFormExams + ", orderFormDocuments=" + orderFormDocuments + "]";
 	}
 }

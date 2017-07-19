@@ -32,6 +32,11 @@ public class OrderFormDocument implements Serializable
 	@JoinColumn(name = "document_id", nullable = false)
 	private Document document;
 
+	public OrderFormDocument()
+	{
+		super();
+	}
+
 	public Integer getId()
 	{
 		return id;

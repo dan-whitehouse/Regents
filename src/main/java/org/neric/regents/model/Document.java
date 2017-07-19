@@ -50,9 +50,6 @@ public class Document implements Serializable
 	@Column(name = "document_id", unique = true, nullable = false)
 	private Integer id;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "document")
-	private Set<OrderDocument> documents = new HashSet<OrderDocument>(0);
-	
 	@NotEmpty
 	@Column(name="name", unique=true, nullable=false)
 	private String name;
@@ -63,10 +60,11 @@ public class Document implements Serializable
 	@Column(name="locked", unique=false, nullable=true)	
 	private Boolean locked;
 	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "orderForm_document", joinColumns = { @JoinColumn(name = "document_id", nullable = false, updatable = false)},
-								 	 inverseJoinColumns = { @JoinColumn(name = "orderForm_id",nullable = false, updatable = false)})
-	private Set<OrderForm> orderForms = new HashSet<OrderForm>(0);
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "document")
+	private Set<OrderDocument> documents = new HashSet<OrderDocument>(0);
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "document")
+	private Set<OrderFormDocument> orderFormDocuments = new HashSet<OrderFormDocument>(0);
 	
 	
 	public Integer getId()
@@ -99,14 +97,14 @@ public class Document implements Serializable
 		this.name = name;
 	}
 
-	public Set<OrderForm> getOrderForms()
+	public Set<OrderFormDocument> getOrderFormDocuments()
 	{
-		return orderForms;
+		return orderFormDocuments;
 	}
 
-	public void setOrderForms(Set<OrderForm> orderForms)
+	public void setOrderFormDocuments(Set<OrderFormDocument> orderFormDocuments)
 	{
-		this.orderForms = orderForms;
+		this.orderFormDocuments = orderFormDocuments;
 	}
 
 	public Boolean getVisible()

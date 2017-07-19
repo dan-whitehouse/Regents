@@ -1,7 +1,9 @@
 package org.neric.regents.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +20,8 @@ import org.neric.regents.model.OptionPrint;
 import org.neric.regents.model.OptionScan;
 import org.neric.regents.model.Order;
 import org.neric.regents.model.OrderForm;
+import org.neric.regents.model.OrderFormDocument;
+import org.neric.regents.model.OrderFormExam;
 import org.neric.regents.model.School;
 import org.neric.regents.model.Setting;
 import org.neric.regents.model.User;
@@ -34,6 +38,7 @@ import org.neric.regents.service.SettingService;
 import org.neric.regents.service.UserProfileService;
 import org.neric.regents.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomCollectionEditor;
 import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.core.Authentication;
@@ -109,7 +114,59 @@ public class AdminController {
 	{
         binder.registerCustomEditor(District.class, districtEditor);
         binder.registerCustomEditor(School.class, schoolEditor);
-    }
+        binder.registerCustomEditor(Set.class, "orderFormExams", new CustomCollectionEditor(Set.class)
+        {
+	          @Override
+	          protected Object convertElement(Object element)
+	          {
+	              Integer id = null;
+	
+	              if(element instanceof String && !((String)element).equals("")){
+	                  //From the JSP 'element' will be a String
+	                  try{
+	                      id = Integer.parseInt((String) element);
+	                  }
+	                  catch (NumberFormatException e) {
+	                      System.out.println("Element was " + ((String) element));
+	                      e.printStackTrace();
+	                  }
+	              }
+	              else if(element instanceof Integer) {
+	                  //From the database 'element' will be a Long
+	                  id = (Integer) element;
+	              }
+	
+	              return id != null ? examService.findById(id) : null;
+	          }
+        });
+        
+        binder.registerCustomEditor(Set.class, "orderFormDocuments", new CustomCollectionEditor(Set.class)
+        {
+	          @Override
+	          protected Object convertElement(Object element)
+	          {
+	              Integer id = null;
+	
+	              if(element instanceof String && !((String)element).equals("")){
+	                  //From the JSP 'element' will be a String
+	                  try{
+	                      id = Integer.parseInt((String) element);
+	                  }
+	                  catch (NumberFormatException e) {
+	                      System.out.println("Element was " + ((String) element));
+	                      e.printStackTrace();
+	                  }
+	              }
+	              else if(element instanceof Integer) {
+	                  //From the database 'element' will be a Long
+	                  id = (Integer) element;
+	              }
+	
+	              return id != null ? documentService.findById(id) : null;
+	          }
+        });
+	}
+    
 
 	@ModelAttribute("loggedinuser")
     public User loggedInUser() 
@@ -231,9 +288,10 @@ public class AdminController {
 	@RequestMapping(value = { "/admin/orderForms/create" }, method = RequestMethod.GET)
 	public String createOrderForm(ModelMap model) 
 	{
+		//Get Exams & Documents from DB
 		List<Exam> exams = examService.findAllExams();
 		List<Document> documents = documentService.findAllDocuments();
-
+		
 		OrderForm orderForm = new OrderForm();
 		model.addAttribute("exams", exams);
 		model.addAttribute("documents", documents);
@@ -246,10 +304,17 @@ public class AdminController {
 	@RequestMapping(value = { "/admin/orderForms/create" }, method = RequestMethod.POST)
 	public String createOrderForm(@Valid OrderForm orderForm, BindingResult result, ModelMap model) 
 	{
+		
+		System.out.println(orderForm);
+		
 		if (result.hasErrors()) 
 		{
+			System.err.println(result.getAllErrors());
 			return "createOrEditOrderForm";
 		}		
+		
+		
+		
 		orderFormService.saveOrderForm(orderForm);
 
 		model.addAttribute("success", "OrderForm: " + orderForm.getName() + " was created successfully");

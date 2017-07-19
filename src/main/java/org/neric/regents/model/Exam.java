@@ -69,10 +69,8 @@ public class Exam implements Serializable
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "exam")
 	private Set<OrderExam> exams = new HashSet<OrderExam>(0);
 	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "orderForm_exam", joinColumns = { @JoinColumn(name = "exam_id", nullable = false, updatable = false)},
-								 inverseJoinColumns = { @JoinColumn(name = "orderForm_id",nullable = false, updatable = false)})
-	private Set<OrderForm> orderForms = new HashSet<OrderForm>(0);
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "exam")
+	private Set<OrderFormExam> orderFormExams = new HashSet<OrderFormExam>(0);
 	
 
 	
@@ -116,14 +114,14 @@ public class Exam implements Serializable
 		this.code = code;
 	}
 
-	public Set<OrderForm> getOrderForms()
+	public Set<OrderFormExam> getOrderFormExams()
 	{
-		return orderForms;
+		return orderFormExams;
 	}
 
-	public void setOrderForms(Set<OrderForm> orderForms)
+	public void setOrderFormExams(Set<OrderFormExam> orderFormExams)
 	{
-		this.orderForms = orderForms;
+		this.orderFormExams = orderFormExams;
 	}
 
 	public Boolean getVisible()
@@ -149,6 +147,6 @@ public class Exam implements Serializable
 	@Override
 	public String toString()
 	{
-		return "Exam [id=" + id + ", name=" + name + ", code=" + code + ", visible=" + visible + ", locked=" + locked + ", exams=" + exams + ", orderForms=" + orderForms + "]";
+		return "Exam [id=" + id + ", name=" + name + ", code=" + code + ", visible=" + visible + ", locked=" + locked +"]";
 	}
 }
