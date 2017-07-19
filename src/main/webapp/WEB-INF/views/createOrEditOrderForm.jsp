@@ -95,7 +95,7 @@
 		                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Documents</label>
 		                        <div class="col-md-6 col-sm-6 col-xs-12">
 		                        
-		                        	<form:select path="orderFormDocuments" multiple="true" class="select2_multiple form-control">
+		                        	<form:select path="orderForm.orderFormDocuments" multiple="true" class="select2_multiple form-control">
 			                          	<c:forEach items="${docs}" var="d">
 											<form:option value="${d.id}">${d.name}</form:option>
 										</c:forEach>
