@@ -144,25 +144,35 @@ public class AdminController {
         {
 	          @Override
 	          protected Object convertElement(Object element)
-	          {
+	          { 
 	              Integer id = null;
-	
-	              if(element instanceof String && !((String)element).equals("")){
-	                  //From the JSP 'element' will be a String
-	                  try{
+	              if(element instanceof String && !((String)element).equals(""))
+	              {
+	                  try
+	                  {
 	                      id = Integer.parseInt((String) element);
 	                  }
-	                  catch (NumberFormatException e) {
+	                  catch (NumberFormatException e) 
+	                  {
 	                      System.out.println("Element was " + ((String) element));
 	                      e.printStackTrace();
 	                  }
 	              }
-	              else if(element instanceof Integer) {
+	              else if(element instanceof Integer) 
+	              {
 	                  //From the database 'element' will be a Long
 	                  id = (Integer) element;
 	              }
-	
-	              return id != null ? documentService.findById(id) : null;
+
+	              
+	              if(id != null)
+	              {
+	            	  Document d = documentService.findById(id);
+	            	  System.out.println(d.getName());
+	            	  return d;
+	              }
+	              
+	              return null;
 	          }
         });
 	}
@@ -294,7 +304,7 @@ public class AdminController {
 		
 		OrderForm orderForm = new OrderForm();
 		model.addAttribute("exams", exams);
-		model.addAttribute("documents", documents);
+		model.addAttribute("docs", documents);
 		model.addAttribute("orderForm", orderForm);
 		model.addAttribute("edit", false);
 		
@@ -310,6 +320,10 @@ public class AdminController {
 		if (result.hasErrors()) 
 		{
 			System.err.println(result.getAllErrors());
+			System.err.println("------------");
+			System.err.println(result.getGlobalErrors());
+			
+			
 			return "createOrEditOrderForm";
 		}		
 		
