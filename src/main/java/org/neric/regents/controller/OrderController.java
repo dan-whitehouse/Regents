@@ -191,7 +191,7 @@ public class OrderController
 	{
 		System.out.println("AHHHHHHHHHHHHHH");
 		Set<ConstraintViolation<Wizard>> violations = validator.validate(wizard);
-
+		
 		for (ConstraintViolation<Wizard> violation : violations)
 		{
 			String propertyPath = violation.getPropertyPath().toString();
@@ -200,11 +200,13 @@ public class OrderController
 			// Add JSR-303 errors to BindingResult
 			// This allows Spring to display them in view via a FieldError
 			result.addError(new FieldError("formWizard", propertyPath, "Invalid " + propertyPath + "(" + message + ")"));
+			System.out.println(wizard.toString());
+			System.out.println(result);
 		}
 
 		if (result.hasErrors())
 		{
-			return "xorder2Errors";
+			return "error";
 		}
 		// Store the employee information in database
 		// manager.createNewRecord(employeeVO);

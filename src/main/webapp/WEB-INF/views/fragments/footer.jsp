@@ -144,28 +144,28 @@
     
     <!-- jQuery Smart Wizard -->
     <script>
-      $(document).ready(function() {
-        $('#wizard').smartWizard({
-        	hideButtonsOnDisabled: true,
-        	labelFinish: 'Submit',
-        	onFinish: onFinishCallback
-        });
+//       $(document).ready(function() {
+//         $('#wizard').smartWizard({
+//         	hideButtonsOnDisabled: true,
+//         	labelFinish: 'Submit',
+//         	onFinish: onFinishCallback
+//         });
 
-        $('#wizard_horizontal').smartWizard({
-          transitionEffect: 'slide'
-        });
+//         $('#wizard_horizontal').smartWizard({
+//           transitionEffect: 'slide'
+//         });
         
-        function onFinishCallback(){
-        	$('#form').submit();
+//         function onFinishCallback(){
+//         	$('#form').submit();
           
-            alert('O.M.G. YOU SUBMITTED!');
-        } 
+//             alert('O.M.G. YOU SUBMITTED!');
+//         } 
 
-        $('.buttonNext').addClass('btn btn-success');
-        $('.buttonPrevious').addClass('btn btn-primary');
-        $('.buttonFinish').addClass('btn btn-success');
+//         $('.buttonNext').addClass('btn btn-success');
+//         $('.buttonPrevious').addClass('btn btn-primary');
+//         $('.buttonFinish').addClass('btn btn-success');
 
-      });
+//       });
     </script>
     <!-- /jQuery Smart Wizard -->
     
