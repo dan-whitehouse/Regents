@@ -1,4 +1,6 @@
-package org.neric.regents.model;
+package org.neric.regents.wizard;
+
+import org.neric.regents.model.OptionPrint;
 
 public class XOptionPrintWrapper
 {

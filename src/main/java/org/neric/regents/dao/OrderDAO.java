@@ -22,4 +22,5 @@ public interface OrderDAO {
 	
 	void deleteOrder(int id);
 	
+	void deleteOrder(String uuid);
 }

@@ -91,6 +91,15 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 		Order order = (Order)crit.uniqueResult();
 		delete(order);
 	}
+	
+	@Override
+	public void deleteOrder(String uuid)
+	{
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("uuid", uuid));
+		Order order = (Order)crit.uniqueResult();
+		delete(order);
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override

@@ -82,11 +82,9 @@ public class OrderFormDAOImpl extends AbstractDao<Integer, OrderForm> implements
 	}
 
 	@Override
-	public void saveOrderForm(OrderForm order)
+	public void saveOrderForm(OrderForm orderForm)
 	{
-		order.setUuid(UUID.randomUUID().toString());
-		persist(order);
-		
+		persist(orderForm);
 	}
 
 	@Override

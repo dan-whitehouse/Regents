@@ -57,6 +57,22 @@ public class OrderForm implements Serializable
 		this.visible = visible;
 		this.locked = locked;
 	}
+	
+	
+	public OrderForm(Integer id, String uuid, String name, Date startDate, Date endDate, Boolean visible, Boolean locked, Set<OrderFormExam> orderFormExams, Set<OrderFormDocument> orderFormDocuments)
+	{
+		super();
+		this.id = id;
+		this.uuid = uuid;
+		this.name = name;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.visible = visible;
+		this.locked = locked;
+		this.orderFormExams = orderFormExams;
+		this.orderFormDocuments = orderFormDocuments;
+	}
+
 
 	@Id 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -188,6 +204,6 @@ public class OrderForm implements Serializable
 	@Override
 	public String toString()
 	{
-		return "OrderForm [id=" + id + ", uuid=" + uuid + ", name=" + name + ", startDate=" + startDate + ", endDate=" + endDate + ", visible=" + visible + ", locked=" + locked + ", orderFormExams=" + orderFormExams + ", orderFormDocuments=" + orderFormDocuments + "]";
+		return "OrderForm [id=" + id + ", uuid=" + uuid + ", name=" + name + ", startDate=" + startDate + ", endDate=" + endDate + ", visible=" + visible + ", locked=" + locked+ "]";
 	}
 }

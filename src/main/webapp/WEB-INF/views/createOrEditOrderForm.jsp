@@ -63,7 +63,7 @@
 		                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Exams</label>
 		                        <div class="col-md-6 col-sm-6 col-xs-12">
 		                        	
-		                        	<form:select path="orderFormExams" multiple="true" class="select2_multiple form-control">
+		                        	<form:select path="orderFormExams" id="orderFormExams" name="orderFormExams" multiple="true" class="select2_multiple form-control">
 			                          	<c:forEach items="${exams}" var="exam">
 											<form:option value="${exam.id}">${exam.name}</form:option>
 										</c:forEach>
@@ -95,9 +95,9 @@
 		                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Documents</label>
 		                        <div class="col-md-6 col-sm-6 col-xs-12">
 		                        
-		                        	<form:select path="orderForm.orderFormDocuments" multiple="true" class="select2_multiple form-control">
-			                          	<c:forEach items="${docs}" var="d">
-											<form:option value="${d.id}">${d.name}</form:option>
+		                        	<form:select path="orderFormDocuments" id="orderFormDocuments" name="orderFormDocuments" multiple="true" class="select2_multiple form-control">
+			                          	<c:forEach items="${docs}" var="doc">
+											<form:option value="${doc.id}">${doc.name}</form:option>
 										</c:forEach>
 				                    </form:select>
 				                    

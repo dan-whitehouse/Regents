@@ -23,4 +23,6 @@ public interface OrderService
 	void updateOrder(Order order);
 	
 	void deleteOrder(int id);
+	
+	void deleteOrder(String uuid);
 }

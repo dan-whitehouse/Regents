@@ -56,7 +56,7 @@
 												</a>
 											</li>
 											<li class="disabled">
-												<a href="#step-6" onclick="review()">
+												<a href="#step-6" onclick="review();">
 													<h4 class="list-group-item-heading">Step 6</h4>
 													<p class="list-group-item-text">Review</p>
 												</a>
@@ -65,7 +65,7 @@
 									</div>
 								</div>
 							</div>
-							<form:form id="form" method="POST" modelAttribute="formWizard" cssClass="container" >
+							<form:form method="POST" modelAttribute="xForm2" cssClass="container">
 								<!-- STEP 1 - INFO -->
 								<div class="row setup-content" id="step-1">
 									<div class="col-xs-12">
@@ -290,7 +290,7 @@
 													id="inputSuccess5" placeholder="Phone">
 												<span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
 											</div>
-											<button id="activate-step-6" class="btn btn-primary btn-md" onclick="review()">Review</button> 
+											<button id="activate-step-6" class="btn btn-primary btn-md" onclick="review()">Next</button> 
 										</div>
 									</div>
 								</div>
@@ -317,7 +317,7 @@
 																		<th class="column-title">P.A.S. </th>
 																	</tr>
 																</thead>
-																<tbody>															
+																<tbody id="reviewExams">															
 																	<tr class="even pointer">
 																		<td class=" ">Algebra 2 / Trigonometry - 02052CC</td>
 																		<td class=" ">61</td>
@@ -330,13 +330,6 @@
 																		<td class=" ">116</td>
 																		<td class=" ">20</td>
 																		<td class=" ">0</td>
-																		<td class=" "></td>
-																	</tr>
-																	<tr class="even pointer">
-																		<td class=" ">Global History & Geography - 04052</td>
-																		<td class=" ">102</td>
-																		<td class=" ">20</td>
-																		<td class=" ">12</td>
 																		<td class=" "></td>
 																	</tr>
 																</tbody>
@@ -362,50 +355,14 @@
 																		<th class="column-title">Number Requested </th>
 																	</tr>
 																</thead>
-																<tbody>
+																<tbody id="reviewDocuments">
 																	<tr class="even pointer">
-																		<td class=" ">Chemistry</td>
-																		<td class=" ">50</td>
+																		<td class=" ">Temp0</td>
+																		<td class=" ">0</td>
 																	</tr>
-																	<tr class="even pointer">
-																		<td class=" ">Chemistry</td>
-																		<td class=" ">50</td>
-																	</tr>
-																	<tr class="even pointer">
-																		<td class=" ">Chemistry</td>
-																		<td class=" ">50</td>
-																	</tr>
-																	<tr class="even pointer">
-																		<td class=" ">Chemistry</td>
-																		<td class=" ">50</td>
-																	</tr>
-																	<tr class="even pointer">
-																		<td class=" ">Chemistry</td>
-																		<td class=" ">50</td>
-																	</tr>
-																	<tr class="even pointer">
-																		<td class=" ">Chemistry</td>
-																		<td class=" ">50</td>
-																	</tr>
-																	<tr class="even pointer">
-																		<td class=" ">Chemistry</td>
-																		<td class=" ">50</td>
-																	</tr>
-																	<tr class="even pointer">
-																		<td class=" ">Chemistry</td>
-																		<td class=" ">50</td>
-																	</tr>
-																	<tr class="even pointer">
-																		<td class=" ">Chemistry</td>
-																		<td class=" ">50</td>
-																	</tr>
-																	<tr class="even pointer">
-																		<td class=" ">Chemistry</td>
-																		<td class=" ">50</td>
-																	</tr>
-																	<tr class="even pointer">
-																		<td class=" ">Chemistry</td>
-																		<td class=" ">50</td>
+																	<tr class="odd pointer">
+																		<td class=" ">Temp1</td>
+																		<td class=" ">0</td>
 																	</tr>
 																</tbody>
 															</table>
@@ -438,7 +395,7 @@
 																			<input type="text" class="form-control" readonly="readonly" id="reviewScanOption" value="">
 																		 </td>
 																	</tr>
-																	<tr class="even pointer">
+																	<tr class="odd pointer">
 																		<td class=" ">Printing Option: </td>
 																		<td class=" ">
 																			<input type="text" class="form-control" readonly="readonly" id="reviewPrintOption" value="">
@@ -487,31 +444,138 @@
 	<script type="text/javascript">
 		function review() 
 		{	
+			//Exams
+			exams();
+			
+			//Documents
+			documents();
+			
 			//Printing Option
+			printOption();
+			
+			//Scanning Option
+			scanOption();
+			
+			//Reporting Option
+			reportingOption();
+		}
+		
+		function exams()
+		{
+			$('#reviewExams').empty();
+			
+			var i, count = 0;
+			$('input[id^="selectedExams"][id$="selected1"]').each(function() { count++ });
+			
+			for(i = 0; i <= count-1; i++)
+			{
+				if(document.getElementById('selectedExams' + i + '.selected1').checked) 
+				{
+					var examName = document.getElementById("selectedExams" + i + ".orderExam.exam.name").value;
+					var examAmount = document.getElementById("selectedExams" + i + ".orderExam.examAmount").value;
+					var answerSheetAmount = document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").value;
+					var studentsPerCSV = document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").value;
+					var pas = document.getElementById("selectedExams" + i + ".orderExam.pearsonAnswerSheet1");
+					var pasValue = 'No';
+					var evenOddClass = 'odd';
+					
+					if(pas != null && pas.checked) 
+					{
+						pasValue = 'Yes'
+					}
+	
+					if(examAmount == '')
+					{
+						examAmount = '0';
+					}
+					
+					if(answerSheetAmount == '')
+					{
+						answerSheetAmount = '0';
+					}
+					
+					if(studentsPerCSV == '')
+					{
+						studentsPerCSV = '0';
+					}
+					
+					if(isEven(i))
+					{
+						evenOddClass = 'even'
+					}
+					
+					//Add HTML
+					$('#reviewExams').append("<tr class='" + evenOddClass + " pointer'><td>" + examName + "</td><td>" + examAmount + "</td><td>" + answerSheetAmount + "</td><td>" + studentsPerCSV + "</td><td>" + pasValue + "</td></tr>");
+				}
+			}
+		}
+		
+		function documents()
+		{
+			$('#reviewDocuments').empty();
+			
+			var i, count = 0;
+			$('input[id^="selectedDocuments"][id$="selected1"]').each(function() { count++ });
+			
+			for(i = 0; i <= count-1; i++)
+			{
+				if(document.getElementById('selectedDocuments' + i + '.selected1').checked) 
+				{
+					var docName = document.getElementById("selectedDocuments" + i + ".orderDocument.document.name").value;
+					var docAmount = document.getElementById("selectedDocuments" + i + ".orderDocument.documentAmount").value;
+					
+					if(docAmount == '')
+					{
+						docAmount = '0';
+					}
+					
+					$('#reviewDocuments').append("<tr class='even pointer'><td>" + docName + "</td><td>" + docAmount + "</td></tr>");
+				}
+			}
+		}
+		
+		function printOption()
+		{
 			var selectedOptionPrint = document.getElementById("selectedOptionPrint");
 			var reviewPrintOption = document.getElementById("reviewPrintOption");
 			reviewPrintOption.value = selectedOptionPrint.options[selectedOptionPrint.selectedIndex].text;
-			
-			//Scanning Option
-			var selectedOptionScanIndex = document.querySelector('input[name = "selectedOptionScan"]:checked').value;
-			var selectedOptionScan = document.querySelector('label[for="selectedOptionScan' + selectedOptionScanIndex + '"]').text;
-			
-			
-			//var selectedOptionScan = document.getElementById("selectedOptionScan"+selectedOptionScanIndex).text;
+		}
+		
+		function scanOption()
+		{
+			var selectedOptionScanIndex = getRadioButtonIndex('selectedOptionScan');
+			var selectedOptionScan = '';
 			var reviewScanOption = document.getElementById("reviewScanOption");
-			reviewScanOption.value = selectedOptionScan;
-
-					
-			//Reporting Option
+			if(selectedOptionScanIndex != null)
+			{
+				selectedOptionScan = document.querySelector('label[for="selectedOptionScan' + selectedOptionScanIndex + '"]').textContent;
+				reviewScanOption.value = selectedOptionScan;
+			}
+		}
+		
+		function reportingOption()
+		{
 			var reportingOption = false;
 			if(document.getElementById('reportingOption1').checked) 
 			{
 				reportingOption = true;
 			}
 			var reviewReportingOption = document.getElementById("reviewReportingOption");
-			if(reportingOption == true){reviewReportingOption.value = 'NERIC will load scores into Level 1'}
+			if(reportingOption){reviewReportingOption.value = 'NERIC will load scores into Level 1'}
 			else {reviewReportingOption.value = 'NERIC will NOT load scores into Level 1'}
-			
+		}
+		
+		function getRadioButtonIndex(n) {
+		    var i, r = document.getElementsByName(n);
+		    for (i = 0; i < r.length; i++) {
+		        if (r[i].checked) return r[i].value;
+		    }
+		    return null;
+		}
+		
+		function isEven(n) 
+		{
+		   return n % 2 == 0;
 		}
 	</script>
 	<jsp:include page="fragments/footer.jsp" />

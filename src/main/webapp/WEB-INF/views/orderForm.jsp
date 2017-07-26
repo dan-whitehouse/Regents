@@ -70,9 +70,9 @@
 										<span class="selection">
 											<span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1">
 					                      		<ul class="select2-selection__rendered">	  
-		                        					<c:forEach items="${orderForm.exams}" var="exam">    			
-							                      			<li class="select2-selection__choice" title="${exam.name}">
-							                      				${exam.name}
+		                        					<c:forEach items="${orderForm.orderFormExams}" var="orderFormExam">    			
+							                      			<li class="select2-selection__choice" title="${orderFormExam.exam.name}">
+							                      				${orderFormExam.exam.name}
 							                      			</li>
 							                      	</c:forEach>
 					                      		</ul>
@@ -92,9 +92,9 @@
 										<span class="selection">
 											<span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1">
 					                      		<ul class="select2-selection__rendered">	  
-		                        					<c:forEach items="${orderForm.documents}" var="document">    			
-							                      			<li class="select2-selection__choice" title="${document.name}">
-							                      				${document.name}
+		                        					<c:forEach items="${orderForm.orderFormDocuments}" var="orderFormDocument">    			
+							                      			<li class="select2-selection__choice" title="${orderFormDocument.document.name}">
+							                      				${orderFormDocument.document.name}
 							                      			</li>
 							                      	</c:forEach>
 					                      		</ul>

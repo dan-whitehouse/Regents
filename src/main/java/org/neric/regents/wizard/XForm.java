@@ -1,7 +1,9 @@
-package org.neric.regents.model;
+package org.neric.regents.wizard;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.neric.regents.model.OptionPrint;
 
 public class XForm
 {

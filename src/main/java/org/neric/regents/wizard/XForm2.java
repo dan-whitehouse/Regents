@@ -1,4 +1,4 @@
-package org.neric.regents.model;
+package org.neric.regents.wizard;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.neric.regents.model.OptionPrint;
+import org.neric.regents.model.OptionScan;
 
 //http://howtodoinjava.com/spring/spring-mvc/spring-mvc-populate-and-validate-dropdown-example/
 

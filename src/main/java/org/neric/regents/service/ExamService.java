@@ -13,6 +13,8 @@ public interface ExamService {
 	
 	List<Exam> findAllExams();
 	
+	List<Exam> findAllActiveExams();
+	
 	void saveExam(Exam exam);
 	
 	void updateExam(Exam exam);

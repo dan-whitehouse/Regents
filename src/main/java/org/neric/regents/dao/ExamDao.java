@@ -13,6 +13,8 @@ public interface ExamDao {
 	
 	List<Exam> findAllExams();
 	
+	List<Exam> findAllActiveExams();
+	
 	void save(Exam exam);
 	
 	void deleteByExamName(String examName);

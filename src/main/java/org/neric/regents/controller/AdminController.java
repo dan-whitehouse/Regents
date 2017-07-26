@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -168,7 +169,6 @@ public class AdminController {
 	              if(id != null)
 	              {
 	            	  Document d = documentService.findById(id);
-	            	  System.out.println(d.getName());
 	            	  return d;
 	              }
 	              
@@ -190,6 +190,90 @@ public class AdminController {
     {
         return getPrincipal();
     }
+	
+	/************************** ORDER FORMS **************************/
+	@RequestMapping(value = { "/admin/orderForms" }, method = RequestMethod.GET)
+	public String listOrderForms(ModelMap model) {
+
+		List<OrderForm> orderForms = orderFormService.findAllOrderForms();
+		model.addAttribute("orderForms", orderForms);
+		return "orderForms";
+	}
+	
+	@RequestMapping(value = { "/admin/orderForms/{uuid}" }, method = RequestMethod.GET)
+	public String order(@PathVariable String uuid, ModelMap model) 
+	{
+		OrderForm orderForm = orderFormService.findByUUID(uuid);
+		model.addAttribute("orderForm", orderForm);
+		model.addAttribute("edit", false);
+		return "orderForm";
+	}
+		
+	@RequestMapping(value = { "/admin/orderForms/create" }, method = RequestMethod.GET)
+	public String createOrderForm(ModelMap model) 
+	{
+		//Get Exams & Documents from DB
+		List<Exam> exams = examService.findAllExams();
+		List<Document> documents = documentService.findAllDocuments();
+		
+		OrderForm orderForm = new OrderForm();
+		
+		model.addAttribute("exams", exams);
+		model.addAttribute("docs", documents);
+		model.addAttribute("orderForm", orderForm);
+		model.addAttribute("edit", false);
+		
+		return "createOrEditOrderForm";
+	}
+
+	@RequestMapping(value = { "/admin/orderForms/create" }, method = RequestMethod.POST)
+	public String createOrderForm(@Valid OrderForm orderForm, BindingResult result, ModelMap model) 
+	{
+		if (result.hasErrors()) 
+		{
+			return "createOrEditOrderForm";
+		}		
+
+		orderForm.setUuid(UUID.randomUUID().toString());
+		for(OrderFormExam e : orderForm.getOrderFormExams())
+		{
+			e.setOrderForm(orderForm);
+		}
+		for(OrderFormDocument d : orderForm.getOrderFormDocuments())
+		{
+			d.setOrderForm(orderForm);
+		}		
+		orderFormService.saveOrderForm(orderForm);
+		
+		model.addAttribute("success", "OrderForm: " + orderForm.getName() + " was created successfully");
+		model.addAttribute("returnLink", "/admin/orderForms");
+		model.addAttribute("returnLinkText", "Order Forms");
+		return "success";
+	}
+	
+	@RequestMapping(value = { "/admin/orderForms/{uuid}/edit" }, method = RequestMethod.GET)
+	public String editOrderForm(@PathVariable String uuid, ModelMap model) 
+	{
+		OrderForm orderForm = orderFormService.findByUUID(uuid);
+		model.addAttribute("orderForm", orderForm);
+		model.addAttribute("edit", true);
+		return "createOrEditOrderForm";
+	}
+	
+	@RequestMapping(value = { "/admin/orderForms/{uuid}/lock/{isLocked}" }, method = RequestMethod.GET)
+	public String lockOrderForm(@PathVariable String uuid, @PathVariable boolean isLocked) 
+	{
+		orderFormService.lockByOrderFormUUID(uuid, isLocked);
+		return "redirect:/admin/orderForms";
+	}
+	
+	@RequestMapping(value = { "/admin/orderForms/{uuid}/hide/{isHidden}" }, method = RequestMethod.GET)
+	public String hideOrderForm(@PathVariable String uuid, @PathVariable boolean isHidden) 
+	{
+		orderFormService.hideByOrderFormUUID(uuid, isHidden);
+		return "redirect:/admin/orderForms";
+	}
+	
 	
 	/************************** USERS **************************/
 	@RequestMapping(value = { "/admin/users" }, method = RequestMethod.GET)
@@ -277,88 +361,7 @@ public class AdminController {
 	}
 	
 	
-	/************************** ORDER FORMS **************************/
-	@RequestMapping(value = { "/admin/orderForms" }, method = RequestMethod.GET)
-	public String listOrderForms(ModelMap model) {
-
-		List<OrderForm> orderForms = orderFormService.findAllOrderForms();
-		model.addAttribute("orderForms", orderForms);
-		return "orderForms";
-	}
 	
-	@RequestMapping(value = { "/admin/orderForms/{uuid}" }, method = RequestMethod.GET)
-	public String order(@PathVariable String uuid, ModelMap model) 
-	{
-		OrderForm orderForm = orderFormService.findByUUID(uuid);
-		model.addAttribute("orderForm", orderForm);
-		model.addAttribute("edit", false);
-		return "orderForm";
-	}
-		
-	@RequestMapping(value = { "/admin/orderForms/create" }, method = RequestMethod.GET)
-	public String createOrderForm(ModelMap model) 
-	{
-		//Get Exams & Documents from DB
-		List<Exam> exams = examService.findAllExams();
-		List<Document> documents = documentService.findAllDocuments();
-		
-		OrderForm orderForm = new OrderForm();
-		model.addAttribute("exams", exams);
-		model.addAttribute("docs", documents);
-		model.addAttribute("orderForm", orderForm);
-		model.addAttribute("edit", false);
-		
-		return "createOrEditOrderForm";
-	}
-
-	@RequestMapping(value = { "/admin/orderForms/create" }, method = RequestMethod.POST)
-	public String createOrderForm(@Valid OrderForm orderForm, BindingResult result, ModelMap model) 
-	{
-		
-		System.out.println(orderForm);
-		
-		if (result.hasErrors()) 
-		{
-			System.err.println(result.getAllErrors());
-			System.err.println("------------");
-			System.err.println(result.getGlobalErrors());
-			
-			
-			return "createOrEditOrderForm";
-		}		
-		
-		
-		
-		orderFormService.saveOrderForm(orderForm);
-
-		model.addAttribute("success", "OrderForm: " + orderForm.getName() + " was created successfully");
-		model.addAttribute("returnLink", "/admin/orderForms");
-		model.addAttribute("returnLinkText", "Order Forms");
-		return "success";
-	}
-	
-	@RequestMapping(value = { "/admin/orderForms/{uuid}/edit" }, method = RequestMethod.GET)
-	public String editOrderForm(@PathVariable String uuid, ModelMap model) 
-	{
-		OrderForm orderForm = orderFormService.findByUUID(uuid);
-		model.addAttribute("orderForm", orderForm);
-		model.addAttribute("edit", true);
-		return "createOrEditOrderForm";
-	}
-	
-	@RequestMapping(value = { "/admin/orderForms/{uuid}/lock/{isLocked}" }, method = RequestMethod.GET)
-	public String lockOrderForm(@PathVariable String uuid, @PathVariable boolean isLocked) 
-	{
-		orderFormService.lockByOrderFormUUID(uuid, isLocked);
-		return "redirect:/admin/orderForms";
-	}
-	
-	@RequestMapping(value = { "/admin/orderForms/{uuid}/hide/{isHidden}" }, method = RequestMethod.GET)
-	public String hideOrderForm(@PathVariable String uuid, @PathVariable boolean isHidden) 
-	{
-		orderFormService.hideByOrderFormUUID(uuid, isHidden);
-		return "redirect:/admin/orderForms";
-	}
 
 
 	/************************** EXAMS **************************/

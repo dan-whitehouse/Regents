@@ -31,6 +31,12 @@ public class ExamServiceImpl implements ExamService{
 	{
 		return dao.findAllExams();
 	}
+	
+	public List<Exam> findAllActiveExams() 
+	{
+		return dao.findAllActiveExams();
+	}
+
 
 	public void saveExam(Exam exam) 
 	{
@@ -67,7 +73,6 @@ public class ExamServiceImpl implements ExamService{
 		{
 			entity.setLocked(isLocked);
 		}
-		
 	}
 
 	@Override

@@ -33,7 +33,11 @@ public class OrderFormExam implements Serializable
 	private Exam exam;
 
 	
-	
+	public OrderFormExam()
+	{
+		super();
+	}
+
 	public OrderFormExam(Exam exam)
 	{
 		super();

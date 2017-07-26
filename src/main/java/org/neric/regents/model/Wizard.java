@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import org.neric.regents.wizard.DocumentWrapper;
+import org.neric.regents.wizard.ExamWrapper;
+
 public class Wizard
 {
 	private static final long serialVersionUID = 1L;	 

@@ -55,6 +55,23 @@ public class ExamDaoImpl extends AbstractDao<Integer, Exam> implements ExamDao {
 		}*/
 		return exams;
 	}
+	
+	public List<Exam> findAllActiveExams()
+	{
+		Criteria criteria = createEntityCriteria().addOrder(Order.asc("name"));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		
+		List<Exam> exams = (List<Exam>) criteria.list();
+		
+		/*"FROM Exam e "
+		+ "LEFT JOIN OrderFormExam ofe ON e.id = ofe.exam.id "
+		+ "LEFT JOIN OrderForm of ON of.id = ofe.orderForm.id"
+		+ "WHERE of.id = '6983319a-906c-4347-bbc9-d4c36b40c1e2'"*/
+		
+
+		return exams;
+	}
+	
 
 	public void save(Exam exam) 
 	{

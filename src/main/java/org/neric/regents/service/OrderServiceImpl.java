@@ -59,6 +59,10 @@ public class OrderServiceImpl implements OrderService
 	public void deleteOrder(int id)
 	{
 		dao.deleteOrder(id);
-		
+	}
+	
+	public void deleteOrder(String uuid)
+	{
+		dao.deleteOrder(uuid);
 	}
 }
