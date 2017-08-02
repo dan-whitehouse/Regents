@@ -104,4 +104,27 @@ public class OrderFormServiceImpl implements OrderFormService
 		}	
 		
 	}
+	
+	@Override
+	public void activateOrderFormUUID(String uuid, Boolean isActive) 
+	{
+		//Set each OrderForm as inactive
+		if(isActive)
+		{
+			dao.setAllInactive();
+		}
+		
+		//Set this OrderForm as active
+		OrderForm entity = dao.findByUUID(uuid);
+		if(entity != null)
+		{
+			entity.setActive(isActive);
+		}	
+	}
+
+	@Override
+	public boolean hasActiveOrderForm()
+	{
+		return dao.hasActiveOrderForm();
+	}
 }

@@ -32,4 +32,8 @@ public interface OrderFormService
 	void lockByOrderFormUUID(String uuid, Boolean locked);
 	
 	void hideByOrderFormUUID(String uuid, Boolean hidden);
+	
+	void activateOrderFormUUID(String uuid, Boolean isActive);
+
+	boolean hasActiveOrderForm();
 }

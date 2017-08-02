@@ -27,6 +27,12 @@ public class DocumentServiceImpl implements DocumentService{
 	public List<Document> findAllDocuments() {
 		return dao.findAll();
 	}
+	
+	@Override
+	public List<Document> findAllActiveDocuments()
+	{
+		return dao.findAllActiveDocuments();
+	}
 
 	@Override
 	public void updateDocument(Document document)
@@ -70,4 +76,6 @@ public class DocumentServiceImpl implements DocumentService{
 		}
 		
 	}
+
+	
 }

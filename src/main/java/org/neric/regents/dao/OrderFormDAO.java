@@ -19,4 +19,7 @@ public interface OrderFormDAO {
 	
 	void deleteOrderForm(int id);
 	
+	void setAllInactive();	
+	
+	boolean hasActiveOrderForm();
 }

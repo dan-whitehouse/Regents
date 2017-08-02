@@ -46,29 +46,19 @@ public class ExamDaoImpl extends AbstractDao<Integer, Exam> implements ExamDao {
 		Criteria criteria = createEntityCriteria().addOrder(Order.asc("name"));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
 		List<Exam> exams = (List<Exam>) criteria.list();
-		
-		// No need to fetch userProfiles since we are not showing them on list page. Let them lazy load. 
-		// Uncomment below lines for eagerly fetching of userProfiles if you want.
-		/*
-		for(User user : users){
-			Hibernate.initialize(user.getUserProfiles());
-		}*/
 		return exams;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Exam> findAllActiveExams()
 	{
-		Criteria criteria = createEntityCriteria().addOrder(Order.asc("name"));
+		Criteria criteria = getSession().createCriteria(Exam.class, "e");
+		criteria.createAlias("e.orderFormExams", "ofe");
+		criteria.createAlias("ofe.orderForm", "of");
+		criteria.add(Restrictions.eq("of.active", true));
+		criteria.addOrder(Order.asc("name"));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		
 		List<Exam> exams = (List<Exam>) criteria.list();
-		
-		/*"FROM Exam e "
-		+ "LEFT JOIN OrderFormExam ofe ON e.id = ofe.exam.id "
-		+ "LEFT JOIN OrderForm of ON of.id = ofe.orderForm.id"
-		+ "WHERE of.id = '6983319a-906c-4347-bbc9-d4c36b40c1e2'"*/
-		
-
 		return exams;
 	}
 	

@@ -95,6 +95,15 @@
 															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/lock/true' />" class="btn btn-dark custom-width">Lock</a>
 														</c:otherwise>
 													</c:choose>
+													<!-- Active -->
+													<c:choose>
+														<c:when test="${orderForm.active == true}">
+															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/active/false' />" class="btn btn-info custom-width">Active</a>
+														</c:when>
+														<c:otherwise>
+															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/active/true' />" class="btn btn-default custom-width">Inactive</a>
+														</c:otherwise>
+													</c:choose>
 												</td>
 											</sec:authorize>
 										</tr>
