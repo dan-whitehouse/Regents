@@ -73,9 +73,7 @@ ALTER TABLE order_contact
 ALTER TABLE order_document
 	MODIFY COLUMN document_id int(11) NOT NULL AFTER order_document_id,
 	MODIFY COLUMN order_id int(11) NOT NULL AFTER document_id,
-	MODIFY COLUMN orderForm_document_id int(11) NOT NULL AFTER order_id,
-	MODIFY COLUMN orderForm_id int(11) NOT NULL AFTER orderForm_document_id,
-	MODIFY COLUMN document_amount int(11) DEFAULT NULL AFTER orderForm_id;
+	MODIFY COLUMN document_amount int(11) DEFAULT NULL AFTER order_id;
 
 ALTER TABLE order_exam
 	MODIFY COLUMN exam_id int(11) NOT NULL AFTER order_exam_id,
@@ -92,6 +90,14 @@ ALTER TABLE orderform
 	MODIFY COLUMN endDate date NOT NULL AFTER startDate,
 	MODIFY COLUMN locked bit(1) NOT NULL AFTER endDate,
 	MODIFY COLUMN visible bit(1) NOT NULL AFTER locked;
+
+ALTER TABLE orderform_document
+	MODIFY COLUMN orderForm_id int(11) NOT NULL AFTER orderForm_document_id,
+	MODIFY COLUMN document_id int(11) NOT NULL AFTER orderForm_id;
+
+ALTER TABLE orderform_exam
+	MODIFY COLUMN orderForm_id int(11) NOT NULL AFTER orderForm_exam_id,
+	MODIFY COLUMN exam_id int(11) NOT NULL AFTER orderForm_id;
  
 ALTER TABLE school
 	MODIFY COLUMN district_id int(11) NOT NULL AFTER school_id,

@@ -63,12 +63,19 @@
 		                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Exams</label>
 		                        <div class="col-md-6 col-sm-6 col-xs-12">
 		                        	
-		                        	<form:select path="orderFormExams" id="orderFormExams" name="orderFormExams" multiple="true" class="select2_multiple form-control">
-			                          	<c:forEach items="${exams}" var="exam">
-											<form:option value="${exam.id}">${exam.name}</form:option>
-										</c:forEach>
-		                          	</form:select>
+<%-- 		                        	<form:select path="orderFormExams" id="orderFormExams" name="orderFormExams" multiple="true" class="select2_multiple form-control"> --%>
+<%-- 			                          	<c:forEach items="${exams}" var="exam"> --%>
+<%-- 											<form:option value="${exam.id}">${exam.name}</form:option> --%>
+<%-- 										</c:forEach> --%>
+<%-- 		                          	</form:select> --%>
 		                        
+		                        <form:select path="orderFormExams" items="${orderForm.orderFormExams}" id="orderFormExams" name="orderFormExams" multiple="true" class="select2_multiple form-control" role="combobox">
+<%-- 		                        	<c:forEach items="${orderFormExams}" var="orderFormExam">    			 --%>
+<%-- 			                      			<li class="select2-selection__choice" title="${orderFormExam.exam.name}"> --%>
+<%-- 			                      				${orderFormExam.exam.name} --%>
+<!-- 			                      			</li> -->
+<%-- 			                      	</c:forEach> --%>
+		                        </form:select>
 		                        
 		                        	<%-- <c:choose>
 										<c:when test="${edit}">

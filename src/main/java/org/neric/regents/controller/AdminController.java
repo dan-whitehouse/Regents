@@ -233,7 +233,7 @@ public class AdminController {
 		{
 			return "createOrEditOrderForm";
 		}		
-
+		
 		orderForm.setUuid(UUID.randomUUID().toString());
 		for(OrderFormExam e : orderForm.getOrderFormExams())
 		{
@@ -243,6 +243,9 @@ public class AdminController {
 		{
 			d.setOrderForm(orderForm);
 		}		
+		orderForm.setLocked(false);
+		orderForm.setVisible(true);
+		
 		orderFormService.saveOrderForm(orderForm);
 		
 		model.addAttribute("success", "OrderForm: " + orderForm.getName() + " was created successfully");
@@ -260,6 +263,23 @@ public class AdminController {
 		return "createOrEditOrderForm";
 	}
 	
+	@RequestMapping(value = { "/admin/orderForms/{uuid}/edit" }, method = RequestMethod.POST)
+	public String updateOrderForm(@Valid OrderForm orderForm, @PathVariable String uuid, BindingResult result, ModelMap model)
+	{
+		if (result.hasErrors()) 
+		{
+			return "createOrEditOrderForm";
+		}
+		
+		model.addAttribute("success", "OrderForm: " + orderForm.getName() + " was updated successfully");
+		model.addAttribute("returnLink", "/admin/orderForms");
+		model.addAttribute("returnLinkText", "Order Forms");
+		
+		orderFormService.updateOrderForm(orderForm);
+		
+		return "success";
+	}
+	
 	@RequestMapping(value = { "/admin/orderForms/{uuid}/lock/{isLocked}" }, method = RequestMethod.GET)
 	public String lockOrderForm(@PathVariable String uuid, @PathVariable boolean isLocked) 
 	{
@@ -273,6 +293,14 @@ public class AdminController {
 		orderFormService.hideByOrderFormUUID(uuid, isHidden);
 		return "redirect:/admin/orderForms";
 	}
+	
+//	@RequestMapping(value = { "/admin/orderForms/{uuid}/active/{isActive}" }, method = RequestMethod.GET)
+//    public String activateOrderForm(@PathVariable String uuid, @PathVariable boolean isActive) 
+//    {
+//           orderFormService.activateOrderFormUUID(uuid, isActive);
+//           return "redirect:/admin/orderForms";
+//    }
+
 	
 	
 	/************************** USERS **************************/
