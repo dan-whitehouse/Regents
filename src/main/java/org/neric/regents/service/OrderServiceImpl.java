@@ -9,6 +9,7 @@ package org.neric.regents.service;
 import java.util.List;
 import org.neric.regents.dao.OrderDAO;
 import org.neric.regents.model.Order;
+import org.neric.regents.model.OrderForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,16 +45,7 @@ public class OrderServiceImpl implements OrderService
 
 	public void updateOrder(Order order)
 	{
-		Order entity = dao.findById(order.getId());
-		if(entity != null)
-		{
-			entity.setOrderDocuments(order.getOrderDocuments());
-			entity.setOrderExams(order.getOrderExams());
-			entity.setOrderPrint(order.getOrderPrint());
-			entity.setOrderScan(order.getOrderScan());
-			entity.setReportToLevelOne(order.getReportToLevelOne());
-			entity.setUser(order.getUser());
-		}
+		dao.updateOrder(order);	
 	}
 
 	public void deleteOrder(int id)
@@ -64,5 +56,22 @@ public class OrderServiceImpl implements OrderService
 	public void deleteOrder(String uuid)
 	{
 		dao.deleteOrder(uuid);
+	}
+
+	@Override
+	public void updateStatus(String uuid, Boolean isComplete)
+	{
+		Order entity = dao.findByUUID(uuid);
+		if(entity != null)
+		{
+			if(isComplete)
+			{
+				entity.setOrderStatus("Complete");
+			}
+			else
+			{
+				entity.setOrderStatus("Processing");
+			}
+		}
 	}
 }

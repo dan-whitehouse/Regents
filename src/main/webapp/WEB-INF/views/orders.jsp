@@ -42,8 +42,16 @@
 											<sec:authorize access="hasRole('ADMIN')">
 												<td>
 													<a href="<c:url value='/order/${order.uuid}/edit' />" class="btn btn-success custom-width">Edit</a>
-													<%-- <a href="<c:url value='/order/${order.uuid}/delete' />" class="btn btn-danger custom-width">delete</a> --%>
 													<button type="button" class="btn btn-danger custom-width" data-toggle="modal" data-target=".modal-sm-${order.uuid}">Delete</button>
+													
+													<c:choose>
+														<c:when test="${order.orderStatus == 'Processing'}">
+															<a href="<c:url value='/order/${order.uuid}/complete/true' />" class="btn btn-dark custom-width">Complete Order</a>
+														</c:when>
+														<c:otherwise>
+															<a href="<c:url value='/order/${order.uuid}/complete/false' />" class="btn btn-default custom-width">Complete Order</a>
+														</c:otherwise>
+													</c:choose>
 												</td>
 											</sec:authorize>
 										</tr>

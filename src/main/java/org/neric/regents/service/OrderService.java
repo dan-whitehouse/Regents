@@ -25,4 +25,6 @@ public interface OrderService
 	void deleteOrder(int id);
 	
 	void deleteOrder(String uuid);
+	
+	void updateStatus(String uuid, Boolean isComplete);
 }

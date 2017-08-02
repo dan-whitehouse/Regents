@@ -48,7 +48,8 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 				Hibernate.initialize(d.getDocument());
 			}
 			
-			
+			Hibernate.initialize(order.getOrderPrint());
+			Hibernate.initialize(order.getOrderScan());
 		}
 		return order;
 	}
@@ -57,7 +58,7 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 	public List<Order> findAllOrders()
 	{
 		Criteria crit = createEntityCriteria();
-		crit.addOrder(org.hibernate.criterion.Order.asc("id"));
+		crit.addOrder(org.hibernate.criterion.Order.desc("orderDate"));
 		
 		List<Order> orders = (List<Order>)crit.list();
 		if(orders!=null)
@@ -73,14 +74,13 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 	@Override
 	public void saveOrder(Order order)
 	{
-		persist(order);
-		
+		persist(order);	
 	}
 
 	@Override
 	public void updateOrder(Order order)
 	{
-		
+		saveOrUpdate(order);
 	}
 
 	@Override

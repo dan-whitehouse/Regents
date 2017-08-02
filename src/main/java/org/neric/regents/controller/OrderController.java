@@ -269,27 +269,123 @@ public class OrderController
 	}
 
 	@RequestMapping(value = { "order/{uuid}/edit" }, method = RequestMethod.GET)
-	public String editExam(@PathVariable String uuid, ModelMap model)
+	public String editOrder(@PathVariable String uuid, ModelMap model)
 	{
 		Order order = orderService.findByUUID(uuid);
 		model.addAttribute("order", order);
 		model.addAttribute("edit", true);
+		
+		XForm2 xForm = new XForm2();
+		
+		xForm.setSelectedDocuments(populateDocumentOptions());
+		xForm.setSelectedExams(populateExamOptions());
+				
+		for(XExamWrapper ew : xForm.getSelectedExams())
+		{
+			for(OrderExam e : order.getOrderExams())
+			{
+				if(e.getExam().getId() == ew.getOrderExam().getExam().getId())
+				{
+					ew.setSelected(true);
+					ew.setOrderExam(e);
+				}
+			}
+		}
+		
+		
+		for(XDocumentWrapper dw : xForm.getSelectedDocuments())
+		{
+			for(OrderDocument d : order.getOrderDocuments())
+			{
+				if(d.getDocument().getId() == dw.getOrderDocument().getDocument().getId())
+				{
+					dw.setSelected(true);
+					dw.setOrderDocument(d);
+				}
+			}
+		}
+
+		xForm.setSelectedOptionScan(order.getOrderScan());
+		xForm.setReportingOption(order.getReportToLevelOne());
+		xForm.setSelectedOptionPrint(order.getOrderPrint());
+		
+		
+		model.addAttribute("xForm2", xForm);
 		return "createOrEditOrder";
 	}
 
 	@RequestMapping(value = { "order/{uuid}/edit" }, method = RequestMethod.POST)
-	public String editExam(@Valid Order order, BindingResult result, ModelMap model, @PathVariable String uuid)
+	public String editExam(@ModelAttribute("xForm2") XForm2 xForm, BindingResult result, SessionStatus status, @PathVariable String uuid, ModelMap model)
 	{
 		if (result.hasErrors())
 		{
 			return "createOrEditOrder";
 		}
 
-		orderService.updateOrder(order);
+		try
+		{
 
-		model.addAttribute("success", "Order: " + order.getUuid() + " - " + " was updated successfully");
-		model.addAttribute("returnLink", "/admin/exams");
-		model.addAttribute("returnLinkText", "Exams");
+			Order order = orderService.findByUUID(uuid);		
+			order.setOrderPrint(xForm.getSelectedOptionPrint());
+			order.setOrderScan(xForm.getSelectedOptionScan());
+			order.setReportToLevelOne(xForm.isReportingOption());
+			order.setOrderStatus("Processing");
+			
+			order.getOrderExams().clear();
+			order.getOrderDocuments().clear();
+
+			
+				/*for (XExamWrapper ew : xForm.getSelectedExams())
+				{
+					if(ew.isSelected())
+					{
+						for(OrderExam oe : order.getOrderExams())
+						{		
+							if(oe.getOrder().getId() == ew.getOrderExam().getId())
+							{
+								oe.setAnswerSheetAmount(ew.getOrderExam().getAnswerSheetAmount());
+								oe.setExam(ew.getOrderExam().getExam());
+								oe.setExamAmount(ew.getOrderExam().getExamAmount());
+								oe.setOrder(ew.getOrderExam().getOrder());
+								oe.setPearsonAnswerSheet(ew.getOrderExam().getPearsonAnswerSheet());
+								oe.setStudentsPerCSV(ew.getOrderExam().getStudentsPerCSV());
+								break;
+							}
+						}
+					}	
+				}*/
+			
+			
+
+			for (XExamWrapper ew : xForm.getSelectedExams())
+			{
+				if (ew.isSelected())
+				{
+					OrderExam oe = ew.getOrderExam();		
+					oe.setOrder(order);
+					order.getOrderExams().add(oe);
+				}
+			}
+
+			for (XDocumentWrapper dw : xForm.getSelectedDocuments())
+			{
+				if (dw.isSelected())
+				{
+					OrderDocument od = dw.getOrderDocument();
+					od.setOrder(order);
+					order.getOrderDocuments().add(od);
+				}
+			}
+			orderService.updateOrder(order);
+			model.addAttribute("success", "Order: " + order.getUuid() + " - " + " was updated successfully");
+			model.addAttribute("returnLink", "/orders");
+			model.addAttribute("returnLinkText", "Orders");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+
 		return "success";
 	}
 
@@ -305,6 +401,14 @@ public class OrderController
 		
 		return "redirect:/orders";
 	}
+	
+	@RequestMapping(value = { "order/{uuid}/complete/{isComplete}" }, method = RequestMethod.GET)
+	public String updateOrderStatus(@PathVariable String uuid, @PathVariable boolean isComplete) 
+	{
+		orderService.updateStatus(uuid, isComplete);
+		return "redirect:/orders";
+	}
+	
 
 	private String getPrincipal()
 	{

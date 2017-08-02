@@ -62,12 +62,12 @@ public class Order implements Serializable
 	@Column(name="report_to_level_one", unique=false, nullable=false)
 	private Boolean reportToLevelOne;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
-	@Cascade(CascadeType.SAVE_UPDATE)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order", orphanRemoval = true)
+	@Cascade(CascadeType.ALL)
 	private Set<OrderExam> orderExams = new HashSet<OrderExam>(0);
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
-	@Cascade(CascadeType.SAVE_UPDATE)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order", orphanRemoval = true)
+	@Cascade(CascadeType.ALL)
 	private Set<OrderDocument> orderDocuments = new HashSet<OrderDocument>(0);
 
 	public Integer getId()
