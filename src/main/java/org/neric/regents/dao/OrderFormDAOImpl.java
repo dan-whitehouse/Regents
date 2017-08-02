@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.neric.regents.model.District;
 import org.neric.regents.model.Document;
@@ -101,5 +102,33 @@ public class OrderFormDAOImpl extends AbstractDao<Integer, OrderForm> implements
 		OrderForm order = (OrderForm)crit.uniqueResult();
 		delete(order);
 	}
+
+	@Override
+	public void setAllInactive()
+	{
+		Criteria crit = createEntityCriteria();	
+		List<OrderForm> orders = (List<OrderForm>)crit.list();
+		for(OrderForm of : orders)
+		{
+			of.setActive(false);
+			persist(of);
+		}
+	}
 	
+	@Override
+	public boolean hasActiveOrderForm()
+	{
+		boolean isActive = false;
+		long count = 0;
+		
+		count = (long) getSession().createCriteria(OrderForm.class, "of")
+						.add(Restrictions.eq("of.active", true))
+						.setProjection(Projections.rowCount()).uniqueResult();
+
+		if(count > 0)
+		{
+			isActive = true;
+		}
+		return isActive;
+	}
 }

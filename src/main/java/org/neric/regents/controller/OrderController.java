@@ -35,6 +35,7 @@ import org.neric.regents.service.DocumentService;
 import org.neric.regents.service.ExamService;
 import org.neric.regents.service.OptionPrintService;
 import org.neric.regents.service.OptionScanService;
+import org.neric.regents.service.OrderFormService;
 import org.neric.regents.service.OrderService;
 import org.neric.regents.service.SchoolService;
 import org.neric.regents.service.UserProfileService;
@@ -87,6 +88,9 @@ public class OrderController
 
 	@Autowired
 	OrderService orderService;
+	
+	@Autowired
+	OrderFormService orderFormService;
 
 	@Autowired
 	ExamService examService;
@@ -121,7 +125,7 @@ public class OrderController
 	{
 		List<XExamWrapper> options = new ArrayList<>();
 
-		for (Exam e : examService.findAllExams())
+		for (Exam e : examService.findAllActiveExams())
 		{
 			options.add(new XExamWrapper(new OrderExam(e)));
 		}
@@ -133,7 +137,7 @@ public class OrderController
 	{
 		List<XDocumentWrapper> options = new ArrayList<>();
 
-		for (Document e : documentService.findAllDocuments())
+		for (Document e : documentService.findAllActiveDocuments())
 		{
 			options.add(new XDocumentWrapper(new OrderDocument(e)));
 		}
@@ -186,9 +190,19 @@ public class OrderController
 	@RequestMapping(value = { "/order" }, method = RequestMethod.GET)
 	public String setupForm(Model model)
 	{
-		XForm2 xForm = new XForm2();
-		model.addAttribute("xForm2", xForm);
-		return "order";
+		if(orderFormService.hasActiveOrderForm())
+		{
+			XForm2 xForm = new XForm2();
+			model.addAttribute("xForm2", xForm);
+			return "order";
+		}
+		else
+		{
+			model.addAttribute("b_title", "204");
+			model.addAttribute("b_header", "No Active Order Forms");
+			model.addAttribute("b_message", "Test Message");
+			return "blank";
+		}
 	}
 
 	@RequestMapping(value = { "/order" }, method = RequestMethod.POST)

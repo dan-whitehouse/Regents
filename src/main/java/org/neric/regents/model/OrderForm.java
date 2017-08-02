@@ -34,6 +34,9 @@ public class OrderForm implements Serializable
 	public OrderForm()
 	{
 		super();
+		this.locked = false;
+		this.visible = true;
+		this.active = false;
 	}
 
 	public OrderForm(Integer id, String uuid, String name, Date startDate, Date endDate)
@@ -44,6 +47,9 @@ public class OrderForm implements Serializable
 		this.name = name;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.locked = false;
+		this.visible = true;
+		this.active = false;
 	}
 
 	public OrderForm(Integer id, String uuid, String name, Date startDate, Date endDate, Boolean visible, Boolean locked)
@@ -56,6 +62,7 @@ public class OrderForm implements Serializable
 		this.endDate = endDate;
 		this.visible = visible;
 		this.locked = locked;
+		this.active = false;
 	}
 	
 	
@@ -71,6 +78,7 @@ public class OrderForm implements Serializable
 		this.locked = locked;
 		this.orderFormExams = orderFormExams;
 		this.orderFormDocuments = orderFormDocuments;
+		this.active = false;
 	}
 
 
@@ -101,6 +109,9 @@ public class OrderForm implements Serializable
 	
 	@Column(name="locked", unique=false, nullable=true)	
 	private Boolean locked;
+	
+	@Column(name="active", unique=false, nullable=false)	
+	private Boolean active;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderForm")
 	@Cascade(CascadeType.SAVE_UPDATE)
@@ -199,6 +210,16 @@ public class OrderForm implements Serializable
 	public void setLocked(Boolean locked)
 	{
 		this.locked = locked;
+	}
+
+	public Boolean getActive()
+	{
+		return active;
+	}
+
+	public void setActive(Boolean active)
+	{
+		this.active = active;
 	}
 
 	@Override

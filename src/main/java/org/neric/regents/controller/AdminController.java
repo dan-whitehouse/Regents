@@ -293,14 +293,13 @@ public class AdminController {
 		orderFormService.hideByOrderFormUUID(uuid, isHidden);
 		return "redirect:/admin/orderForms";
 	}
-	
-//	@RequestMapping(value = { "/admin/orderForms/{uuid}/active/{isActive}" }, method = RequestMethod.GET)
-//    public String activateOrderForm(@PathVariable String uuid, @PathVariable boolean isActive) 
-//    {
-//           orderFormService.activateOrderFormUUID(uuid, isActive);
-//           return "redirect:/admin/orderForms";
-//    }
 
+	@RequestMapping(value = { "/admin/orderForms/{uuid}/active/{isActive}" }, method = RequestMethod.GET)
+	public String activateOrderForm(@PathVariable String uuid, @PathVariable boolean isActive) 
+	{
+		orderFormService.activateOrderFormUUID(uuid, isActive);
+		return "redirect:/admin/orderForms";
+	}
 	
 	
 	/************************** USERS **************************/

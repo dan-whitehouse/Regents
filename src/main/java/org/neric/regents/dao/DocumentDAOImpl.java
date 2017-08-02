@@ -25,11 +25,6 @@ public class DocumentDAOImpl extends AbstractDao<Integer, Document> implements D
 		return document;
 	}
 
-//	public School findByType(String type) {
-//		Criteria crit = createEntityCriteria();
-//		crit.add(Restrictions.eq("type", type));
-//		return (UserProfile) crit.uniqueResult();
-//	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Document> findAll()
@@ -38,6 +33,22 @@ public class DocumentDAOImpl extends AbstractDao<Integer, Document> implements D
 		crit.addOrder(Order.asc("id"));
 		return (List<Document>)crit.list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Document> findAllActiveDocuments()
+	{
+		Criteria criteria = getSession().createCriteria(Document.class, "d");
+		criteria.createAlias("d.orderFormDocuments", "ofd");
+		criteria.createAlias("ofd.orderForm", "of");
+		criteria.add(Restrictions.eq("of.active", true));
+		criteria.addOrder(Order.asc("name"));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		List<Document> documents = (List<Document>) criteria.list();
+		
+		return documents;
+	}
+	
 
 	@Override
 	public void deleteByDocumentId(int id)
@@ -54,5 +65,4 @@ public class DocumentDAOImpl extends AbstractDao<Integer, Document> implements D
 	{
 		persist(document);
 	}
-	
 }

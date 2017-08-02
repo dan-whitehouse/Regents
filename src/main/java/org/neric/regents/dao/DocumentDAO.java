@@ -10,6 +10,8 @@ public interface DocumentDAO {
 
 	List<Document> findAll();
 	
+	List<Document> findAllActiveDocuments();
+	
 	//School findByType(String type);
 	
 	Document findById(int id);

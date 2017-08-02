@@ -16,6 +16,8 @@ public interface DocumentService {
 	
 	List<Document> findAllDocuments();
 	
+	List<Document> findAllActiveDocuments();
+	
 	void saveDocument(Document document);
 
 	void updateDocument(Document document);
