@@ -75,42 +75,67 @@
     										<!-- End Status Test -->
 											</td>
 											<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
-												<td>
-													<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/edit' />" class="btn btn-success custom-width">edit</a>
-													<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/delete' />" class="btn btn-danger custom-width">delete</a>
+												<td width="245px">
+													<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/edit' />" class="btn btn-success custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+													<a type="button" class="btn btn-danger custom-width" data-toggle="modal" data-target=".modal-sm-${orderForm.uuid}"><i class="fa fa-trash"></i></a>
 													<!-- Visible -->
 													<c:choose>
 														<c:when test="${orderForm.visible == true}">
-															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/hide/false' />" class="btn btn-default custom-width">Hide</a>
+															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/hide/false' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Hide"><i class="fa fa-eye-slash"></i></a>
 														</c:when>
 														<c:otherwise>
-															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/hide/true' />" class="btn btn-default custom-width">Unhide</a>
+															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/hide/true' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Show"><i class="fa fa-eye"></i></a>
 														</c:otherwise>
 													</c:choose>
 													<!-- Lock -->
 													<c:choose>
 														<c:when test="${orderForm.locked == true}">
-															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/lock/false' />" class="btn btn-dark custom-width">Unlock</a>
+															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/lock/false' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Unlock"><i class="fa fa-unlock"></i></a>
 														</c:when>
 														<c:otherwise>
-															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/lock/true' />" class="btn btn-dark custom-width">Lock</a>
+															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/lock/true' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Lock"><i class="fa fa-lock"></i></a>
 														</c:otherwise>
 													</c:choose>
 													<!-- Active -->
 													<c:choose>
 														<c:when test="${orderForm.active == true}">
-															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/active/false' />" class="btn btn-info custom-width">Active</a>
+															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/active/false' />" class="btn btn-info custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Active"><i class="fa fa-check-square"></i></a>
 														</c:when>
 														<c:otherwise>
-															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/active/true' />" class="btn btn-default custom-width">Inactive</a>
+															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/active/true' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Inactive"><i class="fa fa-square"></i></a>
 														</c:otherwise>
 													</c:choose>
 												</td>
 											</sec:authorize>
-										</tr>
+										
 									</c:forEach>	
 								</tbody>
 							</table>
+							<!-- Start Delete Popup Confirmation -->
+							<c:forEach items="${orderForms}" var="orderForm">
+								<sec:authorize access="hasRole('ADMIN')">
+									<div class="modal fade modal-sm-${orderForm.uuid}" tabindex="-1" role="dialog" aria-hidden="true">
+										<div class="modal-dialog modal-sm">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+													</button>
+													<h4 class="modal-title" id="myModalLabel2">Confirmation</h4>
+												</div>
+												<div class="modal-body">
+													<h5>Delete Order Form: </h5>
+													<p>${orderForm.name}</p>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+													<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/delete' />" class="btn btn-danger">Delete</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</sec:authorize>
+							</c:forEach>
+							<!-- End Delete Popup Confirmation -->
 						</div>
 					</div>
 				</div>

@@ -46,25 +46,25 @@
 										<tr>
 											<td>${document.name}</td>
 										    <sec:authorize access="hasRole('ADMIN')">
-												<td>
-													<a href="<c:url value='/admin/documents/${document.id}/edit' />" class="btn btn-success custom-width">edit</a>
-													<a href="<c:url value='/admin/documents/${document.id}/delete' />" class="btn btn-danger custom-width">delete</a>
+												<td width="195px">
+													<a href="<c:url value='/admin/documents/${document.id}/edit' />" class="btn btn-success custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+													<a href="<c:url value='/admin/documents/${document.id}/delete' />" class="btn btn-danger custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i class="fa fa-trash"></i></a>
 													<!-- Visible -->
 													<c:choose>
 														<c:when test="${document.visible == true}">
-															<a href="<c:url value='/admin/documents/${document.id}/hide/false' />" class="btn btn-default custom-width"><i class="fa fa-eye"></i> Hide</a>
+															<a href="<c:url value='/admin/documents/${document.id}/hide/false' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Hide"><i class="fa fa-eye-slash"></i></a>
 														</c:when>
 														<c:otherwise>
-															<a href="<c:url value='/admin/documents/${document.id}/hide/true' />" class="btn btn-default custom-width"><i class="fa fa-eye-slash"></i> Unhide</a>
+															<a href="<c:url value='/admin/documents/${document.id}/hide/true' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Show"><i class="fa fa-eye"></i></a>
 														</c:otherwise>
 													</c:choose>
 													<!-- Lock -->
 													<c:choose>
 														<c:when test="${document.locked == true}">
-															<a href="<c:url value='/admin/documents/${document.id}/lock/false' />" class="btn btn-dark custom-width"><i class="fa fa-unlock"></i> Unlock</a>
+															<a href="<c:url value='/admin/documents/${document.id}/lock/false' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Unlock"><i class="fa fa-unlock"></i></a>
 														</c:when>
 														<c:otherwise>
-															<a href="<c:url value='/admin/documents/${document.id}/lock/true' />" class="btn btn-dark custom-width"><i class="fa fa-lock"></i> Lock</a>
+															<a href="<c:url value='/admin/documents/${document.id}/lock/true' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Lock"><i class="fa fa-lock"></i></a>
 														</c:otherwise>
 													</c:choose>
 												</td>

@@ -4283,6 +4283,13 @@ ul.notifications {
 /* 
 	CUSTOM STUFF!!!!!!!!!!!!!!!
 */
+
+.custom-width
+{
+	min-width: 40px;
+	max-width: 40px;
+}
+
 .text-left-not-xs, .text-left-not-sm, .text-left-not-md, .text-left-not-lg {
     text-align: left;
 }
