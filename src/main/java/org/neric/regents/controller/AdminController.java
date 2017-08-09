@@ -415,7 +415,9 @@ public class AdminController {
 		if (result.hasErrors()) 
 		{
 			return "createOrEditExam";
-		}		
+		}
+		exam.setVisible(true);
+		exam.setLocked(false);
 		examService.saveExam(exam);
 
 		model.addAttribute("success", "Exam: " + exam.getName() + " was created successfully");
@@ -495,7 +497,9 @@ public class AdminController {
 		if (result.hasErrors()) 
 		{
 			return "createOrEditDocument";
-		}		
+		}
+		document.setVisible(true);
+		document.setLocked(false);
 		documentService.saveDocument(document);
 
 		model.addAttribute("success", "Document: " + document.getName() + " was created successfully");

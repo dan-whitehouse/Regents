@@ -48,7 +48,8 @@
 									
 										<c:choose>
 											<c:when test="${orderForm.locked == true}"> 
-												<tr class="alert-info">
+												<!-- <tr class="alert-danger"> -->
+												<tr>
 											</c:when>
 											<c:otherwise>
 												<tr>

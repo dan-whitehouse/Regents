@@ -52,19 +52,19 @@
 													<!-- Visible -->
 													<c:choose>
 														<c:when test="${document.visible == true}">
-															<a href="<c:url value='/admin/documents/${document.id}/hide/false' />" class="btn btn-default custom-width">Hide</a>
+															<a href="<c:url value='/admin/documents/${document.id}/hide/false' />" class="btn btn-default custom-width"><i class="fa fa-eye"></i> Hide</a>
 														</c:when>
 														<c:otherwise>
-															<a href="<c:url value='/admin/documents/${document.id}/hide/true' />" class="btn btn-default custom-width">Unhide</a>
+															<a href="<c:url value='/admin/documents/${document.id}/hide/true' />" class="btn btn-default custom-width"><i class="fa fa-eye-slash"></i> Unhide</a>
 														</c:otherwise>
 													</c:choose>
 													<!-- Lock -->
 													<c:choose>
 														<c:when test="${document.locked == true}">
-															<a href="<c:url value='/admin/documents/${document.id}/lock/false' />" class="btn btn-dark custom-width">Unlock</a>
+															<a href="<c:url value='/admin/documents/${document.id}/lock/false' />" class="btn btn-dark custom-width"><i class="fa fa-unlock"></i> Unlock</a>
 														</c:when>
 														<c:otherwise>
-															<a href="<c:url value='/admin/documents/${document.id}/lock/true' />" class="btn btn-dark custom-width">Lock</a>
+															<a href="<c:url value='/admin/documents/${document.id}/lock/true' />" class="btn btn-dark custom-width"><i class="fa fa-lock"></i> Lock</a>
 														</c:otherwise>
 													</c:choose>
 												</td>

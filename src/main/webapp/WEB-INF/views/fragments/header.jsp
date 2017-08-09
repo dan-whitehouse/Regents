@@ -8,6 +8,7 @@
 <c:url value="/profile-${loggedinuser}" var="profile" />
 <c:url value="/admin/users" var="users" />
 <c:url value="/admin/users/create" var="createUser" />
+<c:url value="/admin/orders" var="adminOrders" />
 <c:url value="/admin/orderForms" var="orderForms" />
 <c:url value="/admin/orderForms/create" var="createOrderForm" />
 <c:url value="/admin/documents" var="documents" />
@@ -69,7 +70,7 @@
 							<li><a href="${home}"><i class="fa fa-home"></i> Home</span></a></li>
 							<sec:authorize access="hasAnyRole('USER', 'ADMIN')">
 								<li><a href="${order}"><i class="fa fa-edit"></i> Order Form</span></a></li>
-								<li><a href="${orders}"><i class="fa fa-truck"></i>Orders</a></li>
+								<li><a href="${orders}"><i class="fa fa-truck"></i>My Orders</a></li>
 							</sec:authorize>
 						
 							<sec:authorize access="hasRole('ADMIN')">
@@ -84,10 +85,11 @@
 				                        </li>
 				                        <li><a><i class="fa fa-check-square"></i> Order Forms <span class="fa fa-chevron-down"></span></a>
 				                        	<ul class="nav child_menu">
-			                        			<li class="sub_menu"><a href="${orderForms}">Form List</a></li>
+			                        			<li class="sub_menu"><a href="${orderForms}">Order Form List</a></li>
 				                        		<li class="sub_menu"><a href="${createOrderForm}">Create Form</a></li>
 			                        		</ul>
 		                        		</li>
+		                        		<li><a href="${adminOrders}"><i class="fa fa-truck"></i>Orders</a></li>
 		                        		<li><a href="${documents}"><i class="fa fa-file-text"></i> Documents </a></li>
 		                        		<li><a href="${exams}"><i class="fa fa-list"></i> Exams </a></li>
 		                        		<li><a href="${printOptions}"><i class="fa fa-print"></i> Print Options </a></li>

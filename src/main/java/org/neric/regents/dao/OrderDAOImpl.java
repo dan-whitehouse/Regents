@@ -6,6 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
 import org.neric.regents.model.District;
+import org.neric.regents.model.Document;
 import org.neric.regents.model.Order;
 import org.neric.regents.model.OrderDocument;
 import org.neric.regents.model.OrderExam;
@@ -59,7 +60,6 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 	{
 		Criteria crit = createEntityCriteria();
 		crit.addOrder(org.hibernate.criterion.Order.desc("orderDate"));
-		
 		List<Order> orders = (List<Order>)crit.list();
 		if(orders!=null)
 		{
@@ -108,6 +108,7 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.eq("user.id", id));
 		crit.addOrder(org.hibernate.criterion.Order.asc("id"));
+	
 		
 		List<Order> orders = (List<Order>)crit.list();
 		if(orders!=null)
@@ -124,11 +125,18 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 	@Override
 	public List<Order> findAllOrdersByUsername(String username) 
 	{
-		Criteria crit = createEntityCriteria();
-		crit.add(Restrictions.eq("user.username", username));
-		crit.addOrder(org.hibernate.criterion.Order.asc("id"));
 		
-		List<Order> orders = (List<Order>)crit.list();
+		Criteria criteria = getSession().createCriteria(Order.class, "o");
+		criteria.createAlias("o.user", "u");
+		criteria.add(Restrictions.eq("u.username", username));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		
+		
+		/*Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("user.username", username));
+		crit.addOrder(org.hibernate.criterion.Order.asc("id"));*/
+		
+		List<Order> orders = (List<Order>)criteria.list();
 		if(orders!=null)
 		{
 			for(Order o : orders)
@@ -136,7 +144,7 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 				Hibernate.initialize(o.getUser());
 			}	
 		}		
-		return (List<Order>)crit.list();
+		return orders;
 	}
 	
 }

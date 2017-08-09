@@ -178,10 +178,19 @@ public class OrderController
 		return schools;
 	}
 
-	@RequestMapping(value = { "orders" }, method = RequestMethod.GET)
-	public String listOrders(ModelMap model)
+	@RequestMapping(value = { "/admin/orders" }, method = RequestMethod.GET)
+	public String listAllOrders(ModelMap model)
 	{
 		List<Order> orders = orderService.findAllOrders();
+		model.addAttribute("orders", orders);
+		model.addAttribute("loggedinuser", getPrincipal());
+		return "orders";
+	}
+	
+	@RequestMapping(value = { "/orders" }, method = RequestMethod.GET)
+	public String listOrdersByUser(ModelMap model)
+	{
+		List<Order> orders = orderService.findAllOrdersByUsername(loggedInUserName());
 		model.addAttribute("orders", orders);
 		model.addAttribute("loggedinuser", getPrincipal());
 		return "orders";

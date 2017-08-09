@@ -18,6 +18,8 @@ public interface OrderService
 	
 	List<Order> findAllOrders();
 	
+	List<Order> findAllOrdersByUsername(String username);
+	
 	void saveOrder(Order order);
 	
 	void updateOrder(Order order);

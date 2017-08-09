@@ -6,7 +6,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <c:url value="/order" var="order" />
 <!-- http://bootsnipp.com/snippets/W7gNz -->
-<html>
 	<jsp:include page="fragments/header.jsp" />
 	<!-- page content -->
 	<div class="right_col" role="main">
@@ -579,4 +578,3 @@
 		}
 	</script>
 	<jsp:include page="fragments/footer.jsp" />
-</html>

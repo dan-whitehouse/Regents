@@ -12,7 +12,8 @@
         <!-- /footer content -->
       </div>
     </div>
-
+</body>
+</html>
     <!-- jQuery -->
     <script src="<c:url value='/resources/vendors/jquery/dist/jquery.min.js' />"></script>
     

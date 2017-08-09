@@ -200,8 +200,8 @@ Transitionize.prototype.init = function() {
     transitions.push(key + ' ' + this.props[key]);
   }
 
-  this.element.style.transition = transitions.join(', ');
-  if (this.isSafari()) this.element.style.webkitTransition = transitions.join(', ');
+  this..transition = transitions.join(', ');
+  if (this.isSafari()) this..webkitTransition = transitions.join(', ');
 };
 });
 
@@ -1635,7 +1635,7 @@ function Switchery(element, options) {
  */
 
 Switchery.prototype.hide = function() {
-  this.element.style.display = 'none';
+  this..display = 'none';
 };
 
 /**
