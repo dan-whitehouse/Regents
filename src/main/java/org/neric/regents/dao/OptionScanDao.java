@@ -21,4 +21,6 @@ public interface OptionScanDao
 	void update(OptionScan optionScan);
 	
 	void delete(int id);
+
+	List<OptionScan> findAllActiveOptionScans();
 }

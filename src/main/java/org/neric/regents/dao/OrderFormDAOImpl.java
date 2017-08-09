@@ -131,4 +131,13 @@ public class OrderFormDAOImpl extends AbstractDao<Integer, OrderForm> implements
 		}
 		return isActive;
 	}
+	
+	@Override
+	public OrderForm getActiveOrderForm()
+	{
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("active", true));
+		OrderForm orderForm = (OrderForm)crit.uniqueResult();
+		return orderForm;
+	}
 }

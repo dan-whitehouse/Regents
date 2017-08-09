@@ -48,23 +48,24 @@
 										    <sec:authorize access="hasRole('ADMIN')">
 												<td width="195px">
 													<a href="<c:url value='/admin/printOptions/${printOption.id}/edit' />" class="btn btn-success custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
-													<a href="<c:url value='/admin/printOptions/${printOption.id}/delete' />" class="btn btn-danger custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i class="fa fa-trash"></i></a>
+													<a type="button" class="btn btn-danger custom-width" data-toggle="modal" data-target=".modal-sm-${printOption.id}"><i class="fa fa-trash"></i></a>
+													
 													<!-- Visible -->
 													<c:choose>
 														<c:when test="${printOption.visible == true}">
-															<a href="<c:url value='/admin/printOptions/${printOption.id}/hide/false' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Hide"><i class="fa fa-eye-slash"></i></a>
+															<a href="<c:url value='/admin/printOptions/${printOption.id}/hide/false' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Visible"><i class="fa fa-eye"></i></a>
 														</c:when>
 														<c:otherwise>
-															<a href="<c:url value='/admin/printOptions/${printOption.id}/hide/true' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Show"><i class="fa fa-eye"></i></a>
+															<a href="<c:url value='/admin/printOptions/${printOption.id}/hide/true' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Hidden"><i class="fa fa-ey-slashe"></i></a>
 														</c:otherwise>
 													</c:choose>
 													<!-- Lock -->
 													<c:choose>
 														<c:when test="${document.locked == true}">
-															<a href="<c:url value='/admin/printOptions/${printOption.id}/lock/false' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Unlock"><i class="fa fa-unlock"></i></a>
+															<a href="<c:url value='/admin/printOptions/${printOption.id}/lock/false' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Locked"><i class="fa fa-lock"></i></a>
 														</c:when>
 														<c:otherwise>
-															<a href="<c:url value='/admin/printOptions/${printOption.id}/lock/true' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Lock"><i class="fa fa-lock"></i></a>
+															<a href="<c:url value='/admin/printOptions/${printOption.id}/lock/true' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Unlocked"><i class="fa fa-unlock"></i></a>
 														</c:otherwise>
 													</c:choose>
 												</td>
@@ -73,6 +74,31 @@
 									</c:forEach>									
 								</tbody>
 							</table>
+							<!-- Start Delete Popup Confirmation -->
+							<sec:authorize access="hasRole('ADMIN')">
+								<c:forEach items="${printOptions}" var="printOption">
+									<div class="modal fade modal-sm-${printOption.id}" tabindex="-1" role="dialog" aria-hidden="true">
+										<div class="modal-dialog modal-sm">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+													</button>
+													<h4 class="modal-title" id="myModalLabel2">Confirmation</h4>
+												</div>
+												<div class="modal-body">
+													<h5>Delete Print Option: </h5>
+													<p>${printOption.name}</p>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+													<a href="<c:url value='/admin/printOptions/${printOption.id}/delete' />" class="btn btn-danger">Delete</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</c:forEach>
+							</sec:authorize>
+							<!-- End Delete Popup Confirmation -->
 						</div>
 					</div>
 				</div>

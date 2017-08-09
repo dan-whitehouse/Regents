@@ -72,4 +72,10 @@ public class OptionScanServiceImpl implements OptionScanService
 			entity.setVisible(isHidden);
 		}
 	}
+
+	@Override
+	public List<OptionScan> findAllActivelOptionScans()
+	{
+		return dao.findAllActiveOptionScans();
+	}
 }

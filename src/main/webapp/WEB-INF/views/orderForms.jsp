@@ -81,19 +81,19 @@
 													<!-- Visible -->
 													<c:choose>
 														<c:when test="${orderForm.visible == true}">
-															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/hide/false' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Hide"><i class="fa fa-eye-slash"></i></a>
+															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/hide/false' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Visible"><i class="fa fa-eye"></i></a>
 														</c:when>
 														<c:otherwise>
-															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/hide/true' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Show"><i class="fa fa-eye"></i></a>
+															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/hide/true' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Hidden"><i class="fa fa-eye-slash"></i></a>
 														</c:otherwise>
 													</c:choose>
 													<!-- Lock -->
 													<c:choose>
 														<c:when test="${orderForm.locked == true}">
-															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/lock/false' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Unlock"><i class="fa fa-unlock"></i></a>
+															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/lock/false' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Locked"><i class="fa fa-lock"></i></a>
 														</c:when>
 														<c:otherwise>
-															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/lock/true' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Lock"><i class="fa fa-lock"></i></a>
+															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/lock/true' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Unlocked"><i class="fa fa-unlock"></i></a>
 														</c:otherwise>
 													</c:choose>
 													<!-- Active -->
@@ -112,8 +112,8 @@
 								</tbody>
 							</table>
 							<!-- Start Delete Popup Confirmation -->
-							<c:forEach items="${orderForms}" var="orderForm">
-								<sec:authorize access="hasRole('ADMIN')">
+							<sec:authorize access="hasRole('ADMIN')">
+								<c:forEach items="${orderForms}" var="orderForm">
 									<div class="modal fade modal-sm-${orderForm.uuid}" tabindex="-1" role="dialog" aria-hidden="true">
 										<div class="modal-dialog modal-sm">
 											<div class="modal-content">
@@ -133,8 +133,8 @@
 											</div>
 										</div>
 									</div>
-								</sec:authorize>
-							</c:forEach>
+								</c:forEach>
+							</sec:authorize>
 							<!-- End Delete Popup Confirmation -->
 						</div>
 					</div>

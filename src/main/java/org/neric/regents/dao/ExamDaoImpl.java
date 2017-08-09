@@ -56,6 +56,7 @@ public class ExamDaoImpl extends AbstractDao<Integer, Exam> implements ExamDao {
 		criteria.createAlias("e.orderFormExams", "ofe");
 		criteria.createAlias("ofe.orderForm", "of");
 		criteria.add(Restrictions.eq("of.active", true));
+		criteria.add(Restrictions.eq("e.visible", true));
 		criteria.addOrder(Order.asc("name"));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		List<Exam> exams = (List<Exam>) criteria.list();

@@ -68,8 +68,8 @@
 								</tbody>
 							</table>
 							<!-- Start Delete Popup Confirmation -->
-							<c:forEach items="${users}" var="user">
-								<sec:authorize access="hasRole('ADMIN')">
+							<sec:authorize access="hasRole('ADMIN')">
+								<c:forEach items="${users}" var="user">
 									<div class="modal fade modal-sm-${user.username}" tabindex="-1" role="dialog" aria-hidden="true">
 										<div class="modal-dialog modal-sm">
 											<div class="modal-content">
@@ -89,8 +89,8 @@
 											</div>
 										</div>
 									</div>
-								</sec:authorize>
-							</c:forEach>
+								</c:forEach>
+							</sec:authorize>
 							<!-- End Delete Popup Confirmation -->
 						</div>
 					</div>

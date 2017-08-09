@@ -55,6 +55,24 @@
 												<td width="195px">
 													<a href="<c:url value='/admin/districts/${district.id}/edit' />" class="btn btn-success custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
 													<a type="button" class="btn btn-danger custom-width" data-toggle="modal" data-target=".modal-sm-${district.bedsCode}"><i class="fa fa-trash"></i></a>
+													<!-- Visible -->
+													<c:choose>
+														<c:when test="${district.visible == true}">
+															<a href="<c:url value='/admin/districts/${district.id}/hide/false' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Visible"><i class="fa fa-eye"></i></a>
+														</c:when>
+														<c:otherwise>
+															<a href="<c:url value='/admin/districts/${district.id}/hide/true' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Hidden"><i class="fa fa-eye-slash"></i></a>
+														</c:otherwise>
+													</c:choose>
+													<!-- Lock -->
+													<c:choose>
+														<c:when test="${district.locked == true}">
+															<a href="<c:url value='/admin/districts/${district.id}/lock/false' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Locked"><i class="fa fa-lock"></i></a>
+														</c:when>
+														<c:otherwise>
+															<a href="<c:url value='/admin/districts/${district.id}/lock/true' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Unlocked"><i class="fa fa-unlock"></i></a>
+														</c:otherwise>
+													</c:choose>
 												</td>
 					        				</sec:authorize>
 										</tr>
@@ -62,8 +80,8 @@
 								</tbody>
 							</table>
 							<!-- Start Delete Popup Confirmation -->
-							<c:forEach items="${districts}" var="district">
-								<sec:authorize access="hasRole('ADMIN')">
+							<sec:authorize access="hasRole('ADMIN')">
+								<c:forEach items="${districts}" var="district">
 									<div class="modal fade modal-sm-${district.bedsCode}" tabindex="-1" role="dialog" aria-hidden="true">
 										<div class="modal-dialog modal-sm">
 											<div class="modal-content">
@@ -83,8 +101,8 @@
 											</div>
 										</div>
 									</div>
-								</sec:authorize>
-							</c:forEach>
+								</c:forEach>
+							</sec:authorize>
 							<!-- End Delete Popup Confirmation -->
 						</div>
 					</div>

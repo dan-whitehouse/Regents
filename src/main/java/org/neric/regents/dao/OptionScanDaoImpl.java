@@ -31,10 +31,19 @@ public class OptionScanDaoImpl extends AbstractDao<Integer, OptionScan> implemen
 	@SuppressWarnings("unchecked")
 	public List<OptionScan> findAllOptionScans()
 	{
-		Criteria criteria = createEntityCriteria().addOrder(Order.asc("name"));
-		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
+		Criteria criteria = createEntityCriteria().addOrder(Order.asc("id"));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		List<OptionScan> optionScans = (List<OptionScan>) criteria.list();
-
+		return optionScans;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<OptionScan> findAllActiveOptionScans()
+	{
+		Criteria criteria = createEntityCriteria().addOrder(Order.asc("id"));
+		criteria.add(Restrictions.eq("visible", true));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		List<OptionScan> optionScans = (List<OptionScan>) criteria.list();
 		return optionScans;
 	}
 	
@@ -52,6 +61,4 @@ public class OptionScanDaoImpl extends AbstractDao<Integer, OptionScan> implemen
 		delete(optionScan);
 		
 	}
-
-
 }

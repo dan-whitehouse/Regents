@@ -430,9 +430,14 @@ public class AdminController {
 	public String editExam(@PathVariable int id, ModelMap model) 
 	{
 		Exam exam = examService.findById(id);
-		model.addAttribute("exam", exam);
-		model.addAttribute("edit", true);
-		return "createOrEditExam";
+		
+		if(!exam.getLocked())
+		{
+			model.addAttribute("exam", exam);
+			model.addAttribute("edit", true);
+			return "createOrEditExam";
+		}
+		else return "403";
 	}
 	
 	@RequestMapping(value = { "/admin/exams/{id}/edit" }, method = RequestMethod.POST)
@@ -455,8 +460,13 @@ public class AdminController {
 	@RequestMapping(value = { "/admin/exams/{id}/delete" }, method = RequestMethod.GET)
 	public String deleteExam(@PathVariable int id) 
 	{
-		examService.deleteByExamId(id);
-		return "redirect:/admin/exams";
+		Exam exam = examService.findById(id);	
+		if(!exam.getLocked())
+		{
+			examService.deleteByExamId(id);
+			return "redirect:/admin/exams";
+		}
+		else return "403";
 	}
 	
 	@RequestMapping(value = { "/admin/exams/{id}/lock/{isLocked}" }, method = RequestMethod.GET)
@@ -512,9 +522,15 @@ public class AdminController {
 	public String editDocument(@PathVariable int id, ModelMap model) 
 	{
 		Document document = documentService.findById(id);
-		model.addAttribute("document", document);
-		model.addAttribute("edit", true);
-		return "createOrEditDocument";
+		
+		if(document.getLocked())
+		{
+			model.addAttribute("document", document);
+			model.addAttribute("edit", true);
+			return "createOrEditDocument";
+		}
+		else return "403";
+		
 	}
 	
 	@RequestMapping(value = { "/admin/documents/{id}/edit" }, method = RequestMethod.POST)
@@ -537,8 +553,13 @@ public class AdminController {
 	@RequestMapping(value = { "/admin/documents/{id}/delete" }, method = RequestMethod.GET)
 	public String deleteDocument(@PathVariable int id) 
 	{
-		documentService.deleteByDocumentId(id);
-		return "redirect:/admin/documents";
+		Document document = documentService.findById(id);
+		if(!document.getLocked())
+		{
+			documentService.deleteByDocumentId(id);
+			return "redirect:/admin/documents";
+		}
+		else return "403";	
 	}
 	
 	@RequestMapping(value = { "/admin/documents/{id}/lock/{isLocked}" }, method = RequestMethod.GET)
@@ -581,7 +602,10 @@ public class AdminController {
 			return "createOrEditPrintOption";
 		}	
 		
+		optionPrint.setVisible(true);
+		optionPrint.setLocked(false);
 		optionPrintService.save(optionPrint);
+		
 		model.addAttribute("success", "Print Option: " + optionPrint.getName() + " was created successfully");
 		model.addAttribute("returnLink", "/admin/printOptions");
 		model.addAttribute("returnLinkText", "Print Options");
@@ -592,9 +616,15 @@ public class AdminController {
 	public String editPrintOption(@PathVariable int id, ModelMap model) 
 	{
 		OptionPrint printOption = optionPrintService.findById(id);
-		model.addAttribute("printOption", printOption);
-		model.addAttribute("edit", true);
-		return "createOrEditPrintOption";
+		
+		if(!printOption.getLocked())
+		{
+			model.addAttribute("printOption", printOption);
+			model.addAttribute("edit", true);
+			return "createOrEditPrintOption";
+		}
+		else return "403";
+		
 	}
 	
 	@RequestMapping(value = { "/admin/printOptions/{id}/edit" }, method = RequestMethod.POST)
@@ -617,8 +647,14 @@ public class AdminController {
 	@RequestMapping(value = { "/admin/printOptions/{id}/delete" }, method = RequestMethod.GET)
 	public String deletePrintOption(@PathVariable int id) 
 	{
-		optionPrintService.delete(id);
-		return "redirect:/admin/printOptions";
+		OptionPrint op = optionPrintService.findById(id);
+		
+		if(!op.getLocked())
+		{
+			optionPrintService.delete(id);
+			return "redirect:/admin/printOptions";
+		}
+		else return "403";	
 	}
 	
 	@RequestMapping(value = { "/admin/printOptions/{id}/lock/{isLocked}" }, method = RequestMethod.GET)
@@ -662,7 +698,10 @@ public class AdminController {
 			return "createOrEditScanOption";
 		}	
 		
+		optionScan.setVisible(true);
+		optionScan.setLocked(false);
 		optionScanService.save(optionScan);
+		
 		model.addAttribute("success", "Scan Option: " + optionScan.getName() + " was created successfully");
 		model.addAttribute("returnLink", "/admin/scanOptions");
 		model.addAttribute("returnLinkText", "Scan Options");
@@ -673,9 +712,14 @@ public class AdminController {
 	public String editScanOption(@PathVariable int id, ModelMap model) 
 	{
 		OptionScan scanOption = optionScanService.findById(id);
-		model.addAttribute("scanOption", scanOption);
-		model.addAttribute("edit", true);
-		return "createOrEditScanOption";
+		
+		if(!scanOption.getLocked())
+		{
+			model.addAttribute("scanOption", scanOption);
+			model.addAttribute("edit", true);
+			return "createOrEditScanOption";
+		}
+		else return "403";	
 	}
 	
 	@RequestMapping(value = { "/admin/scanOptions/{id}/edit" }, method = RequestMethod.POST)
@@ -698,8 +742,14 @@ public class AdminController {
 	@RequestMapping(value = { "/admin/scanOptions/{id}/delete" }, method = RequestMethod.GET)
 	public String deleteScanOption(@PathVariable int id) 
 	{
-		optionScanService.delete(id);
-		return "redirect:/admin/scanOptions";
+		OptionScan os = optionScanService.findById(id);
+		
+		if(!os.getLocked())
+		{
+			optionScanService.delete(id);
+			return "redirect:/admin/scanOptions";
+		}
+		else return "403";
 	}
 	
 	@RequestMapping(value = { "/admin/scanOptions/{id}/lock/{isLocked}" }, method = RequestMethod.GET)
@@ -809,7 +859,11 @@ public class AdminController {
 			return "createOrEditDistrict";
 		}	
 		
+		district.setVisible(true);
+		district.setLocked(false);
 		districtService.saveDistrict(district);
+		
+		
 		model.addAttribute("success", "District: " + district.getName() + " was created successfully");
 		model.addAttribute("returnLink", "/admin/districts");
 		model.addAttribute("returnLinkText", "Districts");
@@ -821,9 +875,13 @@ public class AdminController {
 	{
 		District district = districtService.findById(id);
 		
-		model.addAttribute("district", district);
-		model.addAttribute("edit", true);
-		return "createOrEditDistrict";
+		if(!district.getLocked())
+		{
+			model.addAttribute("district", district);
+			model.addAttribute("edit", true);
+			return "createOrEditDistrict";
+		}
+		else return "403";
 	}
 	
 	@RequestMapping(value = { "/admin/districts/{id}/edit" }, method = RequestMethod.POST)
@@ -844,7 +902,26 @@ public class AdminController {
 	@RequestMapping(value = { "/admin/districts/{bedsCode}/delete" }, method = RequestMethod.GET)
 	public String deleteDistrict(@PathVariable String bedsCode) 
 	{
-		districtService.deleteDistrictByCode(bedsCode);
+		District d = districtService.findByCode(bedsCode);
+		if(!d.getLocked())
+		{
+			districtService.deleteDistrictByCode(bedsCode);
+			return "redirect:/admin/districts";
+		}
+		else return "403";	
+	}
+	
+	@RequestMapping(value = { "/admin/districts/{id}/lock/{isLocked}" }, method = RequestMethod.GET)
+	public String lockDistrict(@PathVariable int id, @PathVariable boolean isLocked) 
+	{
+		districtService.lockById(id, isLocked);
+		return "redirect:/admin/districts";
+	}
+	
+	@RequestMapping(value = { "/admin/districts/{id}/hide/{isHidden}" }, method = RequestMethod.GET)
+	public String hideDistrict(@PathVariable int id, @PathVariable boolean isHidden) 
+	{
+		districtService.hideById(id, isHidden);
 		return "redirect:/admin/districts";
 	}
 	
@@ -888,8 +965,7 @@ public class AdminController {
 	public String editSchool(@PathVariable int id, ModelMap model) 
 	{
 		School school = schoolService.findById(id);
-		List<District> districts = districtService.findAllDistricts();
-		
+		List<District> districts = districtService.findAllDistricts();	
 		model.addAttribute("school", school);
 		model.addAttribute("districts", districts);
 		model.addAttribute("edit", true);

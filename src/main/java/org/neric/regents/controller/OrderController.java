@@ -147,14 +147,14 @@ public class OrderController
 	@ModelAttribute("allPrintOptions")
 	public List<OptionPrint> populatePrintOptions()
 	{
-		List<OptionPrint> options = optionPrintService.findAllOptionPrints();
+		List<OptionPrint> options = optionPrintService.findAllActiveOptionPrints();
 		return options;
 	}
 
 	@ModelAttribute("allScanOptions")
 	public List<OptionScan> populateScanOptions()
 	{
-		List<OptionScan> options = optionScanService.findAllOptionScans();
+		List<OptionScan> options = optionScanService.findAllActivelOptionScans();
 		return options;
 	}
 
@@ -201,16 +201,20 @@ public class OrderController
 	{
 		if(orderFormService.hasActiveOrderForm())
 		{
-			XForm2 xForm = new XForm2();
-			model.addAttribute("xForm2", xForm);
-			return "order";
+			if(orderFormService.getActiveOrderForm().getVisible())
+			{
+				XForm2 xForm = new XForm2();
+				model.addAttribute("xForm2", xForm);
+				return "order";
+			}
+			else
+			{
+				return "403";
+			}	
 		}
 		else
 		{
-			model.addAttribute("b_title", "204");
-			model.addAttribute("b_header", "No Active Order Forms");
-			model.addAttribute("b_message", "Test Message");
-			return "blank";
+			return "204";
 		}
 	}
 
@@ -242,7 +246,7 @@ public class OrderController
 			order.setOrderPrint(xForm.getSelectedOptionPrint());
 			order.setOrderScan(xForm.getSelectedOptionScan());
 			order.setReportToLevelOne(xForm.isReportingOption());
-			order.setOrderStatus("SOMETHING");
+			order.setOrderStatus("Processing");
 			order.setUuid(UUID.randomUUID().toString());
 			order.setUser(loggedInUser());
 
@@ -347,7 +351,6 @@ public class OrderController
 
 		try
 		{
-
 			Order order = orderService.findByUUID(uuid);		
 			order.setOrderPrint(xForm.getSelectedOptionPrint());
 			order.setOrderScan(xForm.getSelectedOptionScan());
@@ -356,29 +359,6 @@ public class OrderController
 			
 			order.getOrderExams().clear();
 			order.getOrderDocuments().clear();
-
-			
-				/*for (XExamWrapper ew : xForm.getSelectedExams())
-				{
-					if(ew.isSelected())
-					{
-						for(OrderExam oe : order.getOrderExams())
-						{		
-							if(oe.getOrder().getId() == ew.getOrderExam().getId())
-							{
-								oe.setAnswerSheetAmount(ew.getOrderExam().getAnswerSheetAmount());
-								oe.setExam(ew.getOrderExam().getExam());
-								oe.setExamAmount(ew.getOrderExam().getExamAmount());
-								oe.setOrder(ew.getOrderExam().getOrder());
-								oe.setPearsonAnswerSheet(ew.getOrderExam().getPearsonAnswerSheet());
-								oe.setStudentsPerCSV(ew.getOrderExam().getStudentsPerCSV());
-								break;
-							}
-						}
-					}	
-				}*/
-			
-			
 
 			for (XExamWrapper ew : xForm.getSelectedExams())
 			{

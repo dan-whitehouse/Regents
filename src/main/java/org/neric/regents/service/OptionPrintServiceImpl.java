@@ -73,4 +73,10 @@ public class OptionPrintServiceImpl implements OptionPrintService
 			entity.setVisible(isHidden);
 		}
 	}
+
+	@Override
+	public List<OptionPrint> findAllActiveOptionPrints()
+	{
+		return dao.findAllActiveOptionPrints();
+	}
 }

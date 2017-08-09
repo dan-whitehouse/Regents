@@ -21,4 +21,6 @@ public interface OptionPrintDao
 	void update(OptionPrint optionPrint);
 	
 	void delete(int id);
+
+	List<OptionPrint> findAllActiveOptionPrints();
 }

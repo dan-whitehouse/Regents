@@ -127,4 +127,10 @@ public class OrderFormServiceImpl implements OrderFormService
 	{
 		return dao.hasActiveOrderForm();
 	}
+
+	@Override
+	public OrderForm getActiveOrderForm()
+	{
+		return dao.getActiveOrderForm();
+	}
 }

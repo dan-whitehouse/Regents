@@ -42,6 +42,7 @@ public class DocumentDAOImpl extends AbstractDao<Integer, Document> implements D
 		criteria.createAlias("d.orderFormDocuments", "ofd");
 		criteria.createAlias("ofd.orderForm", "of");
 		criteria.add(Restrictions.eq("of.active", true));
+		criteria.add(Restrictions.eq("d.visible", true));
 		criteria.addOrder(Order.asc("name"));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		List<Document> documents = (List<Document>) criteria.list();

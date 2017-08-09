@@ -46,10 +46,10 @@
 													
 													<c:choose>
 														<c:when test="${order.orderStatus == 'Processing'}">
-															<a href="<c:url value='/order/${order.uuid}/complete/true' />" class="btn btn-info custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Complete"><i class="fa fa-check-square"></i></a>
+															<a href="<c:url value='/order/${order.uuid}/complete/true' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Incomplete"><i class="fa fa-square"></i></a>
 														</c:when>
 														<c:otherwise>
-															<a href="<c:url value='/order/${order.uuid}/complete/false' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Incomplete"><i class="fa fa-square"></i></a>
+															<a href="<c:url value='/order/${order.uuid}/complete/false' />" class="btn btn-info custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Complete"><i class="fa fa-check-square"></i></a>
 														</c:otherwise>
 													</c:choose>
 												</td>
@@ -59,8 +59,8 @@
 								</tbody>
 							</table>
 							<!-- Delete Popup Confirmation -->
-							<c:forEach items="${orders}" var="order">
-								<sec:authorize access="hasRole('ADMIN')">
+							<sec:authorize access="hasRole('ADMIN')">
+								<c:forEach items="${orders}" var="order">
 									<div class="modal fade modal-sm-${order.uuid}" tabindex="-1" role="dialog" aria-hidden="true">
 										<div class="modal-dialog modal-sm">
 											<div class="modal-content">
@@ -80,8 +80,8 @@
 											</div>
 										</div>
 									</div>
-								</sec:authorize>
-							</c:forEach>
+								</c:forEach>
+							</sec:authorize>
 							<!-- End Delete Popup Confirmation -->
 						</div>
 					</div>

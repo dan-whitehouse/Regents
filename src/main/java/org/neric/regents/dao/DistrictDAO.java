@@ -16,6 +16,5 @@ public interface DistrictDAO {
 	void deleteByCode(String bedsCode);
 	
 	List<District> findAllDistricts();
-
 }
 

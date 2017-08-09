@@ -31,10 +31,9 @@ public class OptionPrintDaoImpl extends AbstractDao<Integer, OptionPrint> implem
 	@SuppressWarnings("unchecked")
 	public List<OptionPrint> findAllOptionPrints()
 	{
-		Criteria criteria = createEntityCriteria().addOrder(Order.asc("name"));
+		Criteria criteria = createEntityCriteria().addOrder(Order.asc("id"));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
 		List<OptionPrint> optionScans = (List<OptionPrint>) criteria.list();
-
 		return optionScans;
 	}
 	
@@ -50,5 +49,15 @@ public class OptionPrintDaoImpl extends AbstractDao<Integer, OptionPrint> implem
 		crit.add(Restrictions.eq("id", id));
 		OptionPrint optionPrint = (OptionPrint)crit.uniqueResult();
 		delete(optionPrint);
+	}
+
+	@Override
+	public List<OptionPrint> findAllActiveOptionPrints()
+	{
+		Criteria criteria = createEntityCriteria().addOrder(Order.asc("id"));
+		criteria.add(Restrictions.eq("visible", true));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
+		List<OptionPrint> optionScans = (List<OptionPrint>) criteria.list();
+		return optionScans;
 	}
 }

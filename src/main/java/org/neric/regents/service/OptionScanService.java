@@ -25,5 +25,7 @@ public interface OptionScanService
 	void lockByOptionScanId(int id, Boolean isLocked);
 	
 	void hideByOptionScanId(int id, Boolean isHidden);
+
+	List<OptionScan> findAllActivelOptionScans();
 	
 }

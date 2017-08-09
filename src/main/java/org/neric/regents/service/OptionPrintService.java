@@ -25,4 +25,6 @@ public interface OptionPrintService
 	void lockByOptionPrintId(int id, Boolean isLocked);
 	
 	void hideByOptionPrintId(int id, Boolean isHidden);
+
+	List<OptionPrint> findAllActiveOptionPrints();
 }

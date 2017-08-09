@@ -18,8 +18,9 @@ public interface DistrictService {
 	
 	void deleteDistrictByCode(String bedsCode);
 
-	List<District> findAllDistricts(); 
-	
-	//boolean isUserUsernameUnique(Integer id, String username);
+	List<District> findAllDistricts();
 
+	void lockById(int id, boolean isLocked);
+
+	void hideById(int id, boolean isHidden); 
 }

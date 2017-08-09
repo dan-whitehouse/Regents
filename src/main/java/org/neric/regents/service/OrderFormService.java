@@ -36,4 +36,6 @@ public interface OrderFormService
 	void activateOrderFormUUID(String uuid, Boolean isActive);
 
 	boolean hasActiveOrderForm();
+	
+	OrderForm getActiveOrderForm();
 }

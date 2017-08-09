@@ -9,6 +9,7 @@ package org.neric.regents.service;
 import java.util.List;
 
 import org.neric.regents.model.Order;
+import org.neric.regents.model.OrderForm;
 
 public interface OrderService
 {

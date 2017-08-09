@@ -22,4 +22,6 @@ public interface OrderFormDAO {
 	void setAllInactive();	
 	
 	boolean hasActiveOrderForm();
+	
+	OrderForm getActiveOrderForm();
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.neric.regents.dao.DistrictDAO;
 import org.neric.regents.model.District;
+import org.neric.regents.model.OptionPrint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,10 +56,24 @@ public class DistrictServiceImp implements DistrictService{
 		return dao.findAllDistricts();
 	}
 
-//	public boolean isUserUsernameUnique(Integer id, String username) 
-//	{
-//		User user = findByUsername(username);
-//		return ( user == null || ((id != null) && (user.getId() == id)));
-//	}
+	@Override
+	public void lockById(int id, boolean isLocked)
+	{
+		District entity = dao.findById(id);
+		if(entity != null)
+		{
+			entity.setLocked(isLocked);
+		}
+	}
+
+	@Override
+	public void hideById(int id, boolean isHidden)
+	{
+		District entity = dao.findById(id);
+		if(entity != null)
+		{
+			entity.setVisible(isHidden);
+		}
+	}
 	
 }
