@@ -62,20 +62,61 @@
 		                      <div class="form-group">
 		                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Exams</label>
 		                        <div class="col-md-6 col-sm-6 col-xs-12">
-		                        	
-<%-- 		                        	<form:select path="orderFormExams" id="orderFormExams" name="orderFormExams" multiple="true" class="select2_multiple form-control"> --%>
-<%-- 			                          	<c:forEach items="${exams}" var="exam"> --%>
-<%-- 											<form:option value="${exam.id}">${exam.name}</form:option> --%>
-<%-- 										</c:forEach> --%>
-<%-- 		                          	</form:select> --%>
+		  
+<!-- 		                       http://docs.spring.io/spring/docs/2.0.x/reference/spring-form.tld.html#spring-form.tld.options -->
+<!-- 								https://stackoverflow.com/questions/7202368/spring-mvc-formselect-selected-value -->
+
+<%-- 		                       <c:choose> --%>
+<%-- 		                       		<c:when test="${edit}"> --%>
+<%-- 		                       			<form:select path="orderFormExams" multiple="true" class="select2_multiple form-control"> --%>
+<%-- 		                       				<c:forEach items="${exams}" var="exam">     --%>
+<%-- 		                       					<c:when test="${orderForm.orderFormExams.exam.id==exam.id}">			 --%>
+<%-- 				                      				<form:option selected="true" value="${exam.id}" itemLabel="${exam.name}" /> --%>
+<%-- 			                      				</c:when> --%>
+<%-- 			                      				<c:otherwise> --%>
+<%-- 			                      					<form:option value="${exam.id}" itemLabel="${exam.name}" /> --%>
+<%-- 			                      				</c:otherwise> --%>
+<%-- 				                      		</c:forEach> --%>
+<%-- 												<form:options items="${exams}" /> --%>
+<%-- 		                       			</form:select> --%>
+<%-- 	                       			</c:when> --%>
+<%-- 	                       			<c:otherwise> --%>
+<%-- 	                       					<form:select path="orderFormExams" multiple="true" class="select2_multiple form-control"> --%>
+<%-- 					                          	<c:forEach items="${exams}" var="exam" varStatus="status"> --%>
+<%-- 													<form:option value="${exam.id}">${exam.name}</form:option> --%>
+<%-- 												</c:forEach> --%>
+<%-- 				                          	</form:select> --%>
+<%-- 									</c:otherwise> --%>
+<%-- 	                       		</c:choose> --%>
+		                       
+		                       <c:choose>
+		                       		<c:when test="${edit}">
+		                       			<form:select path="orderFormExams" items="${orderForm.orderFormExams}" itemLabel="exam.name" multiple="true" class="select2_multiple form-control" role="combobox">
+		                       				<c:forEach items="${exams}" var="exam">    			
+				                      				<form:option value="${exam.id}" itemLabel="${exam.name}" />
+				                      		</c:forEach>
+												<form:options items="${exams}" />
+		                       			</form:select>
+	                       			</c:when>
+	                       			<c:otherwise>
+	                       					<form:select path="orderFormExams" multiple="true" class="select2_multiple form-control">
+					                          	<c:forEach items="${exams}" var="exam" varStatus="status">
+													<form:option value="${exam.id}">${exam.name}</form:option>
+												</c:forEach>
+				                          	</form:select>
+									</c:otherwise>
+	                       		</c:choose>
+
 		                        
-		                        <form:select path="orderFormExams" items="${orderForm.orderFormExams}" id="orderFormExams" name="orderFormExams" multiple="true" class="select2_multiple form-control" role="combobox">
+		                        
+		                        
+<%-- 		                        <form:select path="orderFormExams" items="${orderForm.orderFormExams}" id="orderFormExams" name="orderFormExams" multiple="true" class="select2_multiple form-control" role="combobox"> --%>
 <%-- 		                        	<c:forEach items="${orderFormExams}" var="orderFormExam">    			 --%>
 <%-- 			                      			<li class="select2-selection__choice" title="${orderFormExam.exam.name}"> --%>
 <%-- 			                      				${orderFormExam.exam.name} --%>
 <!-- 			                      			</li> -->
 <%-- 			                      	</c:forEach> --%>
-		                        </form:select>
+<%-- 		                        </form:select> --%>
 		                        
 		                        	<%-- <c:choose>
 										<c:when test="${edit}">
