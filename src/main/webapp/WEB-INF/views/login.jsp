@@ -12,14 +12,15 @@
 			    <div class="login-card">
 				    <div class="login-form">
 					    <form action="${loginUrl}" method="post" class="form-horizontal">
+						    
 						    <c:if test="${param.error != null}">
 							    <div class="alert alert-danger">
-								    <p>Invalid username and password.</p>
+								    <p>${error}</p>
 							    </div>
 						    </c:if>
 						    <c:if test="${param.logout != null}">
 							    <div class="alert alert-success">
-								    <p>You have been logged out successfully.</p>
+								    <p>${msg}</p>
 							    </div>
 						    </c:if>
 						    <br />

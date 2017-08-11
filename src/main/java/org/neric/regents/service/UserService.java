@@ -10,7 +10,11 @@ public interface UserService {
 	
 	User findById(int id);
 	
+	User findByUUID(String uuid);
+	
 	User findByUsername(String username);
+	
+	List<User> findAllUsers(); 
 	
 	void saveUser(User user);
 	
@@ -19,8 +23,14 @@ public interface UserService {
 	void updatePassword(UserPassword userPassword);
 
 	void deleteUserByUsername(String username);
+	
+	void deleteUserByUUID(String uuid);
+	
+	void deleteUser(User user);
 
-	List<User> findAllUsers(); 
+	void lockByUUID(String uuid, boolean isLocked);
+
+	void hideByUUID(String uuid, boolean isHidden); 
 	
 	boolean isUserUsernameUnique(Integer id, String username);
 

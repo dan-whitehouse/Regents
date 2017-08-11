@@ -59,8 +59,26 @@
 											<td><a href="<c:url value='/profile/${user.username}' />">${user.username}</a></td>
 										    <sec:authorize access="hasRole('ADMIN')">
 												<td width="195px">
-													<a href="<c:url value='/admin/users/${user.username}/edit' />" class="btn btn-success custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
-													<a type="button" class="btn btn-danger custom-width" data-toggle="modal" data-target=".modal-sm-${user.username}"><i class="fa fa-trash"></i></a>
+													<a href="<c:url value='/admin/users/${user.uuid}/edit' />" class="btn btn-success custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+													<a type="button" class="btn btn-danger custom-width" data-toggle="modal" data-target=".modal-sm-${user.uuid}"><i class="fa fa-trash"></i></a>
+													<!-- Visible -->
+													<c:choose>
+														<c:when test="${user.visible == true}">
+															<a href="<c:url value='/admin/users/${user.uuid}/hide/false' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Visible"><i class="fa fa-eye"></i></a>
+														</c:when>
+														<c:otherwise>
+															<a href="<c:url value='/admin/users/${user.uuid}/hide/true' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Hidden"><i class="fa fa-eye-slash"></i></a>
+														</c:otherwise>
+													</c:choose>
+													<!-- Lock -->
+													<c:choose>
+														<c:when test="${user.locked == true}">
+															<a href="<c:url value='/admin/users/${user.uuid}/lock/false' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Locked"><i class="fa fa-lock"></i></a>
+														</c:when>
+														<c:otherwise>
+															<a href="<c:url value='/admin/users/${user.uuid}/lock/true' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Unlocked"><i class="fa fa-unlock"></i></a>
+														</c:otherwise>
+													</c:choose>
 												</td>
 					        				</sec:authorize>
 										</tr>
@@ -84,7 +102,7 @@
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-													<a href="<c:url value='/admin/users/${user.username}/delete' />" class="btn btn-danger">Delete</a>
+													<a href="<c:url value='/admin/users/${user.uuid}/delete' />" class="btn btn-danger">Delete</a>
 												</div>
 											</div>
 										</div>

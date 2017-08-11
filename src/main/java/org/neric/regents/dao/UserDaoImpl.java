@@ -29,9 +29,22 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 	}
 
 	public User findByUsername(String username) {
-		logger.info("Username : {}", username);
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.eq("username", username));
+		User user = (User)crit.uniqueResult();
+		if(user!=null)
+		{
+			Hibernate.initialize(user.getUserProfiles());
+			Hibernate.initialize(user.getDistrict());
+		}
+		return user;
+	}
+	
+	@Override
+	public User findByUUID(String uuid)
+	{
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("uuid", uuid));
 		User user = (User)crit.uniqueResult();
 		if(user!=null)
 		{
@@ -66,5 +79,15 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		User user = (User)crit.uniqueResult();
 		delete(user);
 	}
+	
+	public void deleteByUUID(String uuid) {
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("uuid", uuid));
+		User user = (User)crit.uniqueResult();
+		delete(user);
+	}
+
+
+	
 
 }

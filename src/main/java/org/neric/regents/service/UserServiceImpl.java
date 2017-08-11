@@ -3,6 +3,7 @@ package org.neric.regents.service;
 import java.util.List;
 
 import org.neric.regents.dao.UserDao;
+import org.neric.regents.model.District;
 import org.neric.regents.model.User;
 import org.neric.regents.test.UserPassword;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,11 +74,6 @@ public class UserServiceImpl implements UserService{
 		}
 	}
 
-	
-	public void deleteUserByUsername(String username) 
-	{
-		dao.deleteByUsername(username);
-	}
 
 	public List<User> findAllUsers() 
 	{
@@ -88,6 +84,49 @@ public class UserServiceImpl implements UserService{
 	{
 		User user = findByUsername(username);
 		return ( user == null || ((id != null) && (user.getId() == id)));
+	}
+
+	@Override
+	public User findByUUID(String uuid)
+	{
+		User user = dao.findByUUID(uuid);
+		return user;
+	}
+
+	public void deleteUserByUsername(String username) 
+	{
+		dao.deleteByUsername(username);
+	}
+	
+	public void deleteUserByUUID(String uuid) 
+	{
+		dao.deleteByUUID(uuid);
+	}
+	
+	@Override
+	public void deleteUser(User user)
+	{
+		dao.delete(user);	
+	}
+
+	@Override
+	public void lockByUUID(String uuid, boolean isLocked)
+	{
+		User entity = dao.findByUUID(uuid);
+		if(entity != null)
+		{
+			entity.setLocked(isLocked);
+		}
+	}
+
+	@Override
+	public void hideByUUID(String uuid, boolean isHidden)
+	{
+		User entity = dao.findByUUID(uuid);
+		if(entity != null)
+		{
+			entity.setVisible(isHidden);
+		}
 	}
 	
 }

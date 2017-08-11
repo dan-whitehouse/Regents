@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -30,25 +31,37 @@ public class User implements Serializable
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	@Column(name = "uuid", unique = true, nullable = false)
+	private String uuid;
+	
 	@NotEmpty
-	@Column(name="USERNAME", unique=true, nullable=false)
+	@Column(name="username", unique=true, nullable=false)
 	private String username;
 	
 	@NotEmpty
-	@Column(name="PASSWORD", nullable=false)
+	@Column(name="password", nullable=false)
 	private String password;
 		
 	@NotEmpty
-	@Column(name="FIRST_NAME", nullable=false)
+	@Column(name="first_name", nullable=false)
 	private String firstName;
 
 	@NotEmpty
-	@Column(name="LAST_NAME", nullable=false)
+	@Column(name="last_name", nullable=false)
 	private String lastName;
 
 	@NotEmpty
-	@Column(name="EMAIL", nullable=false)
+	@Column(name="email", nullable=false)
 	private String email;
+	
+	
+	@Column(name="visible", unique=false, nullable=false)	
+	private Boolean visible;
+	
+	@Column(name="locked", unique=false, nullable=false)	
+	private Boolean locked;
 	
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -56,7 +69,6 @@ public class User implements Serializable
 	private District district;
 	
 	
-
 	@NotEmpty
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "APP_USER_USER_PROFILE", 
@@ -69,12 +81,23 @@ public class User implements Serializable
 	private Set<Order> orders = new HashSet<Order>(0);
 	
 	
+	
 	public Integer getId() {
 		return id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	public String getUuid()
+	{
+		return uuid;
+	}
+
+	public void setUuid(String uuid)
+	{
+		this.uuid = uuid;
 	}
 
 	public String getUsername() {
@@ -145,6 +168,26 @@ public class User implements Serializable
 	{
 		this.district = district;
 	}
+	
+	public Boolean getVisible()
+	{
+		return visible;
+	}
+
+	public void setVisible(Boolean visible)
+	{
+		this.visible = visible;
+	}
+
+	public boolean getLocked()
+	{
+		return locked;
+	}
+
+	public void setLocked(Boolean locked)
+	{
+		this.locked = locked;
+	}
 
 	@Override
 	public int hashCode() {
@@ -180,8 +223,9 @@ public class User implements Serializable
 	@Override
 	public String toString()
 	{
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", district=" + district + ", userProfiles=" + userProfiles + "]";
+		return "User [id=" + id + ", uuid=" + uuid + ", username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", visible=" + visible + ", locked=" + locked + ", district=" + district + ", userProfiles=" + userProfiles +"]";
 	}
 
+	
 	
 }

@@ -423,7 +423,7 @@
 														<div class="form-group">
 															<p>By clicking "Submit", you signify that you have permission to order these Regents forms from an appropriate person who can authorize this expenditure.</p>
 														</div>
-														<input type="submit" value="Submit" class="btn btn-success"/> <a href="<c:url value='/list' />" class="btn btn-primary">Cancel</a>
+														<input type="submit" value="Submit" class="btn btn-success"/> <a href="<c:url value='/orders' />" class="btn btn-primary">Cancel</a>
 													</div>
 												</div>
 											</div>

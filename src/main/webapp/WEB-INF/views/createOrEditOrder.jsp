@@ -93,7 +93,6 @@
 											</div>
 											<div class="col-md-12 col-sm-12 col-xs-12">
 												<br>
-												<!-- <button id="activate-step-2" class="btn btn-primary btn-md">Activate Step 2</button> -->
 											</div>
 										</div>
 									</div>
@@ -169,9 +168,7 @@
 														</table>
 													</div>
 												</div>
-												<!-- 													    <a id="add_row" class="btn btn-success pull-left">Add Row</a><a id='delete_row' class="btn btn-danger pull-right">Delete Row</a> -->
 											</div>
-											<!-- <button id="activate-step-3" class="btn btn-primary btn-md">Activate Step 3</button> -->
 										</div>
 									</div>
 								</div>
@@ -205,7 +202,6 @@
 													</c:forEach>
 												</tbody>
 											</table>
-											<!-- <button id="activate-step-4" class="btn btn-primary btn-md">Activate Step 4</button> -->
 										</div>
 									</div>
 								</div>
@@ -252,7 +248,6 @@
 											</div>
 											<div class="col-md-12 col-sm-12 col-xs-12">
 												<br>
-												<!-- <button id="activate-step-5" class="btn btn-primary btn-md">Activate Step 5</button>   -->
 											</div>
 										</div>
 									</div>
@@ -290,7 +285,6 @@
 													id="inputSuccess5" placeholder="Phone">
 												<span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
 											</div>
-											<button id="activate-step-6" class="btn btn-primary btn-md" onclick="review()">Next</button> 
 										</div>
 									</div>
 								</div>
@@ -424,7 +418,7 @@
 														<div class="form-group">
 															<p>By clicking "Submit", you signify that you have permission to order these Regents forms from an appropriate person who can authorize this expenditure.</p>
 														</div>
-														<input type="submit" value="Submit" class="btn btn-success"/> <a href="<c:url value='/list' />" class="btn btn-primary">Cancel</a>
+														<input type="submit" value="Update" class="btn btn-success"/> <a href="<c:url value='/orders' />" class="btn btn-primary">Cancel</a>
 													</div>
 												</div>
 											</div>

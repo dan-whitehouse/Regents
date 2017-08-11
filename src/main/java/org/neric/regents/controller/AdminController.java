@@ -337,6 +337,9 @@ public class AdminController {
 			return "createUser";
 		}
 		
+		user.setLocked(false);
+		user.setVisible(true);
+		user.setUuid(UUID.randomUUID().toString());
 		userService.saveUser(user);
 
 		model.addAttribute("success", "User: " + user.getUsername() + " was registered successfully");
@@ -345,10 +348,10 @@ public class AdminController {
 		return "success";
 	}
 	
-	@RequestMapping(value = { "/admin/users/{username}/edit" }, method = RequestMethod.GET)
-	public String editUser(@PathVariable String username, ModelMap model) 
+	@RequestMapping(value = { "/admin/users/{uuid}/edit" }, method = RequestMethod.GET)
+	public String editUser(@PathVariable String uuid, ModelMap model) 
 	{
-		User user = userService.findByUsername(username);
+		User user = userService.findByUUID(uuid);
 		//List<District> districts = districtService.findAllDistricts();
 		model.addAttribute("user", user);
 		//model.addAttribute("districts", districts);
@@ -356,8 +359,8 @@ public class AdminController {
 		return "createUser";
 	}
 	
-	@RequestMapping(value = { "/admin/users/{username}/edit" }, method = RequestMethod.POST)
-	public String updateUser(@Valid User user, BindingResult result, ModelMap model, @PathVariable String username) 
+	@RequestMapping(value = { "/admin/users/{uuid}/edit" }, method = RequestMethod.POST)
+	public String updateUser(@Valid User user, BindingResult result, ModelMap model, @PathVariable String uuid) 
 	{
 		if (result.hasErrors()) 
 		{
@@ -380,17 +383,27 @@ public class AdminController {
 	}
 	
 	
-	@RequestMapping(value = { "/admin/users/{username}/delete" }, method = RequestMethod.GET)
-	public String deleteUser(@PathVariable String username) 
+	@RequestMapping(value = { "/admin/users/{uuid}/delete" }, method = RequestMethod.GET)
+	public String deleteUser(@PathVariable String uuid) 
 	{
-		userService.deleteUserByUsername(username);
+		userService.deleteUserByUUID(uuid);
 		return "redirect:/admin/users";
 	}
 	
+	@RequestMapping(value = { "/admin/users/{uuid}/lock/{isLocked}" }, method = RequestMethod.GET)
+	public String lockUser(@PathVariable String uuid, @PathVariable boolean isLocked) 
+	{
+		userService.lockByUUID(uuid, isLocked);
+		return "redirect:/admin/users";
+	}
 	
+	@RequestMapping(value = { "/admin/users/{uuid}/hide/{isHidden}" }, method = RequestMethod.GET)
+	public String hideUser(@PathVariable String uuid, @PathVariable boolean isHidden) 
+	{
+		userService.hideByUUID(uuid, isHidden);
+		return "redirect:/admin/users";
+	}
 	
-
-
 	/************************** EXAMS **************************/
 	@RequestMapping(value = { "/admin/exams" }, method = RequestMethod.GET)
 	public String listExams(ModelMap model) {
