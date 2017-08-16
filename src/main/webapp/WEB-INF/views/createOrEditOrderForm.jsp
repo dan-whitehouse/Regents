@@ -65,37 +65,24 @@
 		  
 <!-- 		                       http://docs.spring.io/spring/docs/2.0.x/reference/spring-form.tld.html#spring-form.tld.options -->
 <!-- 								https://stackoverflow.com/questions/7202368/spring-mvc-formselect-selected-value -->
-
-<%-- 		                       <c:choose> --%>
-<%-- 		                       		<c:when test="${edit}"> --%>
-<%-- 		                       			<form:select path="orderFormExams" multiple="true" class="select2_multiple form-control"> --%>
-<%-- 		                       				<c:forEach items="${exams}" var="exam">     --%>
-<%-- 		                       					<c:when test="${orderForm.orderFormExams.exam.id==exam.id}">			 --%>
-<%-- 				                      				<form:option selected="true" value="${exam.id}" itemLabel="${exam.name}" /> --%>
-<%-- 			                      				</c:when> --%>
-<%-- 			                      				<c:otherwise> --%>
-<%-- 			                      					<form:option value="${exam.id}" itemLabel="${exam.name}" /> --%>
-<%-- 			                      				</c:otherwise> --%>
-<%-- 				                      		</c:forEach> --%>
-<%-- 												<form:options items="${exams}" /> --%>
-<%-- 		                       			</form:select> --%>
-<%-- 	                       			</c:when> --%>
-<%-- 	                       			<c:otherwise> --%>
-<%-- 	                       					<form:select path="orderFormExams" multiple="true" class="select2_multiple form-control"> --%>
-<%-- 					                          	<c:forEach items="${exams}" var="exam" varStatus="status"> --%>
-<%-- 													<form:option value="${exam.id}">${exam.name}</form:option> --%>
-<%-- 												</c:forEach> --%>
-<%-- 				                          	</form:select> --%>
-<%-- 									</c:otherwise> --%>
-<%-- 	                       		</c:choose> --%>
 		                       
 		                       <c:choose>
 		                       		<c:when test="${edit}">
-		                       			<form:select path="orderFormExams" items="${orderForm.orderFormExams}" itemLabel="exam.name" multiple="true" class="select2_multiple form-control" role="combobox">
-		                       				<c:forEach items="${exams}" var="exam">    			
-				                      				<form:option value="${exam.id}" itemLabel="${exam.name}" />
-				                      		</c:forEach>
-												<form:options items="${exams}" />
+									
+		                       			<form:select path="orderFormExams" var="selectedExams" multiple="true" class="select2_multiple form-control">
+		                       				<c:forEach items="${orderForm.orderFormExams}" var="orderFormExam">
+			                       				<c:forEach items="${exams}" var="exam">
+			                       					<c:choose>
+<%-- 				                       					<c:when test="${selectedExams.exam.id eq exam.id}"> --%>
+														<c:when test="${orderFormExam.exam.id eq exam.id}">
+															<form:option selected="true" value="${exam.id}" label="${exam.name}"  />
+				                       					</c:when>
+			                       						<c:otherwise>
+				                      						<form:option value="${exam.id}" label="${exam.name}" />
+ 				                      					</c:otherwise>
+ 				                      				</c:choose>
+			                       				</c:forEach>
+		                       				</c:forEach>
 		                       			</form:select>
 	                       			</c:when>
 	                       			<c:otherwise>

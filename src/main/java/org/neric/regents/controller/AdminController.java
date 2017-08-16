@@ -257,7 +257,22 @@ public class AdminController {
 	@RequestMapping(value = { "/admin/orderForms/{uuid}/edit" }, method = RequestMethod.GET)
 	public String editOrderForm(@PathVariable String uuid, ModelMap model) 
 	{
+		//Get Exams & Documents from DB
+		List<Exam> exams = examService.findAllExams();
+		List<Document> documents = documentService.findAllDocuments();		
 		OrderForm orderForm = orderFormService.findByUUID(uuid);
+		List<Exam> selectedExams = new ArrayList<>();
+		
+		// maybe get rid of this
+		for(OrderFormExam ofe : orderForm.getOrderFormExams())
+		{
+			System.out.println(ofe.getExam().getId());
+			selectedExams.add(ofe.getExam());
+		}
+		
+		model.addAttribute("exams", exams);
+		model.addAttribute("selectedExams", selectedExams);
+		model.addAttribute("docs", documents);
 		model.addAttribute("orderForm", orderForm);
 		model.addAttribute("edit", true);
 		return "createOrEditOrderForm";
