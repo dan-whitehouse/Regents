@@ -1,7 +1,7 @@
 # Regents
 
 ## TODO
-* Form posting
+* ~~Form posting~~
 * ~~Password - ability to reset;~~ force on first login (may not be available in v1)
 * Contact info - Add alternate shipping address on order form (Only for August)
 * ~~Order form - make sure school is displayed~~
@@ -11,6 +11,7 @@
 * ~~rename db~~
 * District level permissions (test only seeing their district's stuff)
 * NERIC Admin user - Assign district as NERIC or leave blank?
+* Form field validation
 
 ### Optional
 * email order form once completed
