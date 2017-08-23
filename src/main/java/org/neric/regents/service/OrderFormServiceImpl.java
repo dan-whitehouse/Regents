@@ -1,9 +1,3 @@
-/**
- * @author      Andrew Pieniezny <andrew.pieniezny@neric.org>
- * @version     x.x.x
- * @since       Nov 2, 2016
- * @filename	OptionScanServiceImpl.java
- */
 package org.neric.regents.service;
 
 import java.util.List;
@@ -47,24 +41,17 @@ public class OrderFormServiceImpl implements OrderFormService
 	public void updateOrderForm(OrderForm order)
 	{
 		dao.updateOrderForm(order);
-//		OrderForm entity = dao.findById(order.getId());
-//		if(entity != null)
-//		{
-//			entity.setName(order.getName());
-//			entity.setStartDate(order.getStartDate());
-//			entity.setEndDate(order.getEndDate());
-//			entity.setVisible(order.getVisible());
-//			entity.setLocked(order.getLocked());
-//			entity.setActive(order.getActive());
-//			entity.setOrderFormDocuments(order.getOrderFormDocuments());
-//			entity.setOrderFormExams(order.getOrderFormExams());
-//		}
 	}
 
 	public void deleteOrderForm(int id)
 	{
 		dao.deleteOrderForm(id);
 		
+	}
+	
+	public void deleteOrderForm(String uuid)
+	{
+		dao.deleteOrderForm(uuid);
 	}
 
 	@Override

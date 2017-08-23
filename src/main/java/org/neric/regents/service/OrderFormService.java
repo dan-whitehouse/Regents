@@ -25,6 +25,8 @@ public interface OrderFormService
 	
 	void deleteOrderForm(int id);
 	
+	void deleteOrderForm(String uuid);
+	
 	void lockByOrderFormId(int id, Boolean locked);
 	
 	void hideByOrderFormId(int id, Boolean hidden);

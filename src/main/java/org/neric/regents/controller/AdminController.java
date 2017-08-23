@@ -384,6 +384,14 @@ public class AdminController {
 		return "success";
 	}
 	
+	@RequestMapping(value = { "admin/orderForms/{uuid}/delete" }, method = RequestMethod.GET)
+	public String deleteOrderForm(@PathVariable String uuid, ModelMap model)
+	{
+		orderFormService.deleteOrderForm(uuid);
+		
+		return "redirect:/admin/orderForms";
+	}
+	
 	@RequestMapping(value = { "/admin/orderForms/{uuid}/lock/{isLocked}" }, method = RequestMethod.GET)
 	public String lockOrderForm(@PathVariable String uuid, @PathVariable boolean isLocked) 
 	{

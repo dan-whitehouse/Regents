@@ -19,6 +19,8 @@ public interface OrderFormDAO {
 	
 	void deleteOrderForm(int id);
 	
+	void deleteOrderForm(String uuid);
+	
 	void setAllInactive();	
 	
 	boolean hasActiveOrderForm();

@@ -102,6 +102,15 @@ public class OrderFormDAOImpl extends AbstractDao<Integer, OrderForm> implements
 		OrderForm order = (OrderForm)crit.uniqueResult();
 		delete(order);
 	}
+	
+	@Override
+	public void deleteOrderForm(String uuid)
+	{
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("uuid", uuid));
+		OrderForm order = (OrderForm)crit.uniqueResult();
+		delete(order);
+	}
 
 	@Override
 	public void setAllInactive()
