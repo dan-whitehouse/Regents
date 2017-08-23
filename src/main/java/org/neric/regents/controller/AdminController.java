@@ -361,23 +361,23 @@ public class AdminController {
 			return "createOrEditOrderForm";
 		}
 		
-		OrderForm orderForm2 = orderFormService.findByUUID(uuid);
-		orderForm2.getOrderFormDocuments().clear();
-		orderForm2.getOrderFormExams().clear();
+		OrderForm orderFormUpdate = orderFormService.findByUUID(uuid);
+		orderFormUpdate.getOrderFormDocuments().clear();
+		orderFormUpdate.getOrderFormExams().clear();
 		
 		for(OrderFormExam e : orderForm.getOrderFormExams())
 		{
 			e.setOrderForm(orderForm);
-			orderForm2.getOrderFormExams().add(e);
+			orderFormUpdate.getOrderFormExams().add(e);
 		}
 		
 		for(OrderFormDocument d : orderForm.getOrderFormDocuments())
 		{
 			d.setOrderForm(orderForm);
-			orderForm2.getOrderFormDocuments().add(d);
+			orderFormUpdate.getOrderFormDocuments().add(d);
 		}
 		
-		orderFormService.updateOrderForm(orderForm2);
+		orderFormService.updateOrderForm(orderFormUpdate);
 		
 		model.addAttribute("success", "OrderForm: " + orderForm.getName() + " was updated successfully");
 		model.addAttribute("returnLink", "/admin/orderForms");
