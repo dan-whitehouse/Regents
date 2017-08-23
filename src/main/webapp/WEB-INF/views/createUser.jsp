@@ -7,21 +7,6 @@
 	<!-- page content -->
 	<div class="right_col" role="main">
 		<div class="">
-			<!--             <div class="page-title"> -->
-			<!--               <div class="title_left"> -->
-			<!--                 <h3>Form Validation</h3> -->
-			<!--               </div> -->
-			<!--               <div class="title_right"> -->
-			<!--                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search"> -->
-			<!--                   <div class="input-group"> -->
-			<!--                     <input type="text" class="form-control" placeholder="Search for..."> -->
-			<!--                     <span class="input-group-btn"> -->
-			<!--                               <button class="btn btn-default" type="button">Go!</button> -->
-			<!--                           </span> -->
-			<!--                   </div> -->
-			<!--                 </div> -->
-			<!--               </div> -->
-			<!--             </div> -->
 			<div class="clearfix"></div>
 			<div class="row">
 				<div class="col-md-12 col-sm-12 col-xs-12">
@@ -126,19 +111,35 @@
 				                        </div>
 								</div> --%>
 								
-								<!-- Document Selection -->
-		                      <div class="form-group">
-		                        <label class="control-label col-md-3 col-sm-3 col-xs-12">District</label>
-		                        <div class="col-md-6 col-sm-6 col-xs-12">
-		                        
-		                        	<form:select path="userDistricts" id="userDistricts" name="userDistricts" multiple="true" class="select2_multiple form-control">
-			                          	<c:forEach items="${districts}" var="district">
-											<form:option value="${district.id}">${district.name}</form:option>
-										</c:forEach>
-				                    </form:select>
-		                        </div>
+								<div class="form-group">
+			                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Districts</label>
+			                        <div class="col-md-6 col-sm-6 col-xs-12">
+			                        
+			                        	 <c:choose>
+				                       		<c:when test="${edit}">
+					                        	<form:select path="userDistricts" multiple="true" class="select2_multiple form-control">
+						                          	<c:forEach items="${selectedDistricts}" var="selectedDistrict">
+														<c:choose>
+															<c:when test="${selectedDistrict.selected eq 'true'}">
+																<form:option selected="true" value="${selectedDistrict.district.id}" label="${selectedDistrict.district.name}"  />
+					                       					</c:when>
+				                       						<c:otherwise>
+					                      						<form:option value="${selectedDistrict.district.id}" label="${selectedDistrict.district.name}" />
+	 				                      					</c:otherwise>
+	 				                      				</c:choose>
+													</c:forEach>
+							                    </form:select>
+							                    </c:when>
+			                       			<c:otherwise>
+			                       				<form:select path="userDistricts" multiple="true" class="select2_multiple form-control">
+						                          	<c:forEach items="${districts}" var="district">
+														<form:option value="${district.id}">${district.name}</form:option>
+													</c:forEach>
+							                    </form:select>
+				                    		</c:otherwise>
+			                       		</c:choose>
+			                        </div>
 		                      </div>   	
-							<!-- Document Selection -->
 								
 								<div class="item form-group">
 									<label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Role <span class="required">*</span>
@@ -176,4 +177,24 @@
 	</div>
 	<!-- /page content -->
 	<jsp:include page="fragments/footer.jsp" />
+	
+	 <!-- Select2 -->
+	<script src="<c:url value='/resources/vendors/select2/dist/js/select2.full.min.js' />"></script>
+	
+	<!-- Select2 -->
+    <script>
+      $(document).ready(function() {
+        $(".select2_single").select2({
+          placeholder: "Select a state",
+          allowClear: true
+        });
+        $(".select2_group").select2({});
+        $(".select2_multiple").select2({
+          maximumSelectionLength: 10,
+          placeholder: "With Max Selection limit 10",
+          allowClear: true
+        });
+      });
+    </script>
+    <!-- /Select2 -->
 </html>
