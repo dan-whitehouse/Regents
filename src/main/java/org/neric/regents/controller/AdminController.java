@@ -24,7 +24,9 @@ import org.neric.regents.model.OrderForm;
 import org.neric.regents.model.OrderFormDocument;
 import org.neric.regents.model.OrderFormExam;
 import org.neric.regents.model.School;
+import org.neric.regents.model.SelectedDocument;
 import org.neric.regents.model.Setting;
+import org.neric.regents.model.SelectedExam;
 import org.neric.regents.model.User;
 import org.neric.regents.model.UserProfile;
 import org.neric.regents.service.DistrictService;
@@ -261,21 +263,70 @@ public class AdminController {
 		List<Exam> exams = examService.findAllExams();
 		List<Document> documents = documentService.findAllDocuments();		
 		OrderForm orderForm = orderFormService.findByUUID(uuid);
-		List<Exam> selectedExams = new ArrayList<>();
+		List<SelectedDocument> selectedDocuments = new ArrayList<>();
+		List<SelectedExam> selectedExams = new ArrayList<>();
 		
-		// maybe get rid of this
-		for(OrderFormExam ofe : orderForm.getOrderFormExams())
+		for(Document d : documents)
 		{
-			System.out.println(ofe.getExam().getId());
-			selectedExams.add(ofe.getExam());
+			SelectedDocument sd = new SelectedDocument();
+			sd.setDocument(d);
+			sd.setSelected(false);
+			
+			if(hasDocument(orderForm.getOrderFormDocuments(), d))
+			{
+				sd.setSelected(true);
+			}
+			
+			selectedDocuments.add(sd);
+		}
+		
+		for(Exam e : exams)
+		{
+			SelectedExam se = new SelectedExam();
+			se.setExam(e);
+			se.setSelected(false);
+			
+			if(hasExam(orderForm.getOrderFormExams(), e))
+			{
+				se.setSelected(true);
+			}
+			
+			selectedExams.add(se);
 		}
 		
 		model.addAttribute("exams", exams);
+		model.addAttribute("selectedDocuments", selectedDocuments);
 		model.addAttribute("selectedExams", selectedExams);
 		model.addAttribute("docs", documents);
 		model.addAttribute("orderForm", orderForm);
 		model.addAttribute("edit", true);
 		return "createOrEditOrderForm";
+	}
+	
+	private boolean hasDocument(Set<OrderFormDocument> orderFormDocuments, Document document)
+	{
+		for(OrderFormDocument ofd : orderFormDocuments)
+		{
+			if(ofd.getDocument().getId() == document.getId())
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	private boolean hasExam(Set<OrderFormExam> orderFormExams, Exam exam)
+	{
+		for(OrderFormExam ofe : orderFormExams)
+		{
+			if(ofe.getExam().getId() == exam.getId())
+			{
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	
 	@RequestMapping(value = { "/admin/orderForms/{uuid}/edit" }, method = RequestMethod.POST)
@@ -286,12 +337,28 @@ public class AdminController {
 			return "createOrEditOrderForm";
 		}
 		
+		OrderForm orderForm2 = orderFormService.findByUUID(uuid);
+		orderForm2.getOrderFormDocuments().clear();
+		orderForm2.getOrderFormExams().clear();
+		
+		for(OrderFormExam e : orderForm.getOrderFormExams())
+		{
+			e.setOrderForm(orderForm);
+			orderForm2.getOrderFormExams().add(e);
+		}
+		
+		for(OrderFormDocument d : orderForm.getOrderFormDocuments())
+		{
+			d.setOrderForm(orderForm);
+			orderForm2.getOrderFormDocuments().add(d);
+		}
+		
+		orderFormService.updateOrderForm(orderForm2);
+		
 		model.addAttribute("success", "OrderForm: " + orderForm.getName() + " was updated successfully");
 		model.addAttribute("returnLink", "/admin/orderForms");
 		model.addAttribute("returnLinkText", "Order Forms");
-		
-		orderFormService.updateOrderForm(orderForm);
-		
+
 		return "success";
 	}
 	

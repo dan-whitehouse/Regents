@@ -91,7 +91,7 @@ public class OrderFormDAOImpl extends AbstractDao<Integer, OrderForm> implements
 	@Override
 	public void updateOrderForm(OrderForm order)
 	{
-		
+		saveOrUpdate(order);
 	}
 
 	@Override

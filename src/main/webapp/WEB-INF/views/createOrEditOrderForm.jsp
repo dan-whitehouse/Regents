@@ -62,65 +62,29 @@
 		                      <div class="form-group">
 		                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Exams</label>
 		                        <div class="col-md-6 col-sm-6 col-xs-12">
-		  
-<!-- 		                       http://docs.spring.io/spring/docs/2.0.x/reference/spring-form.tld.html#spring-form.tld.options -->
-<!-- 								https://stackoverflow.com/questions/7202368/spring-mvc-formselect-selected-value -->
-		                       
-		                       <c:choose>
-		                       		<c:when test="${edit}">
-									
-		                       			<form:select path="orderFormExams" var="selectedExams" multiple="true" class="select2_multiple form-control">
-		                       				<c:forEach items="${orderForm.orderFormExams}" var="orderFormExam">
-			                       				<c:forEach items="${exams}" var="exam">
+			                       <c:choose>
+			                       		<c:when test="${edit}">
+			                       			<form:select path="orderFormExams" multiple="true" class="select2_multiple form-control">
+			                       				<c:forEach items="${selectedExams}" var="selectedExam">
 			                       					<c:choose>
-<%-- 				                       					<c:when test="${selectedExams.exam.id eq exam.id}"> --%>
-														<c:when test="${orderFormExam.exam.id eq exam.id}">
-															<form:option selected="true" value="${exam.id}" label="${exam.name}"  />
+														<c:when test="${selectedExam.selected eq 'true'}">
+															<form:option selected="true" value="${selectedExam.exam.id}" label="${selectedExam.exam.name}"  />
 				                       					</c:when>
 			                       						<c:otherwise>
-				                      						<form:option value="${exam.id}" label="${exam.name}" />
+				                      						<form:option value="${selectedExam.exam.id}" label="${selectedExam.exam.name}" />
  				                      					</c:otherwise>
  				                      				</c:choose>
 			                       				</c:forEach>
-		                       				</c:forEach>
-		                       			</form:select>
-	                       			</c:when>
-	                       			<c:otherwise>
-	                       					<form:select path="orderFormExams" multiple="true" class="select2_multiple form-control">
-					                          	<c:forEach items="${exams}" var="exam" varStatus="status">
-													<form:option value="${exam.id}">${exam.name}</form:option>
-												</c:forEach>
-				                          	</form:select>
-									</c:otherwise>
-	                       		</c:choose>
-
-		                        
-		                        
-		                        
-<%-- 		                        <form:select path="orderFormExams" items="${orderForm.orderFormExams}" id="orderFormExams" name="orderFormExams" multiple="true" class="select2_multiple form-control" role="combobox"> --%>
-<%-- 		                        	<c:forEach items="${orderFormExams}" var="orderFormExam">    			 --%>
-<%-- 			                      			<li class="select2-selection__choice" title="${orderFormExam.exam.name}"> --%>
-<%-- 			                      				${orderFormExam.exam.name} --%>
-<!-- 			                      			</li> -->
-<%-- 			                      	</c:forEach> --%>
-<%-- 		                        </form:select> --%>
-		                        
-		                        	<%-- <c:choose>
-										<c:when test="${edit}">
-											<form:select path="orderFormExams" multiple="true" class="select2_multiple form-control">
-					                          	<c:forEach items="${orderForm.exams}" var="exam">
-													<form:option value="${exam.id}">${exam.name}</form:option>
-												</c:forEach>
-				                          	</form:select>
-										</c:when>
-										<c:otherwise>
-											<form:select path="orderFormExams" multiple="true" class="select2_multiple form-control">
-					                          	<c:forEach items="${exams}" var="exam" varStatus="status">
-													<form:option value="${exam.id}">${exam.name}</form:option>
-												</c:forEach>
-				                          	</form:select>
+			                       			</form:select>
+		                       			</c:when>
+		                       			<c:otherwise>
+		                       					<form:select path="orderFormExams" multiple="true" class="select2_multiple form-control">
+						                          	<c:forEach items="${exams}" var="exam" varStatus="status">
+														<form:option value="${exam.id}">${exam.name}</form:option>
+													</c:forEach>
+					                          	</form:select>
 										</c:otherwise>
-									</c:choose> --%>
+		                       		</c:choose>
 		                        </div>
 		                      </div>   	
 							<!-- Exam Selection -->
@@ -130,28 +94,29 @@
 		                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Documents</label>
 		                        <div class="col-md-6 col-sm-6 col-xs-12">
 		                        
-		                        	<form:select path="orderFormDocuments" id="orderFormDocuments" name="orderFormDocuments" multiple="true" class="select2_multiple form-control">
-			                          	<c:forEach items="${docs}" var="doc">
-											<form:option value="${doc.id}">${doc.name}</form:option>
-										</c:forEach>
-				                    </form:select>
-				                    
-		                        	<%-- <c:choose>
-										<c:when test="${edit}">
-											<form:select path="orderFormDocuments" multiple="true" class="select2_multiple form-control">
-					                          	<c:forEach items="${orderForm.documents}" var="document">
-													<form:option value="${document.id}">${document.name}</form:option>
+		                        	 <c:choose>
+			                       		<c:when test="${edit}">
+				                        	<form:select path="orderFormDocuments" multiple="true" class="select2_multiple form-control">
+					                          	<c:forEach items="${selectedDocuments}" var="selectedDocument">
+													<c:choose>
+														<c:when test="${selectedDocument.selected eq 'true'}">
+															<form:option selected="true" value="${selectedDocument.document.id}" label="${selectedDocument.document.name}"  />
+				                       					</c:when>
+			                       						<c:otherwise>
+				                      						<form:option value="${selectedDocument.document.id}" label="${selectedDocument.document.name}" />
+ 				                      					</c:otherwise>
+ 				                      				</c:choose>
 												</c:forEach>
-				                          	</form:select>
-										</c:when>
-										<c:otherwise>
-											<form:select path="orderFormDocuments" multiple="true" class="select2_multiple form-control">
-					                          	<c:forEach items="${documents}" var="document" varStatus="status">
-													<form:option value="${document.id}">${document.name}</form:option>
+						                    </form:select>
+						                    </c:when>
+		                       			<c:otherwise>
+		                       				<form:select path="orderFormDocuments" multiple="true" class="select2_multiple form-control">
+					                          	<c:forEach items="${docs}" var="doc">
+													<form:option value="${doc.id}">${doc.name}</form:option>
 												</c:forEach>
-				                          	</form:select>
-										</c:otherwise>
-									</c:choose> --%>
+						                    </form:select>
+			                    		</c:otherwise>
+		                       		</c:choose>
 		                        </div>
 		                      </div>   	
 							<!-- Document Selection -->

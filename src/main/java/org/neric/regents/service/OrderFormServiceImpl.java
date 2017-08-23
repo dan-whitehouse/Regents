@@ -46,16 +46,19 @@ public class OrderFormServiceImpl implements OrderFormService
 
 	public void updateOrderForm(OrderForm order)
 	{
-		OrderForm entity = dao.findById(order.getId());
-		if(entity != null)
-		{
-//			entity.setOrderDocuments(order.getOrderDocuments());
-//			entity.setOrderExams(order.getOrderExams());
-//			entity.setOrderPrint(order.getOrderPrint());
-//			entity.setOrderScan(order.getOrderScan());
-//			entity.setReportToLevelOne(order.getReportToLevelOne());
-//			entity.setUser(order.getUser());
-		}
+		dao.updateOrderForm(order);
+//		OrderForm entity = dao.findById(order.getId());
+//		if(entity != null)
+//		{
+//			entity.setName(order.getName());
+//			entity.setStartDate(order.getStartDate());
+//			entity.setEndDate(order.getEndDate());
+//			entity.setVisible(order.getVisible());
+//			entity.setLocked(order.getLocked());
+//			entity.setActive(order.getActive());
+//			entity.setOrderFormDocuments(order.getOrderFormDocuments());
+//			entity.setOrderFormExams(order.getOrderFormExams());
+//		}
 	}
 
 	public void deleteOrderForm(int id)

@@ -6,7 +6,7 @@
 * Contact info - Add alternate shipping address on order form (Only for August)
 * ~~Order form - make sure school is displayed~~
 * Import districts to db from Jason's db
-	* need school list from testing team
+	* ~~need~~ school list from testing team (received, need to import in list order provided)
 * Order form - check box for not testing for session
 * ~~rename db~~
 * District level permissions (test only seeing their district's stuff)

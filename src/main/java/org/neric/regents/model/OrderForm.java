@@ -113,12 +113,12 @@ public class OrderForm implements Serializable
 	@Column(name="active", unique=false, nullable=false)	
 	private Boolean active;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderForm")
-	@Cascade(CascadeType.SAVE_UPDATE)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderForm", orphanRemoval = true)
+	@Cascade(CascadeType.ALL)
 	private Set<OrderFormExam> orderFormExams = new HashSet<OrderFormExam>(0);
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderForm")
-	@Cascade(CascadeType.SAVE_UPDATE)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderForm", orphanRemoval = true)
+	@Cascade(CascadeType.ALL)
 	private Set<OrderFormDocument> orderFormDocuments = new HashSet<OrderFormDocument>(0);
 	
 	
