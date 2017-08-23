@@ -66,7 +66,7 @@ public class District implements Serializable
 	private Boolean locked;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "district")
-	private Set<User> users = new HashSet<User>(0);
+	private Set<UserDistrict> userDistricts = new HashSet<UserDistrict>(0);
 
 
 	public Integer getId()
@@ -123,12 +123,15 @@ public class District implements Serializable
 		this.locked = locked;
 	}
 	
-	public Set<User> getUsers() {
-		return users;
+	
+	public Set<UserDistrict> getUserDistricts()
+	{
+		return userDistricts;
 	}
 
-	public void setUsers(Set<User> users) {
-		this.users = users;
+	public void setUserDistricts(Set<UserDistrict> userDistricts)
+	{
+		this.userDistricts = userDistricts;
 	}
 
 	@Override

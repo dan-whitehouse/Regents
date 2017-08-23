@@ -3,6 +3,7 @@ package org.neric.regents.dao;
 import java.util.List;
 
 import org.neric.regents.model.User;
+import org.neric.regents.model.UserDistrict;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Order;
@@ -23,7 +24,10 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		if(user!=null)
 		{
 			Hibernate.initialize(user.getUserProfiles());
-			Hibernate.initialize(user.getDistrict());
+			for(UserDistrict ud : user.getUserDistricts())
+			{
+				Hibernate.initialize(ud.getDistrict());
+			}
 		}
 		return user;
 	}
@@ -35,7 +39,10 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		if(user!=null)
 		{
 			Hibernate.initialize(user.getUserProfiles());
-			Hibernate.initialize(user.getDistrict());
+			for(UserDistrict ud : user.getUserDistricts())
+			{
+				Hibernate.initialize(ud.getDistrict());
+			}
 		}
 		return user;
 	}
@@ -49,7 +56,12 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		if(user!=null)
 		{
 			Hibernate.initialize(user.getUserProfiles());
-			Hibernate.initialize(user.getDistrict());
+			
+			Hibernate.initialize(user.getUserDistricts());
+			for(UserDistrict ud : user.getUserDistricts())
+			{
+				Hibernate.initialize(ud.getDistrict());
+			}
 		}
 		return user;
 	}

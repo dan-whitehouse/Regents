@@ -117,6 +117,28 @@ public class AdminController {
 	{
         binder.registerCustomEditor(District.class, districtEditor);
         binder.registerCustomEditor(School.class, schoolEditor);
+        binder.registerCustomEditor(Set.class, "userDistricts", new CustomCollectionEditor(Set.class)
+        {
+	          @Override
+	          protected Object convertElement(Object element)
+	          {
+	              Integer id = null;
+	
+	              if(element instanceof String && !((String)element).equals("")){
+	                  try{
+	                      id = Integer.parseInt((String) element);
+	                  }
+	                  catch (NumberFormatException e) {
+	                      e.printStackTrace();
+	                  }
+	              }
+	              else if(element instanceof Integer) {
+	                  id = (Integer) element;
+	              }
+
+	              return id != null ? districtService.findById(id) : null;
+	          }
+        });
         binder.registerCustomEditor(Set.class, "orderFormExams", new CustomCollectionEditor(Set.class)
         {
 	          @Override
@@ -434,9 +456,9 @@ public class AdminController {
 	public String editUser(@PathVariable String uuid, ModelMap model) 
 	{
 		User user = userService.findByUUID(uuid);
-		//List<District> districts = districtService.findAllDistricts();
+		List<District> districts = districtService.findAllDistricts();
 		model.addAttribute("user", user);
-		//model.addAttribute("districts", districts);
+		model.addAttribute("districts", districts);
 		model.addAttribute("edit", true);
 		return "createUser";
 	}

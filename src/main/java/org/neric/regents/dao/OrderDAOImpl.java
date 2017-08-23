@@ -10,6 +10,7 @@ import org.neric.regents.model.Document;
 import org.neric.regents.model.Order;
 import org.neric.regents.model.OrderDocument;
 import org.neric.regents.model.OrderExam;
+import org.neric.regents.model.UserDistrict;
 import org.springframework.stereotype.Repository;
 
 
@@ -35,8 +36,13 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 		if(order!=null)
 		{
 			Hibernate.initialize(order.getUser());
-			Hibernate.initialize(order.getUser().getDistrict());
 			
+			Hibernate.initialize(order.getUser().getUserDistricts());	
+			for(UserDistrict ud : order.getUser().getUserDistricts())
+			{
+				Hibernate.initialize(ud.getDistrict());
+			}
+
 			Hibernate.initialize(order.getOrderExams());			
 			for(OrderExam e : order.getOrderExams())
 			{

@@ -28,6 +28,7 @@ import org.neric.regents.model.OrderDocument;
 import org.neric.regents.model.OrderExam;
 import org.neric.regents.model.School;
 import org.neric.regents.model.User;
+import org.neric.regents.model.UserDistrict;
 import org.neric.regents.model.UserProfile;
 import org.neric.regents.model.Wizard;
 import org.neric.regents.service.DistrictService;
@@ -174,7 +175,14 @@ public class OrderController
 	@ModelAttribute("schoolsByDistrict")
 	public List<School> populateSchoolsByDistrict()
 	{
-		List<School> schools = schoolService.findAllByDistrictId(loggedInUser().getDistrict().getId());
+		
+		Set<UserDistrict> userDistricts = loggedInUser().getUserDistricts();
+		List<School> schools = new ArrayList<>();
+		
+		for(UserDistrict ud : userDistricts)
+		{
+			schools.addAll(schoolService.findAllByDistrictId(ud.getDistrict().getId()));
+		}
 		return schools;
 	}
 

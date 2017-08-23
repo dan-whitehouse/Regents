@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -64,9 +66,9 @@ public class User implements Serializable
 	private Boolean locked;
 	
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "district_id", nullable = false)
-	private District district;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@Cascade(CascadeType.SAVE_UPDATE)
+	private Set<UserDistrict> userDistricts = new HashSet<UserDistrict>(0);
 	
 	
 	@NotEmpty
@@ -79,7 +81,6 @@ public class User implements Serializable
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Order> orders = new HashSet<Order>(0);
-	
 	
 	
 	public Integer getId() {
@@ -159,16 +160,16 @@ public class User implements Serializable
 		this.orders = orders;
 	}
 
-	public District getDistrict() 
+	public Set<UserDistrict> getUserDistricts()
 	{
-		return district;
+		return userDistricts;
 	}
 
-	public void setDistrict(District district) 
+	public void setUserDistricts(Set<UserDistrict> userDistricts)
 	{
-		this.district = district;
+		this.userDistricts = userDistricts;
 	}
-	
+
 	public Boolean getVisible()
 	{
 		return visible;
@@ -223,7 +224,7 @@ public class User implements Serializable
 	@Override
 	public String toString()
 	{
-		return "User [id=" + id + ", uuid=" + uuid + ", username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", visible=" + visible + ", locked=" + locked + ", district=" + district + ", userProfiles=" + userProfiles +"]";
+		return "User [id=" + id + ", uuid=" + uuid + ", username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", visible=" + visible + ", locked=" + locked + ", userProfiles=" + userProfiles +"]";
 	}
 
 	

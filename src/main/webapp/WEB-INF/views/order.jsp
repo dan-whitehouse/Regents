@@ -262,7 +262,9 @@
 										<div class="col-md-12 well text-center">
 											<h1 class="text-center"> Contact Information</h1>
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"> 
-												<input type="text" class="form-control has-feedback-left" readonly="readonly" id="inputSuccess1" value="${loggedinuser.district.name}">
+											
+												<%-- <input type="text" class="form-control has-feedback-left" readonly="readonly" id="inputSuccess1" value="${loggedinuser.district.name}"> --%>
+												
 												<span class="fa fa-university form-control-feedback left" aria-hidden="true"></span>
 											</div>
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">

@@ -115,16 +115,30 @@
 									</div>
 								</div>
 								
-								<div class="item form-group">
+								<%-- <div class="item form-group">
 									<label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">LEA <span class="required">*</span>
 									</label>
 										<div class="col-md-6 col-sm-6 col-xs-12">
-				                          <form:select path="district" items="${districts}" multiple="false" itemValue="id" itemLabel="name" class="form-control col-md-7 col-xs-12" required="required"/>
+				                          <form:select path="userDistricts" items="${districts}" multiple="false" itemValue="id" itemLabel="name" class="form-control col-md-7 col-xs-12" required="required"/>
 											<div class="has-error">
-												<form:errors path="district" class="help-inline"/>
+												<form:errors path="userDistricts" class="help-inline"/>
 											</div>
 				                        </div>
-								</div>
+								</div> --%>
+								
+								<!-- Document Selection -->
+		                      <div class="form-group">
+		                        <label class="control-label col-md-3 col-sm-3 col-xs-12">District</label>
+		                        <div class="col-md-6 col-sm-6 col-xs-12">
+		                        
+		                        	<form:select path="userDistricts" id="userDistricts" name="userDistricts" multiple="true" class="select2_multiple form-control">
+			                          	<c:forEach items="${districts}" var="district">
+											<form:option value="${district.id}">${district.name}</form:option>
+										</c:forEach>
+				                    </form:select>
+		                        </div>
+		                      </div>   	
+							<!-- Document Selection -->
 								
 								<div class="item form-group">
 									<label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Role <span class="required">*</span>
@@ -137,62 +151,7 @@
 									</div>
 								</div>
 								
-								
-								                 
-								<!--                       <div class="item form-group"> -->
-								<!--                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Confirm Email <span class="required">*</span> -->
-								<!--                         </label> -->
-								<!--                         <div class="col-md-6 col-sm-6 col-xs-12"> -->
-								<!--                           <input type="email" id="email2" name="confirm_email" data-validate-linked="email" required="required" class="form-control col-md-7 col-xs-12"> -->
-								<!--                         </div> -->
-								<!--                       </div> -->
-								<!--                       <div class="item form-group"> -->
-								<!--                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">Number <span class="required">*</span> -->
-								<!--                         </label> -->
-								<!--                         <div class="col-md-6 col-sm-6 col-xs-12"> -->
-								<!--                           <input type="number" id="number" name="number" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12"> -->
-								<!--                         </div> -->
-								<!--                       </div> -->
-								<!--                       <div class="item form-group"> -->
-								<!--                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="website">Website URL <span class="required">*</span> -->
-								<!--                         </label> -->
-								<!--                         <div class="col-md-6 col-sm-6 col-xs-12"> -->
-								<!--                           <input type="url" id="website" name="website" required="required" placeholder="www.website.com" class="form-control col-md-7 col-xs-12"> -->
-								<!--                         </div> -->
-								<!--                       </div> -->
-								<!--                       <div class="item form-group"> -->
-								<!--                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Occupation <span class="required">*</span> -->
-								<!--                         </label> -->
-								<!--                         <div class="col-md-6 col-sm-6 col-xs-12"> -->
-								<!--                           <input id="occupation" type="text" name="occupation" data-validate-length-range="5,20" class="optional form-control col-md-7 col-xs-12"> -->
-								<!--                         </div> -->
-								<!--                       </div> -->
-								<!--                       <div class="item form-group"> -->
-								<!--                         <label for="password" class="control-label col-md-3">Password</label> -->
-								<!--                         <div class="col-md-6 col-sm-6 col-xs-12"> -->
-								<!--                           <input id="password" type="password" name="password" data-validate-length="6,8" class="form-control col-md-7 col-xs-12" required="required"> -->
-								<!--                         </div> -->
-								<!--                       </div> -->
-								<!--                       <div class="item form-group"> -->
-								<!--                         <label for="password2" class="control-label col-md-3 col-sm-3 col-xs-12">Repeat Password</label> -->
-								<!--                         <div class="col-md-6 col-sm-6 col-xs-12"> -->
-								<!--                           <input id="password2" type="password" name="password2" data-validate-linked="password" class="form-control col-md-7 col-xs-12" required="required"> -->
-								<!--                         </div> -->
-								<!--                       </div> -->
-								<!--                       <div class="item form-group"> -->
-								<!--                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telephone">Telephone <span class="required">*</span> -->
-								<!--                         </label> -->
-								<!--                         <div class="col-md-6 col-sm-6 col-xs-12"> -->
-								<!--                           <input type="tel" id="telephone" name="phone" required="required" data-validate-length-range="8,20" class="form-control col-md-7 col-xs-12"> -->
-								<!--                         </div> -->
-								<!--                       </div> -->
-								<!--                       <div class="item form-group"> -->
-								<!--                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">Textarea <span class="required">*</span> -->
-								<!--                         </label> -->
-								<!--                         <div class="col-md-6 col-sm-6 col-xs-12"> -->
-								<!--                           <textarea id="textarea" required="required" name="textarea" class="form-control col-md-7 col-xs-12"></textarea> -->
-								<!--                         </div> -->
-								<!--                       </div> -->
+							
 								<div class="ln_solid"></div>
 								<div class="form-group">
 									<div class="col-md-6 col-md-offset-3">
