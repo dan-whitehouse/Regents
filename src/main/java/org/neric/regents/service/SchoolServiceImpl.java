@@ -23,22 +23,23 @@ public class SchoolServiceImpl implements SchoolService{
 	public School findById(int id) {
 		return dao.findById(id);
 	}
-
-//	public School findByType(String type){
-//		return dao.findByType(type);
-//	}
+	
+	@Override
+	public School findByUUID(String uuid)
+	{
+		return dao.findByUUID(uuid);
+	}
 
 	public List<School> findAll() {
 		return dao.findAll();
 	}
 
 
-
 	@Override
-	public void deleteById(int id) 
-	{
-		dao.deleteById(id);
+	public List<School> findAllByDistrictId(int id) {
+		return dao.findAllByDistrictId(id);
 	}
+
 
 	@Override
 	public void save(School school) 
@@ -55,7 +56,6 @@ public class SchoolServiceImpl implements SchoolService{
 			entity.setName(school.getName());
 			entity.setDistrict(school.getDistrict());
 		}
-		
 	}
 	
 	@Override
@@ -74,7 +74,14 @@ public class SchoolServiceImpl implements SchoolService{
 	}
 
 	@Override
-	public List<School> findAllByDistrictId(int id) {
-		return dao.findAllByDistrictId(id);
+	public void deleteById(int id) 
+	{
+		dao.deleteById(id);
+	}
+
+	@Override
+	public void deleteByUUID(String uuid)
+	{
+		dao.deleteByUUID(uuid);
 	}
 }

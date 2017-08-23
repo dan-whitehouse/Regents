@@ -5,6 +5,7 @@ import java.util.List;
 import org.neric.regents.model.Document;
 import org.neric.regents.model.Exam;
 import org.neric.regents.model.School;
+import org.neric.regents.model.User;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Order;
@@ -20,6 +21,19 @@ public class DocumentDAOImpl extends AbstractDao<Integer, Document> implements D
 	{
 		Document document = getByKey(id);
 		if(document!=null){
+			Hibernate.initialize(document.getId());
+		}
+		return document;
+	}
+	
+	@Override
+	public Document findByUUID(String uuid)
+	{
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("uuid", uuid));
+		Document document = (Document)crit.uniqueResult();
+		if(document!=null)
+		{
 			Hibernate.initialize(document.getId());
 		}
 		return document;
@@ -66,4 +80,15 @@ public class DocumentDAOImpl extends AbstractDao<Integer, Document> implements D
 	{
 		persist(document);
 	}
+
+
+	@Override
+	public void deleteByDocumentUUID(String uuid)
+	{
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("uuid", uuid));
+		Document document = (Document)crit.uniqueResult();
+		delete(document);
+	}
+
 }

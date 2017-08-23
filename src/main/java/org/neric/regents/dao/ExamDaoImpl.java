@@ -26,10 +26,22 @@ public class ExamDaoImpl extends AbstractDao<Integer, Exam> implements ExamDao {
 		}
 		return exam;
 	}
+	
+	@Override
+	public Exam findByUUID(String uuid)
+	{
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("uuid", uuid));
+		Exam exam = (Exam)crit.uniqueResult();
+		if(exam != null)
+		{
+			Hibernate.initialize(exam.getExams());
+		}
+		return exam;
+	}
 
 	public Exam findByName(String examName) 
 	{
-		logger.info("Exam Name : {}", examName);
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.eq("name", examName));
 		Exam exam = (Exam)crit.uniqueResult();
@@ -85,4 +97,12 @@ public class ExamDaoImpl extends AbstractDao<Integer, Exam> implements ExamDao {
 		delete(exam);
 	}
 
+	@Override
+	public void deleteByExamUUID(String uuid)
+	{
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("uuid", uuid));
+		Exam exam = (Exam)crit.uniqueResult();
+		delete(exam);
+	}
 }

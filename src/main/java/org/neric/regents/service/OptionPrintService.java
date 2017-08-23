@@ -14,7 +14,11 @@ public interface OptionPrintService
 {
 	OptionPrint findById(int id);
 	
+	OptionPrint findByUUID(String uuid);
+	
 	List<OptionPrint> findAllOptionPrints();
+	
+	List<OptionPrint> findAllActiveOptionPrints();
 	
 	void save(OptionPrint optionPrint);
 	
@@ -22,9 +26,13 @@ public interface OptionPrintService
 	
 	void delete(int id);
 	
+	void deleteByUUID(String uuid);
+	
 	void lockByOptionPrintId(int id, Boolean isLocked);
 	
+	void lockByOptionPrintUUID(String uuid, boolean isLocked);
+	
 	void hideByOptionPrintId(int id, Boolean isHidden);
-
-	List<OptionPrint> findAllActiveOptionPrints();
+	
+	void hideByOptionPrintUUID(String uuid, boolean isHidden);
 }

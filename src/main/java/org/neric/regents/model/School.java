@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -46,6 +47,11 @@ public class School implements Serializable
 	@Column(name = "school_id", unique = true, nullable = false)
 	private Integer id;
 	
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	@Column(name = "uuid", unique = true, nullable = false)
+	private String uuid;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "district_id", nullable = false)
 	private District district;
@@ -65,6 +71,16 @@ public class School implements Serializable
 	public void setId(Integer id)
 	{
 		this.id = id;
+	}
+
+	public String getUuid()
+	{
+		return uuid;
+	}
+
+	public void setUuid(String uuid)
+	{
+		this.uuid = uuid;
 	}
 
 	public District getDistrict()

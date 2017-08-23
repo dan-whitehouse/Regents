@@ -11,9 +11,9 @@ import org.neric.regents.model.UserProfile;
 public interface DocumentService {
 
 	Document findById(int id);
-
-//	School findByType(String type);
 	
+	Document findByUUID(String uuid);
+
 	List<Document> findAllDocuments();
 	
 	List<Document> findAllActiveDocuments();
@@ -24,8 +24,13 @@ public interface DocumentService {
 
 	void deleteByDocumentId(int id);
 	
+	void deleteByDocumentUUID(String uuid);
+	
 	void lockByDocumentId(int id, Boolean locked);
 	
 	void hideByDocumentId(int id, Boolean hidden);
-	
+
+	void lockByDocumentUUID(String uuid, boolean isLocked);
+
+	void hideByDocumentUUID(String uuid, boolean isHidden);
 }

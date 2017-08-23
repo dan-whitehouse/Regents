@@ -88,7 +88,7 @@
 							<!-- Start Delete Popup Confirmation -->
 							<sec:authorize access="hasRole('ADMIN')">
 								<c:forEach items="${users}" var="user">
-									<div class="modal fade modal-sm-${user.username}" tabindex="-1" role="dialog" aria-hidden="true">
+									<div class="modal fade modal-sm-${user.uuid}" tabindex="-1" role="dialog" aria-hidden="true">
 										<div class="modal-dialog modal-sm">
 											<div class="modal-content">
 												<div class="modal-header">

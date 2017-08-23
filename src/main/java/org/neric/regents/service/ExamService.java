@@ -9,6 +9,8 @@ public interface ExamService {
 	
 	Exam findById(int id);
 	
+	Exam findByUUID(String uuid);
+	
 	Exam findByName(String examName);
 	
 	List<Exam> findAllExams();
@@ -23,8 +25,13 @@ public interface ExamService {
 	
 	void deleteByExamId(int id);
 	
+	void deleteByExamUUID(String uuid);
+	
 	void lockByExamId(int id, Boolean locked);
+	
+	void lockByExamUUID(String uuid, boolean isLocked);
 	
 	void hideByExamId(int id, Boolean hidden);
 
+	void hideByExamUUID(String uuid, boolean isHidden);
 }

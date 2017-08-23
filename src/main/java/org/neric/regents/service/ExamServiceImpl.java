@@ -21,6 +21,12 @@ public class ExamServiceImpl implements ExamService{
 		return dao.findById(id);
 	}
 	
+	@Override
+	public Exam findByUUID(String uuid)
+	{
+		return dao.findByUUID(uuid);
+	}
+	
 	public Exam findByName(String examName) 
 	{
 		Exam exam = dao.findByName(examName);
@@ -64,6 +70,12 @@ public class ExamServiceImpl implements ExamService{
 	{
 		dao.deleteByExamId(id);
 	}
+	
+	@Override
+	public void deleteByExamUUID(String uuid)
+	{
+		dao.deleteByExamUUID(uuid);
+	}
 
 	@Override
 	public void lockByExamId(int id, Boolean isLocked)
@@ -74,11 +86,31 @@ public class ExamServiceImpl implements ExamService{
 			entity.setLocked(isLocked);
 		}
 	}
+	
+	@Override
+	public void lockByExamUUID(String uuid, boolean isLocked)
+	{
+		Exam entity = dao.findByUUID(uuid);
+		if(entity != null)
+		{
+			entity.setLocked(isLocked);
+		}
+	}
 
 	@Override
 	public void hideByExamId(int id, Boolean isHidden)
 	{
 		Exam entity = dao.findById(id);
+		if(entity != null)
+		{
+			entity.setVisible(isHidden);
+		}
+	}
+	
+	@Override
+	public void hideByExamUUID(String uuid, boolean isHidden)
+	{
+		Exam entity = dao.findByUUID(uuid);
 		if(entity != null)
 		{
 			entity.setVisible(isHidden);

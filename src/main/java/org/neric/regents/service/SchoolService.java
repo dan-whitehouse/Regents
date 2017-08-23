@@ -11,19 +11,20 @@ import org.neric.regents.model.UserProfile;
 public interface SchoolService {
 
 	School findById(int id);
+	
+	School findByUUID(String uuid);
 
+	List<School> findAll();
+	
 	List<School> findAllByDistrictId(int id);
 	
-//	School findByType(String type);
+	void save(School school);
 	
-	List<School> findAll();
-
 	void update(School school);
 
 	void updateAll(Set<School> set);
 	
 	void deleteById(int id);
-
-	void save(School school);
 	
+	void deleteByUUID(String uuid);
 }

@@ -444,6 +444,7 @@ public class AdminController {
 		{
 			return "createOrEditExam";
 		}
+		exam.setUuid(UUID.randomUUID().toString());
 		exam.setVisible(true);
 		exam.setLocked(false);
 		examService.saveExam(exam);
@@ -454,10 +455,10 @@ public class AdminController {
 		return "success";
 	}
 	
-	@RequestMapping(value = { "/admin/exams/{id}/edit" }, method = RequestMethod.GET)
-	public String editExam(@PathVariable int id, ModelMap model) 
+	@RequestMapping(value = { "/admin/exams/{uuid}/edit" }, method = RequestMethod.GET)
+	public String editExam(@PathVariable String uuid, ModelMap model) 
 	{
-		Exam exam = examService.findById(id);
+		Exam exam = examService.findByUUID(uuid);
 		
 		if(!exam.getLocked())
 		{
@@ -468,8 +469,8 @@ public class AdminController {
 		else return "403";
 	}
 	
-	@RequestMapping(value = { "/admin/exams/{id}/edit" }, method = RequestMethod.POST)
-	public String editExam(@Valid Exam exam, BindingResult result, ModelMap model, @PathVariable int id) 
+	@RequestMapping(value = { "/admin/exams/{uuid}/edit" }, method = RequestMethod.POST)
+	public String editExam(@Valid Exam exam, BindingResult result, ModelMap model, @PathVariable String uuid) 
 	{
 		if (result.hasErrors()) 
 		{
@@ -485,29 +486,29 @@ public class AdminController {
 	}
 
 
-	@RequestMapping(value = { "/admin/exams/{id}/delete" }, method = RequestMethod.GET)
-	public String deleteExam(@PathVariable int id) 
+	@RequestMapping(value = { "/admin/exams/{uuid}/delete" }, method = RequestMethod.GET)
+	public String deleteExam(@PathVariable String uuid) 
 	{
-		Exam exam = examService.findById(id);	
+		Exam exam = examService.findByUUID(uuid);	
 		if(!exam.getLocked())
 		{
-			examService.deleteByExamId(id);
+			examService.deleteByExamUUID(uuid);
 			return "redirect:/admin/exams";
 		}
 		else return "403";
 	}
 	
-	@RequestMapping(value = { "/admin/exams/{id}/lock/{isLocked}" }, method = RequestMethod.GET)
-	public String lockExam(@PathVariable int id, @PathVariable boolean isLocked) 
+	@RequestMapping(value = { "/admin/exams/{uuid}/lock/{isLocked}" }, method = RequestMethod.GET)
+	public String lockExam(@PathVariable String uuid, @PathVariable boolean isLocked) 
 	{
-		examService.lockByExamId(id, isLocked);
+		examService.lockByExamUUID(uuid, isLocked);
 		return "redirect:/admin/exams";
 	}
 	
-	@RequestMapping(value = { "/admin/exams/{id}/hide/{isHidden}" }, method = RequestMethod.GET)
-	public String hideExam(@PathVariable int id, @PathVariable boolean isHidden) 
+	@RequestMapping(value = { "/admin/exams/{uuid}/hide/{isHidden}" }, method = RequestMethod.GET)
+	public String hideExam(@PathVariable String uuid, @PathVariable boolean isHidden) 
 	{
-		examService.hideByExamId(id, isHidden);
+		examService.hideByExamUUID(uuid, isHidden);
 		return "redirect:/admin/exams";
 	}
 	
@@ -536,6 +537,7 @@ public class AdminController {
 		{
 			return "createOrEditDocument";
 		}
+		document.setUuid(UUID.randomUUID().toString());
 		document.setVisible(true);
 		document.setLocked(false);
 		documentService.saveDocument(document);
@@ -546,12 +548,12 @@ public class AdminController {
 		return "success";
 	}
 	
-	@RequestMapping(value = { "/admin/documents/{id}/edit" }, method = RequestMethod.GET)
-	public String editDocument(@PathVariable int id, ModelMap model) 
+	@RequestMapping(value = { "/admin/documents/{uuid}/edit" }, method = RequestMethod.GET)
+	public String editDocument(@PathVariable String uuid, ModelMap model) 
 	{
-		Document document = documentService.findById(id);
+		Document document = documentService.findByUUID(uuid);
 		
-		if(document.getLocked())
+		if(!document.getLocked())
 		{
 			model.addAttribute("document", document);
 			model.addAttribute("edit", true);
@@ -561,8 +563,8 @@ public class AdminController {
 		
 	}
 	
-	@RequestMapping(value = { "/admin/documents/{id}/edit" }, method = RequestMethod.POST)
-	public String updateDocument(@Valid Document document, BindingResult result, ModelMap model, @PathVariable int id) 
+	@RequestMapping(value = { "/admin/documents/{uuid}/edit" }, method = RequestMethod.POST)
+	public String updateDocument(@Valid Document document, BindingResult result, ModelMap model, @PathVariable String uuid) 
 	{
 		if (result.hasErrors()) 
 		{
@@ -578,29 +580,29 @@ public class AdminController {
 	}
 
 
-	@RequestMapping(value = { "/admin/documents/{id}/delete" }, method = RequestMethod.GET)
-	public String deleteDocument(@PathVariable int id) 
+	@RequestMapping(value = { "/admin/documents/{uuid}/delete" }, method = RequestMethod.GET)
+	public String deleteDocument(@PathVariable String uuid) 
 	{
-		Document document = documentService.findById(id);
+		Document document = documentService.findByUUID(uuid);
 		if(!document.getLocked())
 		{
-			documentService.deleteByDocumentId(id);
+			documentService.deleteByDocumentUUID(uuid);
 			return "redirect:/admin/documents";
 		}
 		else return "403";	
 	}
 	
-	@RequestMapping(value = { "/admin/documents/{id}/lock/{isLocked}" }, method = RequestMethod.GET)
-	public String lockDocument(@PathVariable int id, @PathVariable boolean isLocked) 
+	@RequestMapping(value = { "/admin/documents/{uuid}/lock/{isLocked}" }, method = RequestMethod.GET)
+	public String lockDocument(@PathVariable String uuid, @PathVariable boolean isLocked) 
 	{
-		documentService.lockByDocumentId(id, isLocked);
+		documentService.lockByDocumentUUID(uuid, isLocked);
 		return "redirect:/admin/documents";
 	}
 	
-	@RequestMapping(value = { "/admin/documents/{id}/hide/{isHidden}" }, method = RequestMethod.GET)
-	public String hideDocument(@PathVariable int id, @PathVariable boolean isHidden) 
+	@RequestMapping(value = { "/admin/documents/{uuid}/hide/{isHidden}" }, method = RequestMethod.GET)
+	public String hideDocument(@PathVariable String uuid, @PathVariable boolean isHidden) 
 	{
-		documentService.hideByDocumentId(id, isHidden);
+		documentService.hideByDocumentUUID(uuid, isHidden);
 		return "redirect:/admin/documents";
 	}
 	
@@ -630,6 +632,7 @@ public class AdminController {
 			return "createOrEditPrintOption";
 		}	
 		
+		optionPrint.setUuid(UUID.randomUUID().toString());
 		optionPrint.setVisible(true);
 		optionPrint.setLocked(false);
 		optionPrintService.save(optionPrint);
@@ -640,10 +643,10 @@ public class AdminController {
 		return "success";
 	}
 	
-	@RequestMapping(value = { "/admin/printOptions/{id}/edit" }, method = RequestMethod.GET)
-	public String editPrintOption(@PathVariable int id, ModelMap model) 
+	@RequestMapping(value = { "/admin/printOptions/{uuid}/edit" }, method = RequestMethod.GET)
+	public String editPrintOption(@PathVariable String uuid, ModelMap model) 
 	{
-		OptionPrint printOption = optionPrintService.findById(id);
+		OptionPrint printOption = optionPrintService.findByUUID(uuid);
 		
 		if(!printOption.getLocked())
 		{
@@ -655,8 +658,8 @@ public class AdminController {
 		
 	}
 	
-	@RequestMapping(value = { "/admin/printOptions/{id}/edit" }, method = RequestMethod.POST)
-	public String updatePrintOption(@Valid OptionPrint optionPrint, BindingResult result, ModelMap model, @PathVariable int id) 
+	@RequestMapping(value = { "/admin/printOptions/{uuid}/edit" }, method = RequestMethod.POST)
+	public String updatePrintOption(@Valid OptionPrint optionPrint, BindingResult result, ModelMap model, @PathVariable String uuid) 
 	{
 		if (result.hasErrors()) 
 		{
@@ -672,30 +675,30 @@ public class AdminController {
 	}
 
 
-	@RequestMapping(value = { "/admin/printOptions/{id}/delete" }, method = RequestMethod.GET)
-	public String deletePrintOption(@PathVariable int id) 
+	@RequestMapping(value = { "/admin/printOptions/{uuid}/delete" }, method = RequestMethod.GET)
+	public String deletePrintOption(@PathVariable String uuid) 
 	{
-		OptionPrint op = optionPrintService.findById(id);
+		OptionPrint op = optionPrintService.findByUUID(uuid);
 		
 		if(!op.getLocked())
 		{
-			optionPrintService.delete(id);
+			optionPrintService.deleteByUUID(uuid);
 			return "redirect:/admin/printOptions";
 		}
 		else return "403";	
 	}
 	
-	@RequestMapping(value = { "/admin/printOptions/{id}/lock/{isLocked}" }, method = RequestMethod.GET)
-	public String lockPrintOption(@PathVariable int id, @PathVariable boolean isLocked) 
+	@RequestMapping(value = { "/admin/printOptions/{uuid}/lock/{isLocked}" }, method = RequestMethod.GET)
+	public String lockPrintOption(@PathVariable String uuid, @PathVariable boolean isLocked) 
 	{
-		optionPrintService.lockByOptionPrintId(id, isLocked);
+		optionPrintService.lockByOptionPrintUUID(uuid, isLocked);
 		return "redirect:/admin/printOptions";
 	}
 	
-	@RequestMapping(value = { "/admin/printOptions/{id}/hide/{isHidden}" }, method = RequestMethod.GET)
-	public String hidePrintOption(@PathVariable int id, @PathVariable boolean isHidden) 
+	@RequestMapping(value = { "/admin/printOptions/{uuid}/hide/{isHidden}" }, method = RequestMethod.GET)
+	public String hidePrintOption(@PathVariable String uuid, @PathVariable boolean isHidden) 
 	{
-		optionPrintService.hideByOptionPrintId(id, isHidden);
+		optionPrintService.hideByOptionPrintUUID(uuid, isHidden);
 		return "redirect:/admin/printOptions";
 	}
 	
@@ -726,6 +729,7 @@ public class AdminController {
 			return "createOrEditScanOption";
 		}	
 		
+		optionScan.setUuid(UUID.randomUUID().toString());
 		optionScan.setVisible(true);
 		optionScan.setLocked(false);
 		optionScanService.save(optionScan);
@@ -887,6 +891,7 @@ public class AdminController {
 			return "createOrEditDistrict";
 		}	
 		
+		district.setUuid(UUID.randomUUID().toString());
 		district.setVisible(true);
 		district.setLocked(false);
 		districtService.saveDistrict(district);
@@ -898,10 +903,10 @@ public class AdminController {
 		return "success";
 	}
 	
-	@RequestMapping(value = { "/admin/districts/{id}/edit" }, method = RequestMethod.GET)
-	public String editDistrict(@PathVariable int id, ModelMap model) 
+	@RequestMapping(value = { "/admin/districts/{uuid}/edit" }, method = RequestMethod.GET)
+	public String editDistrict(@PathVariable String uuid, ModelMap model) 
 	{
-		District district = districtService.findById(id);
+		District district = districtService.findByUUID(uuid);
 		
 		if(!district.getLocked())
 		{
@@ -913,7 +918,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = { "/admin/districts/{id}/edit" }, method = RequestMethod.POST)
-	public String updateDistrict(@Valid District district, BindingResult result, ModelMap model, @PathVariable int id) 
+	public String updateDistrict(@Valid District district, BindingResult result, ModelMap model, @PathVariable String uuid) 
 	{
 		if (result.hasErrors()) 
 		{
@@ -927,29 +932,29 @@ public class AdminController {
 		return "success";
 	}
 	
-	@RequestMapping(value = { "/admin/districts/{bedsCode}/delete" }, method = RequestMethod.GET)
-	public String deleteDistrict(@PathVariable String bedsCode) 
+	@RequestMapping(value = { "/admin/districts/{uuid}/delete" }, method = RequestMethod.GET)
+	public String deleteDistrict(@PathVariable String uuid) 
 	{
-		District d = districtService.findByCode(bedsCode);
+		District d = districtService.findByUUID(uuid);
 		if(!d.getLocked())
 		{
-			districtService.deleteDistrictByCode(bedsCode);
+			districtService.deleteByUUID(uuid);
 			return "redirect:/admin/districts";
 		}
 		else return "403";	
 	}
 	
-	@RequestMapping(value = { "/admin/districts/{id}/lock/{isLocked}" }, method = RequestMethod.GET)
-	public String lockDistrict(@PathVariable int id, @PathVariable boolean isLocked) 
+	@RequestMapping(value = { "/admin/districts/{uuid}/lock/{isLocked}" }, method = RequestMethod.GET)
+	public String lockDistrict(@PathVariable String uuid, @PathVariable boolean isLocked) 
 	{
-		districtService.lockById(id, isLocked);
+		districtService.lockByUUID(uuid, isLocked);
 		return "redirect:/admin/districts";
 	}
 	
-	@RequestMapping(value = { "/admin/districts/{id}/hide/{isHidden}" }, method = RequestMethod.GET)
-	public String hideDistrict(@PathVariable int id, @PathVariable boolean isHidden) 
+	@RequestMapping(value = { "/admin/districts/{uuid}/hide/{isHidden}" }, method = RequestMethod.GET)
+	public String hideDistrict(@PathVariable String uuid, @PathVariable boolean isHidden) 
 	{
-		districtService.hideById(id, isHidden);
+		districtService.hideByUUID(uuid, isHidden);
 		return "redirect:/admin/districts";
 	}
 	
@@ -982,6 +987,7 @@ public class AdminController {
 			return "createOrEditSchool";
 		}	
 		
+		school.setUuid(UUID.randomUUID().toString());
 		schoolService.save(school);
 		model.addAttribute("success", "School: " + school.getName() + " was created successfully");
 		model.addAttribute("returnLink", "/admin/schools");
@@ -989,10 +995,10 @@ public class AdminController {
 		return "success";
 	}
 	
-	@RequestMapping(value = { "/admin/schools/{id}/edit" }, method = RequestMethod.GET)
-	public String editSchool(@PathVariable int id, ModelMap model) 
+	@RequestMapping(value = { "/admin/schools/{uuid}/edit" }, method = RequestMethod.GET)
+	public String editSchool(@PathVariable String uuid, ModelMap model) 
 	{
-		School school = schoolService.findById(id);
+		School school = schoolService.findByUUID(uuid);
 		List<District> districts = districtService.findAllDistricts();	
 		model.addAttribute("school", school);
 		model.addAttribute("districts", districts);
@@ -1000,8 +1006,8 @@ public class AdminController {
 		return "createOrEditSchool";
 	}
 	
-	@RequestMapping(value = { "/admin/schools/{id}/edit" }, method = RequestMethod.POST)
-	public String updateSchool(@Valid School school, BindingResult result, ModelMap model, @PathVariable int id) 
+	@RequestMapping(value = { "/admin/schools/{uuid}/edit" }, method = RequestMethod.POST)
+	public String updateSchool(@Valid School school, BindingResult result, ModelMap model, @PathVariable String uuid) 
 	{
 		if (result.hasErrors()) 
 		{
@@ -1015,10 +1021,10 @@ public class AdminController {
 		return "success";
 	}
 	
-	@RequestMapping(value = { "/admin/schools/{id}/delete" }, method = RequestMethod.GET)
-	public String deleteSchool(@PathVariable int id) 
+	@RequestMapping(value = { "/admin/schools/{uuid}/delete" }, method = RequestMethod.GET)
+	public String deleteSchool(@PathVariable String uuid) 
 	{
-		schoolService.deleteById(id);
+		schoolService.deleteByUUID(uuid);
 		return "redirect:/admin/schools";
 	}
 	

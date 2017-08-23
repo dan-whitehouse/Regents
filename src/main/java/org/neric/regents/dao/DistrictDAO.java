@@ -9,12 +9,16 @@ public interface DistrictDAO {
 
 	District findById(int id);
 	
+	District findByUUID(String uuid);
+	
 	District findByCode(String bedsCode);
+	
+	List<District> findAllDistricts();
 	
 	void save(District district);
 	
 	void deleteByCode(String bedsCode);
 	
-	List<District> findAllDistricts();
+	void deleteByUUID(String uuid);
 }
 

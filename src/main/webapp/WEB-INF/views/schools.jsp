@@ -37,8 +37,8 @@
 											<td>${school.district.name}</td>
 										    <sec:authorize access="hasRole('ADMIN')">
 												<td width="195px">
-													<a href="<c:url value='/admin/schools/${school.id}/edit' />" class="btn btn-success custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
-													<a type="button" class="btn btn-danger custom-width" data-toggle="modal" data-target=".modal-sm-${school.id}"><i class="fa fa-trash"></i></a>
+													<a href="<c:url value='/admin/schools/${school.uuid}/edit' />" class="btn btn-success custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+													<a type="button" class="btn btn-danger custom-width" data-toggle="modal" data-target=".modal-sm-${school.uuid}"><i class="fa fa-trash"></i></a>
 												</td>
 					        				</sec:authorize>
 										</tr>
@@ -48,7 +48,7 @@
 							<!-- Start Delete Popup Confirmation -->
 							<sec:authorize access="hasRole('ADMIN')">
 								<c:forEach items="${schools}" var="school">
-									<div class="modal fade modal-sm-${school.id}" tabindex="-1" role="dialog" aria-hidden="true">
+									<div class="modal fade modal-sm-${school.uuid}" tabindex="-1" role="dialog" aria-hidden="true">
 										<div class="modal-dialog modal-sm">
 											<div class="modal-content">
 												<div class="modal-header">
@@ -62,7 +62,7 @@
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-													<a href="<c:url value='/admin/schools/${school.id}/delete' />" class="btn btn-danger">Delete</a>
+													<a href="<c:url value='/admin/schools/${school.uuid}/delete' />" class="btn btn-danger">Delete</a>
 												</div>
 											</div>
 										</div>

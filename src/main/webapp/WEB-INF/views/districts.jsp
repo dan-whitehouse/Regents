@@ -53,24 +53,24 @@
 											<td>${district.bedsCode}</td>
 										    <sec:authorize access="hasRole('ADMIN')">
 												<td width="195px">
-													<a href="<c:url value='/admin/districts/${district.id}/edit' />" class="btn btn-success custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
-													<a type="button" class="btn btn-danger custom-width" data-toggle="modal" data-target=".modal-sm-${district.bedsCode}"><i class="fa fa-trash"></i></a>
+													<a href="<c:url value='/admin/districts/${district.uuid}/edit' />" class="btn btn-success custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+													<a type="button" class="btn btn-danger custom-width" data-toggle="modal" data-target=".modal-sm-${district.uuid}"><i class="fa fa-trash"></i></a>
 													<!-- Visible -->
 													<c:choose>
 														<c:when test="${district.visible == true}">
-															<a href="<c:url value='/admin/districts/${district.id}/hide/false' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Visible"><i class="fa fa-eye"></i></a>
+															<a href="<c:url value='/admin/districts/${district.uuid}/hide/false' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Visible"><i class="fa fa-eye"></i></a>
 														</c:when>
 														<c:otherwise>
-															<a href="<c:url value='/admin/districts/${district.id}/hide/true' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Hidden"><i class="fa fa-eye-slash"></i></a>
+															<a href="<c:url value='/admin/districts/${district.uuid}/hide/true' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Hidden"><i class="fa fa-eye-slash"></i></a>
 														</c:otherwise>
 													</c:choose>
 													<!-- Lock -->
 													<c:choose>
 														<c:when test="${district.locked == true}">
-															<a href="<c:url value='/admin/districts/${district.id}/lock/false' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Locked"><i class="fa fa-lock"></i></a>
+															<a href="<c:url value='/admin/districts/${district.uuid}/lock/false' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Locked"><i class="fa fa-lock"></i></a>
 														</c:when>
 														<c:otherwise>
-															<a href="<c:url value='/admin/districts/${district.id}/lock/true' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Unlocked"><i class="fa fa-unlock"></i></a>
+															<a href="<c:url value='/admin/districts/${district.uuid}/lock/true' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Unlocked"><i class="fa fa-unlock"></i></a>
 														</c:otherwise>
 													</c:choose>
 												</td>
@@ -82,7 +82,7 @@
 							<!-- Start Delete Popup Confirmation -->
 							<sec:authorize access="hasRole('ADMIN')">
 								<c:forEach items="${districts}" var="district">
-									<div class="modal fade modal-sm-${district.bedsCode}" tabindex="-1" role="dialog" aria-hidden="true">
+									<div class="modal fade modal-sm-${district.uuid}" tabindex="-1" role="dialog" aria-hidden="true">
 										<div class="modal-dialog modal-sm">
 											<div class="modal-content">
 												<div class="modal-header">
@@ -96,7 +96,7 @@
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-													<a href="<c:url value='/admin/districts/${district.bedsCode}/delete' />" class="btn btn-danger">Delete</a>
+													<a href="<c:url value='/admin/districts/${district.uuid}/delete' />" class="btn btn-danger">Delete</a>
 												</div>
 											</div>
 										</div>

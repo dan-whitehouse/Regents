@@ -9,6 +9,8 @@ public interface ExamDao {
 
 	Exam findById(int id);
 	
+	Exam findByUUID(String uuid);
+	
 	Exam findByName(String examName);
 	
 	List<Exam> findAllExams();
@@ -21,5 +23,6 @@ public interface ExamDao {
 	
 	void deleteByExamId(int id);
 
+	void deleteByExamUUID(String uuid);
 }
 

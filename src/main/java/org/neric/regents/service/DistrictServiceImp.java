@@ -22,8 +22,13 @@ public class DistrictServiceImp implements DistrictService{
 	}
 
 	public District findByCode(String bedsCode) {
-		District user = dao.findByCode(bedsCode);
-		return user;
+		return dao.findByCode(bedsCode);
+	}
+	
+	@Override
+	public District findByUUID(String uuid)
+	{
+		return dao.findByUUID(uuid);
 	}
 
 	public void saveDistrict(District user) 
@@ -50,6 +55,12 @@ public class DistrictServiceImp implements DistrictService{
 	{
 		dao.deleteByCode(bedsCode);
 	}
+	
+	@Override
+	public void deleteByUUID(String uuid)
+	{
+		dao.deleteByUUID(uuid);
+	}
 
 	public List<District> findAllDistricts() 
 	{
@@ -65,6 +76,16 @@ public class DistrictServiceImp implements DistrictService{
 			entity.setLocked(isLocked);
 		}
 	}
+	
+	@Override
+	public void lockByUUID(String uuid, boolean isLocked)
+	{
+		District entity = dao.findByUUID(uuid);
+		if(entity != null)
+		{
+			entity.setLocked(isLocked);
+		}
+	}
 
 	@Override
 	public void hideById(int id, boolean isHidden)
@@ -75,5 +96,14 @@ public class DistrictServiceImp implements DistrictService{
 			entity.setVisible(isHidden);
 		}
 	}
-	
+
+	@Override
+	public void hideByUUID(String uuid, boolean isHidden)
+	{
+		District entity = dao.findByUUID(uuid);
+		if(entity != null)
+		{
+			entity.setVisible(isHidden);
+		}
+	}
 }

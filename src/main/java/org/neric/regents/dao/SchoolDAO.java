@@ -8,13 +8,15 @@ public interface SchoolDAO {
 
 	List<School> findAll();
 	
-	//School findByType(String type);
+	List<School> findAllByDistrictId(int id);
 	
 	School findById(int id);
-
+	
+	School findByUUID(String uuid);
+	
 	void save(School school);
 
 	void deleteById(int id);
 
-	List<School> findAllByDistrictId(int id);
+	void deleteByUUID(String uuid);
 }

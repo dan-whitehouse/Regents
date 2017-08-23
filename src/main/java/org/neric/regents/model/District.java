@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -45,6 +47,11 @@ public class District implements Serializable
 	@Column(name = "district_id", unique = true, nullable = false)
 	private Integer id;
 	
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	@Column(name = "uuid", unique = true, nullable = false)
+	private String uuid;
+	
 	@NotEmpty
 	@Column(name="name", unique=true, nullable=false)
 	private String name;
@@ -70,6 +77,16 @@ public class District implements Serializable
 	public void setId(Integer id)
 	{
 		this.id = id;
+	}
+	
+	public String getUuid()
+	{
+		return uuid;
+	}
+
+	public void setUuid(String uuid)
+	{
+		this.uuid = uuid;
 	}
 
 	public String getName()

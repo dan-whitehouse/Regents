@@ -27,10 +27,22 @@ public class OptionPrintServiceImpl implements OptionPrintService
 	{
 		return dao.findById(id);
 	}
+	
+	@Override
+	public OptionPrint findByUUID(String uuid)
+	{
+		return dao.findByUUID(uuid);
+	}
 
 	public List<OptionPrint> findAllOptionPrints()
 	{
 		return dao.findAllOptionPrints();
+	}
+	
+	@Override
+	public List<OptionPrint> findAllActiveOptionPrints()
+	{
+		return dao.findAllActiveOptionPrints();
 	}
 
 	public void save(OptionPrint optionPrint)
@@ -51,13 +63,28 @@ public class OptionPrintServiceImpl implements OptionPrintService
 	public void delete(int id)
 	{
 		dao.delete(id);
-		
+	}
+	
+	@Override
+	public void deleteByUUID(String uuid)
+	{
+		dao.deleteByUUID(uuid);
 	}
 
 	@Override
 	public void lockByOptionPrintId(int id, Boolean isLocked)
 	{
 		OptionPrint entity = dao.findById(id);
+		if(entity != null)
+		{
+			entity.setLocked(isLocked);
+		}
+	}
+	
+	@Override
+	public void lockByOptionPrintUUID(String uuid, boolean isLocked)
+	{
+		OptionPrint entity = dao.findByUUID(uuid);
 		if(entity != null)
 		{
 			entity.setLocked(isLocked);
@@ -75,8 +102,12 @@ public class OptionPrintServiceImpl implements OptionPrintService
 	}
 
 	@Override
-	public List<OptionPrint> findAllActiveOptionPrints()
+	public void hideByOptionPrintUUID(String uuid, boolean isHidden)
 	{
-		return dao.findAllActiveOptionPrints();
+		OptionPrint entity = dao.findByUUID(uuid);
+		if(entity != null)
+		{
+			entity.setVisible(isHidden);
+		}
 	}
 }

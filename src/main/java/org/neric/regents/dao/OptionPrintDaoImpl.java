@@ -28,6 +28,19 @@ public class OptionPrintDaoImpl extends AbstractDao<Integer, OptionPrint> implem
 		return option;
 	}
 	
+	@Override
+	public OptionPrint findByUUID(String uuid)
+	{
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("uuid", uuid));
+		OptionPrint optionPrint = (OptionPrint)crit.uniqueResult();
+		if(optionPrint != null)
+		{
+			Hibernate.initialize(optionPrint.getOrdersPrint());
+		}
+		return optionPrint;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<OptionPrint> findAllOptionPrints()
 	{
@@ -37,10 +50,19 @@ public class OptionPrintDaoImpl extends AbstractDao<Integer, OptionPrint> implem
 		return optionScans;
 	}
 	
+	@Override
+	public List<OptionPrint> findAllActiveOptionPrints()
+	{
+		Criteria criteria = createEntityCriteria().addOrder(Order.asc("id"));
+		criteria.add(Restrictions.eq("visible", true));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
+		List<OptionPrint> optionScans = (List<OptionPrint>) criteria.list();
+		return optionScans;
+	}
+	
 	public void save(OptionPrint optionPrint)
 	{
 		persist(optionPrint);
-		
 	}
 
 	public void delete(int id)
@@ -50,14 +72,13 @@ public class OptionPrintDaoImpl extends AbstractDao<Integer, OptionPrint> implem
 		OptionPrint optionPrint = (OptionPrint)crit.uniqueResult();
 		delete(optionPrint);
 	}
-
+	
 	@Override
-	public List<OptionPrint> findAllActiveOptionPrints()
+	public void deleteByUUID(String uuid)
 	{
-		Criteria criteria = createEntityCriteria().addOrder(Order.asc("id"));
-		criteria.add(Restrictions.eq("visible", true));
-		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
-		List<OptionPrint> optionScans = (List<OptionPrint>) criteria.list();
-		return optionScans;
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("uuid", uuid));
+		OptionPrint optionPrint = (OptionPrint)crit.uniqueResult();
+		delete(optionPrint);
 	}
 }

@@ -16,6 +16,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.JoinColumn;
+
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -52,6 +54,11 @@ public class Exam implements Serializable
 	@Column(name = "exam_id", unique = true, nullable = false)
 	private Integer id;
 	
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	@Column(name = "uuid", unique = true, nullable = false)
+	private String uuid;
+	
 	@NotEmpty
 	@Column(name="name", unique=true, nullable=false)
 	private String name;
@@ -82,6 +89,16 @@ public class Exam implements Serializable
 	public void setId(Integer id)
 	{
 		this.id = id;
+	}
+	
+	public String getUuid()
+	{
+		return uuid;
+	}
+
+	public void setUuid(String uuid)
+	{
+		this.uuid = uuid;
 	}
 
 	public Set<OrderExam> getExams()

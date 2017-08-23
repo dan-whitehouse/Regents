@@ -20,9 +20,11 @@ public class DocumentServiceImpl implements DocumentService{
 		return dao.findById(id);
 	}
 
-//	public School findByType(String type){
-//		return dao.findByType(type);
-//	}
+	@Override
+	public Document findByUUID(String uuid)
+	{
+		return dao.findByUUID(uuid);
+	}
 
 	public List<Document> findAllDocuments() {
 		return dao.findAll();
@@ -49,6 +51,12 @@ public class DocumentServiceImpl implements DocumentService{
 	{
 		dao.deleteByDocumentId(id);
 	}
+	
+	@Override
+	public void deleteByDocumentUUID(String uuid)
+	{
+		dao.deleteByDocumentUUID(uuid);
+	}
 
 	@Override
 	public void saveDocument(Document document)
@@ -74,8 +82,27 @@ public class DocumentServiceImpl implements DocumentService{
 		{
 			entity.setVisible(isHidden);
 		}
-		
 	}
 
 	
+
+	@Override
+	public void lockByDocumentUUID(String uuid, boolean isLocked)
+	{
+		Document entity = dao.findByUUID(uuid);
+		if(entity != null)
+		{
+			entity.setLocked(isLocked);
+		}
+	}
+
+	@Override
+	public void hideByDocumentUUID(String uuid, boolean isHidden)
+	{
+		Document entity = dao.findByUUID(uuid);
+		if(entity != null)
+		{
+			entity.setVisible(isHidden);
+		}
+	}
 }

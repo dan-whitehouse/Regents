@@ -14,7 +14,11 @@ public interface OptionPrintDao
 {
 	OptionPrint findById(int id);
 	
+	OptionPrint findByUUID(String uuid);
+	
 	List<OptionPrint> findAllOptionPrints();
+	
+	List<OptionPrint> findAllActiveOptionPrints();
 	
 	void save(OptionPrint optionPrint);
 	
@@ -22,5 +26,5 @@ public interface OptionPrintDao
 	
 	void delete(int id);
 
-	List<OptionPrint> findAllActiveOptionPrints();
+	void deleteByUUID(String uuid);
 }

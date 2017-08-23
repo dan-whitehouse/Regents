@@ -12,11 +12,15 @@ public interface DocumentDAO {
 	
 	List<Document> findAllActiveDocuments();
 	
-	//School findByType(String type);
-	
 	Document findById(int id);
+	
+	Document findByUUID(String uuid);
 	
 	void save(Document document);
 
 	void deleteByDocumentId(int id);
+
+	void deleteByDocumentUUID(String uuid);
+
+	
 }

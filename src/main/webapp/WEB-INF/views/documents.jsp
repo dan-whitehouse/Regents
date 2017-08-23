@@ -47,24 +47,24 @@
 											<td>${document.name}</td>
 										    <sec:authorize access="hasRole('ADMIN')">
 												<td width="195px">
-													<a href="<c:url value='/admin/documents/${document.id}/edit' />" class="btn btn-success custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
-													<a type="button" class="btn btn-danger custom-width" data-toggle="modal" data-target=".modal-sm-${document.id}"><i class="fa fa-trash"></i></a>
+													<a href="<c:url value='/admin/documents/${document.uuid}/edit' />" class="btn btn-success custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+													<a type="button" class="btn btn-danger custom-width" data-toggle="modal" data-target=".modal-sm-${document.uuid}"><i class="fa fa-trash"></i></a>
 													<!-- Visible -->
 													<c:choose>
 														<c:when test="${document.visible == true}">
-															<a href="<c:url value='/admin/documents/${document.id}/hide/false' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Visible"><i class="fa fa-eye"></i></a>
+															<a href="<c:url value='/admin/documents/${document.uuid}/hide/false' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Visible"><i class="fa fa-eye"></i></a>
 														</c:when>
 														<c:otherwise>
-															<a href="<c:url value='/admin/documents/${document.id}/hide/true' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Hidden"><i class="fa fa-eye-slash"></i></a>
+															<a href="<c:url value='/admin/documents/${document.uuid}/hide/true' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Hidden"><i class="fa fa-eye-slash"></i></a>
 														</c:otherwise>
 													</c:choose>
 													<!-- Lock -->
 													<c:choose>
 														<c:when test="${document.locked == true}">
-															<a href="<c:url value='/admin/documents/${document.id}/lock/false' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Locked"><i class="fa fa-lock"></i></a>
+															<a href="<c:url value='/admin/documents/${document.uuid}/lock/false' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Locked"><i class="fa fa-lock"></i></a>
 														</c:when>
 														<c:otherwise>
-															<a href="<c:url value='/admin/documents/${document.id}/lock/true' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Unlocked"><i class="fa fa-unlock"></i></a>
+															<a href="<c:url value='/admin/documents/${document.uuid}/lock/true' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Unlocked"><i class="fa fa-unlock"></i></a>
 														</c:otherwise>
 													</c:choose>
 												</td>
@@ -76,7 +76,7 @@
 							<!-- Start Delete Popup Confirmation -->
 							<sec:authorize access="hasRole('ADMIN')">
 								<c:forEach items="${documents}" var="document">
-									<div class="modal fade modal-sm-${document.id}" tabindex="-1" role="dialog" aria-hidden="true">
+									<div class="modal fade modal-sm-${document.uuid}" tabindex="-1" role="dialog" aria-hidden="true">
 										<div class="modal-dialog modal-sm">
 											<div class="modal-content">
 												<div class="modal-header">
@@ -90,7 +90,7 @@
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-													<a href="<c:url value='/admin/documents/${document.id}/delete' />" class="btn btn-danger">Delete</a>
+													<a href="<c:url value='/admin/documents/${document.uuid}/delete' />" class="btn btn-danger">Delete</a>
 												</div>
 											</div>
 										</div>

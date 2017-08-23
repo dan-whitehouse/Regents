@@ -23,6 +23,19 @@ public class SchoolDAOImpl extends AbstractDao<Integer, School> implements Schoo
 		}
 		return school;
 	}
+	
+	@Override
+	public School findByUUID(String uuid)
+	{
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("uuid", uuid));
+		School school = (School)crit.uniqueResult();
+		if(school != null)
+		{
+			Hibernate.initialize(school.getDistrict());
+		}
+		return school;
+	}
 
 	@SuppressWarnings("unchecked")
 	public List<School> findAll()
@@ -34,6 +47,16 @@ public class SchoolDAOImpl extends AbstractDao<Integer, School> implements Schoo
 		{
 			Hibernate.initialize(school.getDistrict());	
 		}	
+		return (List<School>)crit.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<School> findAllByDistrictId(int id) 
+	{
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("district.id", id));
+		crit.addOrder(Order.asc("name"));
 		return (List<School>)crit.list();
 	}
 
@@ -52,14 +75,13 @@ public class SchoolDAOImpl extends AbstractDao<Integer, School> implements Schoo
 		delete(school);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<School> findAllByDistrictId(int id) 
+	public void deleteByUUID(String uuid)
 	{
 		Criteria crit = createEntityCriteria();
-		crit.add(Restrictions.eq("district.id", id));
-		crit.addOrder(Order.asc("name"));
-		return (List<School>)crit.list();
+		crit.add(Restrictions.eq("uuid", uuid));
+		School school = (School)crit.uniqueResult();
+		delete(school);
 	}
 	
 }

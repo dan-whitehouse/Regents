@@ -21,19 +21,23 @@ public class DistrictDAOImpl extends AbstractDao<Integer, District> implements D
 	
 	public District findById(int id) 
 	{
-		District district = getByKey(id);
-
-		return district;
+		return getByKey(id);
 	}
 
 	public District findByCode(String bedsCode) 
 	{
-		logger.info("BEDs Code : {}", bedsCode);
-		
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.eq("code", bedsCode));
 		District district = (District)crit.uniqueResult();
-
+		return district;
+	}
+	
+	@Override
+	public District findByUUID(String uuid)
+	{
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("uuid", uuid));
+		District district = (District)crit.uniqueResult();
 		return district;
 	}
 
@@ -43,13 +47,6 @@ public class DistrictDAOImpl extends AbstractDao<Integer, District> implements D
 		Criteria criteria = createEntityCriteria().addOrder(Order.asc("name"));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
 		List<District> districts = (List<District>) criteria.list();
-		
-		// No need to fetch userProfiles since we are not showing them on list page. Let them lazy load. 
-		// Uncomment below lines for eagerly fetching of userProfiles if you want.
-		/*
-		for(User user : users){
-			Hibernate.initialize(user.getUserProfiles());
-		}*/
 		return districts;
 	}
 
@@ -62,5 +59,12 @@ public class DistrictDAOImpl extends AbstractDao<Integer, District> implements D
 		crit.add(Restrictions.eq("code", bedsCode));
 		District district = (District)crit.uniqueResult();
 		delete(district);
+	}
+
+	@Override
+	public void deleteByUUID(String uuid)
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }
