@@ -24,10 +24,12 @@ import org.neric.regents.model.OrderForm;
 import org.neric.regents.model.OrderFormDocument;
 import org.neric.regents.model.OrderFormExam;
 import org.neric.regents.model.School;
+import org.neric.regents.model.SelectedDistrict;
 import org.neric.regents.model.SelectedDocument;
 import org.neric.regents.model.Setting;
 import org.neric.regents.model.SelectedExam;
 import org.neric.regents.model.User;
+import org.neric.regents.model.UserDistrict;
 import org.neric.regents.model.UserProfile;
 import org.neric.regents.service.DistrictService;
 import org.neric.regents.service.DocumentService;
@@ -465,10 +467,39 @@ public class AdminController {
 	{
 		User user = userService.findByUUID(uuid);
 		List<District> districts = districtService.findAllDistricts();
+		List<SelectedDistrict> selectedDistricts = new ArrayList<>();
+		
+		for(District d : districts)
+		{
+			SelectedDistrict sd = new SelectedDistrict();
+			sd.setDistrict(d);
+			sd.setSelected(false);
+			
+			if(hasDistrict(user.getUserDistricts(), d))
+			{
+				sd.setSelected(true);
+			}
+			
+			selectedDistricts.add(sd);
+		}
+		
 		model.addAttribute("user", user);
 		model.addAttribute("districts", districts);
+		model.addAttribute("selectedDistricts", selectedDistricts);
 		model.addAttribute("edit", true);
 		return "createUser";
+	}
+	
+	private boolean hasDistrict(Set<UserDistrict> set, District district)
+	{
+		for(UserDistrict d : set)
+		{
+			if(d.getDistrict().getId() == district.getId())
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	@RequestMapping(value = { "/admin/users/{uuid}/edit" }, method = RequestMethod.POST)
