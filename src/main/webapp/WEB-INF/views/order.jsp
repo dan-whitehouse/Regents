@@ -262,11 +262,12 @@
 										<div class="col-md-12 well text-center">
 											<h1 class="text-center"> Contact Information</h1>
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"> 
-											
-												<%-- <input type="text" class="form-control has-feedback-left" readonly="readonly" id="inputSuccess1" value="${loggedinuser.district.name}"> --%>
-												
+												<form:select path="" items="${districtsByUser}" itemValue="id" itemLabel="name" onchange="updateSchoolList()" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
 												<span class="fa fa-university form-control-feedback left" aria-hidden="true"></span>
 											</div>
+											
+											
+											
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
 												<form:select path="" items="${schoolsByDistrict}" itemValue="id" itemLabel="name" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
 												<span class="fa fa-graduation-cap form-control-feedback left" aria-hidden="true"></span>
@@ -577,6 +578,13 @@
 		function isEven(n) 
 		{
 		   return n % 2 == 0;
+		}
+		
+		function updateSchoolList() 
+		{
+			var list = '${loggedinusername}';
+			
+			alert(list);
 		}
 	</script>
 	<jsp:include page="fragments/footer.jsp" />

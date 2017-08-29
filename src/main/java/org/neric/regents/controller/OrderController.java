@@ -172,6 +172,21 @@ public class OrderController
 		return getPrincipal();
 	}
 
+	@ModelAttribute("districtsByUser")
+	public List<District> populateDistrictsByUser()
+	{
+		
+		Set<UserDistrict> userDistricts = loggedInUser().getUserDistricts();
+		List<District> districts = new ArrayList<>();
+		
+		for(UserDistrict ud : userDistricts)
+		{
+			districts.add(ud.getDistrict());
+		}
+		return districts;
+	}
+	
+	
 	@ModelAttribute("schoolsByDistrict")
 	public List<School> populateSchoolsByDistrict()
 	{
