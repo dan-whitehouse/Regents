@@ -66,8 +66,8 @@ public class User implements Serializable
 	private Boolean locked;
 	
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	@Cascade(CascadeType.SAVE_UPDATE)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
+	@Cascade(CascadeType.ALL)
 	private Set<UserDistrict> userDistricts = new HashSet<UserDistrict>(0);
 	
 	

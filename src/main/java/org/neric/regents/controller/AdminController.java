@@ -501,6 +501,7 @@ public class AdminController {
 		}
 		return false;
 	}
+
 	
 	@RequestMapping(value = { "/admin/users/{uuid}/edit" }, method = RequestMethod.POST)
 	public String updateUser(@Valid User user, BindingResult result, ModelMap model, @PathVariable String uuid) 
@@ -517,12 +518,65 @@ public class AdminController {
 			return "registration";
 		}*/
 
-		userService.updateUser(user);
+		
+		User updatedUser = userService.findByUUID(uuid);
+		updatedUser.getUserDistricts().clear();
+		
+		for(UserDistrict ud : user.getUserDistricts())
+		{
+			ud.setUser(user);
+			updatedUser.getUserDistricts().add(ud);
+		}
+		
+		userService.updateUser(updatedUser);
 
 		model.addAttribute("success", "User: " + user.getUsername() +  " was updated successfully");
 		model.addAttribute("returnLink", "/admin/users");
 		model.addAttribute("returnLinkText", "Users");
 		return "success";
+		
+		
+		
+		//----------------------------
+		
+		/*if (result.hasErrors()) 
+		{
+			return "createOrEditOrderForm";
+		}
+		
+		OrderForm orderFormUpdate = orderFormService.findByUUID(uuid);
+		orderFormUpdate.getOrderFormDocuments().clear();
+		orderFormUpdate.getOrderFormExams().clear();
+		
+		for(OrderFormExam e : orderForm.getOrderFormExams())
+		{
+			e.setOrderForm(orderForm);
+			orderFormUpdate.getOrderFormExams().add(e);
+		}
+		
+		for(OrderFormDocument d : orderForm.getOrderFormDocuments())
+		{
+			d.setOrderForm(orderForm);
+			orderFormUpdate.getOrderFormDocuments().add(d);
+		}
+		
+		orderFormService.updateOrderForm(orderFormUpdate);
+		
+		model.addAttribute("success", "OrderForm: " + orderForm.getName() + " was updated successfully");
+		model.addAttribute("returnLink", "/admin/orderForms");
+		model.addAttribute("returnLinkText", "Order Forms");
+
+		return "success";*/
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 	
 	
