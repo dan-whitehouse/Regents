@@ -16,14 +16,17 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 import org.apache.commons.lang3.StringUtils;
+import org.neric.regents.converture.DistrictEditor;
 import org.neric.regents.converture.OptionPrintEditor;
 import org.neric.regents.converture.OptionScanEditor;
+import org.neric.regents.converture.SchoolEditor;
 import org.neric.regents.model.District;
 import org.neric.regents.model.Document;
 import org.neric.regents.model.Exam;
 import org.neric.regents.model.OptionPrint;
 import org.neric.regents.model.OptionScan;
 import org.neric.regents.model.Order;
+import org.neric.regents.model.OrderContact;
 import org.neric.regents.model.OrderDocument;
 import org.neric.regents.model.OrderExam;
 import org.neric.regents.model.OrderForm;
@@ -60,6 +63,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -111,6 +115,12 @@ public class OrderController
 
 	@Autowired
 	OptionScanEditor optionScanEditor;
+	
+	@Autowired
+	DistrictEditor districtEditor;
+	
+	@Autowired
+	SchoolEditor schoolEditor;
 
 	@Autowired
 	UserProfileService userProfileService;
@@ -120,6 +130,8 @@ public class OrderController
 	{
 		binder.registerCustomEditor(OptionPrint.class, optionPrintEditor);
 		binder.registerCustomEditor(OptionScan.class, optionScanEditor);
+		binder.registerCustomEditor(District.class, districtEditor);
+        binder.registerCustomEditor(School.class, schoolEditor);
 	}
 
 	@ModelAttribute("allExamOptions")
@@ -262,7 +274,11 @@ public class OrderController
 
 		if (result.hasErrors())
 		{
-			return "orderErrors";
+			for(ObjectError x : result.getAllErrors())
+			{
+				System.out.println(x.getCode() + " | " + x.getObjectName() + " | " + x.getDefaultMessage());
+			}
+			return "error";
 		}
 
 		try
@@ -275,7 +291,7 @@ public class OrderController
 			order.setOrderStatus("Processing");
 			order.setUuid(UUID.randomUUID().toString());
 			order.setUser(loggedInUser());
-
+			
 			for (XExamWrapper ew : xForm.getSelectedExams())
 			{
 				if (ew.isSelected())
@@ -295,6 +311,11 @@ public class OrderController
 					order.getOrderDocuments().add(od);
 				}
 			}
+			
+			OrderContact oc = xForm.getOrderContact();
+			oc.setOrder(order);
+			order.setOrderContact(oc);
+			
 			orderService.saveOrder(order);
 		}
 		catch (Exception e)

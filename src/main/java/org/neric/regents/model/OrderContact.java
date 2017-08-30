@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -24,7 +26,7 @@ public class OrderContact implements Serializable
 	@Column(name = "order_contact_id", unique = true, nullable = false)
 	private Integer id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_id", nullable = false)
 	private Order order;
 	
@@ -51,6 +53,17 @@ public class OrderContact implements Serializable
 	@Column(name="alt_contact_info", nullable=true)
 	private String altContactInfo;
 	
+	
+	public OrderContact()
+	{
+		super();
+	}
+
+	public OrderContact(Order order)
+	{
+		super();
+		this.order = order;
+	}
 	
 	public Integer getId()
 	{
@@ -141,6 +154,4 @@ public class OrderContact implements Serializable
 	{
 		this.altContactInfo = altContactInfo;
 	}
-
-
 }

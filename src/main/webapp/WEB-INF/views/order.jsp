@@ -263,32 +263,28 @@
 											<h2 class="text-center"> Contact Information</h2>
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"> 
 												<!-- id is used in javascript -->
-												<form:select path="" id="districtList" items="${districtsByUser}" itemValue="id" itemLabel="name" onchange="updateSchoolList()" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
+												<form:select path="orderContact.district" id="districtList" items="${districtsByUser}" itemValue="id" itemLabel="name" onchange="updateSchoolList()" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
 												<span class="fa fa-university form-control-feedback left" aria-hidden="true"></span>
 											</div>
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
 												<!-- id is used in javascript -->
-												<form:select path="" id="schoolList" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
+												<form:select path="orderContact.school" id="schoolList" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
 												<span class="fa fa-graduation-cap form-control-feedback left" aria-hidden="true"></span>
 											</div>
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<input type="text" class="form-control has-feedback-left"
-													id="inputSuccess2" placeholder="First Name"> 
+												<form:input path="orderContact.name" type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Name" /> 
 												<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
 											</div>
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<input type="text" class="form-control has-feedback-left"
-													id="inputSuccess3" placeholder="Last Name"> 
+												<form:input path="orderContact.title" type="text" class="form-control has-feedback-left" id="inputSuccess3" placeholder="Title" /> 
 												<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
 											</div>
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<input type="text" class="form-control has-feedback-left"
-													id="inputSuccess4" placeholder="Email">
+												<form:input path="orderContact.email" type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="Email" />
 												<span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
 											</div>
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<input type="text" class="form-control has-feedback-left"
-													id="inputSuccess5" placeholder="Phone">
+												<form:input path="orderContact.phone" type="text" class="form-control has-feedback-left" id="inputSuccess5" placeholder="Phone" />
 												<span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
 											</div>
 											<c:if test="${orderForm.period ne 'August'}">
@@ -302,7 +298,7 @@
 												<h2 class="text-center"> Alternate Shipping Information</h2>
 												<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback"> 
 													<!-- id is used in javascript -->
-													<form:textarea path="" rows="10" maxlength="1000" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
+													<form:textarea path="orderContact.altContactInfo" rows="10" maxlength="1000" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
 													<span class="fa fa-truck form-control-feedback left" aria-hidden="true"></span>
 												</div>
 												<button id="activate-step-6" class="btn btn-primary btn-md" onclick="review()">Next</button> 

@@ -21,7 +21,17 @@ public class DistrictEditor extends PropertyEditorSupport
 	@Autowired
 	DistrictService districtService;
 	
-    @Override
+	@Override
+    public void setAsText(String id) 
+    {    	
+    	District district = null;
+        Integer dId = Integer.parseInt(id);
+        district = districtService.findById(dId);
+        this.setValue(district);
+    }
+	
+	
+   /* @Override
     public void setAsText(String id) 
     {    	
     	District district = null;
@@ -35,5 +45,5 @@ public class DistrictEditor extends PropertyEditorSupport
 			}
         }
         this.setValue(district);
-    }
+    }*/
 }

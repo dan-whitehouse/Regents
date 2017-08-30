@@ -23,7 +23,16 @@ public class SchoolEditor extends PropertyEditorSupport
 	@Autowired
 	SchoolService schoolService;
 	
-    @Override
+	@Override
+    public void setAsText(String id) 
+    {    	
+    	School school = null;
+        Integer sId = Integer.parseInt(id);
+        school = schoolService.findById(sId);
+        this.setValue(school);
+    }
+	
+    /*@Override
     public void setAsText(String id) 
     {    	
     	School school = null;
@@ -37,5 +46,5 @@ public class SchoolEditor extends PropertyEditorSupport
 			}
         }
         this.setValue(school);
-    }
+    }*/
 }

@@ -2,6 +2,8 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+
 <html>
 	<jsp:include page="fragments/header.jsp" />
 	<!-- page content -->
@@ -34,7 +36,7 @@
 									<c:forEach items="${orders}" var="order">
 										<tr>
 											<td><span style="text-decoration: underline;"><a href="<c:url value='/order/${order.uuid}' />"> ${order.uuid} </a></span></td>
-											<td>${order.orderDate}</td>
+											<td><fmt:formatDate value="${order.orderDate}" type="date" pattern="MM/dd/yyyy"/></td>
 											<td>June 2017</td>
 											<td>Albany County Super District</td>
 											<td>${order.user.firstName} ${order.user.lastName}</td>

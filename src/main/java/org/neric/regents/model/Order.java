@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -69,6 +70,9 @@ public class Order implements Serializable
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order", orphanRemoval = true)
 	@Cascade(CascadeType.ALL)
 	private Set<OrderDocument> orderDocuments = new HashSet<OrderDocument>(0);
+	
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "order", cascade = javax.persistence.CascadeType.ALL)
+	private OrderContact orderContact;
 
 	public Integer getId()
 	{
@@ -168,6 +172,17 @@ public class Order implements Serializable
 	public void setOrderStatus(String orderStatus)
 	{
 		this.orderStatus = orderStatus;
+	}
+	
+	
+	public OrderContact getOrderContact()
+	{
+		return orderContact;
+	}
+
+	public void setOrderContact(OrderContact orderContact)
+	{
+		this.orderContact = orderContact;
 	}
 
 	@Override

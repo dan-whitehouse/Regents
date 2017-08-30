@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.neric.regents.model.OptionPrint;
 import org.neric.regents.model.OptionScan;
+import org.neric.regents.model.OrderContact;
 
 //http://howtodoinjava.com/spring/spring-mvc/spring-mvc-populate-and-validate-dropdown-example/
 
@@ -31,6 +32,8 @@ public class XForm2 implements Serializable
     
     @NotNull
     private List<XDocumentWrapper> selectedDocuments = new ArrayList<>();
+    
+    private OrderContact orderContact;
 
 	public Integer getId()
 	{
@@ -94,13 +97,22 @@ public class XForm2 implements Serializable
 		this.selectedExams = selectedExams;
 	}
 	
-
 	public List<XDocumentWrapper> getSelectedDocuments() {
 		return selectedDocuments;
 	}
 
 	public void setSelectedDocuments(List<XDocumentWrapper> selectedDocuments) {
 		this.selectedDocuments = selectedDocuments;
+	}
+	
+	public OrderContact getOrderContact()
+	{
+		return orderContact;
+	}
+
+	public void setOrderContact(OrderContact orderContact)
+	{
+		this.orderContact = orderContact;
 	}
 
 	@Override
