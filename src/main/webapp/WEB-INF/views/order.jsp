@@ -262,14 +262,16 @@
 										<div class="col-md-12 well text-center">
 											<h1 class="text-center"> Contact Information</h1>
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"> 
-												<form:select path="" items="${districtsByUser}" itemValue="id" itemLabel="name" onchange="updateSchoolList()" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
+												<!-- id is used in javascript -->
+												<form:select path="" id="districtList" items="${districtsByUser}" itemValue="id" itemLabel="name" onchange="updateSchoolList()" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
 												<span class="fa fa-university form-control-feedback left" aria-hidden="true"></span>
 											</div>
 											
 											
 											
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<form:select path="" items="${schoolsByDistrict}" itemValue="id" itemLabel="name" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
+												<!-- id is used in javascript -->
+												<form:select path="" id="schoolList" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
 												<span class="fa fa-graduation-cap form-control-feedback left" aria-hidden="true"></span>
 											</div>
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
@@ -579,12 +581,47 @@
 		{
 		   return n % 2 == 0;
 		}
-		
+
 		function updateSchoolList() 
 		{
-			var list = '${loggedinusername}';
-			
-			alert(list);
+			//Populate Schools Array, include associated District data
+			var schools = new Array();
+			<c:forEach items="${schoolsByDistrict}" var="school" varStatus="status"> 
+				schoolDetails = new Object();
+				schoolDetails.id = ${school.id}; 
+				schoolDetails.name = "${school.name}"; 
+				
+				districtDetails = new Object();
+				districtDetails.id = ${school.district.id}; 
+				districtDetails.name = "${school.district.name}"; 
+				
+				schoolDetails.district = districtDetails;
+			    schools.push(schoolDetails);
+		    </c:forEach> 
+
+		    //Get Selected District from District Dropdwon
+		    var d = document.getElementById('districtList');
+		    var districtId = d.options[d.selectedIndex].value;
+
+		  	//Get and Clear School Dropdown
+		    var select = document.getElementById('schoolList');
+		    select.innerHTML = null;
+		    
+		    //Fill School Dropdown with Schools associated to the select District
+		    schools.forEach(function(school)
+		    {
+		    	if(school.district.id == districtId)
+	    		{
+		    		var opt = document.createElement('option');
+			        opt.value = school.id;
+			        opt.innerHTML = school.name;
+			        select.appendChild(opt);
+	    		}
+		    });
 		}
 	</script>
 	<jsp:include page="fragments/footer.jsp" />
+	<script>
+		//Set default Schools in Contact School List
+		$(document).ready(updateSchoolList);
+	</script>

@@ -3,6 +3,7 @@ package org.neric.regents.dao;
 import java.util.List;
 
 import org.neric.regents.model.Document;
+import org.neric.regents.model.OrderContact;
 import org.neric.regents.model.School;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
@@ -57,7 +58,12 @@ public class SchoolDAOImpl extends AbstractDao<Integer, School> implements Schoo
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.eq("district.id", id));
 		crit.addOrder(Order.asc("name"));
-		return (List<School>)crit.list();
+		List<School> schools = (List<School>)crit.list();
+		for(School school : schools)
+		{
+			Hibernate.initialize(school.getDistrict());	
+		}
+		return schools;
 	}
 
 	@Override
