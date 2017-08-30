@@ -70,6 +70,8 @@ public class User implements Serializable
 	@Cascade(CascadeType.ALL)
 	private Set<UserDistrict> userDistricts = new HashSet<UserDistrict>(0);
 	
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+//	private Set<OptOut> optOutUser = new HashSet<OptOut>(0);
 	
 	@NotEmpty
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -189,6 +191,16 @@ public class User implements Serializable
 	{
 		this.locked = locked;
 	}
+
+//	public Set<OptOut> getOptOutUser()
+//	{
+//		return optOutUser;
+//	}
+//
+//	public void setOptOutUser(Set<OptOut> optOutUser)
+//	{
+//		this.optOutUser = optOutUser;
+//	}
 
 	@Override
 	public int hashCode() {

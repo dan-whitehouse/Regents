@@ -4,6 +4,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <c:url value="/" var="home" />
 <c:url value="/order" var="order" />
+<c:url value="/optout" var="optout" />
 <c:url value="/orders" var="orders" />
 <c:url value="/profile-${loggedinuser}" var="profile" />
 <c:url value="/admin/users" var="users" />
@@ -70,6 +71,7 @@
 							<li><a href="${home}"><i class="fa fa-home"></i> Home</span></a></li>
 							<sec:authorize access="hasAnyRole('USER', 'ADMIN')">
 								<li><a href="${order}"><i class="fa fa-edit"></i> Order Form</span></a></li>
+								<li><a href="${optout}"><i class="fa fa-exclamation-triangle"></i> Opt Out</span></a></li>
 								<li><a href="${orders}"><i class="fa fa-truck"></i>My Orders</a></li>
 							</sec:authorize>
 						

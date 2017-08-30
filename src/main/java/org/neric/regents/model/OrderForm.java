@@ -128,6 +128,9 @@ public class OrderForm implements Serializable
 	@Cascade(CascadeType.ALL)
 	private Set<OrderFormDocument> orderFormDocuments = new HashSet<OrderFormDocument>(0);
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderForm")
+	private Set<OptOut> orderForm = new HashSet<OptOut>(0);
+	
 	
 	public Integer getId()
 	{

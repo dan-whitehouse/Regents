@@ -67,6 +67,9 @@ public class District implements Serializable
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "district")
 	private Set<UserDistrict> userDistricts = new HashSet<UserDistrict>(0);
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "district")
+	private Set<OptOut> district = new HashSet<OptOut>(0);
 
 
 	public Integer getId()
