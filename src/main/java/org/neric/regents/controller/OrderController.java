@@ -26,6 +26,7 @@ import org.neric.regents.model.OptionScan;
 import org.neric.regents.model.Order;
 import org.neric.regents.model.OrderDocument;
 import org.neric.regents.model.OrderExam;
+import org.neric.regents.model.OrderForm;
 import org.neric.regents.model.School;
 import org.neric.regents.model.User;
 import org.neric.regents.model.UserDistrict;
@@ -224,10 +225,12 @@ public class OrderController
 	{
 		if(orderFormService.hasActiveOrderForm())
 		{
-			if(orderFormService.getActiveOrderForm().getVisible())
+			OrderForm orderForm =orderFormService.getActiveOrderForm();
+			if(orderForm.getVisible())
 			{
 				XForm2 xForm = new XForm2();
 				model.addAttribute("xForm2", xForm);
+				model.addAttribute("orderForm", orderForm);
 				return "order";
 			}
 			else

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
@@ -46,15 +47,27 @@
 	                        	</div>
 							</div>
 							<div class="form-group">
+	                        	<label class="control-label col-md-3 col-sm-3 col-xs-12">Period <span class="required">*</span></label>
+	                        	<div class="col-md-6 col-sm-6 col-xs-12">
+	                          		<form:select path="period" id="period" name="period" class="date-picker form-control col-md-7 col-xs-12 active"  required="required">
+	                          			 <form:option value="August">August</form:option>
+	                          			 <form:option value="January">January</form:option>
+	                          			 <form:option value="June">June</form:option>
+	                          		</form:select>
+	                        	</div>
+							</div>
+							<div class="form-group">
 	                        	<label class="control-label col-md-3 col-sm-3 col-xs-12">Start Date <span class="required">*</span></label>
 	                        	<div class="col-md-6 col-sm-6 col-xs-12">
-	                          		<form:input type="text" path="startDate" id="orderFormStartDate" class="date-picker form-control col-md-7 col-xs-12 active" name="startDate" placeholder="Order Form Start Date" required="required"/>
+	                        		<fmt:formatDate value="${orderForm.startDate}" type="date" pattern="MM/dd/yyyy" var="fStartDate"/>
+	                          		<form:input type="text" path="startDate" id="orderFormStartDate" value="${fStartDate}" class="date-picker form-control col-md-7 col-xs-12 active" name="startDate" placeholder="Order Form Start Date" required="required"/>
 	                        	</div>
 							</div>
 							<div class="form-group">
 	                        	<label class="control-label col-md-3 col-sm-3 col-xs-12">End Date <span class="required">*</span></label>
 	                        	<div class="col-md-6 col-sm-6 col-xs-12">
-	                          		<form:input type="text" path="endDate" id="orderFormEndDate" class="date-picker form-control col-md-7 col-xs-12 active" name="endDate" placeholder="Order Form End Date" required="required"/>
+	                        		<fmt:formatDate value="${orderForm.endDate}" type="date" pattern="MM/dd/yyyy" var="fEndDate"/>
+	                          		<form:input type="text" path="endDate" id="orderFormEndDate" value="${fEndDate}" class="date-picker form-control col-md-7 col-xs-12 active" name="endDate" placeholder="Order Form End Date" required="required"/>
 	                        	</div>
 							</div>
 

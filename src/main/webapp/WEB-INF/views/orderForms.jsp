@@ -2,6 +2,8 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+
 <c:url value="/admin/orderForms/create" var="createOrderForm" />
 <html>
 	<jsp:include page="fragments/header.jsp" />
@@ -58,8 +60,12 @@
 									
 										
 											<td><a href="<c:url value='/admin/orderForms/${orderForm.uuid}' />">${orderForm.name}</a></td>
-											<td>${orderForm.startDate}</td>
-											<td>${orderForm.endDate}</td>
+											
+											<fmt:formatDate value="${orderForm.startDate}" type="date" pattern="MM/dd/yyyy" var="fStartDate"/>
+											<fmt:formatDate value="${orderForm.endDate}" type="date" pattern="MM/dd/yyyy" var="fEndDate"/>
+											
+											<td>${fStartDate}</td>
+											<td>${fEndDate}</td>
 											<td>
 											<!-- Start Status Test -->
 												<jsp:useBean id="now" class="java.util.Date"/>

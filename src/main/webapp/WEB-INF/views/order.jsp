@@ -69,7 +69,7 @@
 								<div class="row setup-content" id="step-1">
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
-											<h1 class="text-center"> Info</h1>
+											<h2 class="text-center"> Info</h2>
 											<div class="col-md-12 col-sm-12 col-xs-12">
 												<h2 class="StepTitle">JUNE 2017 - REGENTS ANSWER SHEET SERVICES & NON SECURE DOCUMENTS ORDER FORM</h2>
 												<p>
@@ -101,7 +101,7 @@
 								<div class="row setup-content" id="step-2">
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
-											<h1> Regents Exams</h1>
+											<h2> Regents Exams</h2>
 											<!-- <form> -->               
 											<div class="container col-xs-12">
 												<div class="row clearfix">
@@ -178,7 +178,7 @@
 								<div class="row setup-content" id="step-3">
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
-											<h1 class="text-center">Non-Secure Document</h1>
+											<h2 class="text-center">Non-Secure Document</h2>
 											<table class="table">
 												<thead>
 													<tr>
@@ -212,7 +212,7 @@
 								<div class="row setup-content" id="step-4">
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
-											<h1 class="text-center">Options</h1>
+											<h2 class="text-center">Options</h2>
 											<div class="form-group col-xs-12">
 												<label class="control-label col-md-6 col-sm-6 col-xs-12">Scanning/Scoring Option: 
 												<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default." >
@@ -260,15 +260,12 @@
 								<div class="row setup-content" id="step-5">
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
-											<h1 class="text-center"> Contact Information</h1>
+											<h2 class="text-center"> Contact Information</h2>
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"> 
 												<!-- id is used in javascript -->
 												<form:select path="" id="districtList" items="${districtsByUser}" itemValue="id" itemLabel="name" onchange="updateSchoolList()" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
 												<span class="fa fa-university form-control-feedback left" aria-hidden="true"></span>
 											</div>
-											
-											
-											
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
 												<!-- id is used in javascript -->
 												<form:select path="" id="schoolList" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
@@ -294,15 +291,32 @@
 													id="inputSuccess5" placeholder="Phone">
 												<span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
 											</div>
-											<button id="activate-step-6" class="btn btn-primary btn-md" onclick="review()">Next</button> 
+											<c:if test="${orderForm.period ne 'August'}">
+												<button id="activate-step-6" class="btn btn-primary btn-md" onclick="review()">Next</button>
+											</c:if>
 										</div>
 									</div>
+		                       		<c:if test="${orderForm.period eq 'August'}">
+										<div class="col-xs-12">
+											<div class="col-md-12 well text-center">
+												<h2 class="text-center"> Alternate Shipping Information</h2>
+												<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback"> 
+													<!-- id is used in javascript -->
+													<form:textarea path="" rows="10" maxlength="1000" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
+													<span class="fa fa-truck form-control-feedback left" aria-hidden="true"></span>
+												</div>
+												<button id="activate-step-6" class="btn btn-primary btn-md" onclick="review()">Next</button> 
+											</div>
+										</div>
+									</c:if>
 								</div>
 								<!--  STEP 6 - REVIEW -->
 								<div class="row setup-content" id="step-6">
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
-											<h1 class="text-center"> Review</h1>
+											<h2 class="text-center"> Review</h2>
+											
+											<!-- START EXAMS -->
 											<div class="col-md-12 col-sm-12 col-xs-12" >
 												<div class="x_panel">
 													<div class="x_title">
@@ -342,6 +356,7 @@
 													</div>
 												</div>
 											</div>
+											<!-- END EXAMS -->
 											<br />
 											<!-- START DOCUMENTS -->
 											<div class="col-md-6 col-sm-6 col-xs-6">
@@ -418,6 +433,21 @@
 												</div>
 											</div>
 											<!-- END OPTIONS -->
+											
+											<!-- START CONTACT -->
+											<div class="col-md-6 col-sm-12 col-xs-12" >
+												<div class="x_panel">
+													<div class="x_title">
+														<h2>Contact</h2>
+														<div class="clearfix"></div>
+													</div>
+													<div class="x_content">
+														
+													</div>
+												</div>
+											</div>
+											<!-- END CONTACT -->
+											<!-- START SUBMIT -->
 											<div class="col-md-6 col-sm-6 col-xs-6">
 												<div class="x_panel">
 													<div class="x_title">
@@ -432,7 +462,7 @@
 													</div>
 												</div>
 											</div>
-											
+											<!-- END SUBMIT -->
 										</div>
 									</div>
 								</div>

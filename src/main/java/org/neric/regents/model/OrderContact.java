@@ -29,6 +29,10 @@ public class OrderContact implements Serializable
 	private Order order;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "district_id", nullable = false)
+	private District district;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "school_id", nullable = false)
 	private School school;
 
@@ -44,23 +48,9 @@ public class OrderContact implements Serializable
 	@Column(name="contact_phone", nullable=true)
 	private String phone;
 	
-	@Column(name="alt_contact_name", nullable=true)
-	private String altName;
+	@Column(name="alt_contact_info", nullable=true)
+	private String altContactInfo;
 	
-	@Column(name="alt_line1", nullable=true)
-	private String altLine1;
-	
-	@Column(name="alt_line2", nullable=true)
-	private String altLine2;
-	
-	@Column(name="alt_city", nullable=true)
-	private String altCity;
-	
-	@Column(name="alt_state", nullable=true)
-	private String altState;
-	
-	@Column(name="alt_zip_code", nullable=true)
-	private String altZipCode;
 	
 	public Integer getId()
 	{
@@ -80,6 +70,16 @@ public class OrderContact implements Serializable
 	public void setOrder(Order order)
 	{
 		this.order = order;
+	}
+
+	public District getDistrict()
+	{
+		return district;
+	}
+
+	public void setDistrict(District district)
+	{
+		this.district = district;
 	}
 
 	public School getSchool()
@@ -132,69 +132,15 @@ public class OrderContact implements Serializable
 		this.phone = phone;
 	}
 
-	public String getAltName()
+	public String getAltContactInfo()
 	{
-		return altName;
+		return altContactInfo;
 	}
 
-	public void setAltName(String altName)
+	public void setAltContactInfo(String altContactInfo)
 	{
-		this.altName = altName;
+		this.altContactInfo = altContactInfo;
 	}
 
-	public String getAltLine1()
-	{
-		return altLine1;
-	}
 
-	public void setAltLine1(String altLine1)
-	{
-		this.altLine1 = altLine1;
-	}
-
-	public String getAltLine2()
-	{
-		return altLine2;
-	}
-
-	public void setAltLine2(String altLine2)
-	{
-		this.altLine2 = altLine2;
-	}
-
-	public String getAltCity()
-	{
-		return altCity;
-	}
-
-	public void setAltCity(String altCity)
-	{
-		this.altCity = altCity;
-	}
-
-	public String getAltState()
-	{
-		return altState;
-	}
-
-	public void setAltState(String altState)
-	{
-		this.altState = altState;
-	}
-
-	public String getAltZipCode()
-	{
-		return altZipCode;
-	}
-
-	public void setAltZipCode(String altZipCode)
-	{
-		this.altZipCode = altZipCode;
-	}
-
-	@Override
-	public String toString()
-	{
-		return "OrderContact [id=" + id + ", order=" + order + ", school=" + school + ", name=" + name + ", title=" + title + ", email=" + email + ", phone=" + phone + ", altName=" + altName + ", altLine1=" + altLine1 + ", altLine2=" + altLine2 + ", altCity=" + altCity + ", altState=" + altState + ", altZipCode=" + altZipCode + "]";
-	}
 }

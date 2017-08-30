@@ -39,12 +39,13 @@ public class OrderForm implements Serializable
 		this.active = false;
 	}
 
-	public OrderForm(Integer id, String uuid, String name, Date startDate, Date endDate)
+	public OrderForm(Integer id, String uuid, String name, String period, Date startDate, Date endDate)
 	{
 		super();
 		this.id = id;
 		this.uuid = uuid;
 		this.name = name;
+		this.period = period;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.locked = false;
@@ -52,12 +53,13 @@ public class OrderForm implements Serializable
 		this.active = false;
 	}
 
-	public OrderForm(Integer id, String uuid, String name, Date startDate, Date endDate, Boolean visible, Boolean locked)
+	public OrderForm(Integer id, String uuid, String name, String period, Date startDate, Date endDate, Boolean visible, Boolean locked)
 	{
 		super();
 		this.id = id;
 		this.uuid = uuid;
 		this.name = name;
+		this.period = period;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.visible = visible;
@@ -66,12 +68,13 @@ public class OrderForm implements Serializable
 	}
 	
 	
-	public OrderForm(Integer id, String uuid, String name, Date startDate, Date endDate, Boolean visible, Boolean locked, Set<OrderFormExam> orderFormExams, Set<OrderFormDocument> orderFormDocuments)
+	public OrderForm(Integer id, String uuid, String name, String period, Date startDate, Date endDate, Boolean visible, Boolean locked, Set<OrderFormExam> orderFormExams, Set<OrderFormDocument> orderFormDocuments)
 	{
 		super();
 		this.id = id;
 		this.uuid = uuid;
 		this.name = name;
+		this.period = period;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.visible = visible;
@@ -95,6 +98,10 @@ public class OrderForm implements Serializable
 	@NotEmpty
 	@Column(name="name", unique=true, nullable=false)
 	private String name;
+	
+	@NotEmpty
+	@Column(name="period", unique=true, nullable=false)
+	private String period;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "startDate", unique = false, nullable = false)
@@ -150,6 +157,16 @@ public class OrderForm implements Serializable
 	public void setName(String name)
 	{
 		this.name = name;
+	}
+
+	public String getPeriod()
+	{
+		return period;
+	}
+
+	public void setPeriod(String period)
+	{
+		this.period = period;
 	}
 
 	public Date getStartDate()

@@ -362,6 +362,10 @@ public class AdminController {
 		}
 		
 		OrderForm orderFormUpdate = orderFormService.findByUUID(uuid);
+		orderFormUpdate.setName(orderForm.getName());
+		orderFormUpdate.setPeriod(orderForm.getPeriod());
+		orderFormUpdate.setStartDate(orderForm.getStartDate());
+		orderFormUpdate.setEndDate(orderForm.getEndDate());
 		orderFormUpdate.getOrderFormDocuments().clear();
 		orderFormUpdate.getOrderFormExams().clear();
 		

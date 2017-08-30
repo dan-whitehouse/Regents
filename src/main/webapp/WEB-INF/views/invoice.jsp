@@ -61,7 +61,7 @@
                        		<strong>Email: </strong> ${order.user.email} 
                       	</div>
                       	<div class="col-sm-4 invoice-col"> 
-                       		<strong>District: </strong> ${order.user.district.name} 
+                       		<strong>District: </strong> <%-- ${order.user.district.name} --%>
                       	</div>
                       </div>
                       
