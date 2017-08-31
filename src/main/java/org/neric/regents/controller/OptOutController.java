@@ -165,8 +165,17 @@ public class OptOutController {
 		return "optOuts";
 	}
 	
+	@RequestMapping(value = { "/optout" }, method = RequestMethod.GET)
+	public String getOptOutForm(Model model)
+	{
+		OptOut optOut = new OptOut();
+		
+		model.addAttribute("optout", optOut);
+		return "optout";
+	}
+	
 	@RequestMapping(value = { "/optout" }, method = RequestMethod.POST)
-	public String createOrderForm(@Valid OptOut optOut, BindingResult result, ModelMap model) 
+	public String postOptOutForm(@Valid OptOut optOut, BindingResult result, ModelMap model) 
 	{
 		if (result.hasErrors()) 
 		{
