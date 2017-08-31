@@ -56,7 +56,7 @@
 															<a href="<c:url value='/admin/printOptions/${printOption.uuid}/hide/false' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Visible"><i class="fa fa-eye"></i></a>
 														</c:when>
 														<c:otherwise>
-															<a href="<c:url value='/admin/printOptions/${printOption.uuid}/hide/true' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Hidden"><i class="fa fa-ey-slashe"></i></a>
+															<a href="<c:url value='/admin/printOptions/${printOption.uuid}/hide/true' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Hidden"><i class="fa fa-eye-slash"></i></a>
 														</c:otherwise>
 													</c:choose>
 													<!-- Lock -->

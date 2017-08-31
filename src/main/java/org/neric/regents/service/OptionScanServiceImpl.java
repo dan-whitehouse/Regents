@@ -28,9 +28,21 @@ public class OptionScanServiceImpl implements OptionScanService
 		return dao.findById(id);
 	}
 
+	@Override
+	public OptionScan findByUUID(String uuid)
+	{
+		return dao.findByUUID(uuid);
+	}
+	
 	public List<OptionScan> findAllOptionScans()
 	{
 		return dao.findAllOptionScans();
+	}
+	
+	@Override
+	public List<OptionScan> findAllActivelOptionScans()
+	{
+		return dao.findAllActiveOptionScans();
 	}
 
 	public void save(OptionScan optionScan)
@@ -54,9 +66,25 @@ public class OptionScanServiceImpl implements OptionScanService
 	}
 	
 	@Override
+	public void deleteByUUID(String uuid)
+	{
+		dao.deleteByUUID(uuid);
+	}
+	
+	@Override
 	public void lockByOptionScanId(int id, Boolean isLocked)
 	{
 		OptionScan entity = dao.findById(id);
+		if(entity != null)
+		{
+			entity.setLocked(isLocked);
+		}
+	}
+	
+	@Override
+	public void lockByOptionScanUUID(String uuid, Boolean isLocked)
+	{
+		OptionScan entity = dao.findByUUID(uuid);
 		if(entity != null)
 		{
 			entity.setLocked(isLocked);
@@ -74,8 +102,13 @@ public class OptionScanServiceImpl implements OptionScanService
 	}
 
 	@Override
-	public List<OptionScan> findAllActivelOptionScans()
+	public void hideByOptionScanUUID(String uuid, Boolean isHidden)
 	{
-		return dao.findAllActiveOptionScans();
+		OptionScan entity = dao.findByUUID(uuid);
+		if(entity != null)
+		{
+			entity.setVisible(isHidden);
+		}
+		
 	}
 }

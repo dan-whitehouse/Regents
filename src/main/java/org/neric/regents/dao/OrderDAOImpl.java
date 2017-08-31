@@ -8,6 +8,7 @@ import org.hibernate.criterion.Restrictions;
 import org.neric.regents.model.District;
 import org.neric.regents.model.Document;
 import org.neric.regents.model.Order;
+import org.neric.regents.model.OrderContact;
 import org.neric.regents.model.OrderDocument;
 import org.neric.regents.model.OrderExam;
 import org.neric.regents.model.UserDistrict;
@@ -57,6 +58,11 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 			
 			Hibernate.initialize(order.getOrderPrint());
 			Hibernate.initialize(order.getOrderScan());
+			
+			Hibernate.initialize(order.getOrderContact());
+			Hibernate.initialize(order.getOrderContact().getDistrict());
+			Hibernate.initialize(order.getOrderContact().getSchool());
+			
 		}
 		return order;
 	}

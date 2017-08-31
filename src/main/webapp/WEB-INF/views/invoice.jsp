@@ -53,15 +53,23 @@
                         </div>
                       </div>
                       
+                      <hr />
+                      
                       <div class="row invoice-info">
                       	<div class="col-sm-4 invoice-col"> 
-                       		<strong>Contact: </strong> ${order.user.firstName} ${order.user.lastName} 
+                       		<strong>Contact: </strong> ${order.orderContact.name}
                       	</div>
                       	<div class="col-sm-4 invoice-col"> 
-                       		<strong>Email: </strong> ${order.user.email} 
+                       		<strong>Email: </strong> ${order.orderContact.email} 
                       	</div>
                       	<div class="col-sm-4 invoice-col"> 
-                       		<strong>District: </strong> <%-- ${order.user.district.name} --%>
+                       		<strong>Phone: </strong> ${order.orderContact.phone} 
+                      	</div>
+                      	<div class="col-sm-4 invoice-col"> 
+                       		<strong>District: </strong> ${order.orderContact.district.name}
+                      	</div>
+                      	<div class="col-sm-4 invoice-col"> 
+                       		<strong>School: </strong> ${order.orderContact.school.name}
                       	</div>
                       </div>
                       

@@ -926,10 +926,10 @@ public class AdminController {
 		return "success";
 	}
 	
-	@RequestMapping(value = { "/admin/scanOptions/{id}/edit" }, method = RequestMethod.GET)
-	public String editScanOption(@PathVariable int id, ModelMap model) 
+	@RequestMapping(value = { "/admin/scanOptions/{uuid}/edit" }, method = RequestMethod.GET)
+	public String editScanOption(@PathVariable String uuid, ModelMap model) 
 	{
-		OptionScan scanOption = optionScanService.findById(id);
+		OptionScan scanOption = optionScanService.findByUUID(uuid);
 		
 		if(!scanOption.getLocked())
 		{
@@ -940,8 +940,8 @@ public class AdminController {
 		else return "403";	
 	}
 	
-	@RequestMapping(value = { "/admin/scanOptions/{id}/edit" }, method = RequestMethod.POST)
-	public String updateScanOption(@Valid OptionScan optionScan, BindingResult result, ModelMap model, @PathVariable int id) 
+	@RequestMapping(value = { "/admin/scanOptions/{uuid}/edit" }, method = RequestMethod.POST)
+	public String updateScanOption(@Valid OptionScan optionScan, BindingResult result, ModelMap model, @PathVariable String uuid) 
 	{
 		if (result.hasErrors()) 
 		{
@@ -957,30 +957,30 @@ public class AdminController {
 	}
 
 
-	@RequestMapping(value = { "/admin/scanOptions/{id}/delete" }, method = RequestMethod.GET)
-	public String deleteScanOption(@PathVariable int id) 
+	@RequestMapping(value = { "/admin/scanOptions/{uuid}/delete" }, method = RequestMethod.GET)
+	public String deleteScanOption(@PathVariable String uuid) 
 	{
-		OptionScan os = optionScanService.findById(id);
+		OptionScan os = optionScanService.findByUUID(uuid);
 		
 		if(!os.getLocked())
 		{
-			optionScanService.delete(id);
+			optionScanService.deleteByUUID(uuid);
 			return "redirect:/admin/scanOptions";
 		}
 		else return "403";
 	}
 	
-	@RequestMapping(value = { "/admin/scanOptions/{id}/lock/{isLocked}" }, method = RequestMethod.GET)
-	public String lockScanOption(@PathVariable int id, @PathVariable boolean isLocked) 
+	@RequestMapping(value = { "/admin/scanOptions/{uuid}/lock/{isLocked}" }, method = RequestMethod.GET)
+	public String lockScanOption(@PathVariable String uuid, @PathVariable boolean isLocked) 
 	{
-		optionScanService.lockByOptionScanId(id, isLocked);
+		optionScanService.lockByOptionScanUUID(uuid, isLocked);
 		return "redirect:/admin/scanOptions";
 	}
 	
-	@RequestMapping(value = { "/admin/scanOptions/{id}/hide/{isHidden}" }, method = RequestMethod.GET)
-	public String hideScanOption(@PathVariable int id, @PathVariable boolean isHidden) 
+	@RequestMapping(value = { "/admin/scanOptions/{uuid}/hide/{isHidden}" }, method = RequestMethod.GET)
+	public String hideScanOption(@PathVariable String uuid, @PathVariable boolean isHidden) 
 	{
-		optionScanService.hideByOptionScanId(id, isHidden);
+		optionScanService.hideByOptionScanUUID(uuid, isHidden);
 		return "redirect:/admin/scanOptions";
 	}
 	

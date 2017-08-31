@@ -14,6 +14,8 @@ public interface OptionScanService
 {
 	OptionScan findById(int id);
 	
+	OptionScan findByUUID(String uuid);
+	
 	List<OptionScan> findAllOptionScans();
 	
 	void save(OptionScan optionScan);
@@ -22,10 +24,15 @@ public interface OptionScanService
 	
 	void delete(int id);
 	
+	void deleteByUUID(String uuid);
+	
 	void lockByOptionScanId(int id, Boolean isLocked);
 	
-	void hideByOptionScanId(int id, Boolean isHidden);
-
-	List<OptionScan> findAllActivelOptionScans();
+	void lockByOptionScanUUID(String uuid, Boolean isLocked);
 	
+	void hideByOptionScanId(int id, Boolean isHidden);
+	
+	void hideByOptionScanUUID(String uuid, Boolean isHidden);
+
+	List<OptionScan> findAllActivelOptionScans();	
 }

@@ -12,6 +12,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.neric.regents.model.OptionPrint;
 import org.neric.regents.model.OptionScan;
 import org.springframework.stereotype.Repository;
 
@@ -21,6 +22,19 @@ public class OptionScanDaoImpl extends AbstractDao<Integer, OptionScan> implemen
 	public OptionScan findById(int id)
 	{
 		OptionScan option = getByKey(id);
+		if(option != null)
+		{
+			Hibernate.initialize(option.getOrdersScan());
+		}
+		return option;
+	}
+	
+	@Override
+	public OptionScan findByUUID(String uuid)
+	{
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("uuid", uuid));
+		OptionScan option = (OptionScan)crit.uniqueResult();
 		if(option != null)
 		{
 			Hibernate.initialize(option.getOrdersScan());
@@ -49,8 +63,7 @@ public class OptionScanDaoImpl extends AbstractDao<Integer, OptionScan> implemen
 	
 	public void save(OptionScan optionScan)
 	{
-		persist(optionScan);
-		
+		persist(optionScan);	
 	}
 
 	public void delete(int id)
@@ -59,6 +72,14 @@ public class OptionScanDaoImpl extends AbstractDao<Integer, OptionScan> implemen
 		crit.add(Restrictions.eq("id", id));
 		OptionScan optionScan = (OptionScan)crit.uniqueResult();
 		delete(optionScan);
-		
+	}
+
+	@Override
+	public void deleteByUUID(String uuid)
+	{
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("uuid", uuid));
+		OptionScan optionScan = (OptionScan)crit.uniqueResult();
+		delete(optionScan);
 	}
 }

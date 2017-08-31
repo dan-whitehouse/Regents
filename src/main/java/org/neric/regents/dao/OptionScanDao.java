@@ -14,7 +14,11 @@ public interface OptionScanDao
 {
 	OptionScan findById(int id);
 	
+	OptionScan findByUUID(String uuid);
+	
 	List<OptionScan> findAllOptionScans();
+	
+	List<OptionScan> findAllActiveOptionScans();
 	
 	void save(OptionScan optionScan);
 	
@@ -22,5 +26,6 @@ public interface OptionScanDao
 	
 	void delete(int id);
 
-	List<OptionScan> findAllActiveOptionScans();
+	void deleteByUUID(String uuid);
+
 }
