@@ -63,6 +63,8 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 			Hibernate.initialize(order.getOrderContact().getDistrict());
 			Hibernate.initialize(order.getOrderContact().getSchool());
 			
+			Hibernate.initialize(order.getOrderForm());
+			
 		}
 		return order;
 	}

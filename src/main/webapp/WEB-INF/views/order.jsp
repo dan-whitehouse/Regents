@@ -70,6 +70,7 @@
 								</div>
 							</div>
 							<form:form method="POST" modelAttribute="xForm2" cssClass="container">
+								<%-- <form:hidden path="orderForm" value="${orderForm}"/> --%>
 								<!-- STEP 1 - INFO -->
 								<div class="row setup-content" id="step-1">
 									<div class="col-xs-12">

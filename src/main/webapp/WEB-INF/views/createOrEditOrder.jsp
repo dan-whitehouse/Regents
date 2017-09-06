@@ -287,12 +287,9 @@
 												<form:input path="orderContact.phone" type="text" class="form-control has-feedback-left" id="orderContact.phone" placeholder="Phone" />
 												<span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
 											</div>
-											<c:if test="${orderForm.period ne 'August'}">
-												<button id="activate-step-6" class="btn btn-primary btn-md" onclick="review()">Next</button>
-											</c:if>
 										</div>
 									</div>
-		                       		<c:if test="${orderForm.period eq 'August'}">
+		                       		<c:if test="${xForm2.orderForm.period eq 'August'}">
 										<div class="col-xs-12">
 											<div class="col-md-12 well text-center">
 												<h2 class="text-center"> Alternate Shipping Information</h2>

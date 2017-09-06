@@ -128,6 +128,10 @@ public class OrderForm implements Serializable
 	@Cascade(CascadeType.ALL)
 	private Set<OrderFormDocument> orderFormDocuments = new HashSet<OrderFormDocument>(0);
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderForm", orphanRemoval = true)
+	@Cascade(CascadeType.ALL)
+	private Set<Order> orders = new HashSet<Order>(0);
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderForm")
 	private Set<OptOut> orderForm = new HashSet<OptOut>(0);
 	
@@ -236,10 +240,20 @@ public class OrderForm implements Serializable
 	{
 		return active;
 	}
-
+	
 	public void setActive(Boolean active)
 	{
 		this.active = active;
+	}
+
+	public Set<Order> getOrders()
+	{
+		return orders;
+	}
+
+	public void setOrders(Set<Order> orders)
+	{
+		this.orders = orders;
 	}
 
 	@Override

@@ -259,7 +259,6 @@ public class OrderController
 	@RequestMapping(value = { "/order" }, method = RequestMethod.POST)
 	public String submitForm(@ModelAttribute("xForm2") XForm2 xForm, BindingResult result, SessionStatus status)
 	{
-
 		Set<ConstraintViolation<XForm2>> violations = validator.validate(xForm);
 
 		for (ConstraintViolation<XForm2> violation : violations)
@@ -315,6 +314,9 @@ public class OrderController
 			OrderContact oc = xForm.getOrderContact();
 			oc.setOrder(order);
 			order.setOrderContact(oc);
+			
+			OrderForm orderForm = orderFormService.getActiveOrderForm();
+			order.setOrderForm(orderForm);
 			
 			orderService.saveOrder(order);
 		}
@@ -382,8 +384,8 @@ public class OrderController
 		xForm.setReportingOption(order.getReportToLevelOne());
 		xForm.setSelectedOptionPrint(order.getOrderPrint());
 		xForm.setOrderContact(order.getOrderContact());
-		
-		
+		xForm.setOrderForm(order.getOrderForm());
+			
 		model.addAttribute("xForm2", xForm);
 		return "createOrEditOrder";
 	}
@@ -426,6 +428,23 @@ public class OrderController
 					order.getOrderDocuments().add(od);
 				}
 			}
+
+			//Update OrderContact data associated to Order
+			OrderContact oc = xForm.getOrderContact();
+			order.getOrderContact().setName(oc.getName());
+			order.getOrderContact().setTitle(oc.getTitle());
+			order.getOrderContact().setEmail(oc.getEmail());
+			order.getOrderContact().setAltContactInfo(oc.getAltContactInfo());
+			order.getOrderContact().setPhone(oc.getPhone());
+			order.getOrderContact().setSchool(oc.getSchool());
+			order.getOrderContact().setDistrict(oc.getDistrict());
+			order.getOrderContact().setOrder(order);
+			
+
+			//Attach OrderForm to Order
+			OrderForm of = orderFormService.getActiveOrderForm();
+			order.setOrderForm(of);
+			
 			orderService.updateOrder(order);
 			model.addAttribute("success", "Order: " + order.getUuid() + " - " + " was updated successfully");
 			model.addAttribute("returnLink", "/orders");

@@ -49,7 +49,7 @@ public class District implements Serializable
 	
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	@Column(name = "uuid", unique = true, nullable = false)
+	@Column(name = "uuid", nullable = false)
 	private String uuid;
 	
 	@NotEmpty

@@ -71,9 +71,14 @@ public class Order implements Serializable
 	@Cascade(CascadeType.ALL)
 	private Set<OrderDocument> orderDocuments = new HashSet<OrderDocument>(0);
 	
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "order", cascade = javax.persistence.CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "order", orphanRemoval = true)
+	@Cascade(CascadeType.ALL)
 	private OrderContact orderContact;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "orderForm_id", nullable = false)
+	private OrderForm orderForm;
+	
 	public Integer getId()
 	{
 		return id;
@@ -183,6 +188,17 @@ public class Order implements Serializable
 	public void setOrderContact(OrderContact orderContact)
 	{
 		this.orderContact = orderContact;
+	}
+	
+	
+	public OrderForm getOrderForm()
+	{
+		return orderForm;
+	}
+
+	public void setOrderForm(OrderForm orderForm)
+	{
+		this.orderForm = orderForm;
 	}
 
 	@Override
