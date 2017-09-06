@@ -458,6 +458,13 @@ public class AdminController {
 		user.setLocked(false);
 		user.setVisible(true);
 		user.setUuid(UUID.randomUUID().toString());
+		
+		
+		for(UserDistrict ud : user.getUserDistricts())
+		{
+			ud.setUser(user);
+		}
+		
 		userService.saveUser(user);
 
 		model.addAttribute("success", "User: " + user.getUsername() + " was registered successfully");
