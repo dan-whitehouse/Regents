@@ -237,7 +237,7 @@ public class OrderController
 	{
 		if(orderFormService.hasActiveOrderForm())
 		{
-			OrderForm orderForm =orderFormService.getActiveOrderForm();
+			OrderForm orderForm = orderFormService.getActiveOrderForm();
 			if(orderForm.getVisible())
 			{
 				XForm2 xForm = new XForm2();
@@ -365,8 +365,7 @@ public class OrderController
 				}
 			}
 		}
-		
-		
+			
 		for(XDocumentWrapper dw : xForm.getSelectedDocuments())
 		{
 			for(OrderDocument d : order.getOrderDocuments())
@@ -382,6 +381,7 @@ public class OrderController
 		xForm.setSelectedOptionScan(order.getOrderScan());
 		xForm.setReportingOption(order.getReportToLevelOne());
 		xForm.setSelectedOptionPrint(order.getOrderPrint());
+		xForm.setOrderContact(order.getOrderContact());
 		
 		
 		model.addAttribute("xForm2", xForm);

@@ -11,8 +11,6 @@
 <fmt:formatDate var="year" value="${now}" pattern="yyyy" />
 
 
-
-<!-- http://bootsnipp.com/snippets/W7gNz -->
 	<jsp:include page="fragments/header.jsp" />
 	<!-- page content -->
 	<div class="right_col" role="main">
@@ -467,6 +465,7 @@
 										</div>
 									</div>
 								</div>
+								<!--  END STEP 6 - REVIEW -->
 							</form:form>
 							<!-- End Wizard -->
 						</div>

@@ -116,6 +116,6 @@ public class School implements Serializable
 	@Override
 	public String toString()
 	{
-		return "School [id=" + id + ", district=" + district + ", name=" + name + ", orderContacts=" + orderContacts + "]";
+		return "School [id=" + id + ", district=" + district + ", name=" + name + "]";
 	}
 }

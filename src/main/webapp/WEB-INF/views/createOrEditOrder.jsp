@@ -4,9 +4,13 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <c:url value="/order" var="order" />
-<!-- http://bootsnipp.com/snippets/W7gNz -->
-<html>
+<jsp:useBean id="now" class="java.util.Date" />
+<fmt:formatDate var="year" value="${now}" pattern="yyyy" />
+
+
 	<jsp:include page="fragments/header.jsp" />
 	<!-- page content -->
 	<div class="right_col" role="main">
@@ -70,12 +74,11 @@
 								<div class="row setup-content" id="step-1">
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
-											<h1 class="text-center"> Info</h1>
-											<div class="col-md-12 col-sm-12 col-xs-12">
-												<h2 class="StepTitle">JUNE 2017 - REGENTS ANSWER SHEET SERVICES & NON SECURE DOCUMENTS ORDER FORM</h2>
+											<div class="col-md-12 col-sm-12 col-xs-12">	
+												<h2 class="StepTitle">${orderForm.period} ${year} - REGENTS ANSWER SHEET SERVICES & NON SECURE DOCUMENTS ORDER FORM</h2>
 												<p>
 													<strong>Directions: </strong>
-													The order form and data <strong>must</strong> be recieved by NERIC no later than ${dueDate}. 
+													The order form and data <strong>must</strong> be received by NERIC no later than ${dueDate}. 
 												</p>
 												<p>
 													<strong>Student Demographic Data File: </strong>
@@ -93,6 +96,7 @@
 											</div>
 											<div class="col-md-12 col-sm-12 col-xs-12">
 												<br>
+												<button id="activate-step-2" class="btn btn-primary btn-md">Next</button>
 											</div>
 										</div>
 									</div>
@@ -101,7 +105,6 @@
 								<div class="row setup-content" id="step-2">
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
-											<h1> Regents Exams</h1>
 											<!-- <form> -->               
 											<div class="container col-xs-12">
 												<div class="row clearfix">
@@ -109,7 +112,7 @@
 														<table class="table" id="tab_logic">
 															<thead>
 																<tr>
-																	<th>Order</th>
+																	<th width="75px">Order <input type="checkbox" id="isCheckedExams" onclick="selectAllExams()"/></th>
 																	<th class="col-md-5 col-xs-12">Test Name</th>
 																	<th>Number of Test
 																		<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="Pull from Level 0: Number of students enrolled in a course resulting in an exam." >
@@ -141,7 +144,7 @@
 																			<form:checkbox path="selectedExams[${status.index}].selected" class="flat"/>
 																		</td>
 																		<td>
-																			<form:input path="selectedExams[${status.index}].orderExam.exam.name" value="${e.orderExam.exam.name } - ${e.orderExam.exam.code}"  class="form-control col-md-3 col-xs-12" />
+																			<form:input path="selectedExams[${status.index}].orderExam.exam.name" value="${e.orderExam.exam.name } - ${e.orderExam.exam.code}"  class="form-control col-md-3 col-xs-12" readonly="true"/>
 																		</td>
 																		<td>
 																			<form:input path="selectedExams[${status.index}].orderExam.examAmount" class="form-control col-md-3 col-xs-12" />
@@ -176,11 +179,10 @@
 								<div class="row setup-content" id="step-3">
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
-											<h1 class="text-center">Non-Secure Document</h1>
 											<table class="table">
 												<thead>
 													<tr>
-														<th>Order</th>
+														<th width="75px">Order <input type="checkbox" id="isCheckedDocuments" onclick="selectAllDocuments()"/></th>
 														<th>Name</th>
 														<th>Number Requested</th>
 													</tr>
@@ -193,7 +195,7 @@
 																<form:checkbox path="selectedDocuments[${status.index}].selected" class="flat"/>
 															</td>
 															<td>
-																<form:input path="selectedDocuments[${status.index}].orderDocument.document.name" value="${d.orderDocument.document.name }"  class="form-control col-md-3 col-xs-12" />
+																<form:input path="selectedDocuments[${status.index}].orderDocument.document.name" value="${d.orderDocument.document.name }"  class="form-control col-md-3 col-xs-12" readonly="true" />
 															</td>
 															<td>
 																<form:input path="selectedDocuments[${status.index}].orderDocument.documentAmount" class="form-control col-md-3 col-xs-12" />
@@ -208,8 +210,7 @@
 								<!-- STEP 4 - OPTIONS -->
 								<div class="row setup-content" id="step-4">
 									<div class="col-xs-12">
-										<div class="col-md-12 well text-center">
-											<h1 class="text-center">Options</h1>
+										<div class="col-md-12 well">
 											<div class="form-group col-xs-12">
 												<label class="control-label col-md-6 col-sm-6 col-xs-12">Scanning/Scoring Option: 
 												<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default." >
@@ -217,7 +218,11 @@
 												</span>
 												</label>
 												<div class="col-md-6 col-sm-6 col-xs-12">
-													<form:radiobuttons path="selectedOptionScan" name="selectedOptionScan" items="${allScanOptions}" itemValue="id" itemLabel="name" cssClass="radio flat form-control"/>
+													<div class="radio">
+														<ul class="list-unstyled">
+															<form:radiobuttons path="selectedOptionScan" name="selectedOptionScan" items="${allScanOptions}" itemValue="id" itemLabel="name" cssClass="radio flat form-control" element="li"/>
+														</ul>
+													</div>
 												</div>
 											</div>
 											<br />
@@ -229,9 +234,7 @@
 												</label>
 												<div class="col-md-6 col-sm-6 col-xs-12">
 													<div class="checkbox">
-														<label>
-															<form:checkbox path="reportingOption" name="reportingOption" cssClass="form-control flat" label="NERIC will load scores into Level 1" />
-														</label>
+														<form:checkbox path="reportingOption" name="reportingOption" cssClass="form-control flat" label="NERIC will load scores into Level 1" />
 													</div>
 												</div>
 											</div>
@@ -246,8 +249,7 @@
 													<form:select path="selectedOptionPrint" items="${allPrintOptions}" itemValue="id" itemLabel="name" cssClass="form-control"/>
 												</div>
 											</div>
-											<div class="col-md-12 col-sm-12 col-xs-12">
-												<br>
+											<div class="col-md-12 text-center">
 											</div>
 										</div>
 									</div>
@@ -256,44 +258,59 @@
 								<div class="row setup-content" id="step-5">
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
-											<h1 class="text-center"> Contact Information</h1>
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"> 
-												<%-- <input type="text" class="form-control has-feedback-left" readonly="readonly" id="inputSuccess1" value="${loggedinuser.district.name}"> --%>
+												<!-- id is used in javascript -->
+												<form:select path="orderContact.district" id="districtList" items="${districtsByUser}" itemValue="id" itemLabel="name" onchange="updateSchoolList()" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
 												<span class="fa fa-university form-control-feedback left" aria-hidden="true"></span>
 											</div>
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<form:select path="" items="${schoolsByDistrict}" itemValue="id" itemLabel="name" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
+												<!-- id is used in javascript -->
+												<form:select path="orderContact.school" id="schoolList" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
 												<span class="fa fa-graduation-cap form-control-feedback left" aria-hidden="true"></span>
 											</div>
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<input type="text" class="form-control has-feedback-left"
-													id="inputSuccess2" placeholder="First Name"> 
+												<form:input path="orderContact.name" type="text" class="form-control has-feedback-left" id="orderContact.name" placeholder="Name" required="required"/> 
+												<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+												<div class="has-error">
+													<form:errors path="orderContact.name" class="help-inline"/>
+												</div>
+											</div>
+											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+												<form:input path="orderContact.title" type="text" class="form-control has-feedback-left" id="orderContact.title" placeholder="Title" /> 
 												<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
 											</div>
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<input type="text" class="form-control has-feedback-left"
-													id="inputSuccess3" placeholder="Last Name"> 
-												<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-											</div>
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<input type="text" class="form-control has-feedback-left"
-													id="inputSuccess4" placeholder="Email">
+												<form:input path="orderContact.email" type="text" class="form-control has-feedback-left" id="orderContact.email" placeholder="Email" />
 												<span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
 											</div>
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<input type="text" class="form-control has-feedback-left"
-													id="inputSuccess5" placeholder="Phone">
+												<form:input path="orderContact.phone" type="text" class="form-control has-feedback-left" id="orderContact.phone" placeholder="Phone" />
 												<span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
 											</div>
+											<c:if test="${orderForm.period ne 'August'}">
+												<button id="activate-step-6" class="btn btn-primary btn-md" onclick="review()">Next</button>
+											</c:if>
 										</div>
 									</div>
+		                       		<c:if test="${orderForm.period eq 'August'}">
+										<div class="col-xs-12">
+											<div class="col-md-12 well text-center">
+												<h2 class="text-center"> Alternate Shipping Information</h2>
+												<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback"> 
+													<!-- id is used in javascript -->
+													<form:textarea path="orderContact.altContactInfo" id="orderContact.altContactInfo" rows="10" maxlength="1000" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
+													<span class="fa fa-truck form-control-feedback left" aria-hidden="true"></span>
+												</div>
+											</div>
+										</div>
+									</c:if>
 								</div>
 								<!--  STEP 6 - REVIEW -->
 								<div class="row setup-content" id="step-6">
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
-											<h1 class="text-center"> Review</h1>
-											<div class="col-md-12 col-sm-12 col-xs-12" >
+											<!-- START EXAMS -->
+											<div class="col-md-7 col-sm-7 col-xs-7" >
 												<div class="x_panel">
 													<div class="x_title">
 														<h2>Regents Exams</h2>
@@ -332,9 +349,9 @@
 													</div>
 												</div>
 											</div>
-											<br />
+											<!-- END EXAMS -->
 											<!-- START DOCUMENTS -->
-											<div class="col-md-6 col-sm-6 col-xs-6">
+											<div class="col-md-5 col-sm-5 col-xs-5">
 												<div class="x_panel">
 													<div class="x_title">
 														<h2>Non-Secure Documents</h2>
@@ -365,9 +382,9 @@
 												</div>
 											</div>
 											<!-- END DOCUMENTS -->
-											
+											<div class="clearfix"></div>
 											<!-- START OPTIONS -->
-											<div class="col-md-6 col-sm-6 col-xs-6">
+											<div class="col-md-7 col-sm-7 col-xs-7">
 												<div class="x_panel">
 													<div class="x_title">
 														<h2>Options</h2>
@@ -408,7 +425,23 @@
 												</div>
 											</div>
 											<!-- END OPTIONS -->
-											<div class="col-md-6 col-sm-6 col-xs-6">
+											
+											<!-- START CONTACT -->
+											<div class="col-md-5 col-sm-5 col-xs-5" >
+												<div class="x_panel">
+													<div class="x_title">
+														<h2>Contact</h2>
+														<div class="clearfix"></div>
+													</div>
+													<div class="x_content" id="reviewContactInfo">
+														
+													</div>
+												</div>
+											</div>
+											<!-- END CONTACT -->
+											<div class="clearfix"></div>
+											<!-- START SUBMIT -->
+											<div class="col-md-12 col-sm-12 col-xs-12">
 												<div class="x_panel">
 													<div class="x_title">
 														<h2>Submit</h2>
@@ -418,14 +451,15 @@
 														<div class="form-group">
 															<p>By clicking "Submit", you signify that you have permission to order these Regents forms from an appropriate person who can authorize this expenditure.</p>
 														</div>
-														<input type="submit" value="Update" class="btn btn-success"/> <a href="<c:url value='/orders' />" class="btn btn-primary">Cancel</a>
+														<input type="submit" value="Submit" class="btn btn-success"/> <a href="<c:url value='/orders' />" class="btn btn-primary">Cancel</a>
 													</div>
 												</div>
 											</div>
-											
+											<!-- END SUBMIT -->
 										</div>
 									</div>
 								</div>
+								<!--  END STEP 6 - REVIEW -->
 							</form:form>
 							<!-- End Wizard -->
 						</div>
@@ -436,6 +470,65 @@
 	</div>
 	<!-- /page content -->
 	<script type="text/javascript">
+	
+	function selectAllExams()
+	{
+		var i, count = 0;
+		$('input[id^="selectedExams"][id$="selected1"]').each(function() { count++ });
+		
+		if(document.getElementById('isCheckedExams').checked) 
+		{
+			for(i = 0; i <= count-1; i++)
+			{
+				var x = document.getElementById('selectedExams' + i + '.selected1');
+				x.checked = true;
+				
+				var parent = x.parentElement;
+				parent.classList.add('checked');
+			}
+		}
+		else
+		{
+			for(i = 0; i <= count-1; i++)
+			{
+				var x = document.getElementById('selectedExams' + i + '.selected1');
+				x.checked = false;
+				
+				var parent = x.parentElement;
+				parent.classList.remove('checked');
+			}
+		}
+	}
+	
+	function selectAllDocuments()
+	{
+		var i, count = 0;
+		$('input[id^="selectedDocuments"][id$="selected1"]').each(function() { count++ });
+		
+		if(document.getElementById('isCheckedDocuments').checked) 
+		{
+			for(i = 0; i <= count-1; i++)
+			{
+				var x = document.getElementById('selectedDocuments' + i + '.selected1');
+				x.checked = true;
+				
+				var parent = x.parentElement;
+				parent.classList.add('checked');
+			}
+		}
+		else
+		{
+			for(i = 0; i <= count-1; i++)
+			{
+				var x = document.getElementById('selectedDocuments' + i + '.selected1');
+				x.checked = false;
+				
+				var parent = x.parentElement;
+				parent.classList.remove('checked');
+			}
+		}
+	}
+	
 		function review() 
 		{	
 			//Exams
@@ -452,6 +545,9 @@
 			
 			//Reporting Option
 			reportingOption();
+			
+			//Contact Info
+			contactInfo();
 		}
 		
 		function exams()
@@ -559,6 +655,38 @@
 			else {reviewReportingOption.value = 'NERIC will NOT load scores into Level 1'}
 		}
 		
+		function contactInfo()
+		{
+			var name = document.getElementById("orderContact.name").value;
+			var title = document.getElementById("orderContact.title").value;
+			var email = document.getElementById("orderContact.email").value;
+			var phone = document.getElementById("orderContact.phone").value;
+			var alt = document.getElementById("orderContact.altContactInfo").value;
+			
+			//District
+			var selectedDistrict = document.getElementById("districtList");
+			/* var reviewDistrict = document.getElementById("reviewPrintOption");
+			reviewDistrict.value = selectedDistrict.options[selectedDistrict.selectedIndex].text; */
+			
+			var selectedSchool = document.getElementById("schoolList");
+			/* var reviewSchool = document.getElementById("reviewPrintOption");
+			reviewSchool.value = selectedSchool.options[selectedSchool.selectedIndex].text; */
+			
+			$('#reviewContactInfo').empty();
+			$('#reviewContactInfo').append(name + "<br />");
+			$('#reviewContactInfo').append(title + "<br />");
+			$('#reviewContactInfo').append(email + "<br />");
+			$('#reviewContactInfo').append(phone + "<br />");
+			
+			$('#reviewContactInfo').append(selectedSchool.options[selectedSchool.selectedIndex].text + ", ");
+			$('#reviewContactInfo').append(selectedDistrict.options[selectedDistrict.selectedIndex].text + "<br />");
+			
+			if(alt != null && alt != "")
+			{
+				$('#reviewContactInfo').append("<hr />" + alt);
+			}
+		}
+		
 		function getRadioButtonIndex(n) {
 		    var i, r = document.getElementsByName(n);
 		    for (i = 0; i < r.length; i++) {
@@ -611,4 +739,8 @@
 		}
 	</script>
 	<jsp:include page="fragments/footer.jsp" />
+	<script>
+		//Set default Schools in Contact School List
+		$(document).ready(updateSchoolList);
+	</script>
 </html>
