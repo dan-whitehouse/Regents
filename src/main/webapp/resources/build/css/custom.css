@@ -637,8 +637,7 @@ a:hover, a:focus {
   padding: 9px; }
 
 .panel_toolbox {
-  float: right;
-  min-width: 70px; }
+  float: right;}
 
 .panel_toolbox > li {
   float: left;

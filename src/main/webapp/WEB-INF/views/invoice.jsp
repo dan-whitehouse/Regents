@@ -23,17 +23,14 @@
                     <h2>Order</h2>
                     <sec:authorize access="hasRole('ADMIN')">
 	                   <ul class="nav navbar-right panel_toolbox">
-<!-- 	                   	<li class="pull-right"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li> -->
-	                     <li class="dropdown pull-right">
-	                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-	                       <ul class="dropdown-menu" role="menu">
-	                         <li>
-	                         		<a href="#">Edit Order</a>
-	                         </li>
-	                       </ul>
-	                     </li>
-	                     
-	                   </ul>
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+									<ul class="dropdown-menu" role="menu">
+										<li><a href="${orderLink}">Add Order</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
                     </sec:authorize>
                     <div class="clearfix"></div>
                   </div>
@@ -85,7 +82,7 @@
 		                              <tr>
 		                              	<th width="80%">Product</th>
 		                                <th width="10%">Qty</th>
-	                                	<th width="10%">Subtotal</th>
+	                                	<!-- <th width="10%">Subtotal</th> -->
 		                              </tr>
 		                            </thead>
 		                            <tbody>
@@ -93,12 +90,12 @@
 											<tr>
 												<td>${orderExam.exam.name} - ${orderExam.exam.code}</td>
 												<td>${orderExam.examAmount}</td>
-		 										<td>
+		 										<%-- <td>
 		 											$<fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${(orderExam.examAmount * 2.10)}" />
 		 										</td>
 		 										
 		 										<!-- Calculate the subtotal cost of exams. Will be used to calculate total  -->
-		 										<c:set var="examTotal" value="${examTotal + (orderExam.examAmount * 2.10)}" />
+		 										<c:set var="examTotal" value="${examTotal + (orderExam.examAmount * 2.10)}" /> --%>
 											</tr>
 										</c:forEach>	
 		                            </tbody>
@@ -117,7 +114,7 @@
 	                              <tr>
 	                              	<th width="80%">Product</th>
 	                                <th width="10%">Qty</th>
-	                                <th width="10%">Subtotal</th>
+	                                <!-- <th width="10%">Subtotal</th> -->
 	                              </tr>
 	                            </thead>
 	                            <tbody>
@@ -125,12 +122,12 @@
 										<tr>
 											<td>${orderDocument.document.name}</td>
 											<td>${orderDocument.documentAmount}</td>
-											<td>
+											<%-- <td>
 												$<fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${(orderDocument.documentAmount * 0.40)}" />
 											</td> 
 
 											<!-- Calculate the subtotal cost of documents. Will be used to calculate total  -->
-											<c:set var="docTotal" value="${docTotal + (orderDocument.documentAmount * 0.40)}" />
+											<c:set var="docTotal" value="${docTotal + (orderDocument.documentAmount * 0.40)}" /> --%>
 										</tr>
 									</c:forEach>	
 	                            </tbody>
@@ -143,14 +140,14 @@
 						
                       <div class="row">
                         <!-- accepted payments column -->
-                        <div class="col-xs-6">
+                        <div class="col-xs-12">
                           <p class="lead">Billing:</p>
                           <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
                              Your district will be billed for the precise number of tests and non-secure documents processed through NERIC. The rate for the Regents scanning/scoring service is $2.10 per student per test processed. The rate for non-secure documents is $0.40 per document ordered. Your district will be billed in the academic year. If you need a data file you must request it by sending an email to testing@neric.org; do this only after you confirm the accuracy of the scores on your reports.
                           </p>
                         </div>
-                        <!-- /.col -->
-                        <div class="col-xs-6">
+
+                        <%-- <div class="col-xs-6">
                           <p class="lead">Amount Due:</p>
                           <div class="table-responsive">
                             <table class="table">
@@ -179,10 +176,8 @@
                               </tbody>
                             </table>
                           </div>
-                        </div>
-                        <!-- /.col -->
+                        </div> --%>
                       </div>
-                      <!-- /.row -->
 
                       <!-- this row will not appear when printing -->
                       <div class="row no-print">

@@ -5,6 +5,7 @@
 <%@ taglib prefix="fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:url value="/admin/orderForms/create" var="createOrderForm" />
+
 <html>
 	<jsp:include page="fragments/header.jsp" />
 	<!-- page content -->
