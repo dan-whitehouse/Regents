@@ -12,7 +12,7 @@
  					<div class="col-middle">
    					<div class="text-center text-center">
      						<h1 class="error-number">403</h1>
-     						<h2>${b_header}</h2>
+     						<h2>Access Denied</h2>
      						<p>${b_message}</p>
      						<p>${b_url}</p>
    					</div>

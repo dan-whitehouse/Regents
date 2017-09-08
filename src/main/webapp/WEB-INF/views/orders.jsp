@@ -21,7 +21,7 @@
 								<li class="dropdown">
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
 									<ul class="dropdown-menu" role="menu">
-										<li><a href="${orderLink}">Add Order</a>
+										<li><a href="${orderLink}">Create Order</a>
 										</li>
 									</ul>
 								</li>

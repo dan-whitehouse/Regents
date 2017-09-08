@@ -124,6 +124,9 @@ public class OrderController
 
 	@Autowired
 	UserProfileService userProfileService;
+	
+	@Autowired
+	AuthenticationTrustResolver authenticationTrustResolver;
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder)
@@ -220,7 +223,7 @@ public class OrderController
 		List<Order> orders = orderService.findAllOrders();
 		model.addAttribute("orders", orders);
 		model.addAttribute("loggedinuser", getPrincipal());
-		return "orders";
+		return "ordersAdmin";
 	}
 	
 	@RequestMapping(value = { "/orders" }, method = RequestMethod.GET)
@@ -340,54 +343,68 @@ public class OrderController
 	public String order(@PathVariable String uuid, ModelMap model)
 	{
 		Order order = orderService.findByUUID(uuid);
-		model.addAttribute("order", order);
-		return "invoice";
+		if(order.getUser().getUsername().equalsIgnoreCase(getPrincipal()) || isAdmin(getPrincipal())) //IDK IF THIS IS THE BEST THING TO DO
+		{
+			model.addAttribute("order", order);
+			return "invoice";
+		}
+		else
+		{
+			return "403";
+		}
 	}
 
 	@RequestMapping(value = { "order/{uuid}/edit" }, method = RequestMethod.GET)
 	public String editOrder(@PathVariable String uuid, ModelMap model)
 	{
 		Order order = orderService.findByUUID(uuid);
-		model.addAttribute("order", order);
-		model.addAttribute("edit", true);
 		
-		XForm2 xForm = new XForm2();
-		
-		xForm.setSelectedDocuments(populateDocumentOptions());
-		xForm.setSelectedExams(populateExamOptions());
+		if(order.getUser().getUsername().equalsIgnoreCase(getPrincipal()) || isAdmin(getPrincipal())) //IDK IF THIS IS THE BEST THING TO DO
+		{
+			XForm2 xForm = new XForm2();		
+			xForm.setSelectedDocuments(populateDocumentOptions());
+			xForm.setSelectedExams(populateExamOptions());
+					
+			for(XExamWrapper ew : xForm.getSelectedExams())
+			{
+				for(OrderExam e : order.getOrderExams())
+				{
+					if(e.getExam().getId() == ew.getOrderExam().getExam().getId())
+					{
+						ew.setSelected(true);
+						ew.setOrderExam(e);
+					}
+				}
+			}
 				
-		for(XExamWrapper ew : xForm.getSelectedExams())
-		{
-			for(OrderExam e : order.getOrderExams())
+			for(XDocumentWrapper dw : xForm.getSelectedDocuments())
 			{
-				if(e.getExam().getId() == ew.getOrderExam().getExam().getId())
+				for(OrderDocument d : order.getOrderDocuments())
 				{
-					ew.setSelected(true);
-					ew.setOrderExam(e);
+					if(d.getDocument().getId() == dw.getOrderDocument().getDocument().getId())
+					{
+						dw.setSelected(true);
+						dw.setOrderDocument(d);
+					}
 				}
 			}
-		}
+	
+			xForm.setSelectedOptionScan(order.getOrderScan());
+			xForm.setReportingOption(order.getReportToLevelOne());
+			xForm.setSelectedOptionPrint(order.getOrderPrint());
+			xForm.setOrderContact(order.getOrderContact());
+			xForm.setOrderForm(order.getOrderForm());
+				
+			model.addAttribute("xForm2", xForm);
+			model.addAttribute("order", order);
+			model.addAttribute("edit", true);
 			
-		for(XDocumentWrapper dw : xForm.getSelectedDocuments())
+			return "createOrEditOrder";
+		}
+		else
 		{
-			for(OrderDocument d : order.getOrderDocuments())
-			{
-				if(d.getDocument().getId() == dw.getOrderDocument().getDocument().getId())
-				{
-					dw.setSelected(true);
-					dw.setOrderDocument(d);
-				}
-			}
+			return "403";
 		}
-
-		xForm.setSelectedOptionScan(order.getOrderScan());
-		xForm.setReportingOption(order.getReportToLevelOne());
-		xForm.setSelectedOptionPrint(order.getOrderPrint());
-		xForm.setOrderContact(order.getOrderContact());
-		xForm.setOrderForm(order.getOrderForm());
-			
-		model.addAttribute("xForm2", xForm);
-		return "createOrEditOrder";
 	}
 
 	@RequestMapping(value = { "order/{uuid}/edit" }, method = RequestMethod.POST)
@@ -463,11 +480,6 @@ public class OrderController
 	{
 		orderService.deleteOrder(uuid);
 		
-		/*model.addAttribute("success", "Order: " + uuid + " - " + " was deleted successfully");
-		model.addAttribute("returnLink", "orders");
-		model.addAttribute("returnLinkText", "Orders");
-		return "success";*/
-		
 		return "redirect:/orders";
 	}
 	
@@ -493,5 +505,29 @@ public class OrderController
 			userName = principal.toString();
 		}
 		return userName;
+	}
+	
+	public List<UserProfile> initializeProfiles() 
+	{
+		return userProfileService.findAll();
+	}
+	
+	private boolean isAdmin(String username)
+	{
+		User user = userService.findByUsername(username);
+		for(UserProfile up : user.getUserProfiles())
+		{
+			if("Admin".equalsIgnoreCase(up.getType()))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
+	private boolean isCurrentAuthenticationAnonymous() {
+	    final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    return authenticationTrustResolver.isAnonymous(authentication);
 	}
 }

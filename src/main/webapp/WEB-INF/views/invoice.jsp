@@ -5,10 +5,13 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"  %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<c:url value="/createUser" var="createUser" />
+
 <c:set var="examTotal" value="0.00" />
 <c:set var="docTotal" value="0.00" />
 <c:set var="total" value="0.00" />
+
+<c:url value="/order" var="createOrderLink" />
+<c:url value="/order/${order.uuid}/edit" var="editOrderLink" />
 
 <html>
 	<jsp:include page="fragments/header.jsp" />
@@ -21,17 +24,17 @@
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Order</h2>
-                    <sec:authorize access="hasRole('ADMIN')">
-	                   <ul class="nav navbar-right panel_toolbox">
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-									<ul class="dropdown-menu" role="menu">
-										<li><a href="${orderLink}">Add Order</a>
-										</li>
-									</ul>
-								</li>
+                    <ul class="nav navbar-right panel_toolbox">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="${createOrderLink}">Create Order</a>
+								<c:if test="${order.orderStatus ne 'Complete'}">
+									<li><a href="${editOrderLink}">Edit Order</a></li>
+								</c:if>
 							</ul>
-                    </sec:authorize>
+						</li>
+					</ul>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">

@@ -3,7 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
-<c:url value="/createUser" var="createUser" />
+<c:url value="/admin/orderForms/create" var="createOrderFormLink" />
+<c:url value="/admin/orderForms/${orderForm.uuid}/edit" var="editOrderFormLink" />
 
 <html>
 	<jsp:include page="fragments/header.jsp" />
@@ -17,18 +18,14 @@
 						<div class="x_title">
 							<h2>Regents Order Form <small>Beta</small></h2>
 							<ul class="nav navbar-right panel_toolbox">
-								<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-								</li>
 								<li class="dropdown">
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
 									<ul class="dropdown-menu" role="menu">
-										<li><a href="#">Settings 1</a>
-										</li>
-										<li><a href="#">Settings 2</a>
-										</li>
+										<li><a href="${createOrderFormLink}">Create OrderForm</a>
+										<c:if test="${orderForm.locked != true}">
+											<li><a href="${editOrderFormLink}">Edit OrderForm</a></li>
+										</c:if>
 									</ul>
-								</li>
-								<li><a class="close-link"><i class="fa fa-close"></i></a>
 								</li>
 							</ul>
 							<div class="clearfix"></div>
