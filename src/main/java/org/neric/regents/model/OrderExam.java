@@ -41,8 +41,6 @@ public class OrderExam implements Serializable
 	@Column(name="students_per_csv", nullable=true)
 	private String studentsPerCSV;
 	
-	@Column(name="pas", nullable=true)
-	private Boolean pearsonAnswerSheet;
 
 	public OrderExam()
 	{
@@ -115,19 +113,10 @@ public class OrderExam implements Serializable
 		this.studentsPerCSV = studentsPerCSV;
 	}
 
-	public Boolean getPearsonAnswerSheet()
-	{
-		return pearsonAnswerSheet;
-	}
-
-	public void setPearsonAnswerSheet(Boolean pearsonAnswerSheet)
-	{
-		this.pearsonAnswerSheet = pearsonAnswerSheet;
-	}
 
 	@Override
 	public String toString()
 	{
-		return "OrderExam [id=" + id + ", order=" + order + ", exam=" + exam + ", examAmount=" + examAmount + ", answerSheetAmount=" + answerSheetAmount + ", studentsPerCSV=" + studentsPerCSV + ", pearsonAnswerSheet=" + pearsonAnswerSheet + "]";
+		return "OrderExam [id=" + id + ", order=" + order + ", exam=" + exam + ", examAmount=" + examAmount + ", answerSheetAmount=" + answerSheetAmount + ", studentsPerCSV=" + studentsPerCSV + "]";
 	}
 }

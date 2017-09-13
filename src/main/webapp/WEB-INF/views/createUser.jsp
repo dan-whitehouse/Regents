@@ -78,39 +78,6 @@
 									</div>
 								</div>
 								
-<!-- 								<div class="item form-group"> -->
-<!-- 									<label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Confirm Password <span class="required">*</span> -->
-<!-- 									</label> -->
-<!-- 									<div class="col-md-6 col-sm-6 col-xs-12">									 -->
-<%-- 										<form:input type="password" path="password" id="passwordV" class="form-control col-md-7 col-xs-12 input-sm" data-validate-length-range="6" data-validate-words="1" name="passwordV" data-validate-linked="password" required="required"/> --%>
-<!-- 										<div class="has-error"> -->
-<%-- 											<form:errors path="password" class="help-inline"/> --%>
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-								
-								<div class="item form-group">
-									<label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Email <span class="required">*</span>
-									</label>
-									<div class="col-md-6 col-sm-6 col-xs-12">									
-										<form:input type="email" path="email" id="email" class="form-control col-md-7 col-xs-12 input-sm" data-validate-length-range="6" data-validate-words="1" name="email" required="required"/>
-										<div class="has-error">
-											<form:errors path="email" class="help-inline"/>
-										</div>
-									</div>
-								</div>
-								
-								<%-- <div class="item form-group">
-									<label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">LEA <span class="required">*</span>
-									</label>
-										<div class="col-md-6 col-sm-6 col-xs-12">
-				                          <form:select path="userDistricts" items="${districts}" multiple="false" itemValue="id" itemLabel="name" class="form-control col-md-7 col-xs-12" required="required"/>
-											<div class="has-error">
-												<form:errors path="userDistricts" class="help-inline"/>
-											</div>
-				                        </div>
-								</div> --%>
-								
 								<div class="form-group">
 			                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Districts</label>
 			                        <div class="col-md-6 col-sm-6 col-xs-12">
@@ -190,8 +157,8 @@
         });
         $(".select2_group").select2({});
         $(".select2_multiple").select2({
-          maximumSelectionLength: 10,
-          placeholder: "With Max Selection limit 10",
+          maximumSelectionLength: 15,
+          placeholder: "With Max Selection limit 15",
           allowClear: true
         });
       });

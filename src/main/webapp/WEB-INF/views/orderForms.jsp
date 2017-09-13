@@ -38,8 +38,8 @@
 										<th>Name</th>
 										<th>Start Date</th>
 										<th>End Date</th>
-										<th>Status</th>
-										<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
+										<th>Order Period</th>
+										<sec:authorize access="hasRole('ADMIN')">
 											<th>Management</th>
 										</sec:authorize>
 									</tr>
@@ -58,7 +58,7 @@
 										</c:choose>
 									
 										
-											<td><a href="<c:url value='/admin/orderForms/${orderForm.uuid}' />">${orderForm.name}</a></td>
+											<td class="col-xs-5"><a href="<c:url value='/admin/orderForms/${orderForm.uuid}' />">${orderForm.name}</a></td>
 											
 											<fmt:formatDate value="${orderForm.startDate}" type="date" pattern="MM/dd/yyyy" var="fStartDate"/>
 											<fmt:formatDate value="${orderForm.endDate}" type="date" pattern="MM/dd/yyyy" var="fEndDate"/>
@@ -67,19 +67,20 @@
 											<td>${fEndDate}</td>
 											<td>
 											<!-- Start Status Test -->
-												<jsp:useBean id="now" class="java.util.Date"/>
     											<c:choose>
-													<c:when test="${orderForm.endDate gt now}"> 
-<%-- 														<p>${orderForm.endDate} - ${now} </p> --%>
+													<c:when test="${orderForm.activePeriod}"> 
+														<span class="label label-info">Active</span>
+													</c:when>
+													<c:when test="${orderForm.expiredPeriod}"> 
 														<span class="label label-danger">Expired</span>
 													</c:when>
 													<c:otherwise>
-														<span class="label label-default">Complete</span>
+														<span class="label label-default">Inactive</span>
 													</c:otherwise>
 												</c:choose>
     										<!-- End Status Test -->
 											</td>
-											<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
+											<sec:authorize access="hasRole('ADMIN')">
 												<td width="245px">
 													<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/edit' />" class="btn btn-success custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
 													<a type="button" class="btn btn-danger custom-width" data-toggle="modal" data-target=".modal-sm-${orderForm.uuid}"><i class="fa fa-trash"></i></a>

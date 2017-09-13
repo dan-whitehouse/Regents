@@ -5,7 +5,6 @@ import org.neric.regents.model.OrderExam;
 public class ExamWrapper
 {
 	private boolean selected;
-	private boolean pasSelected;
     private OrderExam orderExam;
     
 	public ExamWrapper()
@@ -28,16 +27,6 @@ public class ExamWrapper
 		this.selected = selected;
 	}
 
-	public boolean isPasSelected()
-	{
-		return pasSelected;
-	}
-
-	public void setPasSelected(boolean pasSelected)
-	{
-		this.pasSelected = pasSelected;
-	}
-
 	public OrderExam getOrderExam()
 	{
 		return orderExam;
@@ -51,6 +40,6 @@ public class ExamWrapper
 	@Override
 	public String toString()
 	{
-		return "ExamWrapper [selected=" + selected + ", pasSelected=" + pasSelected + ", orderExam=" + orderExam + "]";
+		return "ExamWrapper [selected=" + selected + ", orderExam=" + orderExam + "]";
 	}
 }

@@ -41,6 +41,12 @@
 													<p class="list-group-item-text">Regents Exams</p>
 												</a>
 											</li>
+											<!-- <li class="disabled">
+												<a href="#step-3">
+													<h4 class="list-group-item-heading">Step 3</h4>
+													<p class="list-group-item-text">Location for Blanks</p>
+												</a>
+											</li> -->
 											<li class="disabled">
 												<a href="#step-3">
 													<h4 class="list-group-item-heading">Step 3</h4>
@@ -114,24 +120,21 @@
 															<thead>
 																<tr>
 																	<th width="75px">Order <input type="checkbox" id="isCheckedExams" onclick="selectAllExams()"/></th>
-																	<th class="col-md-5 col-xs-12">Test Name</th>
-																	<th>Number of Test
-																		<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="Pull from Level 0: Number of students enrolled in a course resulting in an exam." >
-																		<span class=" fa fa-info"></span>
-																		</span>
-																	</th>
-																	<th>Answer Sheets 
+																	<th class="col-md-5 col-xs-12">Exam Name</th>
+																	<c:if test="${orderForm.period eq 'June'}">
+																		<th># Students Pull from L0
+																			<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="Pull from Level 0: Number of students enrolled in a course resulting in an exam." >
+																			<span class=" fa fa-info"></span>
+																			</span>
+																		</th>
+																	</c:if>
+																	<th># Blank Answer Sheets 
 																		<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="Number of blank in-district answer sheets." >
 																		<span class=" fa fa-info"></span>
 																		</span>
 																	</th>
-																	<th>Students Per CSV
+																	<th># Students in CSV
 																		<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="Number of students included on the CSV file." >
-																		<span class=" fa fa-info"></span>
-																		</span>
-																	</th>
-																	<th>P.A.S.
-																		<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="Check if SED requires your district to use the Pearson Answer Sheets." >
 																		<span class=" fa fa-info"></span>
 																		</span>
 																	</th>
@@ -147,25 +150,17 @@
 																		<td>
 																			<form:input path="selectedExams[${status.index}].orderExam.exam.name" value="${e.orderExam.exam.name } - ${e.orderExam.exam.code}"  class="form-control col-md-3 col-xs-12" readonly="true"/>
 																		</td>
-																		<td>
-																			<form:input path="selectedExams[${status.index}].orderExam.examAmount" class="form-control col-md-3 col-xs-12" />
-																		</td>
+																		<c:if test="${orderForm.period eq 'June'}">
+																			<td>
+																				<form:input path="selectedExams[${status.index}].orderExam.examAmount" class="form-control col-md-3 col-xs-12" />
+																			</td>
+																		</c:if>
 																		<td>
 																			<form:input path="selectedExams[${status.index}].orderExam.answerSheetAmount" class="form-control col-md-3 col-xs-12" />
 																		</td>
 																		<td>
 																			<form:input path="selectedExams[${status.index}].orderExam.studentsPerCSV" class="form-control col-md-3 col-xs-12" />
 																		</td>
-																		<c:choose>
-																			<c:when test="${e.orderExam.exam.name == 'Algebra 2 (Common Core)'}">
-																				<th scope="row">
-																					<form:checkbox path="selectedExams[${status.index}].orderExam.pearsonAnswerSheet" class="flat"/>
-																				</th>
-																			</c:when>
-																			<c:otherwise>
-																				<th scope="row"></th>
-																			</c:otherwise>
-																		</c:choose>
 																	</tr>
 																</c:forEach>
 															</tbody>
@@ -178,6 +173,38 @@
 										</div>
 									</div>
 								</div>
+								
+								<!-- STEP 3 - Blanks Location -->
+								<%-- <div class="row setup-content" id="step-3">
+									<div class="col-xs-12">
+										<div class="col-md-12 well text-center">
+											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"> 
+												<!-- id is used in javascript -->
+												<form:select path="orderContact.district" id="districtList" items="${districtsByUser}" itemValue="id" itemLabel="name" onchange="updateSchoolList()" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
+												<span class="fa fa-university form-control-feedback left" aria-hidden="true"></span>
+											</div>
+											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+												<!-- id is used in javascript -->
+												<form:select path="orderContact.school" id="schoolList" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
+												<span class="fa fa-graduation-cap form-control-feedback left" aria-hidden="true"></span>
+											</div>
+	
+										</div>
+									</div>
+		                       		
+									<div class="col-xs-12">
+										<div class="col-md-12 well text-center">
+											<h2 class="text-center">Special Requests</h2>
+											<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback"> 
+												<!-- id is used in javascript -->
+												<form:textarea path="orderContact.altContactInfo" id="orderContact.altContactInfo" rows="10" maxlength="1000" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
+												<span class="fa fa-truck form-control-feedback left" aria-hidden="true"></span>
+											</div>
+											<button id="activate-step-4" class="btn btn-primary btn-md">Next</button>
+										</div>
+									</div>
+								</div> --%>
+								
 								<!-- STEP 3 - DOCUMENTS -->
 								<div class="row setup-content" id="step-3">
 									<div class="col-xs-12">
@@ -186,8 +213,8 @@
 												<thead>
 													<tr>
 														<th width="75px">Order <input type="checkbox" id="isCheckedDocuments" onclick="selectAllDocuments()"/></th>
-														<th>Name</th>
-														<th>Number Requested</th>
+														<th>Non-Secure Document</th>
+														<th>Quantity</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -236,9 +263,17 @@
 												<span class=" fa fa-info"></span>
 												</span>
 												</label>
+												
 												<div class="col-md-6 col-sm-6 col-xs-12">
 													<div class="checkbox">
-														<form:checkbox path="reportingOption" name="reportingOption" cssClass="form-control flat" label="NERIC will load scores into Level 1" />
+														<c:choose>
+															<c:when test="${orderForm.period eq 'August'}">
+																<form:checkbox path="reportingOption" name="reportingOption" cssClass="form-control flat" label="NERIC will load scores into Level 1" disabled="true"/>
+															</c:when>
+															<c:otherwise>
+																<form:checkbox path="reportingOption" name="reportingOption" cssClass="form-control flat" label="NERIC will load scores into Level 1" disabled="true" checked="checked"/>
+															</c:otherwise>
+														</c:choose>
 													</div>
 												</div>
 											</div>
@@ -260,10 +295,11 @@
 										</div>
 									</div>
 								</div>
-								<!--  STEP 5 - CONTACT -->
+								<!--  STEP 6 - CONTACT -->
 								<div class="row setup-content" id="step-5">
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
+										
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"> 
 												<!-- id is used in javascript -->
 												<form:select path="orderContact.district" id="districtList" items="${districtsByUser}" itemValue="id" itemLabel="name" onchange="updateSchoolList()" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
@@ -274,6 +310,7 @@
 												<form:select path="orderContact.school" id="schoolList" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
 												<span class="fa fa-graduation-cap form-control-feedback left" aria-hidden="true"></span>
 											</div>
+										
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
 												<form:input path="orderContact.name" type="text" class="form-control has-feedback-left" id="orderContact.name" placeholder="Name" required="required"/> 
 												<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
@@ -312,7 +349,7 @@
 										</div>
 									</c:if>
 								</div>
-								<!--  STEP 6 - REVIEW -->
+								<!--  STEP 7 - REVIEW -->
 								<div class="row setup-content" id="step-6">
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
@@ -328,11 +365,10 @@
 															<table class="table table-striped jambo_table bulk_action">
 																<thead>
 																	<tr class="headings">
-																		<th class="column-title">Test Name </th>
-																		<th class="column-title">Number of Test </th>
-																		<th class="column-title">Answer Sheets </th>
-																		<th class="column-title">Students Per CSV </th>
-																		<th class="column-title">P.A.S. </th>
+																		<th class="column-title">Exam Name </th>
+																		<th class="column-title">Students Pull from L0</th>
+																		<th class="column-title">Blank Answer Sheets </th>
+																		<th class="column-title">Students in CSV </th>
 																	</tr>
 																</thead>
 																<tbody id="reviewExams">															
@@ -341,14 +377,12 @@
 																		<td class=" ">61</td>
 																		<td class=" ">10</td>
 																		<td class=" ">1</td>
-																		<td class=" "></td>
 																	</tr>
 																	<tr class="odd pointer">
 																		<td class=" ">ELA (Common Core) - 01003CC</td>
 																		<td class=" ">116</td>
 																		<td class=" ">20</td>
 																		<td class=" ">0</td>
-																		<td class=" "></td>
 																	</tr>
 																</tbody>
 															</table>
@@ -369,8 +403,8 @@
 															<table class="table table-striped jambo_table bulk_action">
 																<thead>
 																	<tr class="headings">
-																		<th class="column-title">Name </th>
-																		<th class="column-title">Number Requested </th>
+																		<th class="column-title">Non-Secure Document </th>
+																		<th class="column-title">Quantity </th>
 																	</tr>
 																</thead>
 																<tbody id="reviewDocuments">
@@ -441,7 +475,7 @@
 														<div class="clearfix"></div>
 													</div>
 													<div class="x_content" id="reviewContactInfo">
-														
+													
 													</div>
 												</div>
 											</div>
@@ -478,7 +512,7 @@
 	<!-- /page content -->
 	<script type="text/javascript">
 		function review() 
-		{	
+		{				
 			//Exams
 			exams();
 			
@@ -496,6 +530,7 @@
 			
 			//Contact Info
 			contactInfo();
+
 		}
 		
 		function selectAllExams()
@@ -569,17 +604,16 @@
 				if(document.getElementById('selectedExams' + i + '.selected1').checked) 
 				{
 					var examName = document.getElementById("selectedExams" + i + ".orderExam.exam.name").value;
-					var examAmount = document.getElementById("selectedExams" + i + ".orderExam.examAmount").value;
+					var examAmount = '';
+					
+					<c:if test="${orderForm.period eq 'June'}">
+						examAmount = document.getElementById("selectedExams" + i + ".orderExam.examAmount").value;
+					</c:if>
+							
 					var answerSheetAmount = document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").value;
 					var studentsPerCSV = document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").value;
-					var pas = document.getElementById("selectedExams" + i + ".orderExam.pearsonAnswerSheet1");
-					var pasValue = 'No';
 					var evenOddClass = 'odd';
 					
-					if(pas != null && pas.checked) 
-					{
-						pasValue = 'Yes'
-					}
 	
 					if(examAmount == '')
 					{
@@ -602,7 +636,7 @@
 					}
 					
 					//Add HTML
-					$('#reviewExams').append("<tr class='" + evenOddClass + " pointer'><td>" + examName + "</td><td>" + examAmount + "</td><td>" + answerSheetAmount + "</td><td>" + studentsPerCSV + "</td><td>" + pasValue + "</td></tr>");
+					$('#reviewExams').append("<tr class='" + evenOddClass + " pointer'><td>" + examName + "</td><td>" + examAmount + "</td><td>" + answerSheetAmount + "</td><td>" + studentsPerCSV + "</td></tr>");
 				}
 			}
 		}
@@ -669,16 +703,11 @@
 			var title = document.getElementById("orderContact.title").value;
 			var email = document.getElementById("orderContact.email").value;
 			var phone = document.getElementById("orderContact.phone").value;
-			var alt = document.getElementById("orderContact.altContactInfo").value;
+			//
 			
-			//District
-			var selectedDistrict = document.getElementById("districtList");
-			/* var reviewDistrict = document.getElementById("reviewPrintOption");
-			reviewDistrict.value = selectedDistrict.options[selectedDistrict.selectedIndex].text; */
-			
+			var selectedDistrict = document.getElementById("districtList");		
 			var selectedSchool = document.getElementById("schoolList");
-			/* var reviewSchool = document.getElementById("reviewPrintOption");
-			reviewSchool.value = selectedSchool.options[selectedSchool.selectedIndex].text; */
+
 			
 			$('#reviewContactInfo').empty();
 			$('#reviewContactInfo').append(name + "<br />");
@@ -689,14 +718,16 @@
 			$('#reviewContactInfo').append(selectedSchool.options[selectedSchool.selectedIndex].text + ", ");
 			$('#reviewContactInfo').append(selectedDistrict.options[selectedDistrict.selectedIndex].text + "<br />");
 			
-			if(alt != null && alt != "")
-			{
-				$('#reviewContactInfo').append("<hr />" + alt);
-			}
+			<c:if test="${orderForm.period eq 'August'}">
+				var alt = document.getElementById("orderContact.altContactInfo").value;
+				if(alt != null && alt != "")
+				{
+					$('#reviewContactInfo').append("<hr />" + alt);
+				}
+			</c:if>
 		}
 		
-		
-		
+			
 		function getRadioButtonIndex(n) {
 		    var i, r = document.getElementsByName(n);
 		    for (i = 0; i < r.length; i++) {

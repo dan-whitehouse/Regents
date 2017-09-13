@@ -65,6 +65,10 @@ public class AppController {
 	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
 	public String homePage(ModelMap model) {
 
+		if(isCurrentAuthenticationAnonymous())
+		{
+			return "login";
+		}
 		model.addAttribute("loggedinusername", getPrincipal());
 		return "home";
 	}

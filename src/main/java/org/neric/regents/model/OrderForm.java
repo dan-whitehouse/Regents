@@ -1,6 +1,8 @@
 package org.neric.regents.model;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,11 +21,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.Interval;
 
 @Entity
 @Table(name="\"orderForm\"")
@@ -256,6 +260,21 @@ public class OrderForm implements Serializable
 		this.orders = orders;
 	}
 
+	@Transient
+    public boolean isActivePeriod() 
+	{
+		Date now = new Date();
+		Interval interval = new Interval(startDate.getTime(), endDate.getTime());
+		return interval.contains(now.getTime());
+    }
+	
+	@Transient
+    public boolean isExpiredPeriod() 
+	{
+		Interval interval = new Interval(startDate.getTime(), endDate.getTime());
+		return interval.isBeforeNow();
+    }
+	
 	@Override
 	public String toString()
 	{

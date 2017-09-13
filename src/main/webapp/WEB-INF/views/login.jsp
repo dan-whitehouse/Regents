@@ -26,8 +26,10 @@
 						    <br />
 						    <br />
 						    <br />
-						    <div>
-						    	<img src="resources/images/NericLogo_horizontal_2c_sanstxt.png" style="width:90%;">
+						   <!--  <img src="resources/images/NericLogo_horizontal_2c_sanstxt.png" style="width:90%;"> -->
+						    <div class="logo">
+						    	<img src="resources/images/logo.png" style="width:90%;">
+						    	<span class="logoText">Regents Order Form</span>
 						    </div>
 						    <br />
 						    <div class="input-group input-sm">

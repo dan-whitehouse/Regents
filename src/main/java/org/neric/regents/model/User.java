@@ -16,10 +16,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -39,6 +41,8 @@ public class User implements Serializable
 	private String uuid;
 	
 	@NotEmpty
+	@Email(message="Please provide a valid email address")
+	@Pattern(regexp=".+@.+\\..+", message="Please provide a valid email address")
 	@Column(name="username", unique=true, nullable=false)
 	private String username;
 	
@@ -54,11 +58,6 @@ public class User implements Serializable
 	@Column(name="last_name", nullable=false)
 	private String lastName;
 
-	@NotEmpty
-	@Column(name="email", nullable=false)
-	private String email;
-	
-	
 	@Column(name="visible", unique=false, nullable=false)	
 	private Boolean visible;
 	
@@ -135,13 +134,6 @@ public class User implements Serializable
 		this.lastName = lastName;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
 	public Set<UserProfile> getUserProfiles() {
 		return userProfiles;
@@ -236,7 +228,7 @@ public class User implements Serializable
 	@Override
 	public String toString()
 	{
-		return "User [id=" + id + ", uuid=" + uuid + ", username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", visible=" + visible + ", locked=" + locked + ", userProfiles=" + userProfiles +"]";
+		return "User [id=" + id + ", uuid=" + uuid + ", username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", visible=" + visible + ", locked=" + locked + ", userProfiles=" + userProfiles +"]";
 	}
 
 	

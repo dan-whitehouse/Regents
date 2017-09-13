@@ -34,7 +34,6 @@
 									<tr>
 										<th>First Name</th>
 										<th>Last Name</th>
-										<th>Email</th>
 										<th>Username</th>
 										<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
 											<th>Management</th>
@@ -46,7 +45,6 @@
 										<tr>
 											<td>${user.firstName}</td>
 											<td>${user.lastName}</td>
-											<td>${user.email}</td>
 											<td><a href="<c:url value='/profile/${user.username}' />">${user.username}</a></td>
 										    <sec:authorize access="hasRole('ADMIN')">
 												<td width="195px">

@@ -68,8 +68,8 @@
 					<div class="menu_section">
 						
 						<ul class="nav side-menu">
-							<li><a href="${home}"><i class="fa fa-home"></i> Home</span></a></li>
 							<sec:authorize access="hasAnyRole('USER', 'ADMIN')">
+								<li><a href="${home}"><i class="fa fa-home"></i> Home</span></a></li>
 								<li><a href="${order}"><i class="fa fa-edit"></i> Order Form</span></a></li>
 								<li><a href="${optout}"><i class="fa fa-exclamation-triangle"></i> Opt Out</span></a></li>
 								<li><a href="${orders}"><i class="fa fa-truck"></i>My Orders</a></li>
@@ -116,24 +116,14 @@
 					<ul class="nav navbar-nav navbar-right">
 						<li class="">
 							<a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-							${loggedinusername}
-							<span class=" fa fa-angle-down"></span>
+								${loggedinusername}
+								<span class=" fa fa-angle-down"></span>
 							</a>
 							<ul class="dropdown-menu dropdown-usermenu pull-right">
-<%-- 								<li><a href="${profile}"> Profile</a></li> --%>
-<!-- 								<li> -->
-<!-- 									<a href="javascript:;"> -->
-<!-- 									<span class="badge bg-red pull-right">50%</span> -->
-<!-- 									<span>Settings</span> -->
-<!-- 									</a> -->
-<!-- 								</li> -->
-<!-- 								<li><a href="javascript:;">Help</a></li> -->
-								<li>
-									<a href="<c:url value="/logout" />"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
-								</li>
-								<li>
-									<a href="<c:url value="/changePassword" />"><i class="fa fa-asterisk pull-right"></i> Change Password</a>
-								</li>
+								<sec:authorize access="hasAnyRole('USER', 'ADMIN')">
+									<li><a href="<c:url value="/logout" />"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+									<li><a href="<c:url value="/changePassword" />"><i class="fa fa-asterisk pull-right"></i> Change Password</a></li>
+								</sec:authorize>
 							</ul>
 						</li>
 					</ul>

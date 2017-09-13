@@ -1,3 +1,18 @@
+.logo { 
+	position: relative; 
+   	width: 100%; /* for IE 6 */
+}
+
+.logoText { 
+	position: absolute; 
+	top: 95px; 
+	left: 130px; 
+	width: 100%; 
+	font-weight: 400;
+    font-size: 20px;
+    color: #0f2c52;
+}
+
 .left_col {
 /*     background: #2A3F54 */
 	background: #102c52

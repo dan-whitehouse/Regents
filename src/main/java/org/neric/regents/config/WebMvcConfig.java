@@ -1,5 +1,8 @@
 package org.neric.regents.config;
 
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+
 import org.neric.regents.converture.RoleToUserProfileConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -14,6 +17,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
@@ -76,8 +80,19 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
      * It's a known bug in Spring [https://jira.spring.io/browse/SPR-6164], still present in Spring 4.1.7.
      * This is a workaround for this issue.
      */
+    
+    
     @Override
     public void configurePathMatch(PathMatchConfigurer matcher) {
         matcher.setUseRegisteredSuffixPatternMatch(true);
+    }
+    
+    /* https://smarterco.de/spring-boot-mvc-prevent-spring-mvc-modelattribute-variables-from-appearing-in-url-redirect/ */
+    @Inject
+    private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
+
+    @PostConstruct
+    public void init() {
+    	requestMappingHandlerAdapter.setIgnoreDefaultModelOnRedirect(true);
     }
 }

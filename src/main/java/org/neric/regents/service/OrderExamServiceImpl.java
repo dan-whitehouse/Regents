@@ -47,7 +47,6 @@ public class OrderExamServiceImpl implements OrderExamService
 			entity.setExam(orderExam.getExam());
 			entity.setExamAmount(orderExam.getExamAmount());
 			entity.setOrder(orderExam.getOrder());
-			entity.setPearsonAnswerSheet(orderExam.getPearsonAnswerSheet());
 			entity.setStudentsPerCSV(orderExam.getStudentsPerCSV());
 		}
 	}

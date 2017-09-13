@@ -44,24 +44,30 @@
 											<li class="enabled">
 												<a href="#step-3">
 													<h4 class="list-group-item-heading">Step 3</h4>
-													<p class="list-group-item-text">Non-Secure Documents</p>
+													<p class="list-group-item-text">Something</p>
 												</a>
 											</li>
 											<li class="enabled">
 												<a href="#step-4">
 													<h4 class="list-group-item-heading">Step 4</h4>
-													<p class="list-group-item-text">Options</p>
+													<p class="list-group-item-text">Non-Secure Documents</p>
 												</a>
 											</li>
 											<li class="enabled">
 												<a href="#step-5">
 													<h4 class="list-group-item-heading">Step 5</h4>
+													<p class="list-group-item-text">Options</p>
+												</a>
+											</li>
+											<li class="enabled">
+												<a href="#step-6">
+													<h4 class="list-group-item-heading">Step 6</h4>
 													<p class="list-group-item-text">Contact</p>
 												</a>
 											</li>
 											<li class="enabled">
-												<a href="#step-6" onclick="review();">
-													<h4 class="list-group-item-heading">Step 6</h4>
+												<a href="#step-7" onclick="review();">
+													<h4 class="list-group-item-heading">Step 7</h4>
 													<p class="list-group-item-text">Review</p>
 												</a>
 											</li>
@@ -129,11 +135,6 @@
 																		<span class=" fa fa-info"></span>
 																		</span>
 																	</th>
-																	<th>P.A.S.
-																		<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="Check if SED requires your district to use the Pearson Answer Sheets." >
-																		<span class=" fa fa-info"></span>
-																		</span>
-																	</th>
 																</tr>
 															</thead>
 															<tbody>
@@ -155,16 +156,6 @@
 																		<td>
 																			<form:input path="selectedExams[${status.index}].orderExam.studentsPerCSV" class="form-control col-md-3 col-xs-12" />
 																		</td>
-																		<c:choose>
-																			<c:when test="${e.orderExam.exam.name == 'Algebra 2 (Common Core)'}">
-																				<th scope="row">
-																					<form:checkbox path="selectedExams[${status.index}].orderExam.pearsonAnswerSheet" class="flat"/>
-																				</th>
-																			</c:when>
-																			<c:otherwise>
-																				<th scope="row"></th>
-																			</c:otherwise>
-																		</c:choose>
 																	</tr>
 																</c:forEach>
 															</tbody>
@@ -175,8 +166,37 @@
 										</div>
 									</div>
 								</div>
-								<!-- STEP 3 - DOCUMENTS -->
+								<!--  STEP 3 - IDK -->
 								<div class="row setup-content" id="step-3">
+									<div class="col-xs-12">
+										<div class="col-md-12 well text-center">
+											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"> 
+												<!-- id is used in javascript -->
+												<form:select path="orderContact.district" id="districtList" items="${districtsByUser}" itemValue="id" itemLabel="name" onchange="updateSchoolList()" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
+												<span class="fa fa-university form-control-feedback left" aria-hidden="true"></span>
+											</div>
+											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+												<!-- id is used in javascript -->
+												<form:select path="orderContact.school" id="schoolList" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
+												<span class="fa fa-graduation-cap form-control-feedback left" aria-hidden="true"></span>
+											</div>
+										</div>
+									</div>
+		                       		
+									<div class="col-xs-12">
+										<div class="col-md-12 well text-center">
+											<h2 class="text-center"> Special Requests</h2>
+											<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback"> 
+												<!-- id is used in javascript -->
+												<form:textarea path="orderContact.altContactInfo" id="orderContact.altContactInfo" rows="10" maxlength="1000" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
+												<span class="fa fa-truck form-control-feedback left" aria-hidden="true"></span>
+											</div>
+										</div>
+									</div>
+									
+								</div>
+								<!-- STEP 4 - DOCUMENTS -->
+								<div class="row setup-content" id="step-4">
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
 											<table class="table">
@@ -208,7 +228,7 @@
 									</div>
 								</div>
 								<!-- STEP 4 - OPTIONS -->
-								<div class="row setup-content" id="step-4">
+								<div class="row setup-content" id="step-5">
 									<div class="col-xs-12">
 										<div class="col-md-12 well">
 											<div class="form-group col-xs-12">
@@ -255,10 +275,10 @@
 									</div>
 								</div>
 								<!--  STEP 5 - CONTACT -->
-								<div class="row setup-content" id="step-5">
+								<div class="row setup-content" id="step-6">
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"> 
+											<%-- <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"> 
 												<!-- id is used in javascript -->
 												<form:select path="orderContact.district" id="districtList" items="${districtsByUser}" itemValue="id" itemLabel="name" onchange="updateSchoolList()" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
 												<span class="fa fa-university form-control-feedback left" aria-hidden="true"></span>
@@ -267,7 +287,7 @@
 												<!-- id is used in javascript -->
 												<form:select path="orderContact.school" id="schoolList" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
 												<span class="fa fa-graduation-cap form-control-feedback left" aria-hidden="true"></span>
-											</div>
+											</div> --%>
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
 												<form:input path="orderContact.name" type="text" class="form-control has-feedback-left" id="orderContact.name" placeholder="Name" required="required"/> 
 												<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
@@ -303,7 +323,7 @@
 									</c:if>
 								</div>
 								<!--  STEP 6 - REVIEW -->
-								<div class="row setup-content" id="step-6">
+								<div class="row setup-content" id="step-7">
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
 											<!-- START EXAMS -->
@@ -322,7 +342,6 @@
 																		<th class="column-title">Number of Test </th>
 																		<th class="column-title">Answer Sheets </th>
 																		<th class="column-title">Students Per CSV </th>
-																		<th class="column-title">P.A.S. </th>
 																	</tr>
 																</thead>
 																<tbody id="reviewExams">															
@@ -331,14 +350,12 @@
 																		<td class=" ">61</td>
 																		<td class=" ">10</td>
 																		<td class=" ">1</td>
-																		<td class=" "></td>
 																	</tr>
 																	<tr class="odd pointer">
 																		<td class=" ">ELA (Common Core) - 01003CC</td>
 																		<td class=" ">116</td>
 																		<td class=" ">20</td>
 																		<td class=" ">0</td>
-																		<td class=" "></td>
 																	</tr>
 																</tbody>
 															</table>
@@ -562,15 +579,8 @@
 					var examAmount = document.getElementById("selectedExams" + i + ".orderExam.examAmount").value;
 					var answerSheetAmount = document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").value;
 					var studentsPerCSV = document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").value;
-					var pas = document.getElementById("selectedExams" + i + ".orderExam.pearsonAnswerSheet1");
-					var pasValue = 'No';
 					var evenOddClass = 'odd';
 					
-					if(pas != null && pas.checked) 
-					{
-						pasValue = 'Yes'
-					}
-	
 					if(examAmount == '')
 					{
 						examAmount = '0';
@@ -592,7 +602,7 @@
 					}
 					
 					//Add HTML
-					$('#reviewExams').append("<tr class='" + evenOddClass + " pointer'><td>" + examName + "</td><td>" + examAmount + "</td><td>" + answerSheetAmount + "</td><td>" + studentsPerCSV + "</td><td>" + pasValue + "</td></tr>");
+					$('#reviewExams').append("<tr class='" + evenOddClass + " pointer'><td>" + examName + "</td><td>" + examAmount + "</td><td>" + answerSheetAmount + "</td><td>" + studentsPerCSV + "</td></tr>");
 				}
 			}
 		}
