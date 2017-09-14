@@ -9,6 +9,8 @@
 <c:url value="/order" var="order" />
 <jsp:useBean id="now" class="java.util.Date" />
 <fmt:formatDate var="year" value="${now}" pattern="yyyy" />
+<fmt:formatNumber var="nonSecureDocumentFee" value="${orderForm.nonSecureDocumentFee}" type="currency"/>
+<fmt:formatNumber var="processingFee" value="${orderForm.processingFee}" type="currency"/>
 
 
 	<jsp:include page="fragments/header.jsp" />
@@ -94,8 +96,8 @@
 												<p>
 													<strong>Billing: </strong>
 													Your district will be billed for the precise number of tests and non-secure documents processed through NERIC.
-													The rate for the Regents scanning/scoring service is $2.10* per student per test processed.
-													The rate for non-secure documents is $0.40 per document ordered.
+													The rate for the Regents scanning/scoring service is ${processingFee}* per student per test processed.
+													The rate for non-secure documents is ${nonSecureDocumentFee} per document ordered.
 													Your district will be billed in the ${billingYear} academic year.
 													If you need a data file you must request it by sending an email to testing@neric.org; do this only after you confirm the accuracy of the scores on your reports.											
 												</p>
@@ -167,7 +169,6 @@
 														</table>
 													</div>
 												</div>
-												<!-- 													    <a id="add_row" class="btn btn-success pull-left">Add Row</a><a id='delete_row' class="btn btn-danger pull-right">Delete Row</a> -->
 											</div>
 											<button id="activate-step-3" class="btn btn-primary btn-md">Next</button>
 										</div>
@@ -208,7 +209,21 @@
 								<!-- STEP 3 - DOCUMENTS -->
 								<div class="row setup-content" id="step-3">
 									<div class="col-xs-12">
+									
+										<div class="alert alert-dismissible fade in" role="alert">
+                    						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    							<span aria-hidden="true">×</span>
+                    						</button>
+                    						Non-secure documents include Essay Booklets for ELA, USH and GH, and Reference Tables for the sciences. 
+											See Step 1 for price per document.
+                  						</div>
+									
 										<div class="col-md-12 well text-center">
+										
+											<span>
+												
+											</span>
+										
 											<table class="table">
 												<thead>
 													<tr>

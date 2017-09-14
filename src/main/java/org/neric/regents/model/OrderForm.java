@@ -1,28 +1,20 @@
 package org.neric.regents.model;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
@@ -87,7 +79,27 @@ public class OrderForm implements Serializable
 		this.orderFormDocuments = orderFormDocuments;
 		this.active = false;
 	}
-
+	
+	
+	public OrderForm(Integer id, String uuid, String name, String period, Date startDate, Date endDate, Boolean visible, Boolean locked, Boolean active, Set<OrderFormExam> orderFormExams, Set<OrderFormDocument> orderFormDocuments, Double rescanFee, Double inDistrictScanFee, Double nonSecureDocumentFee, Double processingFee)
+	{
+		super();
+		this.id = id;
+		this.uuid = uuid;
+		this.name = name;
+		this.period = period;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.visible = visible;
+		this.locked = locked;
+		this.active = active;
+		this.orderFormExams = orderFormExams;
+		this.orderFormDocuments = orderFormDocuments;
+		this.rescanFee = rescanFee;
+		this.inDistrictScanFee = inDistrictScanFee;
+		this.nonSecureDocumentFee = nonSecureDocumentFee;
+		this.processingFee = processingFee;
+	}
 
 	@Id 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -138,6 +150,18 @@ public class OrderForm implements Serializable
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderForm")
 	private Set<OptOut> orderForm = new HashSet<OptOut>(0);
+	
+	@Column(name="rescanFee", unique=false, nullable=false)	
+	private Double rescanFee;
+	
+	@Column(name="inDistrictScanFee", unique=false, nullable=false)	
+	private Double inDistrictScanFee;
+	
+	@Column(name="nonSecureDocumentFee", unique=false, nullable=false)	
+	private Double nonSecureDocumentFee;
+	
+	@Column(name="processingFee", unique=false, nullable=false)	
+	private Double processingFee;
 	
 	
 	public Integer getId()
@@ -258,6 +282,57 @@ public class OrderForm implements Serializable
 	public void setOrders(Set<Order> orders)
 	{
 		this.orders = orders;
+	}
+	
+	
+	public Set<OptOut> getOrderForm()
+	{
+		return orderForm;
+	}
+
+	public void setOrderForm(Set<OptOut> orderForm)
+	{
+		this.orderForm = orderForm;
+	}
+
+	public Double getRescanFee()
+	{
+		return rescanFee;
+	}
+
+	public void setRescanFee(Double rescanFee)
+	{
+		this.rescanFee = rescanFee;
+	}
+
+	public Double getInDistrictScanFee()
+	{
+		return inDistrictScanFee;
+	}
+
+	public void setInDistrictScanFee(Double inDistrictScanFee)
+	{
+		this.inDistrictScanFee = inDistrictScanFee;
+	}
+
+	public Double getNonSecureDocumentFee()
+	{
+		return nonSecureDocumentFee;
+	}
+
+	public void setNonSecureDocumentFee(Double nonSecureDocumentFee)
+	{
+		this.nonSecureDocumentFee = nonSecureDocumentFee;
+	}
+
+	public Double getProcessingFee()
+	{
+		return processingFee;
+	}
+
+	public void setProcessingFee(Double processingFee)
+	{
+		this.processingFee = processingFee;
 	}
 
 	@Transient

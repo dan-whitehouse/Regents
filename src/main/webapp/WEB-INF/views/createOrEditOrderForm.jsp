@@ -56,6 +56,8 @@
 	                          		</form:select>
 	                        	</div>
 							</div>
+							
+							<!-- DATES -->
 							<div class="form-group">
 	                        	<label class="control-label col-md-3 col-sm-3 col-xs-12">Start Date <span class="required">*</span></label>
 	                        	<div class="col-md-6 col-sm-6 col-xs-12">
@@ -68,6 +70,39 @@
 	                        	<div class="col-md-6 col-sm-6 col-xs-12">
 	                        		<fmt:formatDate value="${orderForm.endDate}" type="date" pattern="MM/dd/yyyy" var="fEndDate"/>
 	                          		<form:input type="text" path="endDate" id="orderFormEndDate" value="${fEndDate}" class="date-picker form-control col-md-7 col-xs-12 active" name="endDate" placeholder="Order Form End Date" required="required"/>
+	                        	</div>
+							</div>
+							
+							<!-- MONEY AMOUNTS -->
+							<div class="form-group">
+	                        	<label class="control-label col-md-3 col-sm-3 col-xs-12">Rescan Fee <span class="required">*</span></label>
+	                        	<div class="col-md-6 col-sm-6 col-xs-12">
+	                        		<fmt:formatNumber var="fRescanFee" value="${orderForm.rescanFee}" type="number" maxFractionDigits="2" minFractionDigits="2" minIntegerDigits="1"/>
+	                          		<form:input type="text" path="rescanFee" id="rescanFee" value="${fRescanFee}" class="form-control col-md-7 col-xs-12 active" name="rescanFee" placeholder="0.00" required="required"/>
+	                        	</div>
+							</div>
+							
+							<div class="form-group">
+	                        	<label class="control-label col-md-3 col-sm-3 col-xs-12">In-District Scan Fee <span class="required">*</span></label>
+	                        	<div class="col-md-6 col-sm-6 col-xs-12">
+	                        		<fmt:formatNumber var="fInDistrictScanFee" value="${orderForm.inDistrictScanFee}" type="number" maxFractionDigits="2" minFractionDigits="2" minIntegerDigits="1"/>
+	                          		<form:input type="text" path="inDistrictScanFee" id="inDistrictScanFee" value="${fInDistrictScanFee}" class="form-control col-md-7 col-xs-12 active" name="inDistrictScanFee" placeholder="0.00" required="required"/>
+	                        	</div>
+							</div>
+							
+							<div class="form-group">
+	                        	<label class="control-label col-md-3 col-sm-3 col-xs-12">Student Processing Fee <span class="required">*</span></label>
+	                        	<div class="col-md-6 col-sm-6 col-xs-12">
+	                        		<fmt:formatNumber var="fProcessingFee" value="${orderForm.processingFee}" type="number" maxFractionDigits="2" minFractionDigits="2" minIntegerDigits="1"/>
+	                          		<form:input type="text" path="processingFee" id="processingFee" value="${fProcessingFee}" class="form-control col-md-7 col-xs-12 active" name="processingFee" placeholder="0.00" required="required"/>
+	                        	</div>
+							</div>
+							
+							<div class="form-group">
+	                        	<label class="control-label col-md-3 col-sm-3 col-xs-12">Non-Secure Document Fee <span class="required">*</span></label>
+	                        	<div class="col-md-6 col-sm-6 col-xs-12">
+	                        		<fmt:formatNumber var="fNonSecureDocumentFee" value="${orderForm.nonSecureDocumentFee}" type="number" maxFractionDigits="2" minFractionDigits="2" minIntegerDigits="1"/>
+	                          		<form:input type="text" path="nonSecureDocumentFee" id="nonSecureDocumentFee" value="${fNonSecureDocumentFee}" class="form-control col-md-7 col-xs-12 active" name="nonSecureDocumentFee" placeholder="0.00" required="required"/>
 	                        	</div>
 							</div>
 
@@ -138,10 +173,10 @@
 									<div class="col-md-6 col-md-offset-3">
 										<c:choose>
 											<c:when test="${edit}">
-												<input type="submit" value="Update" class="btn btn-success"/> <a href="<c:url value='/orderForms' />" class="btn btn-primary">Cancel</a>
+												<input type="submit" value="Update" class="btn btn-success"/> <a href="<c:url value='/admin/orderForms/${orderForm.uuid}' />" class="btn btn-primary">Cancel</a>
 											</c:when>
 											<c:otherwise>
-												<input type="submit" value="Add" class="btn btn-success"/> <a href="<c:url value='/orderForms' />" class="btn btn-primary">Cancel</a>
+												<input type="submit" value="Add" class="btn btn-success"/> <a href="<c:url value='/admin/orderForms' />" class="btn btn-primary">Cancel</a>
 											</c:otherwise>
 										</c:choose>
 									</div>

@@ -2,6 +2,7 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:url value="/admin/orderForms/create" var="createOrderFormLink" />
 <c:url value="/admin/orderForms/${orderForm.uuid}/edit" var="editOrderFormLink" />
@@ -55,6 +56,42 @@
 	                        	<div class="col-md-6 col-sm-6 col-xs-12">
 	                        		<div class="form-control col-md-7 col-xs-12 active">
 	                        			${orderForm.endDate}
+                        			</div>
+	                        	</div>
+							</div>
+							
+							<div class="form-group">
+	                        	<label class="control-label col-md-3 col-sm-3 col-xs-12">Rescan Fee:</label>
+	                        	<div class="col-md-6 col-sm-6 col-xs-12">
+	                        		<div class="form-control col-md-7 col-xs-12 active">
+	                        			<fmt:formatNumber value = "${orderForm.rescanFee}" type="number" maxFractionDigits="2" minFractionDigits="2" minIntegerDigits="1"/>
+                        			</div>
+	                        	</div>
+							</div>
+							
+							<div class="form-group">
+	                        	<label class="control-label col-md-3 col-sm-3 col-xs-12">In-District Scan Fee:</label>
+	                        	<div class="col-md-6 col-sm-6 col-xs-12">
+	                        		<div class="form-control col-md-7 col-xs-12 active">
+	                        			<fmt:formatNumber value="${orderForm.inDistrictScanFee}" type="number" maxFractionDigits="2" minFractionDigits="2" minIntegerDigits="1"/>
+                        			</div>
+	                        	</div>
+							</div>
+							
+							<div class="form-group">
+	                        	<label class="control-label col-md-3 col-sm-3 col-xs-12">Student Processing Fee:</label>
+	                        	<div class="col-md-6 col-sm-6 col-xs-12">
+	                        		<div class="form-control col-md-7 col-xs-12 active">
+	                        			<fmt:formatNumber value="${orderForm.processingFee}" type="number" maxFractionDigits ="2" minFractionDigits = "2" minIntegerDigits="1"/> 
+                        			</div>
+	                        	</div>
+							</div>
+							
+							<div class="form-group">
+	                        	<label class="control-label col-md-3 col-sm-3 col-xs-12">Non-Secure Document Fee:</label>
+	                        	<div class="col-md-6 col-sm-6 col-xs-12">
+	                        		<div class="form-control col-md-7 col-xs-12 active">
+	                        			<fmt:formatNumber value="${orderForm.nonSecureDocumentFee}" type="number" maxFractionDigits="2" minFractionDigits="2" minIntegerDigits="1"/>
                         			</div>
 	                        	</div>
 							</div>
