@@ -74,6 +74,17 @@ public class Order implements Serializable
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "order", orphanRemoval = true)
 	@Cascade(CascadeType.ALL)
 	private OrderContact orderContact;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "district_id", nullable = false)
+	private District district;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "school_id", nullable = false)
+	private School school;
+	
+	@Column(name="special_requests", unique=false, nullable=true, length = 1000)
+	private String specialRequests;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "orderForm_id", nullable = false)
@@ -179,7 +190,6 @@ public class Order implements Serializable
 		this.orderStatus = orderStatus;
 	}
 	
-	
 	public OrderContact getOrderContact()
 	{
 		return orderContact;
@@ -199,6 +209,39 @@ public class Order implements Serializable
 	public void setOrderForm(OrderForm orderForm)
 	{
 		this.orderForm = orderForm;
+	}
+	
+	
+
+	public District getDistrict()
+	{
+		return district;
+	}
+
+	public void setDistrict(District district)
+	{
+		this.district = district;
+	}
+
+	public School getSchool()
+	{
+		return school;
+	}
+
+	public void setSchool(School school)
+	{
+		this.school = school;
+	}
+
+	
+	public String getSpecialRequests()
+	{
+		return specialRequests;
+	}
+
+	public void setSpecialRequests(String specialRequests)
+	{
+		this.specialRequests = specialRequests;
 	}
 
 	@Override

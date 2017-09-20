@@ -7,10 +7,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:url value="/order" var="order" />
-<jsp:useBean id="now" class="java.util.Date" />
-<fmt:formatDate var="year" value="${now}" pattern="yyyy" />
+
+<fmt:formatDate var="schoolYear" value="${orderForm.startDate}" pattern="yyyy" />
+<fmt:formatNumber var="rescanFee" value="${orderForm.rescanFee}" type="currency"/>
+<fmt:formatNumber var="inDistrictScanFee" value="${orderForm.inDistrictScanFee}" type="currency"/>
 <fmt:formatNumber var="nonSecureDocumentFee" value="${orderForm.nonSecureDocumentFee}" type="currency"/>
 <fmt:formatNumber var="processingFee" value="${orderForm.processingFee}" type="currency"/>
+<fmt:formatDate value="${orderForm.endDate}" type="date" pattern="MM/dd/yyyy" var="endDate"/>
 
 
 	<jsp:include page="fragments/header.jsp" />
@@ -43,33 +46,33 @@
 													<p class="list-group-item-text">Regents Exams</p>
 												</a>
 											</li>
-											<!-- <li class="disabled">
-												<a href="#step-3">
-													<h4 class="list-group-item-heading">Step 3</h4>
-													<p class="list-group-item-text">Location for Blanks</p>
-												</a>
-											</li> -->
 											<li class="disabled">
 												<a href="#step-3">
 													<h4 class="list-group-item-heading">Step 3</h4>
-													<p class="list-group-item-text">Non-Secure Documents</p>
+													<p class="list-group-item-text">Location for Blanks</p>
 												</a>
 											</li>
 											<li class="disabled">
 												<a href="#step-4">
 													<h4 class="list-group-item-heading">Step 4</h4>
-													<p class="list-group-item-text">Options</p>
+													<p class="list-group-item-text">Non-Secure Documents</p>
 												</a>
 											</li>
 											<li class="disabled">
 												<a href="#step-5">
 													<h4 class="list-group-item-heading">Step 5</h4>
+													<p class="list-group-item-text">Options</p>
+												</a>
+											</li>
+											<li class="disabled">
+												<a href="#step-6">
+													<h4 class="list-group-item-heading">Step 6</h4>
 													<p class="list-group-item-text">Contact</p>
 												</a>
 											</li>
 											<li class="disabled">
-												<a href="#step-6" onclick="review();">
-													<h4 class="list-group-item-heading">Step 6</h4>
+												<a href="#step-7" onclick="review();">
+													<h4 class="list-group-item-heading">Step 7</h4>
 													<p class="list-group-item-text">Review</p>
 												</a>
 											</li>
@@ -82,36 +85,34 @@
 								<!-- STEP 1 - INFO -->
 								<div class="row setup-content" id="step-1">
 									<div class="col-xs-12">
-										<div class="col-md-12 well text-center">
+										<div class="col-md-12 well">
 											<div class="col-md-12 col-sm-12 col-xs-12">	
-												<h2 class="StepTitle">${orderForm.period} ${year} - REGENTS ANSWER SHEET SERVICES & NON SECURE DOCUMENTS ORDER FORM</h2>
+												<h2 class="StepTitle text-center">${orderForm.period} ${schoolYear} - REGENTS ANSWER SHEET SERVICES & NON SECURE DOCUMENTS ORDER FORM</h2>
 												<p>
-													<strong>Directions: </strong>
-													The order form and data <strong>must</strong> be received by NERIC no later than ${dueDate}. 
+													<strong><u>Directions:</u> The order form and data file MUST be received by NERIC no later than ${endDate}.</strong>
 												</p>
 												<p>
-													<strong>Student Demographic Data File: </strong>
-													Please see this document for additional information about the exact .csv file specification and submission instructions.
+													<strong><u>Student Demographic Data File:</u></strong>
+													If you are ordering preprinted answer sheets your district needs to provide NERIC with a student data file 
+													securely through Serv-U. You can find the student data file template 
+													<a href="http://neric.org/documents/Testing/How to Upload Files to ServU.pdfhttp:/neric.org/documents/Testing/How to Upload Files to ServU.pdf">here</a>, 
+													and directions on how to upload files to Serv-U here. If you do not have access to SERV-U, a request for a secure link can be e-mailed 
+													to testing@neric.org. <p class="text-danger">No student data files should be e-mailed to NERIC</p>
 												</p>
 												<p>
 													<strong>Billing: </strong>
-													Your district will be billed for the precise number of tests and non-secure documents processed through NERIC.
-													The rate for the Regents scanning/scoring service is ${processingFee}* per student per test processed.
+													Your district will be billed based on the number of answer sheets scanned, not printed. 
+													For Regents scanned at NERIC, you will be billed in the ${schoolYear}-${schoolYear+1} academic year at ${processingFee} per student per test. 
+													For Regents scanned in-district it will be ${inDistrictScanFee} per student per test. 
+													For any test that is rescanned you will be billed ${rescanFee} . 
 													The rate for non-secure documents is ${nonSecureDocumentFee} per document ordered.
-													Your district will be billed in the ${billingYear} academic year.
-													If you need a data file you must request it by sending an email to testing@neric.org; do this only after you confirm the accuracy of the scores on your reports.											
 												</p>
 												
-												<p>This form must be signed by your superintendent, business official or whoever else is authorized to approve this expenditure.</p>
-												
-												<p>
-													<strong>Dates will depend on the administration</strong>
-													For instructions and templates in a ZIP file for creating the CSV data file please go here. Upload the completed file to Serv-U.  If you do not have access to SERV-U, a request for a secure link can be e-mailed to testing@neric.org.  <strong>No data files should be e-mailed to testing@neric.org</strong>
-												</p>
+												<p>This form must be submitted with the approval of your districts superintendent, business official or whoever else is authorized to approve this expenditure.</p>
 											</div>
-											<div class="col-md-12 col-sm-12 col-xs-12">
+											<div class="col-md-12 col-sm-12 col-xs-12 text-center">
 												<br>
-												<button id="activate-step-2" class="btn btn-primary btn-md">Next</button>
+												<a id="activate-step-2" class="btn btn-primary btn-md">Next</a>
 											</div>
 										</div>
 									</div>
@@ -176,75 +177,51 @@
 													</div>
 												</div>
 											</div>
-											<button id="activate-step-3" class="btn btn-primary btn-md">Next</button>
+											<a id="activate-step-3" class="btn btn-primary btn-md">Next</a>
 										</div>
 									</div>
 								</div>
 								
-								<!--  STEP 2 - BLANKS -->
-								<div class="row setup-content" id="step-5">
+								<!--  STEP 3 - BLANKS -->
+								<div class="row setup-content" id="step-3">
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
 										
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"> 
 												<!-- id is used in javascript -->
-												<form:select path="orderContact.district" id="districtList" items="${districtsByUser}" itemValue="id" itemLabel="name" onchange="updateSchoolList()" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
+												<form:select path="district" id="districtList" items="${districtsByUser}" itemValue="id" itemLabel="name" onchange="updateSchoolList()" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
 												<span class="fa fa-university form-control-feedback left" aria-hidden="true"></span>
 											</div>
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
 												<!-- id is used in javascript -->
-												<form:select path="orderContact.school" id="schoolList" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
+												<form:select path="school" id="schoolList" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
 												<span class="fa fa-graduation-cap form-control-feedback left" aria-hidden="true"></span>
 											</div>
-										
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<form:input path="orderContact.name" type="text" class="form-control has-feedback-left" id="orderContact.name" placeholder="Name" required="required"/> 
-												<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-												<div class="has-error">
-													<form:errors path="orderContact.name" class="help-inline"/>
-												</div>
-											</div>
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<form:input path="orderContact.title" type="text" class="form-control has-feedback-left" id="orderContact.title" placeholder="Title" /> 
-												<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-											</div>
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<form:input path="orderContact.email" type="text" class="form-control has-feedback-left" id="orderContact.email" placeholder="Email" />
-												<span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
-											</div>
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<form:input path="orderContact.phone" type="text" class="form-control has-feedback-left" id="orderContact.phone" placeholder="Phone" />
-												<span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
-											</div>
-											<c:if test="${orderForm.period ne 'August'}">
-												<button id="activate-step-6" class="btn btn-primary btn-md" onclick="review()">Next</button>
-											</c:if>
+
 										</div>
 									</div>
-		                       		<c:if test="${orderForm.period eq 'August'}">
-										<div class="col-xs-12">
-											<div class="col-md-12 well text-center">
-												<h2 class="text-center"> Alternate Shipping Information</h2>
-												<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback"> 
-													<!-- id is used in javascript -->
-													<form:textarea path="orderContact.altContactInfo" id="orderContact.altContactInfo" rows="10" maxlength="1000" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
-													<span class="fa fa-truck form-control-feedback left" aria-hidden="true"></span>
-												</div>
-												<button id="activate-step-6" class="btn btn-primary btn-md" onclick="review()">Review</button> 
+									<div class="col-xs-12">
+										<div class="col-md-12 well text-center">
+											<h2 class="text-center"> Special Requests</h2>
+											<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback"> 
+												<!-- id is used in javascript -->
+												<form:textarea path="specialRequests" id="specialRequests" rows="10" maxlength="1000" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
+												<span class="fa fa-plus form-control-feedback left" aria-hidden="true"></span>
 											</div>
+											<a id="activate-step-4" class="btn btn-primary btn-md">Next</a>
 										</div>
-									</c:if>
+									</div>
 								</div>
 								
-								<!-- STEP 3 - DOCUMENTS -->
-								<div class="row setup-content" id="step-3">
+								<!-- STEP 4 - DOCUMENTS -->
+								<div class="row setup-content" id="step-4">
 									<div class="col-xs-12">
 									
 										<div class="alert alert-softYellow alert-dismissible fade in" role="alert">
                     						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     							<span aria-hidden="true">×</span>
                     						</button>
-                    						Non-secure documents include Essay Booklets for ELA, USH and GH, and Reference Tables for the sciences. 
+                    						Non-secure documents include Essay Booklets for ELA, USH and GH, and Reference Tables for the Sciences. 
 											See Step 1 for price per document.
                   						</div>
 									
@@ -274,12 +251,12 @@
 													</c:forEach>
 												</tbody>
 											</table>
-											<button id="activate-step-4" class="btn btn-primary btn-md">Next</button>
+											<a id="activate-step-5" class="btn btn-primary btn-md">Next</a>
 										</div>
 									</div>
 								</div>
-								<!-- STEP 4 - OPTIONS -->
-								<div class="row setup-content" id="step-4">
+								<!-- STEP 5 - OPTIONS -->
+								<div class="row setup-content" id="step-5">
 									<div class="col-xs-12">
 										<div class="col-md-12 well">
 											<div class="form-group col-xs-12">
@@ -330,29 +307,17 @@
 											</div>
 											<div class="col-md-12 text-center">
 												<br />
-												<button id="activate-step-5" class="btn btn-primary btn-md">Next</button>  
+												<a id="activate-step-6" class="btn btn-primary btn-md">Next</a>
 											</div>
 										</div>
 									</div>
 								</div>
 								<!--  STEP 6 - CONTACT -->
-								<div class="row setup-content" id="step-5">
+								<div class="row setup-content" id="step-6">
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
-										
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"> 
-												<!-- id is used in javascript -->
-												<form:select path="orderContact.district" id="districtList" items="${districtsByUser}" itemValue="id" itemLabel="name" onchange="updateSchoolList()" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
-												<span class="fa fa-university form-control-feedback left" aria-hidden="true"></span>
-											</div>
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<!-- id is used in javascript -->
-												<form:select path="orderContact.school" id="schoolList" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
-												<span class="fa fa-graduation-cap form-control-feedback left" aria-hidden="true"></span>
-											</div>
-										
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<form:input path="orderContact.name" type="text" class="form-control has-feedback-left" id="orderContact.name" placeholder="Name" required="required"/> 
+												<form:input path="orderContact.name" type="text" class="form-control has-feedback-left" id="orderContact.name" placeholder="Name"/>  <!-- required="required" -->
 												<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
 												<div class="has-error">
 													<form:errors path="orderContact.name" class="help-inline"/>
@@ -371,7 +336,7 @@
 												<span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
 											</div>
 											<c:if test="${orderForm.period ne 'August'}">
-												<button id="activate-step-6" class="btn btn-primary btn-md" onclick="review()">Next</button>
+												<a id="activate-step-7" class="btn btn-primary btn-md" onclick="review()">Review</a>
 											</c:if>
 										</div>
 									</div>
@@ -384,13 +349,13 @@
 													<form:textarea path="orderContact.altContactInfo" id="orderContact.altContactInfo" rows="10" maxlength="1000" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
 													<span class="fa fa-truck form-control-feedback left" aria-hidden="true"></span>
 												</div>
-												<button id="activate-step-6" class="btn btn-primary btn-md" onclick="review()">Review</button> 
+												<a id="activate-step-7" class="btn btn-primary btn-md" onclick="review()">Review</a>
 											</div>
 										</div>
 									</c:if>
 								</div>
 								<!--  STEP 7 - REVIEW -->
-								<div class="row setup-content" id="step-6">
+								<div class="row setup-content" id="step-7">
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
 											<!-- START EXAMS -->
@@ -463,6 +428,23 @@
 												</div>
 											</div>
 											<!-- END DOCUMENTS -->
+											
+											<!-- START BLANKS -->
+											<div class="col-md-5 col-sm-5 col-xs-5">
+												<div class="x_panel">
+													<div class="x_title">
+														<h2>Location for Blanks</h2>
+														<div class="clearfix"></div>
+													</div>
+													<div class="x_content" id="reviewBlanks">
+														<!-- Filled in by JS -->
+													</div>
+												</div>
+											</div>
+											<!-- END BLANKS -->
+											
+											
+											
 											<div class="clearfix"></div>
 											<!-- START OPTIONS -->
 											<div class="col-md-7 col-sm-7 col-xs-7">
@@ -515,7 +497,7 @@
 														<div class="clearfix"></div>
 													</div>
 													<div class="x_content" id="reviewContactInfo">
-													
+														<!-- Filled in by JS -->
 													</div>
 												</div>
 											</div>
@@ -562,6 +544,9 @@
 			exams();
 			
 			//Documents
+			blanks();
+			
+			//Documents
 			documents();
 			
 			//Printing Option
@@ -575,7 +560,166 @@
 			
 			//Contact Info
 			contactInfo();
+		}
+		
+		function exams()
+		{
+			$('#reviewExams').empty();
+			
+			var i, count = 0;
+			$('input[id^="selectedExams"][id$="selected1"]').each(function() { count++ });
+			
+			for(i = 0; i <= count-1; i++)
+			{
+				if(document.getElementById('selectedExams' + i + '.selected1').checked) 
+				{
+					var examName = document.getElementById("selectedExams" + i + ".orderExam.exam.name").value;
+					var examAmount = '';
+					
+					<c:if test="${orderForm.period eq 'June'}">
+						examAmount = document.getElementById("selectedExams" + i + ".orderExam.examAmount").value;
+					</c:if>
+							
+					var answerSheetAmount = document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").value;
+					var studentsPerCSV = document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").value;
+					var evenOddClass = 'odd';
+					
+	
+					if(examAmount == '')
+					{
+						examAmount = '0';
+					}
+					
+					if(answerSheetAmount == '')
+					{
+						answerSheetAmount = '0';
+					}
+					
+					if(studentsPerCSV == '')
+					{
+						studentsPerCSV = '0';
+					}
+					
+					if(isEven(i))
+					{
+						evenOddClass = 'even'
+					}
+					
+					//Add HTML
+					$('#reviewExams').append("<tr class='" + evenOddClass + " pointer'><td>" + examName + "</td><td>" + examAmount + "</td><td>" + answerSheetAmount + "</td><td>" + studentsPerCSV + "</td></tr>");
+				}
+			} 
+		}
+		
+		function blanks()
+		{
+			$('#reviewBlanks').empty();
+			
+			var selectedDistrict = document.getElementById("districtList");		
+			var selectedSchool = document.getElementById("schoolList");
+			
+			$('#reviewBlanks').append(selectedSchool.options[selectedSchool.selectedIndex].text + ", ");
+			$('#reviewBlanks').append(selectedDistrict.options[selectedDistrict.selectedIndex].text + "<br />");
+			
+			<c:if test="${orderForm.period eq 'August'}">
+				var alt = document.getElementById("orderContact.altContactInfo").value;
+				if(alt != null && alt != "")
+				{
+					$('#reviewBlanks').append("<hr />" + alt);
+				}
+			</c:if>
+		}
+		
+		function documents()
+		{
+			$('#reviewDocuments').empty();
+			
+			var i, count = 0;
+			$('input[id^="selectedDocuments"][id$="selected1"]').each(function() { count++ });
+			
+			for(i = 0; i <= count-1; i++)
+			{
+				if(document.getElementById('selectedDocuments' + i + '.selected1').checked) 
+				{
+					var docName = document.getElementById("selectedDocuments" + i + ".orderDocument.document.name").value;
+					var docAmount = document.getElementById("selectedDocuments" + i + ".orderDocument.documentAmount").value;
+					
+					if(docAmount == '')
+					{
+						docAmount = '0';
+					}
+					
+					$('#reviewDocuments').append("<tr class='even pointer'><td>" + docName + "</td><td>" + docAmount + "</td></tr>");
+				}
+			} 
+		}
+		
+		function printOption()
+		{
+			var selectedOptionPrint = document.getElementById("selectedOptionPrint");
+			var reviewPrintOption = document.getElementById("reviewPrintOption");
+			reviewPrintOption.value = selectedOptionPrint.options[selectedOptionPrint.selectedIndex].text;
+		}
+		
+		function scanOption()
+		{
+			var selectedOptionScanIndex = getRadioButtonIndex('selectedOptionScan');
+			var selectedOptionScan = '';
+			var reviewScanOption = document.getElementById("reviewScanOption");
+			if(selectedOptionScanIndex != null)
+			{
+				selectedOptionScan = document.querySelector('label[for="selectedOptionScan' + selectedOptionScanIndex + '"]').textContent;
+				reviewScanOption.value = selectedOptionScan;
+			}
+		}
+		
+		function reportingOption()
+		{
+			var reportingOption = false;
+			if(document.getElementById('reportingOption1').checked) 
+			{
+				reportingOption = true;
+			}
+			var reviewReportingOption = document.getElementById("reviewReportingOption");
+			if(reportingOption){reviewReportingOption.value = 'NERIC will load scores into Level 1'}
+			else {reviewReportingOption.value = 'NERIC will NOT load scores into Level 1'}
+		}
+		
+		
+		function contactInfo()
+		{
+			var name = document.getElementById("orderContact.name").value;
+			var title = document.getElementById("orderContact.title").value;
+			var email = document.getElementById("orderContact.email").value;
+			var phone = document.getElementById("orderContact.phone").value;
 
+			$('#reviewContactInfo').empty();
+			$('#reviewContactInfo').append(name + "<br />");
+			$('#reviewContactInfo').append(title + "<br />");
+			$('#reviewContactInfo').append(email + "<br />");
+			$('#reviewContactInfo').append(phone + "<br />");
+			
+			<c:if test="${orderForm.period eq 'August'}">
+				var alt = document.getElementById("orderContact.altContactInfo").value;
+				if(alt != null && alt != "")
+				{
+					$('#reviewContactInfo').append("<hr />" + alt);
+				}
+			</c:if>
+		}
+		
+			
+		function getRadioButtonIndex(n) {
+		   var i, r = document.getElementsByName(n);
+		    for (i = 0; i < r.length; i++) {
+		        if (r[i].checked) return r[i].value;
+		    }
+		    return null;
+		}
+		
+		function isEven(n) 
+		{
+		   return n % 2 == 0;
 		}
 		
 		function selectAllExams()
@@ -634,156 +778,6 @@
 					parent.classList.remove('checked');
 				}
 			}
-		}
-		
-		
-		function exams()
-		{
-			$('#reviewExams').empty();
-			
-			var i, count = 0;
-			$('input[id^="selectedExams"][id$="selected1"]').each(function() { count++ });
-			
-			for(i = 0; i <= count-1; i++)
-			{
-				if(document.getElementById('selectedExams' + i + '.selected1').checked) 
-				{
-					var examName = document.getElementById("selectedExams" + i + ".orderExam.exam.name").value;
-					var examAmount = '';
-					
-					<c:if test="${orderForm.period eq 'June'}">
-						examAmount = document.getElementById("selectedExams" + i + ".orderExam.examAmount").value;
-					</c:if>
-							
-					var answerSheetAmount = document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").value;
-					var studentsPerCSV = document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").value;
-					var evenOddClass = 'odd';
-					
-	
-					if(examAmount == '')
-					{
-						examAmount = '0';
-					}
-					
-					if(answerSheetAmount == '')
-					{
-						answerSheetAmount = '0';
-					}
-					
-					if(studentsPerCSV == '')
-					{
-						studentsPerCSV = '0';
-					}
-					
-					if(isEven(i))
-					{
-						evenOddClass = 'even'
-					}
-					
-					//Add HTML
-					$('#reviewExams').append("<tr class='" + evenOddClass + " pointer'><td>" + examName + "</td><td>" + examAmount + "</td><td>" + answerSheetAmount + "</td><td>" + studentsPerCSV + "</td></tr>");
-				}
-			}
-		}
-		
-		function documents()
-		{
-			$('#reviewDocuments').empty();
-			
-			var i, count = 0;
-			$('input[id^="selectedDocuments"][id$="selected1"]').each(function() { count++ });
-			
-			for(i = 0; i <= count-1; i++)
-			{
-				if(document.getElementById('selectedDocuments' + i + '.selected1').checked) 
-				{
-					var docName = document.getElementById("selectedDocuments" + i + ".orderDocument.document.name").value;
-					var docAmount = document.getElementById("selectedDocuments" + i + ".orderDocument.documentAmount").value;
-					
-					if(docAmount == '')
-					{
-						docAmount = '0';
-					}
-					
-					$('#reviewDocuments').append("<tr class='even pointer'><td>" + docName + "</td><td>" + docAmount + "</td></tr>");
-				}
-			}
-		}
-		
-		function printOption()
-		{
-			var selectedOptionPrint = document.getElementById("selectedOptionPrint");
-			var reviewPrintOption = document.getElementById("reviewPrintOption");
-			reviewPrintOption.value = selectedOptionPrint.options[selectedOptionPrint.selectedIndex].text;
-		}
-		
-		function scanOption()
-		{
-			var selectedOptionScanIndex = getRadioButtonIndex('selectedOptionScan');
-			var selectedOptionScan = '';
-			var reviewScanOption = document.getElementById("reviewScanOption");
-			if(selectedOptionScanIndex != null)
-			{
-				selectedOptionScan = document.querySelector('label[for="selectedOptionScan' + selectedOptionScanIndex + '"]').textContent;
-				reviewScanOption.value = selectedOptionScan;
-			}
-		}
-		
-		function reportingOption()
-		{
-			var reportingOption = false;
-			if(document.getElementById('reportingOption1').checked) 
-			{
-				reportingOption = true;
-			}
-			var reviewReportingOption = document.getElementById("reviewReportingOption");
-			if(reportingOption){reviewReportingOption.value = 'NERIC will load scores into Level 1'}
-			else {reviewReportingOption.value = 'NERIC will NOT load scores into Level 1'}
-		}
-		
-		
-		function contactInfo()
-		{
-			var name = document.getElementById("orderContact.name").value;
-			var title = document.getElementById("orderContact.title").value;
-			var email = document.getElementById("orderContact.email").value;
-			var phone = document.getElementById("orderContact.phone").value;
-			//
-			
-			var selectedDistrict = document.getElementById("districtList");		
-			var selectedSchool = document.getElementById("schoolList");
-
-			
-			$('#reviewContactInfo').empty();
-			$('#reviewContactInfo').append(name + "<br />");
-			$('#reviewContactInfo').append(title + "<br />");
-			$('#reviewContactInfo').append(email + "<br />");
-			$('#reviewContactInfo').append(phone + "<br />");
-			
-			$('#reviewContactInfo').append(selectedSchool.options[selectedSchool.selectedIndex].text + ", ");
-			$('#reviewContactInfo').append(selectedDistrict.options[selectedDistrict.selectedIndex].text + "<br />");
-			
-			<c:if test="${orderForm.period eq 'August'}">
-				var alt = document.getElementById("orderContact.altContactInfo").value;
-				if(alt != null && alt != "")
-				{
-					$('#reviewContactInfo').append("<hr />" + alt);
-				}
-			</c:if>
-		}
-		
-			
-		function getRadioButtonIndex(n) {
-		    var i, r = document.getElementsByName(n);
-		    for (i = 0; i < r.length; i++) {
-		        if (r[i].checked) return r[i].value;
-		    }
-		    return null;
-		}
-		
-		function isEven(n) 
-		{
-		   return n % 2 == 0;
 		}
 
 		function updateSchoolList() 

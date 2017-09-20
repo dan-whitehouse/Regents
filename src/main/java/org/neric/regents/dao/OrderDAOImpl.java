@@ -60,8 +60,8 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 			Hibernate.initialize(order.getOrderScan());
 			
 			Hibernate.initialize(order.getOrderContact());
-			Hibernate.initialize(order.getOrderContact().getDistrict());
-			Hibernate.initialize(order.getOrderContact().getSchool());
+			Hibernate.initialize(order.getDistrict());
+			Hibernate.initialize(order.getSchool());
 			
 			Hibernate.initialize(order.getOrderForm());
 			
@@ -83,12 +83,8 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 				{
 					Hibernate.initialize(o.getUser());
 					Hibernate.initialize(o.getOrderForm());
+					Hibernate.initialize(o.getDistrict());
 					Hibernate.initialize(o.getOrderContact());
-					
-					if(o.getOrderContact() != null)
-					{
-						Hibernate.initialize(o.getOrderContact().getDistrict());
-					}
 				}
 			}	
 		}		
@@ -144,12 +140,8 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 				{
 					Hibernate.initialize(o.getUser());
 					Hibernate.initialize(o.getOrderForm());
+					Hibernate.initialize(o.getDistrict());
 					Hibernate.initialize(o.getOrderContact());
-					
-					if(o.getOrderContact() != null)
-					{
-						Hibernate.initialize(o.getOrderContact().getDistrict());
-					}
 				}
 			}	
 		}		
@@ -176,11 +168,12 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 				{
 					Hibernate.initialize(o.getUser());
 					Hibernate.initialize(o.getOrderForm());
-					Hibernate.initialize(o.getOrderContact());
+					Hibernate.initialize(o.getDistrict());
 					
 					if(o.getOrderContact() != null)
 					{
-						Hibernate.initialize(o.getOrderContact().getDistrict());
+						Hibernate.initialize(o.getOrderContact());
+						
 					}
 				}
 			}	

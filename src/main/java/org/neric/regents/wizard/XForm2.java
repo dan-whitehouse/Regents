@@ -6,10 +6,12 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.neric.regents.model.District;
 import org.neric.regents.model.OptionPrint;
 import org.neric.regents.model.OptionScan;
 import org.neric.regents.model.OrderContact;
 import org.neric.regents.model.OrderForm;
+import org.neric.regents.model.School;
 
 //http://howtodoinjava.com/spring/spring-mvc/spring-mvc-populate-and-validate-dropdown-example/
 
@@ -33,6 +35,12 @@ public class XForm2 implements Serializable
     
     @NotNull
     private List<XDocumentWrapper> selectedDocuments = new ArrayList<>();
+    
+    private District district;
+    
+    private School school;
+    
+    private String specialRequests;
     
     private OrderContact orderContact;
     
@@ -126,6 +134,36 @@ public class XForm2 implements Serializable
 	public void setOrderForm(OrderForm orderForm)
 	{
 		this.orderForm = orderForm;
+	}
+	
+	public District getDistrict()
+	{
+		return district;
+	}
+
+	public void setDistrict(District district)
+	{
+		this.district = district;
+	}
+
+	public School getSchool()
+	{
+		return school;
+	}
+
+	public void setSchool(School school)
+	{
+		this.school = school;
+	}
+
+	public String getSpecialRequests()
+	{
+		return specialRequests;
+	}
+
+	public void setSpecialRequests(String specialRequests)
+	{
+		this.specialRequests = specialRequests;
 	}
 
 	@Override

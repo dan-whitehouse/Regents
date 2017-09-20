@@ -293,6 +293,9 @@ public class OrderController
 			order.setOrderStatus("Processing");
 			order.setUuid(UUID.randomUUID().toString());
 			order.setUser(loggedInUser());
+			order.setDistrict(xForm.getDistrict());
+			order.setSchool(xForm.getSchool());
+			order.setSpecialRequests(xForm.getSpecialRequests());
 			
 			for (XExamWrapper ew : xForm.getSelectedExams())
 			{
@@ -394,6 +397,9 @@ public class OrderController
 			xForm.setSelectedOptionPrint(order.getOrderPrint());
 			xForm.setOrderContact(order.getOrderContact());
 			xForm.setOrderForm(order.getOrderForm());
+			xForm.setDistrict(order.getDistrict());
+			xForm.setSchool(order.getSchool());
+			xForm.setSpecialRequests(order.getSpecialRequests());
 				
 			model.addAttribute("xForm2", xForm);
 			model.addAttribute("order", order);
@@ -422,6 +428,9 @@ public class OrderController
 			order.setOrderScan(xForm.getSelectedOptionScan());
 			order.setReportToLevelOne(xForm.isReportingOption());
 			order.setOrderStatus("Processing");
+			order.setDistrict(xForm.getDistrict());
+			order.setSchool(xForm.getSchool());
+			order.setSpecialRequests(xForm.getSpecialRequests());
 			
 			order.getOrderExams().clear();
 			order.getOrderDocuments().clear();
@@ -453,8 +462,6 @@ public class OrderController
 			order.getOrderContact().setEmail(oc.getEmail());
 			order.getOrderContact().setAltContactInfo(oc.getAltContactInfo());
 			order.getOrderContact().setPhone(oc.getPhone());
-			order.getOrderContact().setSchool(oc.getSchool());
-			order.getOrderContact().setDistrict(oc.getDistrict());
 			order.getOrderContact().setOrder(order);
 			
 

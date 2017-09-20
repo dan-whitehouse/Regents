@@ -44,7 +44,7 @@
 											<li class="enabled">
 												<a href="#step-3">
 													<h4 class="list-group-item-heading">Step 3</h4>
-													<p class="list-group-item-text">Something</p>
+													<p class="list-group-item-text">Location for Blanks</p>
 												</a>
 											</li>
 											<li class="enabled">
@@ -119,18 +119,20 @@
 															<thead>
 																<tr>
 																	<th width="75px">Order <input type="checkbox" id="isCheckedExams" onclick="selectAllExams()"/></th>
-																	<th class="col-md-5 col-xs-12">Test Name</th>
-																	<th>Number of Test
-																		<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="Pull from Level 0: Number of students enrolled in a course resulting in an exam." >
-																		<span class=" fa fa-info"></span>
-																		</span>
-																	</th>
-																	<th>Answer Sheets 
+																	<th class="col-md-5 col-xs-12">Exam Name</th>
+																	<c:if test="${orderForm.period eq 'June'}">
+																		<th># Students Pull from L0
+																			<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="Pull from Level 0: Number of students enrolled in a course resulting in an exam." >
+																			<span class=" fa fa-info"></span>
+																			</span>
+																		</th>
+																	</c:if>
+																	<th># Blank Answer Sheets 
 																		<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="Number of blank in-district answer sheets." >
 																		<span class=" fa fa-info"></span>
 																		</span>
 																	</th>
-																	<th>Students Per CSV
+																	<th># Students in CSV
 																		<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="Number of students included on the CSV file." >
 																		<span class=" fa fa-info"></span>
 																		</span>
@@ -147,9 +149,11 @@
 																		<td>
 																			<form:input path="selectedExams[${status.index}].orderExam.exam.name" value="${e.orderExam.exam.name } - ${e.orderExam.exam.code}"  class="form-control col-md-3 col-xs-12" readonly="true"/>
 																		</td>
-																		<td>
-																			<form:input path="selectedExams[${status.index}].orderExam.examAmount" class="form-control col-md-3 col-xs-12" />
-																		</td>
+																		<c:if test="${orderForm.period eq 'June'}">
+																			<td>
+																				<form:input path="selectedExams[${status.index}].orderExam.examAmount" class="form-control col-md-3 col-xs-12" />
+																			</td>
+																		</c:if>
 																		<td>
 																			<form:input path="selectedExams[${status.index}].orderExam.answerSheetAmount" class="form-control col-md-3 col-xs-12" />
 																		</td>
@@ -166,34 +170,35 @@
 										</div>
 									</div>
 								</div>
-								<!--  STEP 3 - IDK -->
+								<!--  STEP 3 - BLANKS -->
 								<div class="row setup-content" id="step-3">
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
+										
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"> 
 												<!-- id is used in javascript -->
-												<form:select path="orderContact.district" id="districtList" items="${districtsByUser}" itemValue="id" itemLabel="name" onchange="updateSchoolList()" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
+												<form:select path="district" id="districtList" items="${districtsByUser}" itemValue="id" itemLabel="name" onchange="updateSchoolList()" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
 												<span class="fa fa-university form-control-feedback left" aria-hidden="true"></span>
 											</div>
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
 												<!-- id is used in javascript -->
-												<form:select path="orderContact.school" id="schoolList" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
+												<form:select path="school" id="schoolList" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
 												<span class="fa fa-graduation-cap form-control-feedback left" aria-hidden="true"></span>
 											</div>
+
 										</div>
 									</div>
-		                       		
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
 											<h2 class="text-center"> Special Requests</h2>
 											<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback"> 
 												<!-- id is used in javascript -->
-												<form:textarea path="orderContact.altContactInfo" id="orderContact.altContactInfo" rows="10" maxlength="1000" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
-												<span class="fa fa-truck form-control-feedback left" aria-hidden="true"></span>
+												<form:textarea path="specialRequests" id="specialRequests" rows="10" maxlength="1000" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
+												<span class="fa fa-plus form-control-feedback left" aria-hidden="true"></span>
 											</div>
+											<a id="activate-step-4" class="btn btn-primary btn-md">Next</a>
 										</div>
 									</div>
-									
 								</div>
 								<!-- STEP 4 - DOCUMENTS -->
 								<div class="row setup-content" id="step-4">
@@ -227,7 +232,7 @@
 										</div>
 									</div>
 								</div>
-								<!-- STEP 4 - OPTIONS -->
+								<!-- STEP 5 - OPTIONS -->
 								<div class="row setup-content" id="step-5">
 									<div class="col-xs-12">
 										<div class="col-md-12 well">
@@ -274,20 +279,10 @@
 										</div>
 									</div>
 								</div>
-								<!--  STEP 5 - CONTACT -->
+								<!--  STEP 6 - CONTACT -->
 								<div class="row setup-content" id="step-6">
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
-											<%-- <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"> 
-												<!-- id is used in javascript -->
-												<form:select path="orderContact.district" id="districtList" items="${districtsByUser}" itemValue="id" itemLabel="name" onchange="updateSchoolList()" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
-												<span class="fa fa-university form-control-feedback left" aria-hidden="true"></span>
-											</div>
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<!-- id is used in javascript -->
-												<form:select path="orderContact.school" id="schoolList" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
-												<span class="fa fa-graduation-cap form-control-feedback left" aria-hidden="true"></span>
-											</div> --%>
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
 												<form:input path="orderContact.name" type="text" class="form-control has-feedback-left" id="orderContact.name" placeholder="Name" required="required"/> 
 												<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
@@ -322,7 +317,7 @@
 										</div>
 									</c:if>
 								</div>
-								<!--  STEP 6 - REVIEW -->
+								<!--  STEP 7 - REVIEW -->
 								<div class="row setup-content" id="step-7">
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
@@ -396,6 +391,21 @@
 												</div>
 											</div>
 											<!-- END DOCUMENTS -->
+											
+											<!-- START BLANKS -->
+											<div class="col-md-5 col-sm-5 col-xs-5">
+												<div class="x_panel">
+													<div class="x_title">
+														<h2>Location for Blanks</h2>
+														<div class="clearfix"></div>
+													</div>
+													<div class="x_content" id="reviewBlanks">
+														<!-- Filled in by JS -->
+													</div>
+												</div>
+											</div>
+											<!-- END BLANKS -->
+											
 											<div class="clearfix"></div>
 											<!-- START OPTIONS -->
 											<div class="col-md-7 col-sm-7 col-xs-7">
@@ -448,7 +458,7 @@
 														<div class="clearfix"></div>
 													</div>
 													<div class="x_content" id="reviewContactInfo">
-														
+														<!-- Filled in by JS -->
 													</div>
 												</div>
 											</div>
@@ -485,68 +495,13 @@
 	<!-- /page content -->
 	<script type="text/javascript">
 	
-	function selectAllExams()
-	{
-		var i, count = 0;
-		$('input[id^="selectedExams"][id$="selected1"]').each(function() { count++ });
-		
-		if(document.getElementById('isCheckedExams').checked) 
-		{
-			for(i = 0; i <= count-1; i++)
-			{
-				var x = document.getElementById('selectedExams' + i + '.selected1');
-				x.checked = true;
-				
-				var parent = x.parentElement;
-				parent.classList.add('checked');
-			}
-		}
-		else
-		{
-			for(i = 0; i <= count-1; i++)
-			{
-				var x = document.getElementById('selectedExams' + i + '.selected1');
-				x.checked = false;
-				
-				var parent = x.parentElement;
-				parent.classList.remove('checked');
-			}
-		}
-	}
-	
-	function selectAllDocuments()
-	{
-		var i, count = 0;
-		$('input[id^="selectedDocuments"][id$="selected1"]').each(function() { count++ });
-		
-		if(document.getElementById('isCheckedDocuments').checked) 
-		{
-			for(i = 0; i <= count-1; i++)
-			{
-				var x = document.getElementById('selectedDocuments' + i + '.selected1');
-				x.checked = true;
-				
-				var parent = x.parentElement;
-				parent.classList.add('checked');
-			}
-		}
-		else
-		{
-			for(i = 0; i <= count-1; i++)
-			{
-				var x = document.getElementById('selectedDocuments' + i + '.selected1');
-				x.checked = false;
-				
-				var parent = x.parentElement;
-				parent.classList.remove('checked');
-			}
-		}
-	}
-	
 		function review() 
-		{	
+		{				
 			//Exams
 			exams();
+			
+			//Documents
+			blanks();
 			
 			//Documents
 			documents();
@@ -576,11 +531,17 @@
 				if(document.getElementById('selectedExams' + i + '.selected1').checked) 
 				{
 					var examName = document.getElementById("selectedExams" + i + ".orderExam.exam.name").value;
-					var examAmount = document.getElementById("selectedExams" + i + ".orderExam.examAmount").value;
+					var examAmount = '';
+					
+					<c:if test="${orderForm.period eq 'June'}">
+						examAmount = document.getElementById("selectedExams" + i + ".orderExam.examAmount").value;
+					</c:if>
+							
 					var answerSheetAmount = document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").value;
 					var studentsPerCSV = document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").value;
 					var evenOddClass = 'odd';
 					
+	
 					if(examAmount == '')
 					{
 						examAmount = '0';
@@ -604,7 +565,26 @@
 					//Add HTML
 					$('#reviewExams').append("<tr class='" + evenOddClass + " pointer'><td>" + examName + "</td><td>" + examAmount + "</td><td>" + answerSheetAmount + "</td><td>" + studentsPerCSV + "</td></tr>");
 				}
-			}
+			} 
+		}
+		
+		function blanks()
+		{
+			$('#reviewBlanks').empty();
+			
+			var selectedDistrict = document.getElementById("districtList");		
+			var selectedSchool = document.getElementById("schoolList");
+			
+			$('#reviewBlanks').append(selectedSchool.options[selectedSchool.selectedIndex].text + ", ");
+			$('#reviewBlanks').append(selectedDistrict.options[selectedDistrict.selectedIndex].text + "<br />");
+			
+			<c:if test="${orderForm.period eq 'August'}">
+				var alt = document.getElementById("orderContact.altContactInfo").value;
+				if(alt != null && alt != "")
+				{
+					$('#reviewBlanks').append("<hr />" + alt);
+				}
+			</c:if>
 		}
 		
 		function documents()
@@ -628,7 +608,7 @@
 					
 					$('#reviewDocuments').append("<tr class='even pointer'><td>" + docName + "</td><td>" + docAmount + "</td></tr>");
 				}
-			}
+			} 
 		}
 		
 		function printOption()
@@ -668,30 +648,20 @@
 			var title = document.getElementById("orderContact.title").value;
 			var email = document.getElementById("orderContact.email").value;
 			var phone = document.getElementById("orderContact.phone").value;
-			var alt = document.getElementById("orderContact.altContactInfo").value;
-			
-			//District
-			var selectedDistrict = document.getElementById("districtList");
-			/* var reviewDistrict = document.getElementById("reviewPrintOption");
-			reviewDistrict.value = selectedDistrict.options[selectedDistrict.selectedIndex].text; */
-			
-			var selectedSchool = document.getElementById("schoolList");
-			/* var reviewSchool = document.getElementById("reviewPrintOption");
-			reviewSchool.value = selectedSchool.options[selectedSchool.selectedIndex].text; */
-			
+
 			$('#reviewContactInfo').empty();
 			$('#reviewContactInfo').append(name + "<br />");
 			$('#reviewContactInfo').append(title + "<br />");
 			$('#reviewContactInfo').append(email + "<br />");
 			$('#reviewContactInfo').append(phone + "<br />");
 			
-			$('#reviewContactInfo').append(selectedSchool.options[selectedSchool.selectedIndex].text + ", ");
-			$('#reviewContactInfo').append(selectedDistrict.options[selectedDistrict.selectedIndex].text + "<br />");
-			
-			if(alt != null && alt != "")
-			{
-				$('#reviewContactInfo').append("<hr />" + alt);
-			}
+			<c:if test="${orderForm.period eq 'August'}">
+				var alt = document.getElementById("orderContact.altContactInfo").value;
+				if(alt != null && alt != "")
+				{
+					$('#reviewContactInfo').append("<hr />" + alt);
+				}
+			</c:if>
 		}
 		
 		function getRadioButtonIndex(n) {
@@ -705,6 +675,64 @@
 		function isEven(n) 
 		{
 		   return n % 2 == 0;
+		}
+		
+		function selectAllExams()
+		{
+			var i, count = 0;
+			$('input[id^="selectedExams"][id$="selected1"]').each(function() { count++ });
+			
+			if(document.getElementById('isCheckedExams').checked) 
+			{
+				for(i = 0; i <= count-1; i++)
+				{
+					var x = document.getElementById('selectedExams' + i + '.selected1');
+					x.checked = true;
+					
+					var parent = x.parentElement;
+					parent.classList.add('checked');
+				}
+			}
+			else
+			{
+				for(i = 0; i <= count-1; i++)
+				{
+					var x = document.getElementById('selectedExams' + i + '.selected1');
+					x.checked = false;
+					
+					var parent = x.parentElement;
+					parent.classList.remove('checked');
+				}
+			}
+		}
+		
+		function selectAllDocuments()
+		{
+			var i, count = 0;
+			$('input[id^="selectedDocuments"][id$="selected1"]').each(function() { count++ });
+			
+			if(document.getElementById('isCheckedDocuments').checked) 
+			{
+				for(i = 0; i <= count-1; i++)
+				{
+					var x = document.getElementById('selectedDocuments' + i + '.selected1');
+					x.checked = true;
+					
+					var parent = x.parentElement;
+					parent.classList.add('checked');
+				}
+			}
+			else
+			{
+				for(i = 0; i <= count-1; i++)
+				{
+					var x = document.getElementById('selectedDocuments' + i + '.selected1');
+					x.checked = false;
+					
+					var parent = x.parentElement;
+					parent.classList.remove('checked');
+				}
+			}
 		}
 		
 		function updateSchoolList() 

@@ -99,11 +99,11 @@
             $(this).remove();
         })
         
-        $('#activate-step-3').on('click', function(e) {
+       /*  $('#activate-step-3').on('click', function(e) {
             $('ul.setup-panel li:eq(2)').removeClass('disabled');
             $('ul.setup-panel li a[href="#step-3"]').trigger('click');
             $(this).remove();
-        })
+        }) */
         
         $('#activate-step-5').on('click', function(e) {
             $('ul.setup-panel li:eq(4)').removeClass('disabled');
@@ -114,6 +114,12 @@
         $('#activate-step-6').on('click', function(e) {
             $('ul.setup-panel li:eq(5)').removeClass('disabled');
             $('ul.setup-panel li a[href="#step-6"]').trigger('click');
+            $(this).remove();
+        })
+        
+        $('#activate-step-7').on('click', function(e) {
+            $('ul.setup-panel li:eq(6)').removeClass('disabled');
+            $('ul.setup-panel li a[href="#step-7"]').trigger('click');
             $(this).remove();
         })
     });

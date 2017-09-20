@@ -61,7 +61,7 @@ public class School implements Serializable
 	private String name;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "school")
-	private Set<OrderContact> orderContacts = new HashSet<OrderContact>(0);
+	private Set<Order> orders = new HashSet<Order>(0);
 
 	public Integer getId()
 	{
@@ -103,14 +103,14 @@ public class School implements Serializable
 		this.name = name;
 	}
 
-	public Set<OrderContact> getOrderContacts()
+	public Set<Order> getOrders()
 	{
-		return orderContacts;
+		return orders;
 	}
 
-	public void setOrderContacts(Set<OrderContact> orderContacts)
+	public void setOrders(Set<Order> orders)
 	{
-		this.orderContacts = orderContacts;
+		this.orders = orders;
 	}
 
 	@Override

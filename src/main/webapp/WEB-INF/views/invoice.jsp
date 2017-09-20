@@ -66,10 +66,10 @@
                        		<strong>Phone: </strong> ${order.orderContact.phone} 
                       	</div>
                       	<div class="col-sm-4 invoice-col"> 
-                       		<strong>District: </strong> ${order.orderContact.district.name}
+                       		<strong>District: </strong> ${order.district.name}
                       	</div>
                       	<div class="col-sm-4 invoice-col"> 
-                       		<strong>School: </strong> ${order.orderContact.school.name}
+                       		<strong>School: </strong> ${order.school.name}
                       	</div>
                       </div>
                       

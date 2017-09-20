@@ -30,14 +30,6 @@ public class OrderContact implements Serializable
 	@JoinColumn(name = "order_id", nullable = false, unique=false)
 	private Order order;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "district_id", nullable = false)
-	private District district;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "school_id", nullable = false)
-	private School school;
-
 	@Column(name="contact_name", nullable=true)
 	private String name;
 	
@@ -50,7 +42,7 @@ public class OrderContact implements Serializable
 	@Column(name="contact_phone", nullable=true)
 	private String phone;
 	
-	@Column(name="alt_contact_info", nullable=true)
+	@Column(name="alt_contact_info", nullable=true, length = 1000)
 	private String altContactInfo;
 	
 	
@@ -83,26 +75,6 @@ public class OrderContact implements Serializable
 	public void setOrder(Order order)
 	{
 		this.order = order;
-	}
-
-	public District getDistrict()
-	{
-		return district;
-	}
-
-	public void setDistrict(District district)
-	{
-		this.district = district;
-	}
-
-	public School getSchool()
-	{
-		return school;
-	}
-
-	public void setSchool(School school)
-	{
-		this.school = school;
 	}
 
 	public String getName()
