@@ -6,6 +6,8 @@
 
 <c:url value="/order" var="orderLink" />
 
+
+
 <html>
 	<jsp:include page="fragments/header.jsp" />
 	<!-- page content -->
@@ -45,10 +47,11 @@
 								</thead>
 								<tbody>
 									<c:forEach items="${orders}" var="order">
+										<fmt:formatDate var="year" value="${order.orderForm.startDate}" pattern="yyyy" />
 										<tr>
 											<td><span style="text-decoration: underline;"><a href="<c:url value='/order/${order.uuid}' />"> ${order.uuid} </a></span></td>
 											<td><fmt:formatDate value="${order.orderDate}" type="date" pattern="MM/dd/yyyy"/></td>
-											<td>June 2017</td>
+											<td>${order.orderForm.period} ${year} </td>
 											<td>${order.orderContact.district.name}</td>
 											<td>${order.user.firstName} ${order.user.lastName}</td>
 											<td>${order.orderStatus}</td>

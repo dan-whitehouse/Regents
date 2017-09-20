@@ -82,6 +82,7 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 				if(o != null)
 				{
 					Hibernate.initialize(o.getUser());
+					Hibernate.initialize(o.getOrderForm());
 					Hibernate.initialize(o.getOrderContact());
 					
 					if(o.getOrderContact() != null)
@@ -142,6 +143,7 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 				if(o != null)
 				{
 					Hibernate.initialize(o.getUser());
+					Hibernate.initialize(o.getOrderForm());
 					Hibernate.initialize(o.getOrderContact());
 					
 					if(o.getOrderContact() != null)
@@ -173,6 +175,7 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 				if(o != null)
 				{
 					Hibernate.initialize(o.getUser());
+					Hibernate.initialize(o.getOrderForm());
 					Hibernate.initialize(o.getOrderContact());
 					
 					if(o.getOrderContact() != null)

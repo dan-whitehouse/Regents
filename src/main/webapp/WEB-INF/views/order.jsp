@@ -101,7 +101,8 @@
 													Your district will be billed in the ${billingYear} academic year.
 													If you need a data file you must request it by sending an email to testing@neric.org; do this only after you confirm the accuracy of the scores on your reports.											
 												</p>
-												<div class="highlight">This form must be signed by your superintendent, business official or whoever else is authorized to approve this expenditure.</div>
+												
+												<p>This form must be signed by your superintendent, business official or whoever else is authorized to approve this expenditure.</p>
 												
 												<p>
 													<strong>Dates will depend on the administration</strong>
@@ -180,10 +181,11 @@
 									</div>
 								</div>
 								
-								<!-- STEP 3 - Blanks Location -->
-								<%-- <div class="row setup-content" id="step-3">
+								<!--  STEP 2 - BLANKS -->
+								<div class="row setup-content" id="step-5">
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
+										
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"> 
 												<!-- id is used in javascript -->
 												<form:select path="orderContact.district" id="districtList" items="${districtsByUser}" itemValue="id" itemLabel="name" onchange="updateSchoolList()" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
@@ -194,22 +196,45 @@
 												<form:select path="orderContact.school" id="schoolList" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
 												<span class="fa fa-graduation-cap form-control-feedback left" aria-hidden="true"></span>
 											</div>
-	
-										</div>
-									</div>
-		                       		
-									<div class="col-xs-12">
-										<div class="col-md-12 well text-center">
-											<h2 class="text-center">Special Requests</h2>
-											<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback"> 
-												<!-- id is used in javascript -->
-												<form:textarea path="orderContact.altContactInfo" id="orderContact.altContactInfo" rows="10" maxlength="1000" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
-												<span class="fa fa-truck form-control-feedback left" aria-hidden="true"></span>
+										
+											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+												<form:input path="orderContact.name" type="text" class="form-control has-feedback-left" id="orderContact.name" placeholder="Name" required="required"/> 
+												<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+												<div class="has-error">
+													<form:errors path="orderContact.name" class="help-inline"/>
+												</div>
 											</div>
-											<button id="activate-step-4" class="btn btn-primary btn-md">Next</button>
+											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+												<form:input path="orderContact.title" type="text" class="form-control has-feedback-left" id="orderContact.title" placeholder="Title" /> 
+												<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+											</div>
+											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+												<form:input path="orderContact.email" type="text" class="form-control has-feedback-left" id="orderContact.email" placeholder="Email" />
+												<span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
+											</div>
+											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+												<form:input path="orderContact.phone" type="text" class="form-control has-feedback-left" id="orderContact.phone" placeholder="Phone" />
+												<span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
+											</div>
+											<c:if test="${orderForm.period ne 'August'}">
+												<button id="activate-step-6" class="btn btn-primary btn-md" onclick="review()">Next</button>
+											</c:if>
 										</div>
 									</div>
-								</div> --%>
+		                       		<c:if test="${orderForm.period eq 'August'}">
+										<div class="col-xs-12">
+											<div class="col-md-12 well text-center">
+												<h2 class="text-center"> Alternate Shipping Information</h2>
+												<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback"> 
+													<!-- id is used in javascript -->
+													<form:textarea path="orderContact.altContactInfo" id="orderContact.altContactInfo" rows="10" maxlength="1000" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
+													<span class="fa fa-truck form-control-feedback left" aria-hidden="true"></span>
+												</div>
+												<button id="activate-step-6" class="btn btn-primary btn-md" onclick="review()">Review</button> 
+											</div>
+										</div>
+									</c:if>
+								</div>
 								
 								<!-- STEP 3 - DOCUMENTS -->
 								<div class="row setup-content" id="step-3">
@@ -497,17 +522,22 @@
 											<!-- END CONTACT -->
 											<div class="clearfix"></div>
 											<!-- START SUBMIT -->
-											<div class="col-md-12 col-sm-12 col-xs-12">
-												<div class="x_panel">
-													<div class="x_title">
-														<h2>Submit</h2>
-														<div class="clearfix"></div>
-													</div>
-													<div class="x_content">
-														<div class="form-group">
-															<p>By clicking "Submit", you signify that you have permission to order these Regents forms from an appropriate person who can authorize this expenditure.</p>
+											<div class="row no-print">
+												<div class="col-md-12 col-sm-12 col-xs-12">
+													<div class="x_panel">
+														<div class="x_title">
+															<h2 class="pull-left">Submit</h2>
+															<button class="btn btn-default pull-right" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
+															<div class="clearfix"></div>
 														</div>
-														<input type="submit" value="Submit" class="btn btn-success"/> <a href="<c:url value='/orders' />" class="btn btn-primary">Cancel</a>
+														<div class="x_content">
+															<div class="form-group">
+																<p>By clicking "Submit", you signify that you have permission to order these Regents forms from an appropriate person who can authorize this expenditure.</p>
+															</div>
+															<input type="submit" value="Submit" class="btn btn-success"/> 
+															<a href="<c:url value='/orders' />" class="btn btn-primary">Cancel</a>
+															
+														</div>
 													</div>
 												</div>
 											</div>
