@@ -3940,6 +3940,8 @@ ul.verticle_bars li {
     background-color: rgba(38, 185, 154, 0.88);
     border-color: rgba(38, 185, 154, 0.88)
 }
+
+
 .alert-info {
     color: #E9EDEF;
     background-color: rgba(52, 152, 219, 0.88);
@@ -3956,6 +3958,20 @@ ul.verticle_bars li {
     background-color: rgba(231, 76, 60, 0.88);
     border-color: rgba(231, 76, 60, 0.88)
 }
+
+.alert-softGrey {
+    color: #73879C;
+    background-color: #f9f8db;
+    border-color: #e3e3e3
+}
+
+.alert-softYellow {
+    color: #73879C;
+    background-color: #fffedd;
+    border-color: #e3e3e3
+}
+
+
 .ui-pnotify.dark .ui-pnotify-container {
     color: #E9EDEF;
     background-color: rgba(52, 73, 94, 0.88);

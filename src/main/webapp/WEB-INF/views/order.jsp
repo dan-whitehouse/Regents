@@ -102,6 +102,11 @@
 													If you need a data file you must request it by sending an email to testing@neric.org; do this only after you confirm the accuracy of the scores on your reports.											
 												</p>
 												<div class="highlight">This form must be signed by your superintendent, business official or whoever else is authorized to approve this expenditure.</div>
+												
+												<p>
+													<strong>Dates will depend on the administration</strong>
+													For instructions and templates in a ZIP file for creating the CSV data file please go here. Upload the completed file to Serv-U.  If you do not have access to SERV-U, a request for a secure link can be e-mailed to testing@neric.org.  <strong>No data files should be e-mailed to testing@neric.org</strong>
+												</p>
 											</div>
 											<div class="col-md-12 col-sm-12 col-xs-12">
 												<br>
@@ -210,7 +215,7 @@
 								<div class="row setup-content" id="step-3">
 									<div class="col-xs-12">
 									
-										<div class="alert alert-dismissible fade in" role="alert">
+										<div class="alert alert-softYellow alert-dismissible fade in" role="alert">
                     						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     							<span aria-hidden="true">×</span>
                     						</button>
@@ -219,11 +224,6 @@
                   						</div>
 									
 										<div class="col-md-12 well text-center">
-										
-											<span>
-												
-											</span>
-										
 											<table class="table">
 												<thead>
 													<tr>

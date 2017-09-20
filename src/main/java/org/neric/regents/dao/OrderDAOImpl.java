@@ -79,7 +79,16 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 		{
 			for(Order o : orders)
 			{
-				Hibernate.initialize(o.getUser());
+				if(o != null)
+				{
+					Hibernate.initialize(o.getUser());
+					Hibernate.initialize(o.getOrderContact());
+					
+					if(o.getOrderContact() != null)
+					{
+						Hibernate.initialize(o.getOrderContact().getDistrict());
+					}
+				}
 			}	
 		}		
 		return (List<Order>)crit.list();
@@ -121,7 +130,8 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 	{
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.eq("user.id", id));
-		crit.addOrder(org.hibernate.criterion.Order.asc("id"));
+		crit.addOrder(org.hibernate.criterion.Order.desc("orderDate"));
+		crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 	
 		
 		List<Order> orders = (List<Order>)crit.list();
@@ -129,7 +139,16 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 		{
 			for(Order o : orders)
 			{
-				Hibernate.initialize(o.getUser());
+				if(o != null)
+				{
+					Hibernate.initialize(o.getUser());
+					Hibernate.initialize(o.getOrderContact());
+					
+					if(o.getOrderContact() != null)
+					{
+						Hibernate.initialize(o.getOrderContact().getDistrict());
+					}
+				}
 			}	
 		}		
 		return (List<Order>)crit.list();
@@ -143,19 +162,24 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 		Criteria criteria = getSession().createCriteria(Order.class, "o");
 		criteria.createAlias("o.user", "u");
 		criteria.add(Restrictions.eq("u.username", username));
+		criteria.addOrder(org.hibernate.criterion.Order.desc("orderDate"));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		
-		
-		/*Criteria crit = createEntityCriteria();
-		crit.add(Restrictions.eq("user.username", username));
-		crit.addOrder(org.hibernate.criterion.Order.asc("id"));*/
 		
 		List<Order> orders = (List<Order>)criteria.list();
 		if(orders!=null)
 		{
 			for(Order o : orders)
 			{
-				Hibernate.initialize(o.getUser());
+				if(o != null)
+				{
+					Hibernate.initialize(o.getUser());
+					Hibernate.initialize(o.getOrderContact());
+					
+					if(o.getOrderContact() != null)
+					{
+						Hibernate.initialize(o.getOrderContact().getDistrict());
+					}
+				}
 			}	
 		}		
 		return orders;
