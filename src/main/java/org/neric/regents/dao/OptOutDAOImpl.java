@@ -52,6 +52,27 @@ public class OptOutDAOImpl extends AbstractDao<Integer, OptOut> implements OptOu
 			for(OptOut o : optOuts)
 			{
 				Hibernate.initialize(o.getDistrict());
+				Hibernate.initialize(o.getOrderForm());
+				Hibernate.initialize(o.getOptOutUser());
+			}	
+		}
+		return (List<OptOut>)crit.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<OptOut> findAllActiveOptOuts(int id)
+	{
+		Criteria crit = createEntityCriteria();
+		crit.addOrder(org.hibernate.criterion.Order.desc("optOutDate"));
+		crit.add(Restrictions.eq("id", id));
+		List<OptOut> optOuts = (List<OptOut>)crit.list();
+		if(optOuts != null)
+		{
+			for(OptOut o : optOuts)
+			{
+				Hibernate.initialize(o.getDistrict());
+				Hibernate.initialize(o.getOrderForm());
+				Hibernate.initialize(o.getOptOutUser());
 			}	
 		}
 		return (List<OptOut>)crit.list();

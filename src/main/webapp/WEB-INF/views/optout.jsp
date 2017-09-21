@@ -21,7 +21,7 @@
 									<label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">District <span class="required">*</span>
 									</label>
 									<div class="col-md-6 col-sm-6 col-xs-12">									
-<%-- 										<form:select path="districtByUser" items="${district}" multiple="false" itemValue="id" itemLabel="type" class="form-control col-md-7 col-xs-12" required="required"/> --%>
+										<form:select path="district" id="districtList" items="${districtsByUser}" itemValue="id" itemLabel="name" class="form-control col-md-7 col-xs-12" required="required"/>
 									</div>
 								</div>
 								
@@ -30,7 +30,7 @@
 										<div class="form-group">
 											<p>By "Opting Out", you signify that you are not testing for this regents period and have permission to "Opt Out" from an appropriate person who can authorize this.</p>
 										</div>
-										<input type="submit" value="Opt Out" class="btn btn-success"/> <a href="<c:url value='/orderForms' />" class="btn btn-primary">Cancel</a>
+										<input type="submit" value="Opt Out" class="btn btn-success"/> <a href="<c:url value='/optout' />" class="btn btn-primary">Cancel</a>
 									</div>
 								</div>
 							</form:form>

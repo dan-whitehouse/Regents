@@ -60,6 +60,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -98,32 +99,15 @@ public class OptOutController {
 	@Autowired
 	AuthenticationTrustResolver authenticationTrustResolver;
 	
+	@Autowired
+	DistrictEditor districtEditor;
+	
 	
 	@InitBinder
     public void initBinder(WebDataBinder binder) 
 	{
-        binder.registerCustomEditor(Set.class, "userDistricts", new CustomCollectionEditor(Set.class)
-        {
-	          @Override
-	          protected Object convertElement(Object element)
-	          {
-	              Integer id = null;
-	
-	              if(element instanceof String && !((String)element).equals("")){
-	                  try{
-	                      id = Integer.parseInt((String) element);
-	                  }
-	                  catch (NumberFormatException e) {
-	                      e.printStackTrace();
-	                  }
-	              }
-	              else if(element instanceof Integer) {
-	                  id = (Integer) element;
-	              }
-
-	              return id != null ? districtService.findById(id) : null;
-	          }
-        });
+		binder.registerCustomEditor(District.class, districtEditor);
+      
 	}
     
 
@@ -166,32 +150,44 @@ public class OptOutController {
 	}
 	
 	@RequestMapping(value = { "/optout" }, method = RequestMethod.GET)
-	public String getOptOutForm(Model model)
+	public String createOptOutForm(Model model)
 	{
-		OptOut optOut = new OptOut();
+		List<OptOut> activeOptOuts = new ArrayList();
+		int activeFormId = orderFormService.getActiveOrderForm().getId();
 		
+
+		System.out.println(activeOptOuts.size());
+		for(OptOut o : activeOptOuts)
+		{
+			System.out.println(activeOptOuts.size());
+			System.out.println(o.getUuid());
+		}
+	
+		OptOut optOut = new OptOut();
 		model.addAttribute("optout", optOut);
 		return "optout";
 	}
 	
 	@RequestMapping(value = { "/optout" }, method = RequestMethod.POST)
-	public String postOptOutForm(@Valid OptOut optOut, BindingResult result, ModelMap model) 
+	public String createOptOutForm(@Valid OptOut optOut, BindingResult result, ModelMap model) 
 	{
 		if (result.hasErrors()) 
 		{
 			return "optout";
-		}		
+		}	
 		
 		optOut.setUuid(UUID.randomUUID().toString());
-		optOut.setDistrict(optOut.getDistrict());
-		optOut.setOptOutUser(optOut.getOptOutUser());
+		optOut.setOrderForm(orderFormService.getActiveOrderForm());
+//		optOut.setDistrict(optOut.getDistrict());
+		optOut.setOptOutUser(loggedInUser());
 		optOut.setOptOutDate(new Date());
-				
+		
+		System.out.println(optOut.toString());	
 		optOutService.save(optOut);
 		
 		model.addAttribute("success", "OptOut: " + optOut.getDistrict().getName() + " has opted out successfully");
-//		model.addAttribute("returnLink", "/admin/optout");
-//		model.addAttribute("returnLinkText", "Order Forms");
+		model.addAttribute("returnLink", "/");
+		model.addAttribute("returnLinkText", "Opt Out");
 		return "success";
 	}
 	
@@ -212,7 +208,6 @@ public class OptOutController {
 		// redirect to some sweet spot called outputs
 		return "redirect:/optouts";
 	}
-	
 	
 	
 	/************************** OTHER **************************/

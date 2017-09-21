@@ -12,6 +12,8 @@ public interface OptOutService
 	
 	List<OptOut> findAllOptOuts();
 	
+	List<OptOut> findAllActiveOptOuts(int id);
+	
 	void save(OptOut optOut);
 	
 	void deleteById(int id);
