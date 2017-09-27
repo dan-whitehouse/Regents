@@ -1,17 +1,22 @@
 package org.neric.regents.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
 
+import javax.servlet.ServletContextAttributeListener;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.neric.regents.converture.DistrictEditor;
 import org.neric.regents.converture.OptionPrintEditor;
@@ -152,19 +157,29 @@ public class OptOutController {
 	@RequestMapping(value = { "/optout" }, method = RequestMethod.GET)
 	public String createOptOutForm(Model model)
 	{
-		List<OptOut> activeOptOuts = new ArrayList();
-		int activeFormId = orderFormService.getActiveOrderForm().getId();
+		List<OptOut> activeOptOuts = new ArrayList<>();
+		List<District> selectableDistricts = new ArrayList<>();
+		int activeOrderFormId = orderFormService.getActiveOrderForm().getId();
+		activeOptOuts.addAll(optOutService.findAllActiveOptOuts(activeOrderFormId));
 		
-
-		System.out.println(activeOptOuts.size());
+		selectableDistricts.addAll(populateDistrictsByUser());
+		
 		for(OptOut o : activeOptOuts)
 		{
-			System.out.println(activeOptOuts.size());
-			System.out.println(o.getUuid());
+			for(District d : selectableDistricts)
+			{
+				if(o.getDistrict().getId().equals(d.getId()))
+				{
+					selectableDistricts.remove(d);
+				}
+			}
 		}
-	
+		System.out.println(selectableDistricts);
+		
+		// see https://stackoverflow.com/questions/2784514/sort-arraylist-of-custom-objects-by-property for sorting the list
 		OptOut optOut = new OptOut();
 		model.addAttribute("optout", optOut);
+		model.addAttribute("selectableDistricts", selectableDistricts);
 		return "optout";
 	}
 	

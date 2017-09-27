@@ -21,7 +21,7 @@
 									<label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">District <span class="required">*</span>
 									</label>
 									<div class="col-md-6 col-sm-6 col-xs-12">									
-										<form:select path="district" id="districtList" items="${districtsByUser}" itemValue="id" itemLabel="name" class="form-control col-md-7 col-xs-12" required="required"/>
+										<form:select path="district" id="districtList" items="${selectableDistricts}" itemValue="id" itemLabel="name" class="form-control col-md-7 col-xs-12" required="required"/>
 									</div>
 								</div>
 								

@@ -31,9 +31,9 @@ public class OptOutServiceImpl implements OptOutService
 		return dao.findAllOptOuts();
 	}
 	
-	public List<OptOut> findAllActiveOptOuts(int id)
+	public List<OptOut> findAllActiveOptOuts(int orderFormId)
 	{
-		return dao.findAllActiveOptOuts(id);
+		return dao.findAllActiveOptOuts(orderFormId);
 	}
 	
 	public void save(OptOut optOut)

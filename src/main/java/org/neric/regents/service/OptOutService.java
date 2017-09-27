@@ -12,7 +12,7 @@ public interface OptOutService
 	
 	List<OptOut> findAllOptOuts();
 	
-	List<OptOut> findAllActiveOptOuts(int id);
+	List<OptOut> findAllActiveOptOuts(int orderFormId);
 	
 	void save(OptOut optOut);
 	

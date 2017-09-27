@@ -60,11 +60,11 @@ public class OptOutDAOImpl extends AbstractDao<Integer, OptOut> implements OptOu
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<OptOut> findAllActiveOptOuts(int id)
+	public List<OptOut> findAllActiveOptOuts(int orderFormId)
 	{
 		Criteria crit = createEntityCriteria();
 		crit.addOrder(org.hibernate.criterion.Order.desc("optOutDate"));
-		crit.add(Restrictions.eq("id", id));
+		crit.add(Restrictions.eq("orderForm.id", orderFormId));
 		List<OptOut> optOuts = (List<OptOut>)crit.list();
 		if(optOuts != null)
 		{
