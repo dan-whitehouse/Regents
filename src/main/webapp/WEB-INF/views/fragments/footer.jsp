@@ -30,7 +30,8 @@
     <script src="<c:url value='/resources/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js' />"></script>
 
     <!-- validator -->
-    <script src="<c:url value='/resources/vendors/validator/validator.js' />"></script>
+    <script src="<c:url value='/resources/build/js/validator.min.js' />"></script>
+    <%-- <script src="<c:url value='/resources/vendors/validator/validator.js' />"></script> --%>
     
     <!-- Datatables -->
     <script src="<c:url value='/resources/vendors/datatables.net/js/jquery.dataTables.min.js' />"></script>
@@ -53,6 +54,8 @@
     
      <!-- Custom Theme Scripts -->
     <script src="<c:url value='/resources/build/js/custom.min.js' />"></script>
+    
+   
     
     <script>
  // Activate Next Step

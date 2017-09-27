@@ -51,7 +51,7 @@
 												<td><span style="text-decoration: underline;"><a href="<c:url value='/order/${order.uuid}' />"> ${order.uuid} </a></span></td>
 												<td><fmt:formatDate value="${order.orderDate}" type="date" pattern="MM/dd/yyyy"/></td>
 												<td>${order.orderForm.period} ${year} </td>
-												<td>${order.orderContact.district.name}</td>
+												<td>${order.district.name}</td>
 												<td>${order.user.firstName} ${order.user.lastName}</td>
 												<td>${order.orderStatus}</td>
 												<sec:authorize access="hasRole('ADMIN')">

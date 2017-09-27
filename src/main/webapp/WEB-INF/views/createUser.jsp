@@ -31,19 +31,111 @@
 							<div class="clearfix"></div>
 						</div>
 						<div class="x_content">
-							<%--                     <form:form method="POST" modelAttribute="user" class="form-horizontal form-label-left" novalidate> --%>
-							<form:form method="POST" modelAttribute="user" class="form-horizontal form-label-left">								
+							<form:form method="POST" modelAttribute="user" class="form-horizontal form-label-left" data-toggle="validator" role="form">								
 								<span class="section">User Info</span>
 								<form:input type="hidden" path="id" id="id"/>
 								
-								<div class="item form-group">
+								<div class="item form-group has-feedback">
+									<label for="firstName" class="control-label">First Name</label>
+								    <div class="input-group col-md-6 col-sm-6 col-xs-6">
+								    	<span class="input-group-addon"><i class="fa fa-user"></i></span>
+								    	<form:input type="text" pattern="^[_A-z0-9]{1,}$" maxlength="15" path="firstName" id="firstName" class="form-control col-md-7 col-xs-12" name="firstName" placeholder="First Name"  required="required" />
+								    </div>
+								    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+								    <!-- <div class="help-block with-errors">Hey look, this one has feedback icons!</div> -->
+								</div>
+								
+								<div class="form-group has-feedback">
+									<label for="lastName" class="control-label">Last Name</label>
+								    <div class="input-group col-md-6 col-sm-6 col-xs-6">
+								    	<span class="input-group-addon"><i class="fa fa-user"></i></span>
+								    	<form:input type="text" pattern="^[_A-z0-9]{1,}$" maxlength="30" path="lastName" id="lastName" class="form-control col-md-7 col-xs-12" name="lastName" placeholder="Last Name"  required="required" />
+								    </div>
+								    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+								    <!-- <div class="help-block with-errors">Hey look, this one has feedback icons!</div> -->
+								</div>
+								
+								<div class="form-group has-feedback">
+									<label for="username" class="control-label">Username</label>
+								    <div class="input-group col-md-6 col-sm-6 col-xs-6">
+								    	<span class="input-group-addon"><i class="fa fa-user"></i></span>
+								    	<form:input type="email" path="username" id="username" class="form-control col-md-7 col-xs-12" name="username" placeholder="test@district.com"  data-error="Bruh, that email address is invalid" maxlength="30" required="required" />
+								    </div>
+								    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+								   <!--  <div class="help-block with-errors">Looks good...</div> -->
+								</div>
+								
+								<div class="form-group has-feedback">
+									<label for="password" class="control-label">Password</label>
+								    <div class="input-group col-md-6 col-sm-6 col-xs-6">
+								    	<span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
+								    	<form:input type="password" path="password" id="password" name="password" class="form-control col-md-7 col-xs-12" placeholder="Password"  data-error="Bruh, that email address is invalid" maxlength="30" required="required" />
+								    </div>
+								    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+								    <!-- <div class="help-block with-errors">Looks good...</div> -->
+								</div>
+								
+								<div class="form-group has-feedback">
+									<label for="userDistricts" class="control-label">Districts</label>
+								    <div class="input-group col-md-6 col-sm-6 col-xs-6">
+								    	<span class="input-group-addon"><i class="fa fa-university"></i></span>
+								    	 <c:choose>
+				                       		<c:when test="${edit}">
+					                        	<form:select path="userDistricts" multiple="true" class="select2_multiple form-control" required="required">
+					                        		<form:option value=""></form:option>
+						                          	<c:forEach items="${selectedDistricts}" var="selectedDistrict">
+														<c:choose>
+															<c:when test="${selectedDistrict.selected eq 'true'}">
+																<form:option selected="true" value="${selectedDistrict.district.id}" label="${selectedDistrict.district.name}"  />
+					                       					</c:when>
+				                       						<c:otherwise>
+					                      						<form:option value="${selectedDistrict.district.id}" label="${selectedDistrict.district.name}" />
+	 				                      					</c:otherwise>
+	 				                      				</c:choose>
+													</c:forEach>
+							                    </form:select>
+							                    </c:when>
+			                       			<c:otherwise>
+			                       				<form:select path="userDistricts" multiple="true" class="select2_multiple form-control" required="required">
+						                          	<form:option value=""></form:option>
+						                          	<c:forEach items="${districts}" var="district">
+														<form:option value="${district.id}">${district.name}</form:option>
+													</c:forEach>
+							                    </form:select>
+				                    		</c:otherwise>
+			                       		</c:choose>
+								    </div>
+								    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+								    <!-- <div class="help-block with-errors">Looks good...</div> -->
+								</div>
+								
+								<div class="form-group has-feedback">
+									<label for="userProfiles" class="control-label">Role</label>
+								    <div class="input-group col-md-6 col-sm-6 col-xs-6">
+								    	<span class="input-group-addon"><i class="fa fa-users"></i></span>
+								    	<form:select path="userProfiles" multiple="false" class="form-control col-md-7 col-xs-12" required="required">
+									    	<%-- <form:option value=""></form:option> --%>
+									    	<c:forEach items="${roles}" var="role">
+									    		<form:option value="${role.id}">${role.type}</form:option>
+											</c:forEach>
+										 </form:select>
+								    </div>
+								    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+								    <!-- <div class="help-block with-errors">Looks good...</div> -->
+								</div>
+								
+								
+								<!-- OLD -->
+								
+								
+								<%-- <div class="item form-group">
 									<label class="control-label col-md-3 col-sm-3 col-xs-6"></label>
 									<div class="col-md-3 col-sm-3 col-xs-6" has-feedback>
 										<form:input type="text" path="firstName" id="firstName" class="form-control col-md-7 col-xs-12 has-feedback-left" data-validate-length-range="6" data-validate-words="1" name="firstName" placeholder="First Name" required="required"/>
 										<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
 										<div class="has-error">
 											<form:errors path="firstName" class="help-inline"/>
-										</div>
+										</div> 
 									</div>
 									<div class="col-md-3 col-sm-3 col-xs-6" has-feedback>
 										<form:input type="text" path="lastName" id="lastName" class="form-control col-md-7 col-xs-12 has-feedback-right" data-validate-length-range="6" data-validate-words="1" name="lastName" placeholder="Last Name" required="required"/>
@@ -52,11 +144,10 @@
 											<form:errors path="lastName" class="help-inline"/>
 										</div>
 									</div>
-									
-								</div>
+								</div> --%>
 								
 								
-								<div class="item form-group">
+								<%-- <div class="item form-group">
 									<label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Username <span class="required">*</span>
 									</label>
 									<div class="col-md-6 col-sm-6 col-xs-12">
@@ -65,9 +156,9 @@
 											<form:errors path="username" class="help-inline"/>
 										</div>
 									</div>
-								</div>
+								</div> --%>
 								
-								<div class="item form-group">
+								<%-- <div class="item form-group">
 									<label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Password <span class="required">*</span>
 									</label>
 									<div class="col-md-6 col-sm-6 col-xs-12">
@@ -76,12 +167,11 @@
 											<form:errors path="password" class="help-inline"/>
 										</div>
 									</div>
-								</div>
+								</div> --%>
 								
-								<div class="form-group">
+								<%-- <div class="form-group">
 			                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Districts</label>
 			                        <div class="col-md-6 col-sm-6 col-xs-12">
-			                        
 			                        	 <c:choose>
 				                       		<c:when test="${edit}">
 					                        	<form:select path="userDistricts" multiple="true" class="select2_multiple form-control">
@@ -106,9 +196,9 @@
 				                    		</c:otherwise>
 			                       		</c:choose>
 			                        </div>
-		                      </div>   	
+		                      </div>   	 --%>
 								
-								<div class="item form-group">
+								<%-- <div class="item form-group">
 									<label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Role <span class="required">*</span>
 									</label>
 									<div class="col-md-6 col-sm-6 col-xs-12">									
@@ -117,7 +207,7 @@
 											<form:errors path="userProfiles" class="help-inline"/>
 										</div>
 									</div>
-								</div>
+								</div> --%>
 								
 							
 								<div class="ln_solid"></div>
@@ -164,4 +254,58 @@
       });
     </script>
     <!-- /Select2 -->
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('#user').bootstrapValidator({
+            container: '#messages',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                firstName: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The full name is required and cannot be empty'
+                        }
+                    }
+                },
+                email: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The email address is required and cannot be empty'
+                        },
+                        emailAddress: {
+                            message: 'The email address is not valid'
+                        }
+                    }
+                },
+                title: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The title is required and cannot be empty'
+                        },
+                        stringLength: {
+                            max: 100,
+                            message: 'The title must be less than 100 characters long'
+                        }
+                    }
+                },
+                content: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The content is required and cannot be empty'
+                        },
+                        stringLength: {
+                            max: 500,
+                            message: 'The content must be less than 500 characters long'
+                        }
+                    }
+                }
+            }
+        });
+    });
+    </script>
+    
 </html>

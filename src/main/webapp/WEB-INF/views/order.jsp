@@ -80,7 +80,7 @@
 									</div>
 								</div>
 							</div>
-							<form:form method="POST" modelAttribute="xForm2" cssClass="container">
+							<form:form method="POST" modelAttribute="xForm2" cssClass="container" data-toggle="validator" role="form">
 								<%-- <form:hidden path="orderForm" value="${orderForm}"/> --%>
 								<!-- STEP 1 - INFO -->
 								<div class="row setup-content" id="step-1">
@@ -161,14 +161,14 @@
 																		</td>
 																		<c:if test="${orderForm.period eq 'June'}">
 																			<td>
-																				<form:input path="selectedExams[${status.index}].orderExam.examAmount" class="form-control col-md-3 col-xs-12" />
+																				<form:input path="selectedExams[${status.index}].orderExam.examAmount" type="number" min="0" step="1" class="form-control col-md-3 col-xs-12" />
 																			</td>
 																		</c:if>
 																		<td>
-																			<form:input path="selectedExams[${status.index}].orderExam.answerSheetAmount" class="form-control col-md-3 col-xs-12" />
+																			<form:input path="selectedExams[${status.index}].orderExam.answerSheetAmount" type="number" min="0" step="1" class="form-control col-md-3 col-xs-12" />
 																		</td>
 																		<td>
-																			<form:input path="selectedExams[${status.index}].orderExam.studentsPerCSV" class="form-control col-md-3 col-xs-12" />
+																			<form:input path="selectedExams[${status.index}].orderExam.studentsPerCSV" type="number" min="0" step="1" class="form-control col-md-3 col-xs-12" />
 																		</td>
 																	</tr>
 																</c:forEach>
@@ -245,7 +245,7 @@
 																<form:input path="selectedDocuments[${status.index}].orderDocument.document.name" value="${d.orderDocument.document.name }"  class="form-control col-md-3 col-xs-12" readonly="true" />
 															</td>
 															<td>
-																<form:input path="selectedDocuments[${status.index}].orderDocument.documentAmount" class="form-control col-md-3 col-xs-12" />
+																<form:input path="selectedDocuments[${status.index}].orderDocument.documentAmount" type="number" min="0" step="1" class="form-control col-md-3 col-xs-12" />
 															</td>
 														</tr>
 													</c:forEach>
@@ -259,7 +259,7 @@
 								<div class="row setup-content" id="step-5">
 									<div class="col-xs-12">
 										<div class="col-md-12 well">
-											<div class="form-group col-xs-12">
+											<div class="form-group col-xs-12 has-feedback">
 												<label class="control-label col-md-6 col-sm-6 col-xs-12">Scanning/Scoring Option: 
 												<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default." >
 												<span class=" fa fa-info"></span>
@@ -268,8 +268,11 @@
 												<div class="col-md-6 col-sm-6 col-xs-12">
 													<div class="radio">
 														<ul class="list-unstyled">
-															<form:radiobuttons path="selectedOptionScan" name="selectedOptionScan" items="${allScanOptions}" itemValue="id" itemLabel="name" cssClass="radio flat form-control" element="li"/>
+															<form:radiobuttons path="selectedOptionScan" name="selectedOptionScan" items="${allScanOptions}" itemValue="id" itemLabel="name" cssClass="radio flat form-control has-feedback-left" element="li" required="required"/>
 														</ul>
+													</div>
+													<div class="has-error">
+														<form:errors path="selectedOptionScan" class="help-inline"/>
 													</div>
 												</div>
 											</div>
@@ -285,26 +288,33 @@
 													<div class="checkbox">
 														<c:choose>
 															<c:when test="${orderForm.period eq 'August'}">
-																<form:checkbox path="reportingOption" name="reportingOption" cssClass="form-control flat" label="NERIC will load scores into Level 1" disabled="true"/>
+																<form:checkbox path="reportingOption" name="reportingOption" cssClass="form-control has-feedback-left flat " label="NERIC will load scores into Level 1" disabled="true"/>
 															</c:when>
 															<c:otherwise>
-																<form:checkbox path="reportingOption" name="reportingOption" cssClass="form-control flat" label="NERIC will load scores into Level 1" disabled="true" checked="checked"/>
+																<form:checkbox path="reportingOption" name="reportingOption" cssClass="form-control has-feedback-left flat" label="NERIC will load scores into Level 1" disabled="true" checked="checked"/>
 															</c:otherwise>
 														</c:choose>
 													</div>
 												</div>
 											</div>
 											<br />
-											<div class="form-group col-xs-12">
-												<label class="control-label col-md-6 col-sm-6 col-xs-12">Printing Option: 
-												<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default." >
-												<span class=" fa fa-info"></span>
-												</span>
+											
+											<div class="clearfix"></div>
+											
+											<div class="item form-group has-feedback">
+												<label for="name" class="control-label col-md-6 col-sm-6 col-xs-6">Printing Option: 
+													<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default." >
+														<span class=" fa fa-info"></span>
+													</span>
 												</label>
-												<div class="col-md-6 col-sm-6 col-xs-12">
-													<form:select path="selectedOptionPrint" items="${allPrintOptions}" itemValue="id" itemLabel="name" cssClass="form-control"/>
-												</div>
+											    <div class="input-group col-md-6 col-sm-6 col-xs-6">
+											    	<span class="input-group-addon"><i class="fa fa-print"></i></span>
+											    	<form:select path="selectedOptionPrint" items="${allPrintOptions}" itemValue="id" itemLabel="name" class="form-control col-md-6 col-xs-6 active  has-feedback" required="required"/>
+											    </div>
+											    <!-- <span class="glyphicon form-control-feedback" aria-hidden="true"></span> -->
+											    <!-- <div class="help-block with-errors">Hey look, this one has feedback icons!</div> -->
 											</div>
+
 											<div class="col-md-12 text-center">
 												<br />
 												<a id="activate-step-6" class="btn btn-primary btn-md">Next</a>
@@ -317,23 +327,32 @@
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<form:input path="orderContact.name" type="text" class="form-control has-feedback-left" id="orderContact.name" placeholder="Name"/>  <!-- required="required" -->
+												<form:input path="orderContact.name" type="text" class="form-control has-feedback-left" id="orderContact.name" placeholder="Name" required="required"/>  
 												<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
 												<div class="has-error">
 													<form:errors path="orderContact.name" class="help-inline"/>
 												</div>
 											</div>
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<form:input path="orderContact.title" type="text" class="form-control has-feedback-left" id="orderContact.title" placeholder="Title" /> 
+												<form:input path="orderContact.title" type="text" class="form-control has-feedback-left" id="orderContact.title" placeholder="Title" required="required"/> 
 												<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+												<div class="has-error">
+													<form:errors path="orderContact.title" class="help-inline"/>
+												</div>
 											</div>
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<form:input path="orderContact.email" type="text" class="form-control has-feedback-left" id="orderContact.email" placeholder="Email" />
+												<form:input path="orderContact.email" type="email" class="form-control has-feedback-left" id="orderContact.email" placeholder="Email" required="required"/>
 												<span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
+												<div class="has-error">
+													<form:errors path="orderContact.email" class="help-inline"/>
+												</div>
 											</div>
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<form:input path="orderContact.phone" type="text" class="form-control has-feedback-left" id="orderContact.phone" placeholder="Phone" />
+												<form:input path="orderContact.phone" type="tel" pattern="^[2-9]\d{2}-\d{3}-\d{4}$" class="form-control has-feedback-left" id="orderContact.phone" placeholder="Phone" required="required"/>
 												<span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
+												<div class="has-error">
+													<form:errors path="orderContact.phone" class="help-inline"/>
+												</div>
 											</div>
 											<c:if test="${orderForm.period ne 'August'}">
 												<a id="activate-step-7" class="btn btn-primary btn-md" onclick="review()">Review</a>

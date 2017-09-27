@@ -31,12 +31,33 @@
 							<div class="clearfix"></div>
 						</div>
 						<div class="x_content">
-							<%--                     <form:form method="POST" modelAttribute="user" class="form-horizontal form-label-left" novalidate> --%>
-							<form:form method="POST" modelAttribute="exam" class="form-horizontal form-label-left">								
+							
+							<form:form method="POST" modelAttribute="exam" class="form-horizontal form-label-left" data-toggle="validator" role="form">								
 								<span class="section">Exam Info</span>
 								<form:input type="hidden" path="id" id="id"/>
 								
-								<div class="item form-group">
+								<div class="item form-group has-feedback">
+									<label for="name" class="control-label">Exam Name</label>
+								    <div class="input-group col-md-6 col-sm-6 col-xs-6">
+								    	<span class="input-group-addon"><i class="fa fa-file-o"></i></span>
+								    	<form:input type="text" path="name" id="name" class="form-control col-md-7 col-xs-12 active" name="name" placeholder="Exam Name" required="required"/>
+								    </div>
+								    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+								    <!-- <div class="help-block with-errors">Hey look, this one has feedback icons!</div> -->
+								</div>
+								
+								<div class="item form-group has-feedback">
+									<label for="code" class="control-label">Exam Code</label>
+								    <div class="input-group col-md-6 col-sm-6 col-xs-6">
+								    	<span class="input-group-addon"><i class="fa fa-file-o"></i></span>
+								    	<form:input type="text" path="code" id="code" class="form-control col-md-7 col-xs-12 active" name="code" placeholder="Exam Code" required="required"/>
+								    </div>
+								    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+								    <!-- <div class="help-block with-errors">Hey look, this one has feedback icons!</div> -->
+								</div>
+								
+								
+								<%-- <div class="item form-group">
 									<label class="control-label col-md-3 col-sm-3 col-xs-6"></label>
 									<div class="col-md-3 col-sm-3 col-xs-6" has-feedback>
 										<form:input type="text" path="name" id="name" class="form-control col-md-7 col-xs-12 has-feedback-left" name="name" placeholder="Exam Name" required="required"/>
@@ -52,8 +73,7 @@
 											<form:errors path="code" class="help-inline"/>
 										</div>
 									</div>
-									
-								</div>
+								</div> --%>
 
 								<div class="ln_solid"></div>
 								<div class="form-group">
