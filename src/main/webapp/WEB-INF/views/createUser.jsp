@@ -12,31 +12,22 @@
 				<div class="col-md-12 col-sm-12 col-xs-12">
 					<div class="x_panel">
 						<div class="x_title">
-							<h2>Create User</h2>
-							<ul class="nav navbar-right panel_toolbox">
-								<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-								</li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-									<ul class="dropdown-menu" role="menu">
-										<li><a href="#">Settings 1</a>
-										</li>
-										<li><a href="#">Settings 2</a>
-										</li>
-									</ul>
-								</li>
-								<li><a class="close-link"><i class="fa fa-close"></i></a>
-								</li>
-							</ul>
+							<c:choose>
+								<c:when test="${edit}">
+									<h2>Edit User</h2>
+								</c:when>
+								<c:otherwise>
+									<h2>Create User</h2>
+								</c:otherwise>
+							</c:choose>
+							
 							<div class="clearfix"></div>
 						</div>
 						<div class="x_content">
 							<form:form method="POST" modelAttribute="user" class="form-horizontal form-label-left" data-toggle="validator" role="form">								
-								<span class="section">User Info</span>
 								<form:input type="hidden" path="id" id="id"/>
-								
 								<div class="item form-group has-feedback">
-									<label for="firstName" class="control-label">First Name</label>
+									<label for="firstName" class="control-label col-md-3 col-sm-3 col-xs-3 left">First Name</label>
 								    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 								    	<span class="input-group-addon"><i class="fa fa-user"></i></span>
 								    	<form:input type="text" pattern="^[_A-z0-9]{1,}$" maxlength="15" path="firstName" id="firstName" class="form-control col-md-7 col-xs-12" name="firstName" placeholder="First Name"  required="required" />
@@ -46,7 +37,7 @@
 								</div>
 								
 								<div class="form-group has-feedback">
-									<label for="lastName" class="control-label">Last Name</label>
+									<label for="lastName" class="control-label col-md-3 col-sm-3 col-xs-3 left">Last Name</label>
 								    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 								    	<span class="input-group-addon"><i class="fa fa-user"></i></span>
 								    	<form:input type="text" pattern="^[_A-z0-9]{1,}$" maxlength="30" path="lastName" id="lastName" class="form-control col-md-7 col-xs-12" name="lastName" placeholder="Last Name"  required="required" />
@@ -56,9 +47,9 @@
 								</div>
 								
 								<div class="form-group has-feedback">
-									<label for="username" class="control-label">Username</label>
+									<label for="username" class="control-label col-md-3 col-sm-3 col-xs-3 left">Username</label>
 								    <div class="input-group col-md-6 col-sm-6 col-xs-6">
-								    	<span class="input-group-addon"><i class="fa fa-user"></i></span>
+								    	<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
 								    	<form:input type="email" path="username" id="username" class="form-control col-md-7 col-xs-12" name="username" placeholder="test@district.com"  data-error="Bruh, that email address is invalid" maxlength="30" required="required" />
 								    </div>
 								    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
@@ -66,7 +57,7 @@
 								</div>
 								
 								<div class="form-group has-feedback">
-									<label for="password" class="control-label">Password</label>
+									<label for="password" class="control-label col-md-3 col-sm-3 col-xs-3 left">Password</label>
 								    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 								    	<span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
 								    	<form:input type="password" path="password" id="password" name="password" class="form-control col-md-7 col-xs-12" placeholder="Password"  data-error="Bruh, that email address is invalid" maxlength="30" required="required" />
@@ -76,7 +67,7 @@
 								</div>
 								
 								<div class="form-group has-feedback">
-									<label for="userDistricts" class="control-label">Districts</label>
+									<label for="userDistricts" class="control-label col-md-3 col-sm-3 col-xs-3 left">Districts</label>
 								    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 								    	<span class="input-group-addon"><i class="fa fa-university"></i></span>
 								    	 <c:choose>
@@ -110,7 +101,7 @@
 								</div>
 								
 								<div class="form-group has-feedback">
-									<label for="userProfiles" class="control-label">Role</label>
+									<label for="userProfiles" class="control-label col-md-3 col-sm-3 col-xs-3 left">Role</label>
 								    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 								    	<span class="input-group-addon"><i class="fa fa-users"></i></span>
 								    	<form:select path="userProfiles" multiple="false" class="form-control col-md-7 col-xs-12" required="required">

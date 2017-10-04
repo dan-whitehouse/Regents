@@ -17,22 +17,14 @@
 				<div class="col-md-12 col-sm-12 col-xs-12">
 					<div class="x_panel">
 						<div class="x_title">
-							<h2>Regents Order Form <small>Beta</small></h2>
-							<ul class="nav navbar-right panel_toolbox">
-								<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-								</li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-									<ul class="dropdown-menu" role="menu">
-										<li><a href="#">Settings 1</a>
-										</li>
-										<li><a href="#">Settings 2</a>
-										</li>
-									</ul>
-								</li>
-								<li><a class="close-link"><i class="fa fa-close"></i></a>
-								</li>
-							</ul>
+							<c:choose>
+								<c:when test="${edit}">
+									<h2>Edit Order Form</h2>
+								</c:when>
+								<c:otherwise>
+									<h2>Create Order Form</h2>
+								</c:otherwise>
+							</c:choose>
 							<div class="clearfix"></div>
 						</div>
 						<div class="x_content">
@@ -42,7 +34,7 @@
 							<form:input type="hidden" path="id" id="id"/>
 							
 							<div class="item form-group has-feedback">
-								<label for="name" class="control-label">Title</label>
+								<label for="name" class="control-label col-md-3 col-sm-3 col-xs-3 left">Title</label>
 							    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 							    	<span class="input-group-addon"><i class="fa fa-font"></i></span>
 							    	<form:input type="text" path="name" id="name" class="form-control col-md-7 col-xs-12 active" name="name" placeholder="Order Form Name" required="required"/>
@@ -52,7 +44,7 @@
 							</div>
 							
 							<div class="item form-group has-feedback">
-								<label for="period" class="control-label">Period</label>
+								<label for="period" class="control-label col-md-3 col-sm-3 col-xs-3 left">Period</label>
 							    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 							    	<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
 							    	<form:select path="period" id="period" name="period" class="date-picker form-control col-md-7 col-xs-12 active" required="required">
@@ -67,7 +59,7 @@
 							</div>
 							
 							<div class="item form-group has-feedback">
-								<label for="startDate" class="control-label">Start Date</label>
+								<label for="startDate" class="control-label col-md-3 col-sm-3 col-xs-3 left">Start Date</label>
 							    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 							    	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							    	<fmt:formatDate value="${orderForm.startDate}" type="date" pattern="MM/dd/yyyy" var="fStartDate"/>
@@ -77,8 +69,8 @@
 							    <!-- <div class="help-block with-errors">Hey look, this one has feedback icons!</div> -->
 							</div>
 							
-							<div class="item form-group has-feedback">
-								<label for="endDate" class="control-label">End Date</label>
+							<div class="item form-group has-feedback"> 
+								<label for="endDate" class="control-label col-md-3 col-sm-3 col-xs-3 left">End Date</label>
 							    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 							    	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 							    	<fmt:formatDate value="${orderForm.endDate}" type="date" pattern="MM/dd/yyyy" var="fEndDate"/>
@@ -90,7 +82,7 @@
 							
 							
 							<div class="item form-group has-feedback">
-								<label for="rescanFee" class="control-label">Rescan Fee</label>
+								<label for="rescanFee" class="control-label col-md-3 col-sm-3 col-xs-3 left">Rescan Fee</label>
 							    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 							    	<span class="input-group-addon"><i class="fa fa-usd"></i></span>
 							    	<fmt:formatNumber var="fRescanFee" value="${orderForm.rescanFee}" type="number" maxFractionDigits="2" minFractionDigits="2" minIntegerDigits="1"/>
@@ -101,7 +93,7 @@
 							</div>
 							
 							<div class="item form-group has-feedback">
-								<label for="inDistrictScanFee" class="control-label">In-District Scan Fee</label>
+								<label for="inDistrictScanFee" class="control-label col-md-3 col-sm-3 col-xs-3 left">In-District Scan Fee</label>
 							    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 							    	<span class="input-group-addon"><i class="fa fa-usd"></i></span>
 							    	<fmt:formatNumber var="fInDistrictScanFee" value="${orderForm.inDistrictScanFee}" type="number" maxFractionDigits="2" minFractionDigits="2" minIntegerDigits="1"/>
@@ -112,7 +104,7 @@
 							</div>
 							
 							<div class="item form-group has-feedback">
-								<label for="processingFee" class="control-label">Student Processing Fee</label>
+								<label for="processingFee" class="control-label col-md-3 col-sm-3 col-xs-3 left">Student Processing Fee</label>
 							    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 							    	<span class="input-group-addon"><i class="fa fa-usd"></i></span>
 							    	<fmt:formatNumber var="fProcessingFee" value="${orderForm.processingFee}" type="number" maxFractionDigits="2" minFractionDigits="2" minIntegerDigits="1"/>
@@ -123,7 +115,7 @@
 							</div>
 							
 							<div class="item form-group has-feedback">
-								<label for="nonSecureDocumentFee" class="control-label">Non-Secure Document Fee</label>
+								<label for="nonSecureDocumentFee" class="control-label col-md-3 col-sm-3 col-xs-3 left">Non-Secure Document Fee</label>
 							    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 							    	<span class="input-group-addon"><i class="fa fa-usd"></i></span>
 							    	<fmt:formatNumber var="fNonSecureDocumentFee" value="${orderForm.nonSecureDocumentFee}" type="number" maxFractionDigits="2" minFractionDigits="2" minIntegerDigits="1"/>
@@ -134,7 +126,7 @@
 							</div>
 							
 							<div class="item form-group has-feedback">
-								<label for="orderFormExams" class="control-label">Exams</label>
+								<label for="orderFormExams" class="control-label col-md-3 col-sm-3 col-xs-3 left">Exams</label>
 							    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 							    	<span class="input-group-addon"><i class="fa fa-files-o"></i></span>
 							    	<c:choose>
@@ -166,7 +158,7 @@
 							</div>
 							
 							<div class="item form-group has-feedback">
-								<label for="orderFormDocuments" class="control-label">Documents</label>
+								<label for="orderFormDocuments" class="control-label col-md-3 col-sm-3 col-xs-3 left">Documents</label>
 							    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 							    	<span class="input-group-addon"><i class="fa fa-files-o"></i></span>
 							    	<c:choose>

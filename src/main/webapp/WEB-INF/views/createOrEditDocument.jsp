@@ -37,7 +37,7 @@
 									<form:input type="hidden" path="id" id="id"/>
 									
 									<div class="item form-group has-feedback">
-										<label for="name" class="control-label">Document Name</label>
+										<label for="name" class="control-label col-md-3 col-sm-3 col-xs-3 left">Document Name</label>
 									    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 									    	<span class="input-group-addon"><i class="fa fa-file-o"></i></span>
 									    	<form:input type="text" path="name" id="name" class="form-control col-md-7 col-xs-12 active" name="name" placeholder="Document Name" required="required"/>
