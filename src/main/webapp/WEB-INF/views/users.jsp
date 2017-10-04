@@ -45,7 +45,7 @@
 										<tr>
 											<td>${user.firstName}</td>
 											<td>${user.lastName}</td>
-											<td><a href="<c:url value='/profile/${user.username}' />">${user.username}</a></td>
+											<td><%-- <a href="<c:url value='/profile/${user.username}' />"> --%>${user.username}<!-- </a> --></td>
 										    <sec:authorize access="hasRole('ADMIN')">
 												<td width="195px">
 													<a href="<c:url value='/admin/users/${user.uuid}/edit' />" class="btn btn-success custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>

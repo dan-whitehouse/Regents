@@ -366,6 +366,10 @@ public class AdminController {
 		orderFormUpdate.setPeriod(orderForm.getPeriod());
 		orderFormUpdate.setStartDate(orderForm.getStartDate());
 		orderFormUpdate.setEndDate(orderForm.getEndDate());
+		orderFormUpdate.setNonSecureDocumentFee(orderForm.getNonSecureDocumentFee());
+		orderFormUpdate.setInDistrictScanFee(orderForm.getInDistrictScanFee());
+		orderFormUpdate.setProcessingFee(orderForm.getProcessingFee());
+		orderFormUpdate.setRescanFee(orderForm.getRescanFee());
 		orderFormUpdate.getOrderFormDocuments().clear();
 		orderFormUpdate.getOrderFormExams().clear();
 		

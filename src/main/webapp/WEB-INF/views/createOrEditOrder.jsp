@@ -94,8 +94,8 @@
 													<strong><u>Student Demographic Data File:</u></strong>
 													If you are ordering preprinted answer sheets your district needs to provide NERIC with a student data file 
 													securely through Serv-U. You can find the student data file template 
-													<a href="http://neric.org/documents/Testing/How to Upload Files to ServU.pdfhttp:/neric.org/documents/Testing/How to Upload Files to ServU.pdf">here</a>, 
-													and directions on how to upload files to Serv-U here. If you do not have access to SERV-U, a request for a secure link can be e-mailed 
+													<a href="http://neric.org/Testing/Regents.cfm" class="link" target="_blank">here</a>, 
+													and directions on how to upload files to Serv-U <a href="http://neric.org/documents/Testing/How%20to%20Upload%20Files%20to%20ServU.pdf" class="link" target="_blank">here</a>. If you do not have access to SERV-U, a request for a secure link can be e-mailed 
 													to testing@neric.org. <p class="text-danger">No student data files should be e-mailed to NERIC</p>
 												</p>
 												<p>
@@ -103,7 +103,7 @@
 													Your district will be billed based on the number of answer sheets scanned, not printed. 
 													For Regents scanned at NERIC, you will be billed in the ${schoolYear}-${schoolYear+1} academic year at ${processingFee} per student per test. 
 													For Regents scanned in-district it will be ${inDistrictScanFee} per student per test. 
-													For any test that is rescanned you will be billed ${rescanFee} . 
+													For any test that is rescanned you will be billed ${rescanFee}. 
 													The rate for non-secure documents is ${nonSecureDocumentFee} per document ordered.
 												</p>
 												
@@ -251,21 +251,6 @@
 								<div class="row setup-content" id="step-5">
 									<div class="col-xs-12">
 										<div class="col-md-12 well">
-											<div class="form-group col-xs-12 has-feedback">
-												<label class="control-label col-md-6 col-sm-6 col-xs-12">Scanning/Scoring Option: 
-												<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default." >
-												<span class=" fa fa-info"></span>
-												</span>
-												</label>
-												<div class="col-md-6 col-sm-6 col-xs-12">
-													<div class="radio">
-														<ul class="list-unstyled">
-															<form:radiobuttons path="selectedOptionScan" name="selectedOptionScan" items="${allScanOptions}" itemValue="id" itemLabel="name" cssClass="radio flat form-control" element="li" required="required"/>
-														</ul>
-													</div>
-												</div>
-											</div>
-											<br />
 											<div class="form-group col-xs-12">
 												<label class="control-label col-md-6 col-sm-6 col-xs-12">Reporting Option: 
 												<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default." >
@@ -285,6 +270,7 @@
 													</div>
 												</div>
 											</div>
+											
 											<br />
 											<div class="clearfix"></div>
 											
@@ -299,6 +285,24 @@
 													<form:select path="selectedOptionPrint" items="${allPrintOptions}" itemValue="id" itemLabel="name" cssClass="form-control"/>
 												</div>
 											</div>
+											
+											<div class="clearfix"></div>
+											
+											<div class="form-group col-xs-12 has-feedback">
+												<label class="control-label col-md-6 col-sm-6 col-xs-12">Scanning/Scoring Option: 
+												<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default." >
+												<span class=" fa fa-info"></span>
+												</span>
+												</label>
+												<div class="col-md-6 col-sm-6 col-xs-12">
+													<div class="radio">
+														<ul class="list-unstyled">
+															<form:radiobuttons path="selectedOptionScan" name="selectedOptionScan" items="${allScanOptions}" itemValue="id" itemLabel="name" cssClass="radio flat form-control" element="li" required="required"/>
+														</ul>
+													</div>
+												</div>
+											</div>
+											
 											<div class="col-md-12 text-center">
 											</div>
 										</div>
@@ -495,7 +499,7 @@
 													</div>
 													<div class="x_content">
 														<div class="form-group">
-															<p>By clicking "Submit", you signify that you have permission to order these Regents forms from an appropriate person who can authorize this expenditure.</p>
+															<p class="text-danger">By clicking "Submit", you signify that you have permission to order these Regents forms from an appropriate person who can authorize this expenditure.</p>
 														</div>
 														<input type="submit" value="Submit" class="btn btn-success"/> <a href="<c:url value='/orders' />" class="btn btn-primary">Cancel</a>
 													</div>
