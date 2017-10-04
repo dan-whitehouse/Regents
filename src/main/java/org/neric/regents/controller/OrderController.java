@@ -15,6 +15,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.neric.regents.converture.DistrictEditor;
 import org.neric.regents.converture.OptionPrintEditor;
@@ -23,6 +24,7 @@ import org.neric.regents.converture.SchoolEditor;
 import org.neric.regents.model.District;
 import org.neric.regents.model.Document;
 import org.neric.regents.model.Exam;
+import org.neric.regents.model.OptOut;
 import org.neric.regents.model.OptionPrint;
 import org.neric.regents.model.OptionScan;
 import org.neric.regents.model.Order;
@@ -38,6 +40,7 @@ import org.neric.regents.model.Wizard;
 import org.neric.regents.service.DistrictService;
 import org.neric.regents.service.DocumentService;
 import org.neric.regents.service.ExamService;
+import org.neric.regents.service.OptOutService;
 import org.neric.regents.service.OptionPrintService;
 import org.neric.regents.service.OptionScanService;
 import org.neric.regents.service.OrderFormService;
@@ -121,6 +124,9 @@ public class OrderController
 	
 	@Autowired
 	SchoolEditor schoolEditor;
+	
+	@Autowired
+	OptOutService optOutService;
 
 	@Autowired
 	UserProfileService userProfileService;
@@ -191,13 +197,26 @@ public class OrderController
 	@ModelAttribute("districtsByUser")
 	public List<District> populateDistrictsByUser()
 	{
+		User user = loggedInUser();
+		OrderForm orderForm = orderFormService.getActiveOrderForm();
+		List<OptOut> optOuts = optOutService.findAllOptOutsByUserAndOrderForm(user, orderForm);
 		
-		Set<UserDistrict> userDistricts = loggedInUser().getUserDistricts();
+		
+		List<String> optOutDistrictIds = new ArrayList<>();
+		for(OptOut oo : optOuts) {
+			optOutDistrictIds.add(oo.getDistrict().getUuid());
+		}
+		
+				
+		Set<UserDistrict> userDistricts = user.getUserDistricts();
 		List<District> districts = new ArrayList<>();
 		
 		for(UserDistrict ud : userDistricts)
 		{
-			districts.add(ud.getDistrict());
+			if(!optOutDistrictIds.contains(ud.getDistrict().getUuid()))
+			{
+				districts.add(ud.getDistrict());
+			}	
 		}
 		return districts;
 	}
@@ -240,22 +259,31 @@ public class OrderController
 	{
 		if(orderFormService.hasActiveOrderForm())
 		{
-			OrderForm orderForm = orderFormService.getActiveOrderForm();
-			if(orderForm.getVisible())
+			List<District> districts = populateDistrictsByUser();
+			
+			if(CollectionUtils.isNotEmpty(districts) && districts.size() > 0)
 			{
-				XForm2 xForm = new XForm2();
-				model.addAttribute("xForm2", xForm);
-				model.addAttribute("orderForm", orderForm);
-				return "order";
+				OrderForm orderForm = orderFormService.getActiveOrderForm();
+				if(orderForm.getVisible())
+				{
+					XForm2 xForm = new XForm2();
+					model.addAttribute("xForm2", xForm);
+					model.addAttribute("orderForm", orderForm);
+					return "order";
+				}
+				else
+				{
+					return "403";
+				}	
 			}
 			else
 			{
-				return "403";
-			}	
+				return "optError"; //No district to select. Could be an opt out... or no district assigned to the user.
+			}
 		}
 		else
 		{
-			return "204";
+			return "204"; //No Active OrderForm
 		}
 	}
 

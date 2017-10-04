@@ -6,6 +6,8 @@ import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
 import org.neric.regents.model.OptOut;
+import org.neric.regents.model.OrderForm;
+import org.neric.regents.model.User;
 import org.springframework.stereotype.Repository;
 
 
@@ -65,6 +67,33 @@ public class OptOutDAOImpl extends AbstractDao<Integer, OptOut> implements OptOu
 		Criteria crit = getSession().createCriteria(OptOut.class, "o");
 		crit.createAlias("o.optOutUser",  "u");
 		crit.add(Restrictions.eq("u.username", username));
+		crit.addOrder(org.hibernate.criterion.Order.desc("optOutDate"));
+		crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		
+		List<OptOut> optOuts = (List<OptOut>)crit.list();
+		if(optOuts != null)
+		{
+			for(OptOut o : optOuts)
+			{
+				if(o != null)
+				{
+					Hibernate.initialize(o.getDistrict());
+					Hibernate.initialize(o.getOrderForm());
+					Hibernate.initialize(o.getOptOutUser());
+				}
+			}	
+		}
+		return optOuts;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<OptOut> findAllOptOutsByUserAndOrderForm(User user, OrderForm orderForm)
+	{
+		Criteria crit = getSession().createCriteria(OptOut.class, "o");
+		crit.createAlias("o.optOutUser",  "u");
+		crit.createAlias("o.orderForm",  "of");
+		crit.add(Restrictions.eq("u.uuid", user.getUuid()));
+		crit.add(Restrictions.eq("of.uuid", orderForm.getUuid()));
 		crit.addOrder(org.hibernate.criterion.Order.desc("optOutDate"));
 		crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		

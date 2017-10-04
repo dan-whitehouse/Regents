@@ -54,10 +54,10 @@
 									<div class="col-md-6 col-md-offset-3">
 										<c:choose>
 											<c:when test="${edit}">
-												<input type="submit" value="Update" class="btn btn-success"/> <a href="<c:url value='/districts' />" class="btn btn-primary">Cancel</a>
+												<input type="submit" value="Update" class="btn btn-success"/> <a href="<c:url value='/admin/districts' />" class="btn btn-primary">Cancel</a>
 											</c:when>
 											<c:otherwise>
-												<input type="submit" value="Create" class="btn btn-success"/> <a href="<c:url value='/districts' />" class="btn btn-primary">Cancel</a>
+												<input type="submit" value="Create" class="btn btn-success"/> <a href="<c:url value='/admin/districts' />" class="btn btn-primary">Cancel</a>
 											</c:otherwise>
 										</c:choose>
 									</div>
