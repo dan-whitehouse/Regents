@@ -12,6 +12,8 @@ public interface OptOutService
 	
 	List<OptOut> findAllOptOuts();
 	
+	List<OptOut> findAllOptOutsByUsername(String username);
+	
 	List<OptOut> findAllActiveOptOuts(int orderFormId);
 	
 	void save(OptOut optOut);

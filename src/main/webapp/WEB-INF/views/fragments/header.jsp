@@ -6,10 +6,12 @@
 <c:url value="/order" var="order" />
 <c:url value="/optout" var="optout" />
 <c:url value="/orders" var="orders" />
+<c:url value="/optouts" var="optouts" />
 <c:url value="/profile-${loggedinuser}" var="profile" />
 <c:url value="/admin/users" var="users" />
 <c:url value="/admin/users/create" var="createUser" />
 <c:url value="/admin/orders" var="adminOrders" />
+<c:url value="/admin/optouts" var="adminOptouts" />
 <c:url value="/admin/orderForms" var="orderForms" />
 <c:url value="/admin/orderForms/create" var="createOrderForm" />
 <c:url value="/admin/documents" var="documents" />
@@ -71,8 +73,9 @@
 							<sec:authorize access="hasAnyRole('USER', 'ADMIN')">
 								<li><a href="${home}"><i class="fa fa-home"></i> Home</span></a></li>
 								<li><a href="${order}"><i class="fa fa-edit"></i> Order Form</span></a></li>
-								<li><a href="${optout}"><i class="fa fa-exclamation-triangle"></i> Opt Out</span></a></li>
+								<li><a href="${optout}"><i class="fa fa-sign-out"></i> Opt Out</span></a></li>
 								<li><a href="${orders}"><i class="fa fa-truck"></i>My Orders</a></li>
+								<li><a href="${optouts}"><i class="fa fa-exclamation-triangle"></i> My Opt Outs</span></a></li>
 							</sec:authorize>
 						
 							<sec:authorize access="hasRole('ADMIN')">
@@ -92,6 +95,7 @@
 			                        		</ul>
 		                        		</li>
 		                        		<li><a href="${adminOrders}"><i class="fa fa-truck"></i>Orders</a></li>
+		                        		<li><a href="${adminOptouts}"><i class="fa fa-exclamation-triangle"></i> Opt Outs</span></a></li>
 		                        		<li><a href="${documents}"><i class="fa fa-file-text"></i> Documents </a></li>
 		                        		<li><a href="${exams}"><i class="fa fa-list"></i> Exams </a></li>
 		                        		<li><a href="${printOptions}"><i class="fa fa-print"></i> Print Options </a></li>

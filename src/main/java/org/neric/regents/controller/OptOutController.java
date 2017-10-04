@@ -145,13 +145,23 @@ public class OptOutController {
 	
 	/************************** ORDER OPT OUT **************************/
 	@RequestMapping(value = { "/optouts" }, method = RequestMethod.GET)
+	public String listOptOutsByUser(ModelMap model) 
+	{
+		List<OptOut> optOuts = optOutService.findAllOptOutsByUsername(loggedInUserName());
+		model.addAttribute("optouts", optOuts);
+		model.addAttribute("loggedinuser", getPrincipal());
+		
+		return "optouts";
+	}
+	
+	@RequestMapping(value = { "/admin/optouts" }, method = RequestMethod.GET)
 	public String listAllOptOuts(ModelMap model) 
 	{
 		List<OptOut> optOuts = optOutService.findAllOptOuts();
 		model.addAttribute("optouts", optOuts);
 		model.addAttribute("loggedinuser", getPrincipal());
 		
-		return "optOuts";
+		return "optouts";
 	}
 	
 	@RequestMapping(value = { "/optout" }, method = RequestMethod.GET)
