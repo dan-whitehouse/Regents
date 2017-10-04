@@ -7,7 +7,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:url value="/order" var="order" />
-
 <fmt:formatDate var="schoolYear" value="${orderForm.startDate}" pattern="yyyy" />
 <fmt:formatNumber var="rescanFee" value="${orderForm.rescanFee}" type="currency"/>
 <fmt:formatNumber var="inDistrictScanFee" value="${orderForm.inDistrictScanFee}" type="currency"/>
@@ -186,16 +185,15 @@
 								<div class="row setup-content" id="step-3">
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
-										
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"> 
+											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback input-group"> 
 												<!-- id is used in javascript -->
-												<form:select path="district" id="districtList" items="${districtsByUser}" itemValue="id" itemLabel="name" onchange="updateSchoolList()" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
-												<span class="fa fa-university form-control-feedback left" aria-hidden="true"></span>
+												<span class="input-group-addon"><i class="fa fa-university"></i></span>
+												<form:select path="district" id="districtList" items="${districtsByUser}" itemValue="id" itemLabel="name" onchange="updateSchoolList()" cssClass="form-control col-md-12 col-xs-12"/>
 											</div>
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback input-group">
 												<!-- id is used in javascript -->
-												<form:select path="school" id="schoolList" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
-												<span class="fa fa-graduation-cap form-control-feedback left" aria-hidden="true"></span>
+												<span class="input-group-addon"><i class="fa fa-graduation-cap"></i></span>
+												<form:select path="school" id="schoolList" cssClass="form-control col-md-12 col-xs-12"/>
 											</div>
 
 										</div>
@@ -216,7 +214,6 @@
 								<!-- STEP 4 - DOCUMENTS -->
 								<div class="row setup-content" id="step-4">
 									<div class="col-xs-12">
-									
 										<div class="alert alert-softYellow alert-dismissible fade in" role="alert">
                     						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     							<span aria-hidden="true">×</span>
@@ -224,7 +221,6 @@
                     						Non-secure documents include Essay Booklets for ELA, USH and GH, and Reference Tables for the Sciences. 
 											See Step 1 for price per document.
                   						</div>
-									
 										<div class="col-md-12 well text-center">
 											<table class="table">
 												<thead>
@@ -301,18 +297,16 @@
 											
 											<div class="clearfix"></div>
 											
-											<div class="item form-group has-feedback">
-												<label for="name" class="control-label col-md-6 col-sm-6 col-xs-6">Printing Option: 
+											<div class="form-group col-xs-12 has-feedback">
+												<label class="control-label col-md-6 col-sm-6 col-xs-12">Printing Option: 
 													<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default." >
 														<span class=" fa fa-info"></span>
 													</span>
 												</label>
-											    <div class="input-group col-md-6 col-sm-6 col-xs-6">
-											    	<span class="input-group-addon"><i class="fa fa-print"></i></span>
-											    	<form:select path="selectedOptionPrint" items="${allPrintOptions}" itemValue="id" itemLabel="name" class="form-control col-md-6 col-xs-6 active  has-feedback" required="required"/>
-											    </div>
-											    <!-- <span class="glyphicon form-control-feedback" aria-hidden="true"></span> -->
-											    <!-- <div class="help-block with-errors">Hey look, this one has feedback icons!</div> -->
+												<div class="input-group col-md-6 col-sm-6 col-xs-12">
+													<span class="input-group-addon"><i class="fa fa-print"></i></span>
+													<form:select path="selectedOptionPrint" items="${allPrintOptions}" itemValue="id" itemLabel="name" cssClass="form-control"/>
+												</div>
 											</div>
 
 											<div class="col-md-12 text-center">
@@ -326,33 +320,21 @@
 								<div class="row setup-content" id="step-6">
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<form:input path="orderContact.name" type="text" class="form-control has-feedback-left" id="orderContact.name" placeholder="Name" required="required"/>  
-												<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-												<div class="has-error">
-													<form:errors path="orderContact.name" class="help-inline"/>
-												</div>
+											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback input-group">
+												<span class="input-group-addon"><i class="fa fa-user"></i></span>
+												<form:input path="orderContact.name" type="text" class="form-control" id="orderContact.name" placeholder="Name" required="required"/> 
 											</div>
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<form:input path="orderContact.title" type="text" class="form-control has-feedback-left" id="orderContact.title" placeholder="Title" required="required"/> 
-												<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-												<div class="has-error">
-													<form:errors path="orderContact.title" class="help-inline"/>
-												</div>
+											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback input-group">
+												<span class="input-group-addon"><i class="fa fa-user"></i></span>
+												<form:input path="orderContact.title" type="text" class="form-control" id="orderContact.title" placeholder="Title" required="required"/> 
 											</div>
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<form:input path="orderContact.email" type="email" class="form-control has-feedback-left" id="orderContact.email" placeholder="Email" required="required"/>
-												<span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
-												<div class="has-error">
-													<form:errors path="orderContact.email" class="help-inline"/>
-												</div>
+											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback input-group">
+												<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+												<form:input path="orderContact.email" type="text" class="form-control" id="orderContact.email" placeholder="Email" required="required"/>
 											</div>
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<form:input path="orderContact.phone" type="tel" pattern="^[2-9]\d{2}-\d{3}-\d{4}$" class="form-control has-feedback-left" id="orderContact.phone" placeholder="Phone" required="required"/>
-												<span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
-												<div class="has-error">
-													<form:errors path="orderContact.phone" class="help-inline"/>
-												</div>
+											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback input-group">
+												<span class="input-group-addon"><i class="fa fa-phone"></i></span>
+												<form:input path="orderContact.phone" type="text" class="form-control" id="orderContact.phone" placeholder="Phone" required="required"/>					
 											</div>
 											<c:if test="${orderForm.period ne 'August'}">
 												<a id="activate-step-7" class="btn btn-primary btn-md" onclick="review()">Review</a>

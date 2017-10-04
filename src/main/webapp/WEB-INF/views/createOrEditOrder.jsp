@@ -7,8 +7,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:url value="/order" var="order" />
-<jsp:useBean id="now" class="java.util.Date" />
-<fmt:formatDate var="year" value="${now}" pattern="yyyy" />
+<fmt:formatDate var="schoolYear" value="${orderForm.startDate}" pattern="yyyy" />
+<fmt:formatNumber var="rescanFee" value="${orderForm.rescanFee}" type="currency"/>
+<fmt:formatNumber var="inDistrictScanFee" value="${orderForm.inDistrictScanFee}" type="currency"/>
+<fmt:formatNumber var="nonSecureDocumentFee" value="${orderForm.nonSecureDocumentFee}" type="currency"/>
+<fmt:formatNumber var="processingFee" value="${orderForm.processingFee}" type="currency"/>
+<fmt:formatDate value="${orderForm.endDate}" type="date" pattern="MM/dd/yyyy" var="endDate"/>
+
 
 
 	<jsp:include page="fragments/header.jsp" />
@@ -75,34 +80,38 @@
 									</div>
 								</div>
 							</div>
-							<form:form method="POST" modelAttribute="xForm2" cssClass="container">
+							<form:form method="POST" modelAttribute="xForm2" cssClass="container" data-toggle="validator" role="form">
 								<!-- STEP 1 - INFO -->
 								<div class="row setup-content" id="step-1">
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
 											<div class="col-md-12 col-sm-12 col-xs-12">	
-												<h2 class="StepTitle">${orderForm.period} ${year} - REGENTS ANSWER SHEET SERVICES & NON SECURE DOCUMENTS ORDER FORM</h2>
+												<h2 class="StepTitle text-center">${orderForm.period} ${schoolYear} - REGENTS ANSWER SHEET SERVICES & NON SECURE DOCUMENTS ORDER FORM</h2>
 												<p>
-													<strong>Directions: </strong>
-													The order form and data <strong>must</strong> be received by NERIC no later than ${dueDate}. 
+													<strong><u>Directions:</u> The order form and data file MUST be received by NERIC no later than ${endDate}.</strong>
 												</p>
 												<p>
-													<strong>Student Demographic Data File: </strong>
-													Please see this document for additional information about the exact .csv file specification and submission instructions.
+													<strong><u>Student Demographic Data File:</u></strong>
+													If you are ordering preprinted answer sheets your district needs to provide NERIC with a student data file 
+													securely through Serv-U. You can find the student data file template 
+													<a href="http://neric.org/documents/Testing/How to Upload Files to ServU.pdfhttp:/neric.org/documents/Testing/How to Upload Files to ServU.pdf">here</a>, 
+													and directions on how to upload files to Serv-U here. If you do not have access to SERV-U, a request for a secure link can be e-mailed 
+													to testing@neric.org. <p class="text-danger">No student data files should be e-mailed to NERIC</p>
 												</p>
 												<p>
 													<strong>Billing: </strong>
-													Your district will be billed for the precise number of tests and non-secure documents processed through NERIC.
-													The rate for the Regents scanning/scoring service is $2.10* per student per test processed.
-													The rate for non-secure documents is $0.40 per document ordered.
-													Your district will be billed in the ${billingYear} academic year.
-													If you need a data file you must request it by sending an email to testing@neric.org; do this only after you confirm the accuracy of the scores on your reports.											
+													Your district will be billed based on the number of answer sheets scanned, not printed. 
+													For Regents scanned at NERIC, you will be billed in the ${schoolYear}-${schoolYear+1} academic year at ${processingFee} per student per test. 
+													For Regents scanned in-district it will be ${inDistrictScanFee} per student per test. 
+													For any test that is rescanned you will be billed ${rescanFee} . 
+													The rate for non-secure documents is ${nonSecureDocumentFee} per document ordered.
 												</p>
-												<div class="highlight">This form must be signed by your superintendent, business official or whoever else is authorized to approve this expenditure.</div>
+												
+												<p>This form must be submitted with the approval of your districts superintendent, business official or whoever else is authorized to approve this expenditure.</p>
 											</div>
-											<div class="col-md-12 col-sm-12 col-xs-12">
+											<div class="col-md-12 col-sm-12 col-xs-12 text-center">
 												<br>
-												<button id="activate-step-2" class="btn btn-primary btn-md">Next</button>
+												<a id="activate-step-2" class="btn btn-primary btn-md">Next</a>
 											</div>
 										</div>
 									</div>
@@ -151,14 +160,14 @@
 																		</td>
 																		<c:if test="${orderForm.period eq 'June'}">
 																			<td>
-																				<form:input path="selectedExams[${status.index}].orderExam.examAmount" class="form-control col-md-3 col-xs-12" />
+																				<form:input path="selectedExams[${status.index}].orderExam.examAmount" type="number" min="0" step="1" class="form-control col-md-3 col-xs-12" />
 																			</td>
 																		</c:if>
 																		<td>
-																			<form:input path="selectedExams[${status.index}].orderExam.answerSheetAmount" class="form-control col-md-3 col-xs-12" />
+																			<form:input path="selectedExams[${status.index}].orderExam.answerSheetAmount" type="number" min="0" step="1" class="form-control col-md-3 col-xs-12" />
 																		</td>
 																		<td>
-																			<form:input path="selectedExams[${status.index}].orderExam.studentsPerCSV" class="form-control col-md-3 col-xs-12" />
+																			<form:input path="selectedExams[${status.index}].orderExam.studentsPerCSV" type="number" min="0" step="1" class="form-control col-md-3 col-xs-12" />
 																		</td>
 																	</tr>
 																</c:forEach>
@@ -174,16 +183,15 @@
 								<div class="row setup-content" id="step-3">
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
-										
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"> 
+											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback input-group"> 
 												<!-- id is used in javascript -->
-												<form:select path="district" id="districtList" items="${districtsByUser}" itemValue="id" itemLabel="name" onchange="updateSchoolList()" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
-												<span class="fa fa-university form-control-feedback left" aria-hidden="true"></span>
+												<span class="input-group-addon"><i class="fa fa-university"></i></span>
+												<form:select path="district" id="districtList" items="${districtsByUser}" itemValue="id" itemLabel="name" onchange="updateSchoolList()" cssClass="form-control col-md-12 col-xs-12"/>
 											</div>
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback input-group">
 												<!-- id is used in javascript -->
-												<form:select path="school" id="schoolList" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
-												<span class="fa fa-graduation-cap form-control-feedback left" aria-hidden="true"></span>
+												<span class="input-group-addon"><i class="fa fa-graduation-cap"></i></span>
+												<form:select path="school" id="schoolList" cssClass="form-control col-md-12 col-xs-12"/>
 											</div>
 
 										</div>
@@ -203,13 +211,20 @@
 								<!-- STEP 4 - DOCUMENTS -->
 								<div class="row setup-content" id="step-4">
 									<div class="col-xs-12">
+										<div class="alert alert-softYellow alert-dismissible fade in" role="alert">
+                    						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    							<span aria-hidden="true">×</span>
+                    						</button>
+                    						Non-secure documents include Essay Booklets for ELA, USH and GH, and Reference Tables for the Sciences. 
+											See Step 1 for price per document.
+                  						</div>
 										<div class="col-md-12 well text-center">
 											<table class="table">
 												<thead>
 													<tr>
 														<th width="75px">Order <input type="checkbox" id="isCheckedDocuments" onclick="selectAllDocuments()"/></th>
-														<th>Name</th>
-														<th>Number Requested</th>
+														<th>Non-Secure Document</th>
+														<th>Quantity</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -223,7 +238,7 @@
 																<form:input path="selectedDocuments[${status.index}].orderDocument.document.name" value="${d.orderDocument.document.name }"  class="form-control col-md-3 col-xs-12" readonly="true" />
 															</td>
 															<td>
-																<form:input path="selectedDocuments[${status.index}].orderDocument.documentAmount" class="form-control col-md-3 col-xs-12" />
+																<form:input path="selectedDocuments[${status.index}].orderDocument.documentAmount" type="number" min="0" step="1" class="form-control col-md-3 col-xs-12" />
 															</td>
 														</tr>
 													</c:forEach>
@@ -236,7 +251,7 @@
 								<div class="row setup-content" id="step-5">
 									<div class="col-xs-12">
 										<div class="col-md-12 well">
-											<div class="form-group col-xs-12">
+											<div class="form-group col-xs-12 has-feedback">
 												<label class="control-label col-md-6 col-sm-6 col-xs-12">Scanning/Scoring Option: 
 												<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default." >
 												<span class=" fa fa-info"></span>
@@ -245,7 +260,7 @@
 												<div class="col-md-6 col-sm-6 col-xs-12">
 													<div class="radio">
 														<ul class="list-unstyled">
-															<form:radiobuttons path="selectedOptionScan" name="selectedOptionScan" items="${allScanOptions}" itemValue="id" itemLabel="name" cssClass="radio flat form-control" element="li"/>
+															<form:radiobuttons path="selectedOptionScan" name="selectedOptionScan" items="${allScanOptions}" itemValue="id" itemLabel="name" cssClass="radio flat form-control" element="li" required="required"/>
 														</ul>
 													</div>
 												</div>
@@ -259,18 +274,28 @@
 												</label>
 												<div class="col-md-6 col-sm-6 col-xs-12">
 													<div class="checkbox">
-														<form:checkbox path="reportingOption" name="reportingOption" cssClass="form-control flat" label="NERIC will load scores into Level 1" />
+														<c:choose>
+															<c:when test="${orderForm.period eq 'August'}">
+																<form:checkbox path="reportingOption" name="reportingOption" cssClass="form-control has-feedback-left flat " label="NERIC will load scores into Level 1" disabled="true"/>
+															</c:when>
+															<c:otherwise>
+																<form:checkbox path="reportingOption" name="reportingOption" cssClass="form-control has-feedback-left flat" label="NERIC will load scores into Level 1" disabled="true" checked="checked"/>
+															</c:otherwise>
+														</c:choose>
 													</div>
 												</div>
 											</div>
 											<br />
-											<div class="form-group col-xs-12">
+											<div class="clearfix"></div>
+											
+											<div class="form-group col-xs-12 has-feedback">
 												<label class="control-label col-md-6 col-sm-6 col-xs-12">Printing Option: 
-												<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default." >
-												<span class=" fa fa-info"></span>
-												</span>
+													<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default." >
+														<span class=" fa fa-info"></span>
+													</span>
 												</label>
-												<div class="col-md-6 col-sm-6 col-xs-12">
+												<div class="input-group col-md-6 col-sm-6 col-xs-12">
+													<span class="input-group-addon"><i class="fa fa-print"></i></span>
 													<form:select path="selectedOptionPrint" items="${allPrintOptions}" itemValue="id" itemLabel="name" cssClass="form-control"/>
 												</div>
 											</div>
@@ -283,24 +308,21 @@
 								<div class="row setup-content" id="step-6">
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<form:input path="orderContact.name" type="text" class="form-control has-feedback-left" id="orderContact.name" placeholder="Name" required="required"/> 
-												<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-												<div class="has-error">
-													<form:errors path="orderContact.name" class="help-inline"/>
-												</div>
+											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback input-group">
+												<span class="input-group-addon"><i class="fa fa-user"></i></span>
+												<form:input path="orderContact.name" type="text" class="form-control" id="orderContact.name" placeholder="Name" required="required"/> 
 											</div>
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<form:input path="orderContact.title" type="text" class="form-control has-feedback-left" id="orderContact.title" placeholder="Title" /> 
-												<span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback input-group">
+												<span class="input-group-addon"><i class="fa fa-user"></i></span>
+												<form:input path="orderContact.title" type="text" class="form-control" id="orderContact.title" placeholder="Title" required="required"/> 
 											</div>
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<form:input path="orderContact.email" type="text" class="form-control has-feedback-left" id="orderContact.email" placeholder="Email" />
-												<span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
+											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback input-group">
+												<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+												<form:input path="orderContact.email" type="text" class="form-control" id="orderContact.email" placeholder="Email" required="required"/>
 											</div>
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-												<form:input path="orderContact.phone" type="text" class="form-control has-feedback-left" id="orderContact.phone" placeholder="Phone" />
-												<span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
+											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback input-group">
+												<span class="input-group-addon"><i class="fa fa-phone"></i></span>
+												<form:input path="orderContact.phone" type="text" class="form-control" id="orderContact.phone" placeholder="Phone" required="required"/>					
 											</div>
 										</div>
 									</div>
