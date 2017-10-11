@@ -95,7 +95,7 @@ public class ErrorController
 	    ModelAndView mav = new ModelAndView();
 	    mav.addObject("errorCode", "400");
 	    mav.addObject("errorMsg", "Bad Request");
-	    mav.addObject("exception", "Could not insert record, unique key constraint violation was detected on value: " + value);
+	    mav.addObject("exception", "Could not insert record, key constraint violation was detected on: " + value);
 	    mav.addObject("url", httpRequest.getRequestURL());
 	    mav.setViewName(DEFAULT_ERROR_VIEW);
 	    return mav;

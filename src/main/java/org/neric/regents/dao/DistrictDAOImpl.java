@@ -1,6 +1,7 @@
 package org.neric.regents.dao;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.neric.regents.model.District;
 import org.neric.regents.model.User;
@@ -49,6 +50,16 @@ public class DistrictDAOImpl extends AbstractDao<Integer, District> implements D
 		List<District> districts = (List<District>) criteria.list();
 		return districts;
 	}
+	
+	/*@SuppressWarnings("unchecked")
+	public List<District> findAllActiveDistricts() 
+	{
+		Criteria criteria = createEntityCriteria().addOrder(Order.asc("name"));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
+		List<District> districts = (List<District>) criteria.list();
+		//return districts;
+		return districts.stream().filter(d-> d.getVisible()).collect(Collectors.toList());
+	}*/
 
 	public void save(District district) {
 		persist(district);

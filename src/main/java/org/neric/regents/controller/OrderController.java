@@ -218,7 +218,10 @@ public class OrderController
 			{
 				if(!optOutDistrictIds.contains(ud.getDistrict().getUuid()))
 				{
-					districts.add(ud.getDistrict());
+					if(ud.getDistrict().getVisible())
+					{
+						districts.add(ud.getDistrict());
+					}
 				}	
 			}
 			return districts;
@@ -234,7 +237,10 @@ public class OrderController
 		
 		for(UserDistrict ud : userDistricts)
 		{
-			schools.addAll(schoolService.findAllByDistrictId(ud.getDistrict().getId()));
+			if(ud.getDistrict().getVisible())
+			{
+				schools.addAll(schoolService.findAllByDistrictId(ud.getDistrict().getId()));
+			}
 		}
 		return schools;
 	}
@@ -322,8 +328,7 @@ public class OrderController
 			return "error";
 		}
 
-		try
-		{
+		
 			Order order = new Order();
 			order.setOrderDate(DateUtils.asDate(LocalDateTime.now()));
 			order.setOrderPrint(xForm.getSelectedOptionPrint());
@@ -364,11 +369,7 @@ public class OrderController
 			order.setOrderForm(orderForm);
 			
 			orderService.saveOrder(order);
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+		
 
 		// Mark Session Complete
 		status.setComplete();

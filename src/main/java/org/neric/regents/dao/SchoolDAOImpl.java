@@ -1,6 +1,7 @@
 package org.neric.regents.dao;
 
-import java.util.List;
+import java.util.List;import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.neric.regents.model.Document;
 import org.neric.regents.model.OrderContact;
@@ -59,11 +60,12 @@ public class SchoolDAOImpl extends AbstractDao<Integer, School> implements Schoo
 		crit.add(Restrictions.eq("district.id", id));
 		crit.addOrder(Order.asc("name"));
 		List<School> schools = (List<School>)crit.list();
+		
 		for(School school : schools)
 		{
 			Hibernate.initialize(school.getDistrict());	
 		}
-		return schools;
+		return schools.stream().filter(sch-> sch.getVisible()).collect(Collectors.toList());
 	}
 
 	@Override
