@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -49,7 +50,7 @@ public class District implements Serializable
 	
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	@Column(name = "uuid", nullable = false)
+	@Column(name = "uuid", unique=true, nullable = false)
 	private String uuid;
 	
 	@NotEmpty

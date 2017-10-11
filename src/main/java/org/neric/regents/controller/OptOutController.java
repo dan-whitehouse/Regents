@@ -2,6 +2,7 @@ package org.neric.regents.controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -34,7 +35,6 @@ import org.neric.regents.model.OrderFormExam;
 import org.neric.regents.model.School;
 import org.neric.regents.model.SelectedDistrict;
 import org.neric.regents.model.SelectedDocument;
-import org.neric.regents.model.Setting;
 import org.neric.regents.model.SelectedExam;
 import org.neric.regents.model.User;
 import org.neric.regents.model.UserDistrict;
@@ -48,7 +48,6 @@ import org.neric.regents.service.OptionScanService;
 import org.neric.regents.service.OrderFormService;
 import org.neric.regents.service.OrderService;
 import org.neric.regents.service.SchoolService;
-import org.neric.regents.service.SettingService;
 import org.neric.regents.service.UserProfileService;
 import org.neric.regents.service.UserService;
 import org.neric.regents.wizard.XForm2;
@@ -97,10 +96,7 @@ public class OptOutController {
 	
 	@Autowired
 	MessageSource messageSource;
-	
-	@Autowired
-	SettingService settingService;
-	
+
 	@Autowired
 	AuthenticationTrustResolver authenticationTrustResolver;
 	
@@ -164,33 +160,81 @@ public class OptOutController {
 		return "optouts";
 	}
 	
+	
 	@RequestMapping(value = { "/optout" }, method = RequestMethod.GET)
 	public String createOptOutForm(Model model)
 	{
-		List<OptOut> activeOptOuts = new ArrayList<>();
-		List<District> selectableDistricts = new ArrayList<>();
-		int activeOrderFormId = orderFormService.getActiveOrderForm().getId();
-		activeOptOuts.addAll(optOutService.findAllActiveOptOuts(activeOrderFormId));
+		List<District> activeOptOutDistricts = new ArrayList<>();
+		List<District> selectableDistricts = new ArrayList<>();	
+		OrderForm orderForm = orderFormService.getActiveOrderForm();
 		
-		selectableDistricts.addAll(populateDistrictsByUser());
-		
-		for(OptOut o : activeOptOuts)
-		{
-			for(District d : selectableDistricts)
+		if(orderForm != null)
+		{	
+			if(orderForm.isExpiredPeriod())
 			{
-				if(o.getDistrict().getId().equals(d.getId()))
+				model.addAttribute("error_message", "It appears the active Regents period has expired");
+				return "204";
+			}
+			else if(orderForm.isActivePeriod())
+			{
+				//Populated selectable districts with districts associated to the user.
+				selectableDistricts.addAll(populateDistrictsByUser());
+				
+				//Add all districts currently opted out.
+				List<OptOut> optOuts = optOutService.findAllActiveOptOuts(orderForm.getId());
+				for(OptOut o : optOuts)
 				{
-					selectableDistricts.remove(d);
+					activeOptOutDistricts.add(o.getDistrict());
+				}
+				
+				//If selectableDistricts contains an activeOptOutDistrict we need to remove it from the selectableDistricts list.
+				for(District d : activeOptOutDistricts)
+				{		
+					for (Iterator<District> iterator = selectableDistricts.iterator(); iterator.hasNext();) {
+					    District district = iterator.next();
+					    if (district.getUuid().equalsIgnoreCase(d.getUuid())) {
+					        iterator.remove();
+					    }
+					}
+				}
+				
+				//Sort SelectableDistricts by Name
+				Collections.sort(selectableDistricts, new Comparator<District>() {
+				    public int compare(District one, District other) {
+				        return one.getName().compareTo(other.getName());
+				    }
+				}); 
+				
+				
+				if(CollectionUtils.isNotEmpty(selectableDistricts))
+				{
+					OptOut optOut = new OptOut();
+					model.addAttribute("optout", optOut);
+					model.addAttribute("selectableDistricts", selectableDistricts);
+					return "optout";
+				}
+				else if(wasOptedOutByOtherUser(optOuts))
+				{
+					model.addAttribute("error_message", "It appears another user may have already opted out districts this Regents period");
+					return "204";
+				}
+				else
+				{
+					model.addAttribute("error_message", "It appears you have opted out of this Regents period");
+					return "204";
 				}
 			}
+			else
+			{
+				model.addAttribute("error_message", "Not Expired, and is visible...");
+				return "403"; //Not expired and not active... must be something else...
+			}
 		}
-		System.out.println(selectableDistricts);
-		
-		// see https://stackoverflow.com/questions/2784514/sort-arraylist-of-custom-objects-by-property for sorting the list
-		OptOut optOut = new OptOut();
-		model.addAttribute("optout", optOut);
-		model.addAttribute("selectableDistricts", selectableDistricts);
-		return "optout";
+		else
+		{
+			model.addAttribute("error_message", "No Active Order Period");
+			return "204"; //No Active OrderForm, may be null
+		}
 	}
 	
 	@RequestMapping(value = { "/optout" }, method = RequestMethod.POST)
@@ -260,5 +304,30 @@ public class OptOutController {
 		}
 		return userName;
 	}
-
+	
+	private boolean canRemoveDistrict(List<District> selectableDistricts, District d)
+	{
+		for(District sd : selectableDistricts)
+		{
+			if(sd.getUuid().equalsIgnoreCase(d.getUuid()))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean wasOptedOutByOtherUser(List<OptOut> optOuts)
+	{
+		boolean isOptedOut = false;
+		for(OptOut o : optOuts)
+		{
+			//If current user does not equal the username of the person who opted out
+			if(!getPrincipal().equalsIgnoreCase(o.getOptOutUser().getUsername()))
+			{
+				return true;
+			}
+		}
+		return isOptedOut;
+	}
 }

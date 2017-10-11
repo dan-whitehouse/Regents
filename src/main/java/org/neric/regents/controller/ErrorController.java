@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.exception.ConstraintViolationException;
 import org.neric.regents.model.District;
 import org.neric.regents.model.Document;
 import org.neric.regents.model.Exam;
@@ -78,7 +79,27 @@ public class ErrorController
 	    mav.addObject("url", httpRequest.getRequestURL());
 	    mav.setViewName(DEFAULT_ERROR_VIEW);
 	    return mav;
-	  }
+	}
+	
+	@ExceptionHandler(value = ConstraintViolationException.class)
+	public ModelAndView constraintViolationExceptionHandler(HttpServletRequest httpRequest, ConstraintViolationException e) throws ConstraintViolationException 
+	{
+	    if (AnnotationUtils.findAnnotation(e.getClass(), ResponseStatus.class) != null)
+	    {
+	    	throw e;
+	    }
+
+	    String value = StringUtils.substringBetween(e.getSQLException().getMessage(), "'");
+	    
+	    // Otherwise setup and send the user to a default error-view.
+	    ModelAndView mav = new ModelAndView();
+	    mav.addObject("errorCode", "400");
+	    mav.addObject("errorMsg", "Bad Request");
+	    mav.addObject("exception", "Could not insert record, unique key constraint violation was detected on value: " + value);
+	    mav.addObject("url", httpRequest.getRequestURL());
+	    mav.setViewName(DEFAULT_ERROR_VIEW);
+	    return mav;
+	}
 	
 	/*******************/
 	

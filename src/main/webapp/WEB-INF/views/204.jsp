@@ -12,9 +12,9 @@
  					<div class="col-middle">
    					<div class="text-center text-center">
      						<h1 class="error-number">204</h1>
-     						<h2>${b_header}</h2>
-     						<p>${b_message}</p>
-     						<p>${b_url}</p>
+     						<h2>No Content</h2>
+     						<p>${error_message}</p>
+     						<p>${error_url}</p>
    					</div>
  					</div>
 			</div>

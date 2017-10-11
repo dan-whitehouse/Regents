@@ -11,9 +11,8 @@
 			<div class="col-md-12">
  					<div class="col-middle">
    					<div class="text-center text-center">
-     						<h1 class="error-number">Error</h1>
-     						<h2>${errorCode}</h2>
-     						<p>${errorMsg}</p>
+     						<h1 class="error-number">${errorCode}</h1>
+     						<h2>${errorMsg}</h2>
      						<sec:authorize access="hasRole('ADMIN')">
      							<p>${exception}</p>
      						</sec:authorize>

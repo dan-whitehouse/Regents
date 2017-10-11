@@ -11,10 +11,10 @@
 			<div class="col-md-12">
  					<div class="col-middle">
    					<div class="text-center text-center">
-     						<h1 class="error-number">403</h1>
-     						<h2>Access Denied</h2>
-     						<p>${error_message}</p>
-     						<p>${error_url}</p>
+     						<h1 class="error-number">204</h1>
+     						<h2>It appears the active Regents period has expired.</h2>
+     						<p>${b_message}</p>
+     						<p>${b_url}</p>
    					</div>
  					</div>
 			</div>

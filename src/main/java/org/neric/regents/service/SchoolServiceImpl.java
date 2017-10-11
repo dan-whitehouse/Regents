@@ -84,4 +84,44 @@ public class SchoolServiceImpl implements SchoolService{
 	{
 		dao.deleteByUUID(uuid);
 	}
+	
+	@Override
+	public void lockById(int id, boolean isLocked)
+	{
+		School entity = dao.findById(id);
+		if(entity != null)
+		{
+			entity.setLocked(isLocked);
+		}
+	}
+	
+	@Override
+	public void lockByUUID(String uuid, boolean isLocked)
+	{
+		School entity = dao.findByUUID(uuid);
+		if(entity != null)
+		{
+			entity.setLocked(isLocked);
+		}
+	}
+
+	@Override
+	public void hideById(int id, boolean isHidden)
+	{
+		School entity = dao.findById(id);
+		if(entity != null)
+		{
+			entity.setVisible(isHidden);
+		}
+	}
+
+	@Override
+	public void hideByUUID(String uuid, boolean isHidden)
+	{
+		School entity = dao.findByUUID(uuid);
+		if(entity != null)
+		{
+			entity.setVisible(isHidden);
+		}
+	}
 }

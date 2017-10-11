@@ -26,7 +26,6 @@ import org.neric.regents.model.OrderFormExam;
 import org.neric.regents.model.School;
 import org.neric.regents.model.SelectedDistrict;
 import org.neric.regents.model.SelectedDocument;
-import org.neric.regents.model.Setting;
 import org.neric.regents.model.SelectedExam;
 import org.neric.regents.model.User;
 import org.neric.regents.model.UserDistrict;
@@ -39,7 +38,6 @@ import org.neric.regents.service.OptionScanService;
 import org.neric.regents.service.OrderFormService;
 import org.neric.regents.service.OrderService;
 import org.neric.regents.service.SchoolService;
-import org.neric.regents.service.SettingService;
 import org.neric.regents.service.UserProfileService;
 import org.neric.regents.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,9 +99,6 @@ public class AdminController {
 	
 	@Autowired
 	MessageSource messageSource;
-	
-	@Autowired
-	SettingService settingService;
 	
 	@Autowired
 	AuthenticationTrustResolver authenticationTrustResolver;
@@ -283,75 +278,60 @@ public class AdminController {
 	@RequestMapping(value = { "/admin/orderForms/{uuid}/edit" }, method = RequestMethod.GET)
 	public String editOrderForm(@PathVariable String uuid, ModelMap model) 
 	{
-		//Get Exams & Documents from DB
-		List<Exam> exams = examService.findAllExams();
-		List<Document> documents = documentService.findAllDocuments();		
 		OrderForm orderForm = orderFormService.findByUUID(uuid);
-		List<SelectedDocument> selectedDocuments = new ArrayList<>();
-		List<SelectedExam> selectedExams = new ArrayList<>();
 		
-		for(Document d : documents)
+		if(!orderForm.getLocked())
 		{
-			SelectedDocument sd = new SelectedDocument();
-			sd.setDocument(d);
-			sd.setSelected(false);
+			//Get Exams & Documents from DB
+			List<Exam> exams = examService.findAllExams();
+			List<Document> documents = documentService.findAllDocuments();		
 			
-			if(hasDocument(orderForm.getOrderFormDocuments(), d))
+			List<SelectedDocument> selectedDocuments = new ArrayList<>();
+			List<SelectedExam> selectedExams = new ArrayList<>();
+			
+			for(Document d : documents)
 			{
-				sd.setSelected(true);
+				SelectedDocument sd = new SelectedDocument();
+				sd.setDocument(d);
+				sd.setSelected(false);
+				
+				if(hasDocument(orderForm.getOrderFormDocuments(), d))
+				{
+					sd.setSelected(true);
+				}
+				
+				selectedDocuments.add(sd);
 			}
 			
-			selectedDocuments.add(sd);
-		}
-		
-		for(Exam e : exams)
-		{
-			SelectedExam se = new SelectedExam();
-			se.setExam(e);
-			se.setSelected(false);
-			
-			if(hasExam(orderForm.getOrderFormExams(), e))
+			for(Exam e : exams)
 			{
-				se.setSelected(true);
+				SelectedExam se = new SelectedExam();
+				se.setExam(e);
+				se.setSelected(false);
+				
+				if(hasExam(orderForm.getOrderFormExams(), e))
+				{
+					se.setSelected(true);
+				}
+				
+				selectedExams.add(se);
 			}
 			
-			selectedExams.add(se);
+			model.addAttribute("exams", exams);
+			model.addAttribute("selectedDocuments", selectedDocuments);
+			model.addAttribute("selectedExams", selectedExams);
+			model.addAttribute("docs", documents);
+			model.addAttribute("orderForm", orderForm);
+			model.addAttribute("edit", true);
+			return "createOrEditOrderForm";
 		}
-		
-		model.addAttribute("exams", exams);
-		model.addAttribute("selectedDocuments", selectedDocuments);
-		model.addAttribute("selectedExams", selectedExams);
-		model.addAttribute("docs", documents);
-		model.addAttribute("orderForm", orderForm);
-		model.addAttribute("edit", true);
-		return "createOrEditOrderForm";
+		else
+		{
+			model.addAttribute("error_message", "The Order Form you are trying to edit is locked, please unlock it and try again");
+			return "403";	
+		}
 	}
 	
-	private boolean hasDocument(Set<OrderFormDocument> orderFormDocuments, Document document)
-	{
-		for(OrderFormDocument ofd : orderFormDocuments)
-		{
-			if(ofd.getDocument().getId() == document.getId())
-			{
-				return true;
-			}
-		}
-		
-		return false;
-	}
-	
-	private boolean hasExam(Set<OrderFormExam> orderFormExams, Exam exam)
-	{
-		for(OrderFormExam ofe : orderFormExams)
-		{
-			if(ofe.getExam().getId() == exam.getId())
-			{
-				return true;
-			}
-		}
-		
-		return false;
-	}
 	
 	@RequestMapping(value = { "/admin/orderForms/{uuid}/edit" }, method = RequestMethod.POST)
 	public String updateOrderForm(@Valid OrderForm orderForm, @PathVariable String uuid, BindingResult result, ModelMap model)
@@ -396,10 +376,18 @@ public class AdminController {
 	
 	@RequestMapping(value = { "admin/orderForms/{uuid}/delete" }, method = RequestMethod.GET)
 	public String deleteOrderForm(@PathVariable String uuid, ModelMap model)
-	{
-		orderFormService.deleteOrderForm(uuid);
-		
-		return "redirect:/admin/orderForms";
+	{	
+		OrderForm o = orderFormService.findByUUID(uuid);	
+		if(!o.getLocked())
+		{
+			orderFormService.deleteOrderForm(uuid);
+			return "redirect:/admin/orderForms";
+		}
+		else
+		{
+			model.addAttribute("error_message", "The Order Form you are trying to delete is locked, please unlock it and try again");
+			return "403";	
+		}
 	}
 	
 	@RequestMapping(value = { "/admin/orderForms/{uuid}/lock/{isLocked}" }, method = RequestMethod.GET)
@@ -481,42 +469,39 @@ public class AdminController {
 	public String editUser(@PathVariable String uuid, ModelMap model) 
 	{
 		User user = userService.findByUUID(uuid);
-		List<District> districts = districtService.findAllDistricts();
-		List<SelectedDistrict> selectedDistricts = new ArrayList<>();
-		
-		for(District d : districts)
-		{
-			SelectedDistrict sd = new SelectedDistrict();
-			sd.setDistrict(d);
-			sd.setSelected(false);
 			
-			if(hasDistrict(user.getUserDistricts(), d))
+		if(!user.getLocked())
+		{
+			List<District> districts = districtService.findAllDistricts();
+			List<SelectedDistrict> selectedDistricts = new ArrayList<>();
+			
+			for(District d : districts)
 			{
-				sd.setSelected(true);
+				SelectedDistrict sd = new SelectedDistrict();
+				sd.setDistrict(d);
+				sd.setSelected(false);
+				
+				if(hasDistrict(user.getUserDistricts(), d))
+				{
+					sd.setSelected(true);
+				}
+				
+				selectedDistricts.add(sd);
 			}
 			
-			selectedDistricts.add(sd);
+			model.addAttribute("user", user);
+			model.addAttribute("districts", districts);
+			model.addAttribute("selectedDistricts", selectedDistricts);
+			model.addAttribute("edit", true);
+			return "createUser";
 		}
-		
-		model.addAttribute("user", user);
-		model.addAttribute("districts", districts);
-		model.addAttribute("selectedDistricts", selectedDistricts);
-		model.addAttribute("edit", true);
-		return "createUser";
+		else
+		{
+			model.addAttribute("error_message", "The User you are trying to edit is locked, please unlock it and try again");
+			return "403";
+		}
 	}
 	
-	private boolean hasDistrict(Set<UserDistrict> set, District district)
-	{
-		for(UserDistrict d : set)
-		{
-			if(d.getDistrict().getId() == district.getId())
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-
 	
 	@RequestMapping(value = { "/admin/users/{uuid}/edit" }, method = RequestMethod.POST)
 	public String updateUser(@Valid User user, BindingResult result, ModelMap model, @PathVariable String uuid) 
@@ -525,14 +510,6 @@ public class AdminController {
 		{
 			return "createUser";
 		}
-
-		/*//Uncomment below 'if block' if you WANT TO ALLOW UPDATING USERNAME in UI which is a unique key to a User.
-		if(!userService.isUserUsernameUnique(user.getId(), user.getUsername())){
-			FieldError usernameError =new FieldError("user","username",messageSource.getMessage("non.unique.username", new String[]{user.getUsername()}, Locale.getDefault()));
-		    result.addError(usernameError);
-			return "registration";
-		}*/
-
 		
 		User updatedUser = userService.findByUUID(uuid);
 		updatedUser.getUserDistricts().clear();
@@ -549,57 +526,23 @@ public class AdminController {
 		model.addAttribute("returnLink", "/admin/users");
 		model.addAttribute("returnLinkText", "Users");
 		return "success";
-		
-		
-		
-		//----------------------------
-		
-		/*if (result.hasErrors()) 
-		{
-			return "createOrEditOrderForm";
-		}
-		
-		OrderForm orderFormUpdate = orderFormService.findByUUID(uuid);
-		orderFormUpdate.getOrderFormDocuments().clear();
-		orderFormUpdate.getOrderFormExams().clear();
-		
-		for(OrderFormExam e : orderForm.getOrderFormExams())
-		{
-			e.setOrderForm(orderForm);
-			orderFormUpdate.getOrderFormExams().add(e);
-		}
-		
-		for(OrderFormDocument d : orderForm.getOrderFormDocuments())
-		{
-			d.setOrderForm(orderForm);
-			orderFormUpdate.getOrderFormDocuments().add(d);
-		}
-		
-		orderFormService.updateOrderForm(orderFormUpdate);
-		
-		model.addAttribute("success", "OrderForm: " + orderForm.getName() + " was updated successfully");
-		model.addAttribute("returnLink", "/admin/orderForms");
-		model.addAttribute("returnLinkText", "Order Forms");
-
-		return "success";*/
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	}
 	
 	
 	@RequestMapping(value = { "/admin/users/{uuid}/delete" }, method = RequestMethod.GET)
-	public String deleteUser(@PathVariable String uuid) 
-	{
-		userService.deleteUserByUUID(uuid);
-		return "redirect:/admin/users";
+	public String deleteUser(@PathVariable String uuid, ModelMap model) 
+	{	
+		User user = userService.findByUUID(uuid);	
+		if(!user.getLocked())
+		{
+			userService.deleteUserByUUID(uuid);
+			return "redirect:/admin/users";
+		}
+		else
+		{
+			model.addAttribute("error_message", "The User you are trying to delete is locked, please unlock it and try again");
+			return "403";	
+		}
 	}
 	
 	@RequestMapping(value = { "/admin/users/{uuid}/lock/{isLocked}" }, method = RequestMethod.GET)
@@ -663,7 +606,11 @@ public class AdminController {
 			model.addAttribute("edit", true);
 			return "createOrEditExam";
 		}
-		else return "403";
+		else
+		{
+			model.addAttribute("error_message", "The Exam you are trying to edit is locked, please unlock it and try again");
+			return "403";
+		}
 	}
 	
 	@RequestMapping(value = { "/admin/exams/{uuid}/edit" }, method = RequestMethod.POST)
@@ -684,7 +631,7 @@ public class AdminController {
 
 
 	@RequestMapping(value = { "/admin/exams/{uuid}/delete" }, method = RequestMethod.GET)
-	public String deleteExam(@PathVariable String uuid) 
+	public String deleteExam(@PathVariable String uuid, ModelMap model) 
 	{
 		Exam exam = examService.findByUUID(uuid);	
 		if(!exam.getLocked())
@@ -692,7 +639,11 @@ public class AdminController {
 			examService.deleteByExamUUID(uuid);
 			return "redirect:/admin/exams";
 		}
-		else return "403";
+		else
+		{
+			model.addAttribute("error_message", "The Exam you are trying to delete is locked, please unlock it and try again");
+			return "403";
+		}
 	}
 	
 	@RequestMapping(value = { "/admin/exams/{uuid}/lock/{isLocked}" }, method = RequestMethod.GET)
@@ -756,7 +707,11 @@ public class AdminController {
 			model.addAttribute("edit", true);
 			return "createOrEditDocument";
 		}
-		else return "403";
+		else
+		{
+			model.addAttribute("error_message", "The Document you are trying to edit is locked, please unlock it and try again");
+			return "403";
+		}
 		
 	}
 	
@@ -778,7 +733,7 @@ public class AdminController {
 
 
 	@RequestMapping(value = { "/admin/documents/{uuid}/delete" }, method = RequestMethod.GET)
-	public String deleteDocument(@PathVariable String uuid) 
+	public String deleteDocument(@PathVariable String uuid, ModelMap model) 
 	{
 		Document document = documentService.findByUUID(uuid);
 		if(!document.getLocked())
@@ -786,7 +741,11 @@ public class AdminController {
 			documentService.deleteByDocumentUUID(uuid);
 			return "redirect:/admin/documents";
 		}
-		else return "403";	
+		else
+		{
+			model.addAttribute("error_message", "The Document you are trying to delete is locked, please unlock it and try again");
+			return "403";	
+		}
 	}
 	
 	@RequestMapping(value = { "/admin/documents/{uuid}/lock/{isLocked}" }, method = RequestMethod.GET)
@@ -851,7 +810,11 @@ public class AdminController {
 			model.addAttribute("edit", true);
 			return "createOrEditPrintOption";
 		}
-		else return "403";
+		else
+		{
+			model.addAttribute("error_message", "The Print Option you are trying to edit is locked, please unlock it and try again");
+			return "403";
+		}
 		
 	}
 	
@@ -873,7 +836,7 @@ public class AdminController {
 
 
 	@RequestMapping(value = { "/admin/printOptions/{uuid}/delete" }, method = RequestMethod.GET)
-	public String deletePrintOption(@PathVariable String uuid) 
+	public String deletePrintOption(@PathVariable String uuid, ModelMap model) 
 	{
 		OptionPrint op = optionPrintService.findByUUID(uuid);
 		
@@ -882,7 +845,11 @@ public class AdminController {
 			optionPrintService.deleteByUUID(uuid);
 			return "redirect:/admin/printOptions";
 		}
-		else return "403";	
+		else
+		{
+			model.addAttribute("error_message", "The Print Option you are trying to delete is locked, please unlock it and try again");
+			return "403";	
+		}
 	}
 	
 	@RequestMapping(value = { "/admin/printOptions/{uuid}/lock/{isLocked}" }, method = RequestMethod.GET)
@@ -948,7 +915,11 @@ public class AdminController {
 			model.addAttribute("edit", true);
 			return "createOrEditScanOption";
 		}
-		else return "403";	
+		else
+		{
+			model.addAttribute("error_message", "The Scan Option you are trying to edit is locked, please unlock it and try again");
+			return "403";	
+		}
 	}
 	
 	@RequestMapping(value = { "/admin/scanOptions/{uuid}/edit" }, method = RequestMethod.POST)
@@ -969,7 +940,7 @@ public class AdminController {
 
 
 	@RequestMapping(value = { "/admin/scanOptions/{uuid}/delete" }, method = RequestMethod.GET)
-	public String deleteScanOption(@PathVariable String uuid) 
+	public String deleteScanOption(@PathVariable String uuid, ModelMap model) 
 	{
 		OptionScan os = optionScanService.findByUUID(uuid);
 		
@@ -978,7 +949,11 @@ public class AdminController {
 			optionScanService.deleteByUUID(uuid);
 			return "redirect:/admin/scanOptions";
 		}
-		else return "403";
+		else 
+		{
+			model.addAttribute("error_message", "The Scan Option you are trying to delete is locked, please unlock it and try again");
+			return "403";
+		}
 	}
 	
 	@RequestMapping(value = { "/admin/scanOptions/{uuid}/lock/{isLocked}" }, method = RequestMethod.GET)
@@ -995,71 +970,6 @@ public class AdminController {
 		return "redirect:/admin/scanOptions";
 	}
 	
-	
-	/************************** SETTINGS **************************/
-	@RequestMapping(value = { "/admin/settings" }, method = RequestMethod.GET)
-	public String listSettings(ModelMap model) {
-
-		List<Setting> settings = settingService.findAll();
-		model.addAttribute("settings", settings);
-		return "settings";
-	}
-		
-	@RequestMapping(value = { "/admin/settings/create" }, method = RequestMethod.GET)
-	public String createSetting(ModelMap model) 
-	{
-		Setting setting = new Setting();
-		model.addAttribute("setting", setting);
-		model.addAttribute("edit", false);
-		return "createOrEditSetting";
-	}
-
-	@RequestMapping(value = { "/admin/settings/create" }, method = RequestMethod.POST)
-	public String createSetting(@Valid Setting setting, BindingResult result, ModelMap model) 
-	{
-		if (result.hasErrors()) 
-		{
-			return "createOrEditSetting";
-		}	
-		
-		settingService.saveSetting(setting);
-		model.addAttribute("success", "Setting: " + setting.getKey() + " was created successfully");
-		model.addAttribute("returnLink", "/admin/settings");
-		model.addAttribute("returnLinkText", "Settings");
-		return "success";
-	}
-	
-	@RequestMapping(value = { "/admin/settings/{id}/edit" }, method = RequestMethod.GET)
-	public String editSetting(@PathVariable int id, ModelMap model) 
-	{
-		Setting setting = settingService.findById(id);
-		model.addAttribute("setting", setting);
-		model.addAttribute("edit", true);
-		return "createOrEditSetting";
-	}
-	
-	@RequestMapping(value = { "/admin/settings/{id}/edit" }, method = RequestMethod.POST)
-	public String updateSetting(@Valid Setting setting, BindingResult result, ModelMap model, @PathVariable int id) 
-	{
-		if (result.hasErrors()) 
-		{
-			return "createOrEditSetting";
-		}
-
-		settingService.updateSetting(setting);
-
-		model.addAttribute("success", "Setting: " + setting.getKey() + " was updated successfully");
-		model.addAttribute("returnLink", "/admin/settings");
-		model.addAttribute("returnLinkText", "Settings");
-		return "success";
-	}
-	
-	@RequestMapping(value = { "/admin/settings/{id}/delete" }, method = RequestMethod.GET)
-	public String deleteSetting(@PathVariable int id) 
-	{
-		settingService.deleteBySettingId(id);
-		return "redirect:/admin/settings";
-	}
 	
 	/************************** DISTRICTS **************************/
 	@RequestMapping(value = { "/admin/districts" }, method = RequestMethod.GET)
@@ -1111,10 +1021,14 @@ public class AdminController {
 			model.addAttribute("edit", true);
 			return "createOrEditDistrict";
 		}
-		else return "403";
+		else 
+		{
+			model.addAttribute("error_message", "The District you are trying to edit is locked, please unlock it and try again");
+			return "403";
+		}
 	}
 	
-	@RequestMapping(value = { "/admin/districts/{id}/edit" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/admin/districts/{uuid}/edit" }, method = RequestMethod.POST)
 	public String updateDistrict(@Valid District district, BindingResult result, ModelMap model, @PathVariable String uuid) 
 	{
 		if (result.hasErrors()) 
@@ -1130,7 +1044,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = { "/admin/districts/{uuid}/delete" }, method = RequestMethod.GET)
-	public String deleteDistrict(@PathVariable String uuid) 
+	public String deleteDistrict(@PathVariable String uuid, ModelMap model) 
 	{
 		District d = districtService.findByUUID(uuid);
 		if(!d.getLocked())
@@ -1138,7 +1052,11 @@ public class AdminController {
 			districtService.deleteByUUID(uuid);
 			return "redirect:/admin/districts";
 		}
-		else return "403";	
+		else 
+		{
+			model.addAttribute("error_message", "The District you are trying to delete is locked, please unlock it and try again");
+			return "403";	
+		}
 	}
 	
 	@RequestMapping(value = { "/admin/districts/{uuid}/lock/{isLocked}" }, method = RequestMethod.GET)
@@ -1185,6 +1103,9 @@ public class AdminController {
 		}	
 		
 		school.setUuid(UUID.randomUUID().toString());
+		school.setVisible(true);
+		school.setLocked(false);
+		
 		schoolService.save(school);
 		model.addAttribute("success", "School: " + school.getName() + " was created successfully");
 		model.addAttribute("returnLink", "/admin/schools");
@@ -1225,6 +1146,20 @@ public class AdminController {
 		return "redirect:/admin/schools";
 	}
 	
+	@RequestMapping(value = { "/admin/schools/{uuid}/lock/{isLocked}" }, method = RequestMethod.GET)
+	public String lockSchool(@PathVariable String uuid, @PathVariable boolean isLocked) 
+	{
+		schoolService.lockByUUID(uuid, isLocked);
+		return "redirect:/admin/schools";
+	}
+	
+	@RequestMapping(value = { "/admin/schools/{uuid}/hide/{isHidden}" }, method = RequestMethod.GET)
+	public String hideSchool(@PathVariable String uuid, @PathVariable boolean isHidden) 
+	{
+		schoolService.hideByUUID(uuid, isHidden);
+		return "redirect:/admin/schools";
+	}
+	
 	
 	/************************** OTHER **************************/
 	
@@ -1250,6 +1185,44 @@ public class AdminController {
 			userName = principal.toString();
 		}
 		return userName;
+	}
+	
+	private boolean hasDistrict(Set<UserDistrict> set, District district)
+	{
+		for(UserDistrict d : set)
+		{
+			if(d.getDistrict().getId() == district.getId())
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean hasDocument(Set<OrderFormDocument> orderFormDocuments, Document document)
+	{
+		for(OrderFormDocument ofd : orderFormDocuments)
+		{
+			if(ofd.getDocument().getId() == document.getId())
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	private boolean hasExam(Set<OrderFormExam> orderFormExams, Exam exam)
+	{
+		for(OrderFormExam ofe : orderFormExams)
+		{
+			if(ofe.getExam().getId() == exam.getId())
+			{
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 }

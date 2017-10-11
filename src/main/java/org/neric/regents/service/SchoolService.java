@@ -27,4 +27,12 @@ public interface SchoolService {
 	void deleteById(int id);
 	
 	void deleteByUUID(String uuid);
+	
+	void lockById(int id, boolean isLocked);
+	
+	void lockByUUID(String uuid, boolean isLocked);
+
+	void hideById(int id, boolean isHidden);
+
+	void hideByUUID(String uuid, boolean isHidden); 
 }

@@ -199,33 +199,36 @@ public class OrderController
 	{
 		User user = loggedInUser();
 		OrderForm orderForm = orderFormService.getActiveOrderForm();
-		List<OptOut> optOuts = optOutService.findAllOptOutsByUserAndOrderForm(user, orderForm);
 		
-		
-		List<String> optOutDistrictIds = new ArrayList<>();
-		for(OptOut oo : optOuts) {
-			optOutDistrictIds.add(oo.getDistrict().getUuid());
-		}
-		
-				
-		Set<UserDistrict> userDistricts = user.getUserDistricts();
-		List<District> districts = new ArrayList<>();
-		
-		for(UserDistrict ud : userDistricts)
+		if(orderForm != null)
 		{
-			if(!optOutDistrictIds.contains(ud.getDistrict().getUuid()))
+			List<OptOut> optOuts = optOutService.findAllOptOutsByUserAndOrderForm(user, orderForm);
+			
+			
+			List<String> optOutDistrictIds = new ArrayList<>();
+			for(OptOut oo : optOuts) {
+				optOutDistrictIds.add(oo.getDistrict().getUuid());
+			}
+			
+					
+			Set<UserDistrict> userDistricts = user.getUserDistricts();
+			List<District> districts = new ArrayList<>();
+			
+			for(UserDistrict ud : userDistricts)
 			{
-				districts.add(ud.getDistrict());
-			}	
+				if(!optOutDistrictIds.contains(ud.getDistrict().getUuid()))
+				{
+					districts.add(ud.getDistrict());
+				}	
+			}
+			return districts;
 		}
-		return districts;
+		else return new ArrayList<>();
 	}
-	
-	
+		
 	@ModelAttribute("schoolsByDistrict")
 	public List<School> populateSchoolsByDistrict()
-	{
-		
+	{	
 		Set<UserDistrict> userDistricts = loggedInUser().getUserDistricts();
 		List<School> schools = new ArrayList<>();
 		
@@ -264,7 +267,12 @@ public class OrderController
 			if(CollectionUtils.isNotEmpty(districts) && districts.size() > 0)
 			{
 				OrderForm orderForm = orderFormService.getActiveOrderForm();
-				if(orderForm.getVisible())
+				if(orderForm.isExpiredPeriod())
+				{
+					model.addAttribute("error_message", "It appears the active Regents period has expired");
+					return "204";
+				}
+				else if(orderForm.getVisible())
 				{
 					XForm2 xForm = new XForm2();
 					model.addAttribute("xForm2", xForm);
@@ -273,16 +281,19 @@ public class OrderController
 				}
 				else
 				{
+					model.addAttribute("error_message", "Not Expired, and is visible...");
 					return "403";
 				}	
 			}
 			else
 			{
-				return "optError"; //No district to select. Could be an opt out... or no district assigned to the user.
+				model.addAttribute("error_message", "It appears you have opted out of this Regents period");
+				return "204";
 			}
 		}
 		else
 		{
+			model.addAttribute("error_message", "No Active Order Period");
 			return "204"; //No Active OrderForm
 		}
 	}

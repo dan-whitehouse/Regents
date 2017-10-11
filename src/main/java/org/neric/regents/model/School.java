@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -41,6 +42,17 @@ public class School implements Serializable
 		this.district = district;
 		this.name = name;
 	}
+	
+	
+	public School(Integer id, District district, String name, Boolean visible, Boolean locked)
+	{
+		super();
+		this.id = id;
+		this.district = district;
+		this.name = name;
+		this.visible = visible;
+		this.locked = locked;
+	}
 
 	@Id 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -49,7 +61,7 @@ public class School implements Serializable
 	
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	@Column(name = "uuid",  nullable = false)
+	@Column(name = "uuid", unique=true, nullable = false)
 	private String uuid;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -57,11 +69,17 @@ public class School implements Serializable
 	private District district;
 	
 	@NotEmpty
-	@Column(name="name", unique=true, nullable=false)
+	@Column(name="name", nullable=false)
 	private String name;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "school")
 	private Set<Order> orders = new HashSet<Order>(0);
+	
+	@Column(name="visible", unique=false, nullable=true)	
+	private Boolean visible;
+	
+	@Column(name="locked", unique=false, nullable=true)	
+	private Boolean locked;
 
 	public Integer getId()
 	{
@@ -112,10 +130,30 @@ public class School implements Serializable
 	{
 		this.orders = orders;
 	}
+	
+	public Boolean getVisible()
+	{
+		return visible;
+	}
+
+	public void setVisible(Boolean visible)
+	{
+		this.visible = visible;
+	}
+
+	public Boolean getLocked()
+	{
+		return locked;
+	}
+
+	public void setLocked(Boolean locked)
+	{
+		this.locked = locked;
+	}
 
 	@Override
 	public String toString()
 	{
-		return "School [id=" + id + ", district=" + district + ", name=" + name + "]";
+		return "School [id=" + id + ", district=" + district + ", name=" + name + ", visible=" + visible + ", locked=" + locked + "]";
 	}
 }
