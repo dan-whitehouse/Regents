@@ -57,7 +57,7 @@ public class ExamController extends AbstractController {
 		exam.setLocked(false);
 		examService.saveExam(exam);
 
-		model.addAttribute("success", "Exam: " + exam.getName() + " was created successfully");
+		model.addAttribute("success", "Exam: " + exam.getName() + " was created successfully.");
 		model.addAttribute("returnLink", "/admin/exams");
 		model.addAttribute("returnLinkText", "Exams");
 		return "success";
@@ -76,7 +76,7 @@ public class ExamController extends AbstractController {
 		}
 		else
 		{
-			model.addAttribute("error_message", "The Exam you are trying to edit is locked, please unlock it and try again");
+			model.addAttribute("error_message", "The exam you are trying to edit is locked, please unlock it and try again.");
 			return "403";
 		}
 	}
@@ -91,7 +91,7 @@ public class ExamController extends AbstractController {
 
 		examService.updateExam(exam);
 
-		model.addAttribute("success", "Exam: " + exam.getName() + " - " + exam.getCode() +  " was updated successfully");
+		model.addAttribute("success", "Exam: " + exam.getName() + " - " + exam.getCode() +  " was updated successfully.");
 		model.addAttribute("returnLink", "/admin/exams");
 		model.addAttribute("returnLinkText", "Exams");
 		return "success";
@@ -109,7 +109,7 @@ public class ExamController extends AbstractController {
 		}
 		else
 		{
-			model.addAttribute("error_message", "The Exam you are trying to delete is locked, please unlock it and try again");
+			model.addAttribute("error_message", "The exam you are trying to delete is locked, please unlock it and try again.");
 			return "403";
 		}
 	}

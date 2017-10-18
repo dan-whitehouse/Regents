@@ -13,6 +13,8 @@
 <c:url value="/order" var="createOrderLink" />
 <c:url value="/order/${order.uuid}/edit" var="editOrderLink" />
 
+<fmt:formatNumber var="inDistrictScanFee" value="${orderForm.inDistrictScanFee}" type="currency"/>
+<fmt:formatNumber var="nonSecureDocumentFee" value="${orderForm.nonSecureDocumentFee}" type="currency"/>
 <html>
 	<jsp:include page="fragments/header.jsp" />
 	<!-- page content -->
@@ -83,16 +85,22 @@
 		                          <table class="table table-striped">
 		                            <thead>
 		                              <tr>
-		                              	<th width="80%">Product</th>
-		                                <th width="10%">Qty</th>
+		                              	<th width="60%">Exams</th>
+		                              	<c:if test="${orderForm.period eq 'June'}">
+		                              		<th width="15%"># Students Pull from L0 </th>
+	                              		</c:if>
+		                                <th width="15%"># Blank Answer Sheets</th>
 	                                	<!-- <th width="10%">Subtotal</th> -->
 		                              </tr>
 		                            </thead>
 		                            <tbody>
-		                            	<c:forEach items="${order.orderExams}" var="orderExam">
+		                            	<c:forEach items="${sortedExamList}" var="orderExam">
 											<tr>
 												<td>${orderExam.exam.name} - ${orderExam.exam.code}</td>
-												<td>${orderExam.examAmount}</td>
+												<c:if test="${orderForm.period eq 'June'}">
+													<td>${orderExam.examAmount}</td>
+												</c:if>
+												<td>${orderExam.answerSheetAmount}</td>
 		 										<%-- <td>
 		 											$<fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${(orderExam.examAmount * 2.10)}" />
 		 										</td>
@@ -109,19 +117,19 @@
 
 
                       <!-- Table row -->
-                      <c:if test="${fn:length(order.orderExams) > 0}">
+                      <c:if test="${fn:length(order.orderDocuments) > 0}">
 	                      <div class="row">
 	                        <div class="col-xs-12 table">
 	                          <table class="table table-striped">
 	                            <thead>
 	                              <tr>
-	                              	<th width="80%">Product</th>
-	                                <th width="10%">Qty</th>
+	                              	<th width="80%">Non-Secure Documents</th>
+	                                <th width="10%">Quantity</th>
 	                                <!-- <th width="10%">Subtotal</th> -->
 	                              </tr>
 	                            </thead>
 	                            <tbody>
-	                            	<c:forEach items="${order.orderDocuments}" var="orderDocument">
+	                            	<c:forEach items="${sortedDocumentList}" var="orderDocument">
 										<tr>
 											<td>${orderDocument.document.name}</td>
 											<td>${orderDocument.documentAmount}</td>
@@ -146,7 +154,7 @@
                         <div class="col-xs-12">
                           <p class="lead">Billing:</p>
                           <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-                             Your district will be billed for the precise number of tests and non-secure documents processed through NERIC. The rate for the Regents scanning/scoring service is $2.10 per student per test processed. The rate for non-secure documents is $0.40 per document ordered. Your district will be billed in the academic year. If you need a data file you must request it by sending an email to testing@neric.org; do this only after you confirm the accuracy of the scores on your reports.
+                             Your district will be billed for the precise number of tests and non-secure documents processed through NERIC. The rate for the Regents scanning/scoring service is ${inDistrictScanFee} per student per test processed. The rate for non-secure documents is ${nonSecureDocumentFee} per document ordered. Your district will be billed in the academic year. If you need a data file you must request it by sending an email to testing@neric.org; do this only after you confirm the accuracy of the scores on your reports.
                           </p>
                         </div>
 

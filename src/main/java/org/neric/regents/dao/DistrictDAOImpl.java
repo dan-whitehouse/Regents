@@ -83,8 +83,10 @@ public class DistrictDAOImpl extends AbstractDao<Integer, District> implements D
 	@Override
 	public void deleteByUUID(String uuid)
 	{
-		// TODO Auto-generated method stub
-		
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("uuid", uuid));
+		District district = (District)crit.uniqueResult();
+		delete(district);
 	}
 
 	@Override

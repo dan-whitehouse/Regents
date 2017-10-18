@@ -100,7 +100,7 @@ public class SchoolController extends AbstractController {
 		school.setLocked(false);
 		
 		schoolService.save(school);
-		model.addAttribute("success", "School: " + school.getName() + " was created successfully");
+		model.addAttribute("success", "School: " + school.getName() + " was created successfully.");
 		model.addAttribute("returnLink", "/admin/schools");
 		model.addAttribute("returnLinkText", "Schools");
 		return "success";
@@ -126,17 +126,27 @@ public class SchoolController extends AbstractController {
 		}
 		schoolService.update(school);
 
-		model.addAttribute("success", "School: " + school.getName() + " was updated successfully");
+		model.addAttribute("success", "School: " + school.getName() + " was updated successfully.");
 		model.addAttribute("returnLink", "/admin/schools");
 		model.addAttribute("returnLinkText", "Schools");
 		return "success";
 	}
 	
 	@RequestMapping(value = { "/admin/schools/{uuid}/delete" }, method = RequestMethod.GET)
-	public String deleteSchool(@PathVariable String uuid) 
+	public String deleteSchool(@PathVariable String uuid, ModelMap model) 
 	{
-		schoolService.deleteByUUID(uuid);
-		return "redirect:/admin/schools";
+		School s = schoolService.findByUUID(uuid);
+		
+		if(!s.getLocked())
+		{
+			schoolService.deleteByUUID(uuid);
+			return "redirect:/admin/schools";
+		}
+		else
+		{
+			model.addAttribute("error_message", "The school you are trying to delete is locked, please unlock it and try again.");
+			return "403";
+		}
 	}
 	
 	@RequestMapping(value = { "/admin/schools/{uuid}/lock/{isLocked}" }, method = RequestMethod.GET)

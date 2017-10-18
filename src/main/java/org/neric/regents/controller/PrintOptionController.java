@@ -58,7 +58,7 @@ public class PrintOptionController extends AbstractController {
 		optionPrint.setLocked(false);
 		optionPrintService.save(optionPrint);
 		
-		model.addAttribute("success", "Print Option: " + optionPrint.getName() + " was created successfully");
+		model.addAttribute("success", "Print Option: " + optionPrint.getName() + " was created successfully.");
 		model.addAttribute("returnLink", "/admin/printOptions");
 		model.addAttribute("returnLinkText", "Print Options");
 		return "success";
@@ -77,7 +77,7 @@ public class PrintOptionController extends AbstractController {
 		}
 		else
 		{
-			model.addAttribute("error_message", "The Print Option you are trying to edit is locked, please unlock it and try again");
+			model.addAttribute("error_message", "The print option you are trying to edit is locked, please unlock it and try again.");
 			return "403";
 		}
 		
@@ -93,7 +93,7 @@ public class PrintOptionController extends AbstractController {
 
 		optionPrintService.update(optionPrint);
 
-		model.addAttribute("success", "Print Option: " + optionPrint.getName() + " was updated successfully");
+		model.addAttribute("success", "Print Option: " + optionPrint.getName() + " was updated successfully.");
 		model.addAttribute("returnLink", "/admin/printOptions");
 		model.addAttribute("returnLinkText", "Print Options");
 		return "success";
@@ -112,7 +112,7 @@ public class PrintOptionController extends AbstractController {
 		}
 		else
 		{
-			model.addAttribute("error_message", "The Print Option you are trying to delete is locked, please unlock it and try again");
+			model.addAttribute("error_message", "The print option you are trying to delete is locked, please unlock it and try again.");
 			return "403";	
 		}
 	}

@@ -57,7 +57,7 @@ public class DocumentController extends AbstractController {
 		document.setLocked(false);
 		documentService.saveDocument(document);
 
-		model.addAttribute("success", "Document: " + document.getName() + " was created successfully");
+		model.addAttribute("success", "Document: " + document.getName() + " was created successfully.");
 		model.addAttribute("returnLink", "/admin/documents");
 		model.addAttribute("returnLinkText", "Documents");
 		return "success";
@@ -76,7 +76,7 @@ public class DocumentController extends AbstractController {
 		}
 		else
 		{
-			model.addAttribute("error_message", "The Document you are trying to edit is locked, please unlock it and try again");
+			model.addAttribute("error_message", "The document you are trying to edit is locked, please unlock it and try again.");
 			return "403";
 		}
 		
@@ -92,7 +92,7 @@ public class DocumentController extends AbstractController {
 
 		documentService.updateDocument(document);
 
-		model.addAttribute("success", "Document: " + document.getName() + " was updated successfully");
+		model.addAttribute("success", "Document: " + document.getName() + " was updated successfully.");
 		model.addAttribute("returnLink", "/admin/documents");
 		model.addAttribute("returnLinkText", "Documents");
 		return "success";
@@ -110,7 +110,7 @@ public class DocumentController extends AbstractController {
 		}
 		else
 		{
-			model.addAttribute("error_message", "The Document you are trying to delete is locked, please unlock it and try again");
+			model.addAttribute("error_message", "The document you are trying to delete is locked, please unlock it and try again.");
 			return "403";	
 		}
 	}

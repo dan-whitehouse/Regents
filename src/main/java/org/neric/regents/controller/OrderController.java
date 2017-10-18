@@ -282,7 +282,7 @@ public class OrderController extends AbstractController
 
 				if(orderForm.isExpiredPeriod())
 				{
-					model.addAttribute("error_message", "It appears the active Regents period has expired");
+					model.addAttribute("error_message", "It appears the active Regents period has expired.");
 					return "204";
 				}
 				else if(orderForm.isActivePeriod() && orderForm.getVisible() && !orderForm.getLocked())
@@ -324,23 +324,23 @@ public class OrderController extends AbstractController
 					}
 					else if(wasOptedOutByOtherUser(optOuts))
 					{
-						model.addAttribute("error_message", "It appears another user may have already marked all of the districts associated with this account as 'Not Administering'");
+						model.addAttribute("error_message", "It appears another user may have already marked all of the districts associated with this account as 'Not Administering'.");
 						return "204";
 					}
 					else
 					{
-						model.addAttribute("error_message", "It appears you are not administering this regents period");
+						model.addAttribute("error_message", "It appears you are not administering this Regents period.");
 						return "204";
 					}
 				}
 				else if(!orderForm.isActivePeriod())
 				{
-					model.addAttribute("error_message", "No active regents period");
+					model.addAttribute("error_message", "No active Regents period.");
 					return "204";
 				}
 				else if(orderForm.getLocked())
 				{
-					model.addAttribute("error_message", "The regents period has been locked");
+					model.addAttribute("error_message", "The Regents period has been locked.");
 					return "403";
 				}
 				else if(!orderForm.getVisible())
@@ -356,13 +356,13 @@ public class OrderController extends AbstractController
 			}
 			else
 			{
-				model.addAttribute("error_message", "It appears you are not administering this regents period");
+				model.addAttribute("error_message", "It appears you are not administering this Regents period.");
 				return "204";
 			}
 		}
 		else
 		{
-			model.addAttribute("error_message", "No active regents period");
+			model.addAttribute("error_message", "No active Regents period.");
 			return "204"; //No Active OrderForm
 		}
 	}
@@ -449,9 +449,31 @@ public class OrderController extends AbstractController
 	public String order(@PathVariable String uuid, ModelMap model)
 	{
 		Order order = orderService.findByUUID(uuid);
+		OrderForm orderForm = orderFormService.findById(order.getOrderForm().getId());
+		List<OrderExam> sortedExamList = new ArrayList<OrderExam>(order.getOrderExams());
+		List<OrderDocument> sortedDocumentList = new ArrayList<OrderDocument>(order.getOrderDocuments());
+		
+		//Sort Order Exams by Name
+		Collections.sort(sortedExamList, new Comparator<OrderExam>() {
+		    public int compare(OrderExam one, OrderExam other) {
+		        return one.getExam().getName().compareTo(other.getExam().getName());
+		    }
+		}); 
+		
+		//Sort Order Documents by Name
+		Collections.sort(sortedDocumentList, new Comparator<OrderDocument>() {
+		    public int compare(OrderDocument one, OrderDocument other) {
+		        return one.getDocument().getName().compareTo(other.getDocument().getName());
+		    }
+		}); 
+		
+
 		if(order.getUser().getUsername().equalsIgnoreCase(getPrincipal()) || isAdmin(getPrincipal())) //IDK IF THIS IS THE BEST THING TO DO
 		{
 			model.addAttribute("order", order);
+			model.addAttribute("sortedExamList", sortedExamList);
+			model.addAttribute("sortedDocumentList", sortedDocumentList);
+			model.addAttribute("orderForm", orderForm);
 			return "invoice";
 		}
 		else
@@ -573,7 +595,7 @@ public class OrderController extends AbstractController
 			order.setOrderForm(of);
 			
 			orderService.updateOrder(order);
-			model.addAttribute("success", "Order: " + order.getUuid() + " - " + " was updated successfully");
+			model.addAttribute("success", "Order: " + order.getUuid() + " - " + " was updated successfully.");
 			model.addAttribute("returnLink", "/orders");
 			model.addAttribute("returnLinkText", "Orders");
 		}

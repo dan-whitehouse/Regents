@@ -232,7 +232,7 @@ public class OrderFormController extends AbstractController {
 		
 		orderFormService.saveOrderForm(orderForm);
 		
-		model.addAttribute("success", "OrderForm: " + orderForm.getName() + " was created successfully");
+		model.addAttribute("success", "OrderForm: " + orderForm.getName() + " was created successfully.");
 		model.addAttribute("returnLink", "/admin/orderForms");
 		model.addAttribute("returnLinkText", "Order Forms");
 		return "success";
@@ -290,7 +290,7 @@ public class OrderFormController extends AbstractController {
 		}
 		else
 		{
-			model.addAttribute("error_message", "The Order Form you are trying to edit is locked, please unlock it and try again");
+			model.addAttribute("error_message", "The order form you are trying to edit is locked, please unlock it and try again.");
 			return "403";	
 		}
 	}
@@ -330,7 +330,7 @@ public class OrderFormController extends AbstractController {
 		
 		orderFormService.updateOrderForm(orderFormUpdate);
 		
-		model.addAttribute("success", "OrderForm: " + orderForm.getName() + " was updated successfully");
+		model.addAttribute("success", "OrderForm: " + orderForm.getName() + " was updated successfully.");
 		model.addAttribute("returnLink", "/admin/orderForms");
 		model.addAttribute("returnLinkText", "Order Forms");
 
@@ -348,7 +348,7 @@ public class OrderFormController extends AbstractController {
 		}
 		else
 		{
-			model.addAttribute("error_message", "The Order Form you are trying to delete is locked, please unlock it and try again");
+			model.addAttribute("error_message", "The order form you are trying to delete is locked, please unlock it and try again.");
 			return "403";	
 		}
 	}

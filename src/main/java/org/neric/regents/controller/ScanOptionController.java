@@ -58,7 +58,7 @@ public class ScanOptionController extends AbstractController {
 		optionScan.setLocked(false);
 		optionScanService.save(optionScan);
 		
-		model.addAttribute("success", "Scan Option: " + optionScan.getName() + " was created successfully");
+		model.addAttribute("success", "Scan Option: " + optionScan.getName() + " was created successfully.");
 		model.addAttribute("returnLink", "/admin/scanOptions");
 		model.addAttribute("returnLinkText", "Scan Options");
 		return "success";
@@ -77,7 +77,7 @@ public class ScanOptionController extends AbstractController {
 		}
 		else
 		{
-			model.addAttribute("error_message", "The Scan Option you are trying to edit is locked, please unlock it and try again");
+			model.addAttribute("error_message", "The scan option you are trying to edit is locked, please unlock it and try again.");
 			return "403";	
 		}
 	}
@@ -92,7 +92,7 @@ public class ScanOptionController extends AbstractController {
 
 		optionScanService.update(optionScan);
 
-		model.addAttribute("success", "Scan Option: " + optionScan.getName() + " was updated successfully");
+		model.addAttribute("success", "Scan Option: " + optionScan.getName() + " was updated successfully.");
 		model.addAttribute("returnLink", "/admin/scanOptions");
 		model.addAttribute("returnLinkText", "Scan Options");
 		return "success";
@@ -111,7 +111,7 @@ public class ScanOptionController extends AbstractController {
 		}
 		else 
 		{
-			model.addAttribute("error_message", "The Scan Option you are trying to delete is locked, please unlock it and try again");
+			model.addAttribute("error_message", "The scan option you are trying to delete is locked, please unlock it and try again.");
 			return "403";
 		}
 	}

@@ -68,7 +68,7 @@ public class AppController extends AbstractController{
 			
 			if (logout != null) 
 			{
-				model.addAttribute("msg", "You've been logged out successfully.");
+				model.addAttribute("msg", "You have been logged out successfully.");
 			}
 			return "login";
 	    } 
@@ -140,7 +140,7 @@ public class AppController extends AbstractController{
 		
 		userService.updatePassword(userPassword);
 
-		model.addAttribute("success", "User: " + getPrincipal() +  "'s password was updated successfully");
+		model.addAttribute("success", "User: " + getPrincipal() +  "'s password was updated successfully.");
 		model.addAttribute("returnLink", "/");
 		model.addAttribute("returnLinkText", "Users");
 		model.addAttribute("loggedinusername", getPrincipal());

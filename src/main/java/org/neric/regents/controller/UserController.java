@@ -152,7 +152,7 @@ public class UserController extends AbstractController {
 		
 		userService.saveUser(user);
 
-		model.addAttribute("success", "User: " + user.getUsername() + " was registered successfully");
+		model.addAttribute("success", "User: " + user.getUsername() + " was registered successfully.");
 		model.addAttribute("returnLink", "/admin/users");
 		model.addAttribute("returnLinkText", "Users");
 		return "success";
@@ -190,7 +190,7 @@ public class UserController extends AbstractController {
 		}
 		else
 		{
-			model.addAttribute("error_message", "The User you are trying to edit is locked, please unlock it and try again");
+			model.addAttribute("error_message", "The user you are trying to edit is locked, please unlock it and try again.");
 			return "403";
 		}
 	}
@@ -215,7 +215,7 @@ public class UserController extends AbstractController {
 		
 		userService.updateUser(updatedUser);
 
-		model.addAttribute("success", "User: " + user.getUsername() +  " was updated successfully");
+		model.addAttribute("success", "User: " + user.getUsername() +  " was updated successfully.");
 		model.addAttribute("returnLink", "/admin/users");
 		model.addAttribute("returnLinkText", "Users");
 		return "success";
@@ -233,7 +233,7 @@ public class UserController extends AbstractController {
 		}
 		else
 		{
-			model.addAttribute("error_message", "The User you are trying to delete is locked, please unlock it and try again");
+			model.addAttribute("error_message", "The user you are trying to delete is locked, please unlock it and try again.");
 			return "403";	
 		}
 	}

@@ -144,7 +144,7 @@ public class OptOutController extends AbstractController {
 		{	
 			if(orderForm.isExpiredPeriod())
 			{
-				model.addAttribute("error_message", "It appears the active Regents period has expired");
+				model.addAttribute("error_message", "It appears the active Regents period has expired.");
 				return "204";
 			}
 			else if(orderForm.isActivePeriod())
@@ -187,12 +187,12 @@ public class OptOutController extends AbstractController {
 				}
 				else if(wasOptedOutByOtherUser(optOuts))
 				{
-					model.addAttribute("error_message", "It appears another user may have already marked all of the districts associated with this account as 'Not Administering'");
+					model.addAttribute("error_message", "It appears another user may have already marked all of the districts associated with this account as 'Not Administering'.");
 					return "204";
 				}
 				else
 				{
-					model.addAttribute("error_message", "It appears you are not administering this regents period");
+					model.addAttribute("error_message", "It appears you are not administering this Regents period.");
 					return "204";
 				}
 			}
@@ -204,7 +204,7 @@ public class OptOutController extends AbstractController {
 		}
 		else
 		{
-			model.addAttribute("error_message", "No Active Order Period");
+			model.addAttribute("error_message", "No active Regents period.");
 			return "204"; //No Active OrderForm, may be null
 		}
 	}
@@ -225,7 +225,7 @@ public class OptOutController extends AbstractController {
 		System.out.println(optOut.toString());	
 		optOutService.save(optOut);
 		
-		model.addAttribute("success", "Non-Administration: " + optOut.getDistrict().getName() + " has been successfully submitted");
+		model.addAttribute("success", "Non-Administration: " + optOut.getDistrict().getName() + " has been successfully submitted.");
 		model.addAttribute("returnLink", "/notadministration");
 		model.addAttribute("returnLinkText", "Not Administering");
 		return "success";

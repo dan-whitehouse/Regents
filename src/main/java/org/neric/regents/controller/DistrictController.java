@@ -127,7 +127,7 @@ public class DistrictController extends AbstractController {
 		}
 		else 
 		{
-			model.addAttribute("error_message", "The District you are trying to edit is locked, please unlock it and try again");
+			model.addAttribute("error_message", "The district you are trying to edit is locked, please unlock it and try again");
 			return "403";
 		}
 	}
@@ -158,7 +158,7 @@ public class DistrictController extends AbstractController {
 		}
 		else 
 		{
-			model.addAttribute("error_message", "The District you are trying to delete is locked, please unlock it and try again");
+			model.addAttribute("error_message", "The district you are trying to delete is locked, please unlock it and try again");
 			return "403";	
 		}
 	}
