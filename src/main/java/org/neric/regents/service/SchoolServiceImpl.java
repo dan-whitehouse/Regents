@@ -124,4 +124,10 @@ public class SchoolServiceImpl implements SchoolService{
 			entity.setVisible(isHidden);
 		}
 	}
+
+	@Override
+	public int count()
+	{
+		return dao.count();
+	}
 }

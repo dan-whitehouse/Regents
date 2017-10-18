@@ -41,30 +41,13 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/")
 @SessionAttributes("roles")
-public class AppController {
+public class AppController extends AbstractController{
 
 	@Autowired
 	UserService userService;
-	
-	@Autowired
-	UserProfileService userProfileService;
-	
-	@Autowired
-	MessageSource messageSource;
 
-	@Autowired
-	PersistentTokenBasedRememberMeServices persistentTokenBasedRememberMeServices;
-	
-	@Autowired
-	AuthenticationTrustResolver authenticationTrustResolver;
-	
-	@Autowired
-	DistrictService districtService;
-	
-	
 	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
 	public String homePage(ModelMap model) {
-
 		if(isCurrentAuthenticationAnonymous())
 		{
 			return "login";
@@ -73,11 +56,8 @@ public class AppController {
 		return "home";
 	}
 
-	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String loginPage(@RequestParam(value = "error", required = false) String error,
-							@RequestParam(value = "logout", required = false) String logout,
-							HttpServletRequest request, ModelMap model)
+	public String loginPage(@RequestParam(value = "error", required = false) String error, @RequestParam(value = "logout", required = false) String logout, HttpServletRequest request, ModelMap model)
 	{
 		if (isCurrentAuthenticationAnonymous()) 
 		{
@@ -135,18 +115,6 @@ public class AppController {
 		return "redirect:/login?logout";
 	}
 	
-	
-	
-	@RequestMapping(value = { "/profile/{username}" }, method = RequestMethod.GET)
-	public String showUser(@PathVariable String username, ModelMap model) {
-
-		User user = userService.findByUsername(username);
-		model.addAttribute("user", user);
-		model.addAttribute("edit", false);
-		model.addAttribute("loggedinusername", getPrincipal());
-		return "profile";
-	}
-	
 	/* PASSWORD RESET */
 	@RequestMapping(value = { "/changePassword" }, method = RequestMethod.GET)
 	public String editUserPassword(ModelMap model) 
@@ -178,40 +146,4 @@ public class AppController {
 		model.addAttribute("loggedinusername", getPrincipal());
 		return "success";
 	}
-
-
-	/**
-	 * This method will provide UserProfile list to views
-	 */
-	@ModelAttribute("roles")
-	public List<UserProfile> initializeProfiles() 
-	{
-		return userProfileService.findAll();
-	}
-	
-	/**
-	 * This method returns the principal[user-name] of logged-in user.
-	 */
-	private String getPrincipal()
-	{
-		String userName = null;
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-		if (principal instanceof UserDetails) {
-			userName = ((UserDetails)principal).getUsername();
-		} else {
-			userName = principal.toString();
-		}
-		return userName;
-	}
-	
-	/**
-	 * This method returns true if users is already authenticated [logged-in], else false.
-	 */
-	private boolean isCurrentAuthenticationAnonymous() {
-	    final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	    return authenticationTrustResolver.isAnonymous(authentication);
-	}
-
-
 }

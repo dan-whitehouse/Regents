@@ -67,10 +67,13 @@ public class District implements Serializable
 	private Boolean locked;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "district")
-	private Set<UserDistrict> userDistricts = new HashSet<UserDistrict>(0);
+	private Set<UserDistrict> userDistricts = new HashSet<>(0);
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "district")
+	private Set<School> schools = new HashSet<>(0);
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "district")
-	private Set<OptOut> district = new HashSet<OptOut>(0);
+	private Set<OptOut> district = new HashSet<>(0);
 
 
 	public Integer getId()
@@ -126,8 +129,11 @@ public class District implements Serializable
 	public void setLocked(Boolean locked) {
 		this.locked = locked;
 	}
-	
-	
+
+	public Set<School> getSchools() { return schools; }
+
+	public void setSchools(Set<School> schools) { this.schools = schools; }
+
 	public Set<UserDistrict> getUserDistricts()
 	{
 		return userDistricts;

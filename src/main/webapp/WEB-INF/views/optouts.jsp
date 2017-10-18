@@ -6,8 +6,6 @@
 
 <%-- <c:url value="/optout" var="optoutLink" /> --%>
 
-
-
 <html>
 	<jsp:include page="fragments/header.jsp" />
 	<!-- page content -->
@@ -18,23 +16,14 @@
 				<div class="col-md-12 col-sm-12 col-xs-12">
 					<div class="x_panel">
 						<div class="x_title">
-							<h2>Opt Outs</h2>
-<!-- 							<ul class="nav navbar-right panel_toolbox"> -->
-<!-- 								<li class="dropdown"> -->
-<!-- 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a> -->
-<!-- 									<ul class="dropdown-menu" role="menu"> -->
-<%-- 										<li><a href="${optoutLink}">Create Order</a> --%>
-<!-- 										</li> -->
-<!-- 									</ul> -->
-<!-- 								</li> -->
-<!-- 							</ul> -->
+							<h2>Past Not Administering</h2>
 							<div class="clearfix"></div>
 						</div>
 						<div class="x_content">
 							<table id="datatable" class="table table-striped table-bordered">
 								<thead>
 									<tr>
-										<th>Opt Out Number</th>
+										<th>Not Administering Number</th>
 										<th>Date</th>
 										<th>Regents Period</th>
 										<th>District</th>
@@ -69,12 +58,12 @@
 										<div class="modal-dialog modal-sm">
 											<div class="modal-content">
 												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">?</span>
 													</button>
 													<h4 class="modal-title" id="myModalLabel2">Confirmation</h4>
 												</div>
 												<div class="modal-body">
-													<h5>Delete Opt Out: </h5>
+													<h5>Delete Not Administering: </h5>
 													<p>${optout.uuid}</p>
 												</div>
 												<div class="modal-footer">

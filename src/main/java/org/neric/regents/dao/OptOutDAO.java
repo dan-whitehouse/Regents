@@ -15,6 +15,8 @@ public interface OptOutDAO {
 	List<OptOut> findAllOptOuts();
 	
 	List<OptOut> findAllOptOutsByUsername(String username);
+
+	List<OptOut> findAllOptOutsByUserUUID(String uuid);
 	
 	List<OptOut> findAllActiveOptOuts(int orderFormId);
 	
@@ -25,5 +27,7 @@ public interface OptOutDAO {
 	void deleteById(int id);
 
 	void deleteByUUID(String uuid);
+
+	int countByActiveOrderForm(int id);
 }
 

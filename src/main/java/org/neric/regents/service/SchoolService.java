@@ -34,5 +34,7 @@ public interface SchoolService {
 
 	void hideById(int id, boolean isHidden);
 
-	void hideByUUID(String uuid, boolean isHidden); 
+	void hideByUUID(String uuid, boolean isHidden);
+
+	int count();
 }

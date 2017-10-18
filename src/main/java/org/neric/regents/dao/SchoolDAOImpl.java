@@ -91,5 +91,10 @@ public class SchoolDAOImpl extends AbstractDao<Integer, School> implements Schoo
 		School school = (School)crit.uniqueResult();
 		delete(school);
 	}
-	
+
+	@Override
+	public int count(){
+		int count = ((Long)getSession().createQuery("select count(*) from School").uniqueResult()).intValue();
+		return count;
+	}
 }

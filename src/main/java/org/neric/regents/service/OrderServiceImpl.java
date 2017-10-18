@@ -36,7 +36,12 @@ public class OrderServiceImpl implements OrderService
 	{
 		return dao.findAllOrders();
 	}
-	
+
+	@Override
+	public List<Order> findAllOrdersByActiveOrderForm(int id) {
+		return dao.findAllOrdersByActiveOrderForm(id);
+	}
+
 	@Override
 	public List<Order> findAllOrdersByUsername(String username)
 	{
@@ -79,5 +84,22 @@ public class OrderServiceImpl implements OrderService
 				entity.setOrderStatus("Processing");
 			}
 		}
+	}
+
+	@Override
+	public int count()
+	{
+		return dao.count();
+	}
+
+	@Override
+	public int countByActiveOrderForm(int id) {
+		return dao.countByActiveOrderForm(id);
+	}
+
+	@Override
+	public int countByActiveOrderFormUniqueDistrict(int id)
+	{
+		return dao.countByActiveOrderFormUniqueDistrict(id);
 	}
 }

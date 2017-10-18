@@ -43,7 +43,7 @@
 								<tbody>
 									<c:forEach items="${districts}" var="district">
 										<tr>
-											<td>${district.name}</td>
+											<td><a href="<c:url value='/admin/districts/${district.uuid}' />">${district.name}</a></td>
 											<td>${district.bedsCode}</td>
 										    <sec:authorize access="hasRole('ADMIN')">
 												<td width="195px">
@@ -80,7 +80,7 @@
 										<div class="modal-dialog modal-sm">
 											<div class="modal-content">
 												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">?</span>
 													</button>
 													<h4 class="modal-title" id="myModalLabel2">Confirmation</h4>
 												</div>

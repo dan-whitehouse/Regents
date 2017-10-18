@@ -1,9 +1,9 @@
 package org.neric.regents.service;
 
-import java.util.List;
-
 import org.neric.regents.model.User;
 import org.neric.regents.test.UserPassword;
+
+import java.util.List;
 
 
 public interface UserService {
@@ -33,5 +33,7 @@ public interface UserService {
 	void hideByUUID(String uuid, boolean isHidden); 
 	
 	boolean isUserUsernameUnique(Integer id, String username);
+
+	int count();
 
 }

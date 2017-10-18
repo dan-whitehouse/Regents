@@ -1,8 +1,8 @@
 package org.neric.regents.service;
 
-import java.util.List;
-
 import org.neric.regents.model.UserProfile;
+
+import java.util.List;
 
 
 public interface UserProfileService {

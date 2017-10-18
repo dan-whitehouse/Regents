@@ -30,5 +30,13 @@ public interface DistrictService {
 
 	void hideById(int id, boolean isHidden);
 
-	void hideByUUID(String uuid, boolean isHidden); 
+	void hideByUUID(String uuid, boolean isHidden);
+
+	int count();
+
+    List<District> findAllUndecidedDistrictsByActiveOrderForm(String uuid);
+
+	List<District> findAllOrderedDistrictsByActiveOrderForm(String uuid);
+
+	List<District> findAllNADistrictsByActiveOrderForm(String uuid);
 }

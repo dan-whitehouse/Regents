@@ -1,8 +1,8 @@
 package org.neric.regents.dao;
 
-import java.util.List;
-
 import org.neric.regents.model.User;
+
+import java.util.List;
 
 
 public interface UserDao {
@@ -22,5 +22,7 @@ public interface UserDao {
 	void deleteByUsername(String username);
 
 	void deleteByUUID(String uuid);
+
+	int count();
 }
 

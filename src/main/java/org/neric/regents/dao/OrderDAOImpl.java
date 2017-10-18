@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.neric.regents.model.District;
 import org.neric.regents.model.Document;
@@ -180,5 +182,57 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 		}		
 		return orders;
 	}
-	
+
+	@Override
+	public int count(){
+		int count = ((Long)getSession().createQuery("select count(*) from Order").uniqueResult()).intValue();
+		return count;
+	}
+
+	@Override
+	public int countByActiveOrderForm(int id){
+		try {
+			Criteria criteria = getSession().createCriteria(Order.class,"order");
+			criteria.add(Restrictions.eq("orderForm.id", id));
+			criteria.setProjection(Projections.rowCount());
+			Number numRows = (Number)criteria.uniqueResult();
+			return numRows.intValue();
+		}
+		catch(Exception e) { return 0;}
+	}
+
+	@Override
+	public int countByActiveOrderFormUniqueDistrict(int id){
+		try {
+			Criteria criteria = getSession().createCriteria(Order.class,"order");
+			criteria.add(Restrictions.eq("orderForm.id", id));
+			criteria.setProjection(Projections.countDistinct("district.id"));
+			Number numRows = (Number)criteria.uniqueResult();
+			return numRows.intValue();
+		}
+		catch(Exception e) { return 0;}
+	}
+
+	@Override
+	public List<Order> findAllOrdersByActiveOrderForm(int id) {
+		Criteria crit = createEntityCriteria();
+		crit.addOrder(org.hibernate.criterion.Order.desc("orderDate"));
+		crit.add(Restrictions.eq("orderForm.id", id));
+
+		List<Order> orders = (List<Order>)crit.list();
+		if(orders!=null)
+		{
+			for(Order o : orders)
+			{
+				if(o != null)
+				{
+					Hibernate.initialize(o.getUser());
+					Hibernate.initialize(o.getOrderForm());
+					Hibernate.initialize(o.getDistrict());
+					Hibernate.initialize(o.getOrderContact());
+				}
+			}
+		}
+		return (List<Order>)crit.list();
+	}
 }

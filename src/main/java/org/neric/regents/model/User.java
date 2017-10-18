@@ -67,21 +67,19 @@ public class User implements Serializable
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
 	@Cascade(CascadeType.ALL)
-	private Set<UserDistrict> userDistricts = new HashSet<UserDistrict>(0);
-	
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-//	private Set<OptOut> optOutUser = new HashSet<OptOut>(0);
+	private Set<UserDistrict> userDistricts = new HashSet<>(0);
+
 	
 	@NotEmpty
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "APP_USER_USER_PROFILE", 
              joinColumns = { @JoinColumn(name = "USER_ID") }, 
              inverseJoinColumns = { @JoinColumn(name = "USER_PROFILE_ID") })
-	private Set<UserProfile> userProfiles = new HashSet<UserProfile>();
+	private Set<UserProfile> userProfiles = new HashSet<>();
 
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	private Set<Order> orders = new HashSet<Order>(0);
+	private Set<Order> orders = new HashSet<>(0);
 	
 	
 	public Integer getId() {

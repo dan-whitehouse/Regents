@@ -106,4 +106,25 @@ public class DistrictServiceImp implements DistrictService{
 			entity.setVisible(isHidden);
 		}
 	}
+
+	@Override
+	public int count()
+	{
+		return dao.count();
+	}
+
+	@Override
+	public List<District> findAllUndecidedDistrictsByActiveOrderForm(String uuid) {
+		return dao.findAllUndecidedDistrictsByActiveOrderForm(uuid);
+	}
+
+	@Override
+	public List<District> findAllOrderedDistrictsByActiveOrderForm(String uuid) {
+		return dao.findAllOrderedDistrictsByActiveOrderForm(uuid);
+	}
+
+	@Override
+	public List<District> findAllNADistrictsByActiveOrderForm(String uuid) {
+		return dao.findAllNADistrictsByActiveOrderForm(uuid);
+	}
 }

@@ -20,5 +20,13 @@ public interface DistrictDAO {
 	void deleteByCode(String bedsCode);
 	
 	void deleteByUUID(String uuid);
+
+	int count();
+
+	List<District> findAllUndecidedDistrictsByActiveOrderForm(String uuid);
+
+	List<District> findAllOrderedDistrictsByActiveOrderForm(String uuid);
+
+	List<District> findAllNADistrictsByActiveOrderForm(String uuid);
 }
 

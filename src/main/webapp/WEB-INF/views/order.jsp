@@ -96,7 +96,7 @@
 													securely through Serv-U. You can find the student data file template 
 													<a href="http://neric.org/Testing/Regents.cfm" class="link" target="_blank">here</a>, 
 													and directions on how to upload files to Serv-U <a href="http://neric.org/documents/Testing/How%20to%20Upload%20Files%20to%20ServU.pdf" class="link" target="_blank">here</a>. If you do not have access to SERV-U, a request for a secure link can be e-mailed 
-													to testing@neric.org. <p class="text-danger">No student data files should be e-mailed to NERIC</p>
+													to testing@neric.org. <p class="text-danger">NERIC obeys all laws and regulations governing students? Personally Identifiable Information (PII). Please DO NOT send any student PII via e-mail to NERIC Testing.</p>
 												</p>
 												<p>
 													<strong>Billing: </strong>
@@ -216,7 +216,7 @@
 									<div class="col-xs-12">
 										<div class="alert alert-softYellow alert-dismissible fade in" role="alert">
                     						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    							<span aria-hidden="true">×</span>
+                    							<span aria-hidden="true">?</span>
                     						</button>
                     						Non-secure documents include Essay Booklets for ELA, USH and GH, and Reference Tables for the Sciences. 
 											See Step 1 for price per document.
@@ -257,7 +257,7 @@
 										<div class="col-md-12 well">
 											<div class="form-group col-xs-12">
 												<label class="control-label col-md-6 col-sm-6 col-xs-12">Reporting Option: 
-												<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="Application decides this value." >
+												<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="Application decides this value. For January and June Regents NERIC will load scores in L1. NERIC will NOT load score for August." >
 												<span class=" fa fa-info"></span>
 												</span>
 												</label>
@@ -294,7 +294,7 @@
 											<div class="clearfix"></div>
 											
 											<div class="form-group col-xs-12 has-feedback">
-												<label class="control-label col-md-6 col-sm-6 col-xs-12">Scanning/Scoring Option: 
+												<label class="control-label col-md-6 col-sm-6 col-xs-12">Answer Sheets Scanning Option:
 												<!-- <span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default.">
 													<span class=" fa fa-info"></span>
 												</span>-->
@@ -517,7 +517,7 @@
 														</div>
 														<div class="x_content">
 															<div class="form-group">
-																<p class="text-danger">By clicking "Submit", you signify that you have permission to order these Regents forms from an appropriate person who can authorize this expenditure.</p>
+																<p class="text-danger"><strong>By clicking "Submit", you signify that you have permission to order these Regents forms from an appropriate person who can authorize this expenditure.</strong></p>
 															</div>
 															<input type="submit" value="Submit" class="btn btn-success"/> 
 															<a href="<c:url value='/orders' />" class="btn btn-primary">Cancel</a>

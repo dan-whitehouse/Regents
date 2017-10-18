@@ -1,8 +1,5 @@
 package org.neric.regents.security;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.neric.regents.model.User;
 import org.neric.regents.model.UserProfile;
 import org.neric.regents.service.UserService;
@@ -16,6 +13,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service("customUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService{

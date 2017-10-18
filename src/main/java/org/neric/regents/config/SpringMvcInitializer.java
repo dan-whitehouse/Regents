@@ -1,6 +1,7 @@
 package org.neric.regents.config;
 
 import javax.servlet.Filter;
+import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRegistration;
 
@@ -10,7 +11,10 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import java.io.File;
+
 public class SpringMvcInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+	private final int maxUploadSizeInMb = 5 * 1024 * 1024; // 5 MB
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {

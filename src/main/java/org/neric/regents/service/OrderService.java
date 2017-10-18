@@ -18,6 +18,8 @@ public interface OrderService
 	Order findByUUID(String uuid);
 	
 	List<Order> findAllOrders();
+
+	List<Order> findAllOrdersByActiveOrderForm(int id);
 	
 	List<Order> findAllOrdersByUsername(String username);
 	
@@ -30,4 +32,10 @@ public interface OrderService
 	void deleteOrder(String uuid);
 	
 	void updateStatus(String uuid, Boolean isComplete);
+
+	int count();
+
+	int countByActiveOrderForm(int id);
+
+	int countByActiveOrderFormUniqueDistrict(int id);
 }

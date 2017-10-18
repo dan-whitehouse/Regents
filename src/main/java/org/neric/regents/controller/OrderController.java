@@ -1,11 +1,7 @@
 package org.neric.regents.controller;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +13,7 @@ import javax.validation.ValidatorFactory;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.neric.regents.controller.AbstractController;
 import org.neric.regents.converture.DistrictEditor;
 import org.neric.regents.converture.OptionPrintEditor;
 import org.neric.regents.converture.OptionScanEditor;
@@ -79,7 +76,7 @@ import org.springframework.web.bind.support.SessionStatus;
 @Controller
 @RequestMapping("/")
 @SessionAttributes("roles")
-public class OrderController
+public class OrderController extends AbstractController
 {
 	private Validator validator;
 
@@ -128,12 +125,6 @@ public class OrderController
 	@Autowired
 	OptOutService optOutService;
 
-	@Autowired
-	UserProfileService userProfileService;
-	
-	@Autowired
-	AuthenticationTrustResolver authenticationTrustResolver;
-
 	@InitBinder
 	public void initBinder(WebDataBinder binder)
 	{
@@ -179,19 +170,6 @@ public class OrderController
 	{
 		List<OptionScan> options = optionScanService.findAllActivelOptionScans();
 		return options;
-	}
-
-	@ModelAttribute("loggedinuser")
-	public User loggedInUser()
-	{
-		User user = userService.findByUsername(getPrincipal());
-		return user;
-	}
-
-	@ModelAttribute("loggedinusername")
-	public String loggedInUserName()
-	{
-		return getPrincipal();
 	}
 
 	@ModelAttribute("districtsByUser")
@@ -272,34 +250,93 @@ public class OrderController
 			
 			if(CollectionUtils.isNotEmpty(districts) && districts.size() > 0)
 			{
+				List<District> activeOptOutDistricts = new ArrayList<>();
+				List<District> selectableDistricts = new ArrayList<>();
 				OrderForm orderForm = orderFormService.getActiveOrderForm();
+
 				if(orderForm.isExpiredPeriod())
 				{
 					model.addAttribute("error_message", "It appears the active Regents period has expired");
 					return "204";
 				}
-				else if(orderForm.getVisible())
+				else if(orderForm.isActivePeriod() && orderForm.getVisible() && !orderForm.getLocked())
 				{
-					XForm2 xForm = new XForm2();
-					model.addAttribute("xForm2", xForm);
-					model.addAttribute("orderForm", orderForm);
-					return "order";
+					//Populated selectable districts with districts associated to the user.
+					selectableDistricts.addAll(populateDistrictsByUser());
+
+					//Add all districts currently opted out.
+					List<OptOut> optOuts = optOutService.findAllActiveOptOuts(orderForm.getId());
+					for(OptOut o : optOuts)
+					{
+						activeOptOutDistricts.add(o.getDistrict());
+					}
+
+					//If selectableDistricts contains an activeOptOutDistrict we need to remove it from the selectableDistricts list.
+					for(District d : activeOptOutDistricts)
+					{
+						for (Iterator<District> iterator = selectableDistricts.iterator(); iterator.hasNext();) {
+							District district = iterator.next();
+							if (district.getUuid().equalsIgnoreCase(d.getUuid())) {
+								iterator.remove();
+							}
+						}
+					}
+
+					//Sort SelectableDistricts by Name
+					Collections.sort(selectableDistricts, new Comparator<District>() {
+						public int compare(District one, District other) {
+							return one.getName().compareTo(other.getName());
+						}
+					});
+
+					if(CollectionUtils.isNotEmpty(selectableDistricts))
+					{
+						XForm2 xForm = new XForm2();
+						model.addAttribute("xForm2", xForm);
+						model.addAttribute("orderForm", orderForm);
+						return "order";
+					}
+					else if(wasOptedOutByOtherUser(optOuts))
+					{
+						model.addAttribute("error_message", "It appears another user may have already marked all of the districts associated with this account as 'Not Administering'");
+						return "204";
+					}
+					else
+					{
+						model.addAttribute("error_message", "It appears you are not administering this regents period");
+						return "204";
+					}
+				}
+				else if(!orderForm.isActivePeriod())
+				{
+					model.addAttribute("error_message", "No active regents period");
+					return "204";
+				}
+				else if(orderForm.getLocked())
+				{
+					model.addAttribute("error_message", "The regents period has been locked");
+					return "403";
+				}
+				else if(!orderForm.getVisible())
+				{
+					model.addAttribute("error_message", "...");
+					return "403";
 				}
 				else
 				{
-					model.addAttribute("error_message", "Not Expired, and is visible...");
+					model.addAttribute("error_message", "Not expired, and is visible...");
 					return "403";
 				}	
 			}
 			else
 			{
-				model.addAttribute("error_message", "It appears you have opted out of this Regents period");
+				model.addAttribute("error_message", "It appears you are not administering this regents period");
 				return "204";
 			}
 		}
 		else
 		{
-			model.addAttribute("error_message", "No Active Order Period");
+			model.addAttribute("error_message", "No active regents period");
 			return "204"; //No Active OrderForm
 		}
 	}
@@ -536,29 +573,7 @@ public class OrderController
 		orderService.updateStatus(uuid, isComplete);
 		return "redirect:/orders";
 	}
-	
 
-	private String getPrincipal()
-	{
-		String userName = null;
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-		if (principal instanceof UserDetails)
-		{
-			userName = ((UserDetails) principal).getUsername();
-		}
-		else
-		{
-			userName = principal.toString();
-		}
-		return userName;
-	}
-	
-	public List<UserProfile> initializeProfiles() 
-	{
-		return userProfileService.findAll();
-	}
-	
 	private boolean isAdmin(String username)
 	{
 		User user = userService.findByUsername(username);
@@ -571,10 +586,19 @@ public class OrderController
 		}
 		return false;
 	}
-	
-	
-	private boolean isCurrentAuthenticationAnonymous() {
-	    final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	    return authenticationTrustResolver.isAnonymous(authentication);
+
+	private boolean wasOptedOutByOtherUser(List<OptOut> optOuts)
+	{
+		boolean isOptedOut = false;
+		for(OptOut o : optOuts)
+		{
+			//If current user does not equal the username of the person who opted out
+			if(!getPrincipal().equalsIgnoreCase(o.getOptOutUser().getUsername()))
+			{
+				return true;
+			}
+		}
+		return isOptedOut;
 	}
+
 }

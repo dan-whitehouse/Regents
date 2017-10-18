@@ -12,7 +12,7 @@
 				<div class="col-md-12 col-sm-12 col-xs-12">
 					<div class="x_panel">
 						<div class="x_title">
-							<h2>Opt Out</h2>			
+							<h2>Not Administering</h2>
 							<div class="clearfix"></div>
 						</div>
 						<div class="x_content">
@@ -28,7 +28,9 @@
 									<div class="form-group">
 									<div class="col-md-6 col-md-offset-3">
 										<div class="form-group">
-											<p>By "Opting Out", you signify that you are not testing for this regents period and have permission to "Opt Out" from an appropriate person who can authorize this.</p>
+											<p>
+											    By "Not Administering", you are signifying that you are not testing any students in your building, or have students in other locations taking any Regents exams for this examination period, and that you are an authorized person who can indicate this for your district.
+											</p>
 										</div>
 										<input type="submit" value="Opt Out" class="btn btn-success"/> <a href="<c:url value='/optout' />" class="btn btn-primary">Cancel</a>
 									</div>

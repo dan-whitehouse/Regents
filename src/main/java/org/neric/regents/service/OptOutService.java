@@ -15,6 +15,8 @@ public interface OptOutService
 	List<OptOut> findAllOptOuts();
 	
 	List<OptOut> findAllOptOutsByUsername(String username);
+
+	List<OptOut> findAllOptOutsByUserUUID(String uuid);
 	
 	List<OptOut> findAllActiveOptOuts(int orderFormId);
 	
@@ -25,4 +27,6 @@ public interface OptOutService
 	void deleteById(int id);
 
 	void deleteByUUID(String uuid);
+
+	int countByActiveOrderForm(int id);
 }

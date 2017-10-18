@@ -1,16 +1,16 @@
 package org.neric.regents.dao;
 
-import java.util.Date;
-
-import org.neric.regents.model.PersistentLogin;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
+import org.neric.regents.model.PersistentLogin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.web.authentication.rememberme.PersistentRememberMeToken;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 
 
 @Repository("tokenRepositoryDao")

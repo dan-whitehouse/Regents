@@ -19,6 +19,7 @@ import javax.validation.Valid;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.neric.regents.controller.AbstractController;
 import org.neric.regents.converture.DistrictEditor;
 import org.neric.regents.converture.OptionPrintEditor;
 import org.neric.regents.converture.SchoolEditor;
@@ -74,32 +75,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-
 @Controller
 @RequestMapping("/")
 @SessionAttributes("roles")
-public class OptOutController {	
-	@Autowired
-	DistrictService districtService;
-	
-	@Autowired
-	OrderFormService orderFormService;
-	
-	@Autowired
-	UserProfileService userProfileService;
-	
-	@Autowired
-	UserService userService;
-	
-	@Autowired
-	OptOutService optOutService;
-	
-	@Autowired
-	MessageSource messageSource;
+public class OptOutController extends AbstractController {
 
 	@Autowired
-	AuthenticationTrustResolver authenticationTrustResolver;
-	
+	OrderFormService orderFormService;
+
+	@Autowired
+	OptOutService optOutService;
+
 	@Autowired
 	DistrictEditor districtEditor;
 	
@@ -110,21 +96,7 @@ public class OptOutController {
 		binder.registerCustomEditor(District.class, districtEditor);
       
 	}
-    
 
-	@ModelAttribute("loggedinuser")
-    public User loggedInUser() 
-    {
-		User user = userService.findByUsername(getPrincipal());
-        return user;
-    }
-	
-	@ModelAttribute("loggedinusername")
-    public String loggedInUserName() 
-    {
-        return getPrincipal();
-    }
-	
 	@ModelAttribute("districtsByUser")
 	public List<District> populateDistrictsByUser()
 	{
@@ -189,7 +161,7 @@ public class OptOutController {
 				
 				//If selectableDistricts contains an activeOptOutDistrict we need to remove it from the selectableDistricts list.
 				for(District d : activeOptOutDistricts)
-				{		
+				{
 					for (Iterator<District> iterator = selectableDistricts.iterator(); iterator.hasNext();) {
 					    District district = iterator.next();
 					    if (district.getUuid().equalsIgnoreCase(d.getUuid())) {
@@ -215,18 +187,18 @@ public class OptOutController {
 				}
 				else if(wasOptedOutByOtherUser(optOuts))
 				{
-					model.addAttribute("error_message", "It appears another user may have already opted out districts this Regents period");
+					model.addAttribute("error_message", "It appears another user may have already marked all of the districts associated with this account as 'Not Administering'");
 					return "204";
 				}
 				else
 				{
-					model.addAttribute("error_message", "It appears you have opted out of this Regents period");
+					model.addAttribute("error_message", "It appears you are not administering this regents period");
 					return "204";
 				}
 			}
 			else
 			{
-				model.addAttribute("error_message", "Not Expired, and is visible...");
+				model.addAttribute("error_message", "");
 				return "403"; //Not expired and not active... must be something else...
 			}
 		}
@@ -247,7 +219,6 @@ public class OptOutController {
 		
 		optOut.setUuid(UUID.randomUUID().toString());
 		optOut.setOrderForm(orderFormService.getActiveOrderForm());
-//		optOut.setDistrict(optOut.getDistrict());
 		optOut.setOptOutUser(loggedInUser());
 		optOut.setOptOutDate(new Date());
 		
@@ -280,42 +251,7 @@ public class OptOutController {
 	
 	
 	/************************** OTHER **************************/
-	
-	@ModelAttribute("roles")
-	public List<UserProfile> initializeProfiles() 
-	{
-		return userProfileService.findAll();
-	}
-	
-	private boolean isCurrentAuthenticationAnonymous() {
-	    final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	    return authenticationTrustResolver.isAnonymous(authentication);
-	}
-	
-	private String getPrincipal()
-	{
-		String userName = null;
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-		if (principal instanceof UserDetails) {
-			userName = ((UserDetails)principal).getUsername();
-		} else {
-			userName = principal.toString();
-		}
-		return userName;
-	}
-	
-	private boolean canRemoveDistrict(List<District> selectableDistricts, District d)
-	{
-		for(District sd : selectableDistricts)
-		{
-			if(sd.getUuid().equalsIgnoreCase(d.getUuid()))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
 	
 	private boolean wasOptedOutByOtherUser(List<OptOut> optOuts)
 	{

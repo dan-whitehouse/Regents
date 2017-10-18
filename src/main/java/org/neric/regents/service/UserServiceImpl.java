@@ -1,7 +1,5 @@
 package org.neric.regents.service;
 
-import java.util.List;
-
 import org.neric.regents.dao.UserDao;
 import org.neric.regents.model.District;
 import org.neric.regents.model.User;
@@ -11,6 +9,8 @@ import org.springframework.security.config.authentication.PasswordEncoderParser;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service("userService")
 @Transactional
@@ -130,5 +130,10 @@ public class UserServiceImpl implements UserService{
 			entity.setVisible(isHidden);
 		}
 	}
-	
+
+	@Override
+	public int count()
+	{
+		return dao.count();
+	}
 }

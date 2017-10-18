@@ -23,4 +23,12 @@ public interface OrderDAO {
 	void deleteOrder(int id);
 	
 	void deleteOrder(String uuid);
+
+	int count();
+
+	int countByActiveOrderForm(int id);
+
+	int countByActiveOrderFormUniqueDistrict(int id);
+
+    List<Order> findAllOrdersByActiveOrderForm(int id);
 }

@@ -60,9 +60,7 @@ public class ErrorController
 	public ModelAndView defaultErrorHandler(HttpServletRequest httpRequest, Exception e) throws Exception 
 	{
 	    // If the exception is annotated with @ResponseStatus rethrow it and let
-	    // the framework handle it - like the OrderNotFoundException example
-	    // at the start of this post.
-	    // AnnotationUtils is a Spring Framework utility class.
+	    // the framework handle it - like the OrderNotFoundException example at the start of this post.
 	    if (AnnotationUtils.findAnnotation(e.getClass(), ResponseStatus.class) != null)
 	    {
 	    	throw e;
@@ -100,23 +98,18 @@ public class ErrorController
 	    mav.setViewName(DEFAULT_ERROR_VIEW);
 	    return mav;
 	}
-	
-	/*******************/
-	
-  private int getErrorCode(HttpServletRequest httpRequest) 
-  {
-	  int code = 404;
-	  
-	  try
-	  {
-		  code = (Integer) httpRequest.getAttribute("javax.servlet.error.status_code");
-	  }
-	  catch(Exception e) {}
-	  
-	  return code; 
-}
-	
-	
+
+	private int getErrorCode(HttpServletRequest httpRequest)
+    {
+    	int code = 403;
+		try
+		{
+			code = (Integer) httpRequest.getAttribute("javax.servlet.error.status_code");
+		}
+		catch(Exception e) {}
+		return code;
+    }
+
 	public String getErrorMessage(int httpErrorCode)
 	{
 		String errorMsg = "";
@@ -124,22 +117,27 @@ public class ErrorController
 		{
 			case 400:
 			{
-				errorMsg = "Http Error Code: 400. Bad Request";
+				errorMsg = "Bad Request";
 				break;
 			}
 			case 401:
 			{
-				errorMsg = "Http Error Code: 401. Unauthorized";
+				errorMsg = "Unauthorized";
+				break;
+			}
+			case 403:
+			{
+				errorMsg = "Access Denied";
 				break;
 			}
 			case 404:
 			{
-				errorMsg = "Http Error Code: 404. Resource not found";
+				errorMsg = "Resource not found";
 				break;
 			}
 			case 500:
 			{
-				errorMsg = "Http Error Code: 500. Internal Server Error";
+				errorMsg = "Internal Server Error";
 				break;
 			}
 			default:
@@ -150,82 +148,4 @@ public class ErrorController
 		}
 		return errorMsg;
 	}
-	
-	
-	
-	
-//	@ExceptionHandler(Exception.class)
-//    public String handle(Exception ex) 
-//	{
-//        return "redirect:/error";
-//    }
-//
-//    @RequestMapping(value = {"/error"}, method = RequestMethod.GET)
-//    public String NotFoudPage(ModelMap model, HttpServletRequest httpRequest) 
-//    {    	
-//    	  String errorMsg = "";
-//        int httpErrorCode = getErrorCode(httpRequest);
-// 
-//        switch (httpErrorCode) {
-//            case 400: {
-//                errorMsg = "Http Error Code: 400. Bad Request";
-//                break;
-//            }
-//            case 401: {
-//                errorMsg = "Http Error Code: 401. Unauthorized";
-//                break;
-//            }
-//            case 404: {
-//                errorMsg = "Http Error Code: 404. Resource not found";
-//                break;
-//            }
-//            case 500: {
-//                errorMsg = "Http Error Code: 500. Internal Server Error";
-//                break;
-//            }
-//        }
-//        model.addAttribute("errorMsg", errorMsg);
-//        return "error";
-//    }
-//    
-//    private int getErrorCode(HttpServletRequest httpRequest) {
-//        return (Integer) httpRequest
-//          .getAttribute("javax.servlet.error.status_code");
-//    }
-
-    /***********************/
-	
-//    @ExceptionHandler(Exception.class)
-//    public String handleException(Exception e) 
-//    {
-////    	String errorMsg = "";
-////        
-////    	System.err.println(e.getClass().toString());
-////    	
-////        
-////        switch (e.getClass().toString()) {
-////          case "400": {
-////              errorMsg = "Http Error Code: 400. Bad Request";
-////              break;
-////          }
-////          case "401": {
-////              errorMsg = "Http Error Code: 401. Unauthorized";
-////              break;
-////          }
-////          case "org.springframework.web.servlet.NoHandlerFoundException": {
-////              errorMsg = "Http Error Code: 404. Resource not found";
-////              break;
-////          }
-////          case "500": {
-////              errorMsg = "Http Error Code: 500. Internal Server Error";
-////              break;
-////          }
-////      }
-//    	
-//    	//model.addAttribute("errorMsg", errorMsg);
-//        return "error";// view name for 404 error
-//    }   
-    
-   
-
 }

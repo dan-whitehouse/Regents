@@ -19,4 +19,6 @@ public interface SchoolDAO {
 	void deleteById(int id);
 
 	void deleteByUUID(String uuid);
+
+	int count();
 }

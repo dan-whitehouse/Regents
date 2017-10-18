@@ -1,12 +1,12 @@
 package org.neric.regents.dao;
 
-import java.util.List;
-
-import org.neric.regents.model.UserProfile;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.neric.regents.model.UserProfile;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 
 @Repository("userProfileDao")

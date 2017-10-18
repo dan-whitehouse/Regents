@@ -41,7 +41,10 @@ public class OptOutServiceImpl implements OptOutService
 	{
 		return dao.findAllOptOutsByUsername(username);
 	}
-	
+
+	@Override
+	public List<OptOut> findAllOptOutsByUserUUID(String uuid) { return dao.findAllOptOutsByUserUUID(uuid); }
+
 	@Override
 	public List<OptOut> findAllActiveOptOuts(int orderFormId)
 	{
@@ -70,5 +73,10 @@ public class OptOutServiceImpl implements OptOutService
 	public void deleteByUUID(String uuid)
 	{
 		dao.deleteByUUID(uuid);
+	}
+
+	@Override
+	public int countByActiveOrderForm(int id) {
+		return dao.countByActiveOrderForm(id);
 	}
 }

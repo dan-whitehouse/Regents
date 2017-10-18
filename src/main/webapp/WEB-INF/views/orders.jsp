@@ -3,11 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
-
 <c:url value="/order" var="orderLink" />
-
-
-
 <html>
 	<jsp:include page="fragments/header.jsp" />
 	<!-- page content -->
@@ -81,7 +77,7 @@
 										<div class="modal-dialog modal-sm">
 											<div class="modal-content">
 												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">?</span>
 													</button>
 													<h4 class="modal-title" id="myModalLabel2">Confirmation</h4>
 												</div>

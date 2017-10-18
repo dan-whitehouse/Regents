@@ -12,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
 
 @Repository("userDao")
@@ -39,10 +41,20 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		if(user!=null)
 		{
 			Hibernate.initialize(user.getUserProfiles());
+
+			Hibernate.initialize(user.getUserDistricts());
 			for(UserDistrict ud : user.getUserDistricts())
 			{
 				Hibernate.initialize(ud.getDistrict());
 			}
+
+
+			Hibernate.initialize(user.getOrders());
+			user.getOrders().forEach(order -> {
+				Hibernate.initialize(order.getOrderForm());
+				Hibernate.initialize(order.getSchool());
+				Hibernate.initialize(order.getDistrict());
+			});
 		}
 		return user;
 	}
@@ -62,6 +74,14 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 			{
 				Hibernate.initialize(ud.getDistrict());
 			}
+
+
+			Hibernate.initialize(user.getOrders());
+			user.getOrders().forEach(order -> {
+				Hibernate.initialize(order.getOrderForm());
+				Hibernate.initialize(order.getSchool());
+				Hibernate.initialize(order.getDistrict());
+			});
 		}
 		return user;
 	}
@@ -99,7 +119,11 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		delete(user);
 	}
 
-
+	@Override
+	public int count(){
+		int count = ((Long)getSession().createQuery("select count(*) from User").uniqueResult()).intValue();
+		return count;
+	}
 	
 
 }

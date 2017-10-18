@@ -102,7 +102,10 @@ ALTER TABLE option_scan
 
 LOCK TABLES `option_scan` WRITE;
 /*!40000 ALTER TABLE `option_scan` DISABLE KEYS */;
-INSERT INTO `option_scan` VALUES (1,'8500383c-8802-11e7-9627-00ffaf6e1663','Scan @ Regional BOCES Scan Site','',''),(2,'8500448e-8802-11e7-9627-00ffaf6e1663','Manually Score then mail or deliver sheets to NERIC for scanning','',''),(3,'7739bc29-9ae8-455c-bbc0-6ab193da9a46','Scan In-District','','');
+INSERT INTO `option_scan` VALUES
+    (1,'8500383c-8802-11e7-9627-00ffaf6e1663','Regional BOCES Scanning','',''),
+    (2,'8500448e-8802-11e7-9627-00ffaf6e1663','NERIC Scanning','',''),
+    (3,'7739bc29-9ae8-455c-bbc0-6ab193da9a46','In-District Scanning','','');
 /*!40000 ALTER TABLE `option_scan` ENABLE KEYS */;
 UNLOCK TABLES;
 
