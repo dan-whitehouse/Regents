@@ -52,6 +52,7 @@ import org.neric.regents.wizard.XDocumentWrapper;
 import org.neric.regents.wizard.XExamWrapper;
 import org.neric.regents.wizard.XForm2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomCollectionEditor;
 import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.core.Authentication;
@@ -91,6 +92,9 @@ public class OrderController extends AbstractController
 
 	@Autowired
 	SchoolService schoolService;
+	
+	@Autowired
+	SchoolService districtService;
 
 	@Autowired
 	OrderService orderService;
@@ -132,6 +136,28 @@ public class OrderController extends AbstractController
 		binder.registerCustomEditor(OptionScan.class, optionScanEditor);
 		binder.registerCustomEditor(District.class, districtEditor);
         binder.registerCustomEditor(School.class, schoolEditor);
+        binder.registerCustomEditor(Set.class, "userDistricts", new CustomCollectionEditor(Set.class)
+		{
+			@Override
+			protected Object convertElement(Object element)
+			{
+				Integer id = null;
+
+				if(element instanceof String && !((String)element).equals("")){
+					try{
+						id = Integer.parseInt((String) element);
+					}
+					catch (NumberFormatException e) {
+						e.printStackTrace();
+					}
+				}
+				else if(element instanceof Integer) {
+					id = (Integer) element;
+				}
+
+				return id != null ? districtService.findById(id) : null;
+			}
+		});
 	}
 
 	@ModelAttribute("allExamOptions")

@@ -112,7 +112,7 @@ public class OptOutController extends AbstractController {
 	}
 	
 	/************************** ORDER OPT OUT **************************/
-	@RequestMapping(value = { "/optouts" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/notadministrations" }, method = RequestMethod.GET)
 	public String listOptOutsByUser(ModelMap model) 
 	{
 		List<OptOut> optOuts = optOutService.findAllOptOutsByUsername(loggedInUserName());
@@ -122,7 +122,7 @@ public class OptOutController extends AbstractController {
 		return "optouts";
 	}
 	
-	@RequestMapping(value = { "/admin/optouts" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/admin/notadministrations" }, method = RequestMethod.GET)
 	public String listAllOptOuts(ModelMap model) 
 	{
 		List<OptOut> optOuts = optOutService.findAllOptOuts();
@@ -133,7 +133,7 @@ public class OptOutController extends AbstractController {
 	}
 	
 	
-	@RequestMapping(value = { "/optout" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/notadministration" }, method = RequestMethod.GET)
 	public String createOptOutForm(Model model)
 	{
 		List<District> activeOptOutDistricts = new ArrayList<>();
@@ -209,7 +209,7 @@ public class OptOutController extends AbstractController {
 		}
 	}
 	
-	@RequestMapping(value = { "/optout" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/notadministration" }, method = RequestMethod.POST)
 	public String createOptOutForm(@Valid OptOut optOut, BindingResult result, ModelMap model) 
 	{
 		if (result.hasErrors()) 
@@ -225,13 +225,13 @@ public class OptOutController extends AbstractController {
 		System.out.println(optOut.toString());	
 		optOutService.save(optOut);
 		
-		model.addAttribute("success", "OptOut: " + optOut.getDistrict().getName() + " has opted out successfully");
-		model.addAttribute("returnLink", "/");
-		model.addAttribute("returnLinkText", "Opt Out");
+		model.addAttribute("success", "Non-Administration: " + optOut.getDistrict().getName() + " has been successfully submitted");
+		model.addAttribute("returnLink", "/notadministration");
+		model.addAttribute("returnLinkText", "Not Administering");
 		return "success";
 	}
 	
-	@RequestMapping(value = { "optout/{uuid}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "notadministration/{uuid}" }, method = RequestMethod.GET)
 	public String optOut(@PathVariable String uuid, ModelMap model)
 	{
 		OptOut optOut = optOutService.findByUUID(uuid);
@@ -240,13 +240,13 @@ public class OptOutController extends AbstractController {
 		return "optoutresponse";
 	}
 	
-	@RequestMapping(value = { "optout/{uuid}/delete" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "notadministration/{uuid}/delete" }, method = RequestMethod.GET)
 	public String deleteOptOut(@PathVariable String uuid, ModelMap model)
 	{
 		optOutService.deleteByUUID(uuid);
 		
 		// redirect to some sweet spot called outputs
-		return "redirect:/optouts";
+		return "redirect:/notadministration";
 	}
 	
 	

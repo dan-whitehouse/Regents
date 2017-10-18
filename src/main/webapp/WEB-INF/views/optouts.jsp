@@ -16,14 +16,14 @@
 				<div class="col-md-12 col-sm-12 col-xs-12">
 					<div class="x_panel">
 						<div class="x_title">
-							<h2>Past Not Administering</h2>
+							<h2>Past Non-Administrations</h2>
 							<div class="clearfix"></div>
 						</div>
 						<div class="x_content">
 							<table id="datatable" class="table table-striped table-bordered">
 								<thead>
 									<tr>
-										<th>Not Administering Number</th>
+										<th>Non-Administration Number</th>
 										<th>Date</th>
 										<th>Regents Period</th>
 										<th>District</th>
@@ -63,12 +63,12 @@
 													<h4 class="modal-title" id="myModalLabel2">Confirmation</h4>
 												</div>
 												<div class="modal-body">
-													<h5>Delete Not Administering: </h5>
+													<h5>Delete Non-Administration Number: </h5>
 													<p>${optout.uuid}</p>
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-													<a href="<c:url value='/optout/${optout.uuid}/delete' />" class="btn btn-danger">Delete</a>
+													<a href="<c:url value='/notadministration/${optout.uuid}/delete' />" class="btn btn-danger">Delete</a>
 												</div>
 											</div>
 										</div>

@@ -96,7 +96,7 @@
 													securely through Serv-U. You can find the student data file template 
 													<a href="http://neric.org/Testing/Regents.cfm" class="link" target="_blank">here</a>, 
 													and directions on how to upload files to Serv-U <a href="http://neric.org/documents/Testing/How%20to%20Upload%20Files%20to%20ServU.pdf" class="link" target="_blank">here</a>. If you do not have access to SERV-U, a request for a secure link can be e-mailed 
-													to testing@neric.org. <p class="text-danger">NERIC obeys all laws and regulations governing students? Personally Identifiable Information (PII). Please DO NOT send any student PII via e-mail to NERIC Testing.</p>
+													to testing@neric.org. <p class="text-danger">NERIC obeys all laws and regulations governing students? <strong>Personally Identifiable Information</strong> (PII). Please DO NOT send any student PII via e-mail to NERIC Testing.</p>
 												</p>
 												<p>
 													<strong>Billing: </strong>
