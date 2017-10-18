@@ -16,7 +16,7 @@ ALTER TABLE app_user
 
 LOCK TABLES `app_user` WRITE;
 /*!40000 ALTER TABLE `app_user` DISABLE KEYS */;
-INSERT INTO `app_user` VALUES (1,'2072ed26-ae9c-11e7-a411-00ff23919d74','NERIC','ADMIN','admin','$2a$06$6uJYN.sLRrMZOAfV5X23yOajRlVXKIcwRYqfop1dkzYfBI6U2BBaS','','\0');
+INSERT INTO `app_user` VALUES (1,'2072ed26-ae9c-11e7-a411-00ff23919d74','NERIC','ADMIN','admin','$2a$06$6uJYN.sLRrMZOAfV5X23yOajRlVXKIcwRYqfop1dkzYfBI6U2BBaS','\0','\0');
 /*!40000 ALTER TABLE `app_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -53,7 +53,7 @@ ALTER TABLE document
 
 LOCK TABLES `document` WRITE;
 /*!40000 ALTER TABLE `document` DISABLE KEYS */;
-INSERT INTO `document` VALUES (1,'93a6eeec-87fc-11e7-9627-00ffaf6e1663','Comprehensive English','',''),(2,'93a70977-87fc-11e7-9627-00ffaf6e1663','Global History & Geography','',''),(3,'93a71bee-87fc-11e7-9627-00ffaf6e1663','Chemistry','',''),(4,'93a7aa85-87fc-11e7-9627-00ffaf6e1663','Physical Settings/Earth Science','',''),(5,'93a7b6f0-87fc-11e7-9627-00ffaf6e1663','US History & Government','',''),(6,'8f77cfe2-5f26-4bb7-ac61-ad9d5c82bd94','Physics','',''),(7,'c6c6d72c-1cb8-4ee0-b946-6f328b86b34d','ELA Common Core','','');
+INSERT INTO `document` VALUES (1,'93a70977-87fc-11e7-9627-00ffaf6e1663','Global History & Geography','',''),(2,'93a71bee-87fc-11e7-9627-00ffaf6e1663','Chemistry','',''),(3,'93a7aa85-87fc-11e7-9627-00ffaf6e1663','Physical Settings/Earth Science','',''),(4,'93a7b6f0-87fc-11e7-9627-00ffaf6e1663','US History & Government','',''),(5,'8f77cfe2-5f26-4bb7-ac61-ad9d5c82bd94','Physics','',''),(6,'c6c6d72c-1cb8-4ee0-b946-6f328b86b34d','ELA Common Core','','');
 /*!40000 ALTER TABLE `document` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -70,7 +70,7 @@ ALTER TABLE exam
 
 LOCK TABLES `exam` WRITE;
 /*!40000 ALTER TABLE `exam` DISABLE KEYS */;
-INSERT INTO `exam` VALUES (1,'20a0dc43-8800-11e7-9627-00ffaf6e1663','Algebra 1','02052CC','',''),(2,'20a0e7c8-8800-11e7-9627-00ffaf6e1663','Comprehensive English','01003','',''),(3,'20a0f4db-8800-11e7-9627-00ffaf6e1663','Algebra 2/Trigonometry','02106','',''),(4,'20a1b431-8800-11e7-9627-00ffaf6e1663','ELA (Common Core)','01003CC','',''),(5,'20a1c011-8800-11e7-9627-00ffaf6e1663','Geometry (Common Core)','02072CC','',''),(6,'20a1cf26-8800-11e7-9627-00ffaf6e1663','Integrated Algebra','02052','',''),(7,'ecbcfed8-bf78-4ce1-924a-224482026851','Global History & Geography','04052','',''),(8,'23ddba00-11e5-4486-ad6c-8acede7d2761','Living Environment','03051','',''),(9,'e95c104b-ec42-44f8-8fe4-d2e33417738a','Physical Settings/Chemistry','03101','',''),(10,'d3247b35-82dd-4e5c-ab10-b9d68d5c8738','Physical Settings/Earth Science','03001','',''),(11,'9608f0d0-d35a-4847-a2fd-90f4b824606f','Physical Settings/Physics','03151','',''),(12,'ac71ebba-a442-410c-aa8b-139b5ec63918','US History & Government','04101','',''),(13,'051ef534-7e2e-4c9f-a8f1-4e9aa0e542fb','Algebra 2 (Common Core)','20106CC','','');
+INSERT INTO `exam` VALUES (1,'20a0dc43-8800-11e7-9627-00ffaf6e1663','Algebra 1','02052CC','',''),(2,'20a1b431-8800-11e7-9627-00ffaf6e1663','ELA (Common Core)','01003CC','',''),(3,'20a1c011-8800-11e7-9627-00ffaf6e1663','Geometry (Common Core)','02072CC','',''),(4,'20a1cf26-8800-11e7-9627-00ffaf6e1663','Integrated Algebra','02052','',''),(5,'ecbcfed8-bf78-4ce1-924a-224482026851','Global History & Geography','04052','',''),(6,'23ddba00-11e5-4486-ad6c-8acede7d2761','Living Environment','03051','',''),(7,'e95c104b-ec42-44f8-8fe4-d2e33417738a','Physical Settings/Chemistry','03101','',''),(8,'d3247b35-82dd-4e5c-ab10-b9d68d5c8738','Physical Settings/Earth Science','03001','',''),(9,'9608f0d0-d35a-4847-a2fd-90f4b824606f','Physical Settings/Physics','03151','',''),(10,'ac71ebba-a442-410c-aa8b-139b5ec63918','US History & Government','04101','',''),(11,'051ef534-7e2e-4c9f-a8f1-4e9aa0e542fb','Algebra 2 (Common Core)','20106CC','','');
 /*!40000 ALTER TABLE `exam` ENABLE KEYS */;
 UNLOCK TABLES;
 	
