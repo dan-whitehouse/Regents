@@ -129,7 +129,7 @@
 																<tr>
 																	<th width="75px">Order <input type="checkbox" id="isCheckedExams" onclick="selectAllExams()"/></th>
 																	<th class="col-md-5 col-xs-12">Exam Name</th>
-																	<c:if test="${orderForm.period eq 'June'}">
+																	<c:if test="${period eq 'June'}">
 																		<th># Students Pull from L0
 																			<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="Pull from Level 0: Number of students enrolled in a course resulting in an exam." >
 																			<span class=" fa fa-info"></span>
@@ -158,7 +158,7 @@
 																		<td>
 																			<form:input path="selectedExams[${status.index}].orderExam.exam.name" value="${e.orderExam.exam.name } - ${e.orderExam.exam.code}"  class="form-control col-md-3 col-xs-12" readonly="true"/>
 																		</td>
-																		<c:if test="${orderForm.period eq 'June'}">
+																		<c:if test="${period eq 'June'}">
 																			<td>
 																				<form:input path="selectedExams[${status.index}].orderExam.examAmount" type="number" min="0" step="1" class="form-control col-md-3 col-xs-12" />
 																			</td>
@@ -433,7 +433,7 @@
 											<!-- END DOCUMENTS -->
 											
 											<!-- START BLANKS -->
-											<div class="col-md-5 col-sm-5 col-xs-5">
+											<div class="col-md-5 col-sm-5 col-xs-5 pull-right">
 												<div class="x_panel">
 													<div class="x_title">
 														<h2>Location for Blanks</h2>
@@ -546,7 +546,7 @@
 			//Exams
 			exams();
 			
-			//Documents
+			//Blanks
 			blanks();
 			
 			//Documents
@@ -625,7 +625,7 @@
 			$('#reviewBlanks').append(selectedDistrict.options[selectedDistrict.selectedIndex].text + "<br />");
 			
 			<c:if test="${orderForm.period eq 'August'}">
-				var alt = document.getElementById("orderContact.altContactInfo").value;
+				var alt = document.getElementById("specialRequests").value;
 				if(alt != null && alt != "")
 				{
 					$('#reviewBlanks').append("<hr />" + alt);

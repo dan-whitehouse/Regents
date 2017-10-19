@@ -112,12 +112,7 @@
 									<label for="userProfiles" class="control-label col-md-3 col-sm-3 col-xs-3 left">Role</label>
 								    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 								    	<span class="input-group-addon"><i class="fa fa-users"></i></span>
-								    	<form:select path="userProfiles" multiple="false" class="form-control col-md-7 col-xs-12" required="required">
-									    	<%-- <form:option value=""></form:option> --%>
-									    	<c:forEach items="${roles}" var="role">
-									    		<form:option value="${role.id}">${role.type}</form:option>
-											</c:forEach>
-										 </form:select>
+								    	<form:select path="userProfiles" items="${roles}" itemValue="id" itemLabel="type" multiple="false" class="form-control col-md-7 col-xs-12" required="required" />
 								    </div>
 								    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 								    <!-- <div class="help-block with-errors">Looks good...</div> -->

@@ -76,7 +76,6 @@ public class UserServiceImpl implements UserService{
 		}
 	}
 
-
 	public List<User> findAllUsers() 
 	{
 		return dao.findAllUsers();

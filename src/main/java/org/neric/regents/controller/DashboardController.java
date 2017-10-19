@@ -62,10 +62,15 @@ public class DashboardController extends AbstractController {
 		return districts;
 	}
 
-	@RequestMapping(value = { "/dev/dashboard" }, method = RequestMethod.GET)
-	public String listOptOutsByUser(ModelMap model) 
+	@RequestMapping(value = { "/admin" }, method = RequestMethod.GET)
+	public String adminHome(ModelMap model)
 	{
+		return getDashboard(model);
+	}
 
+	@RequestMapping(value = { "/admin/dashboard" }, method = RequestMethod.GET)
+	public String getDashboard(ModelMap model)
+	{
 		int userCount = userService.count();
 		int districtCount = districtService.count();
 		int schoolCount = schoolService.count();
@@ -109,8 +114,8 @@ public class DashboardController extends AbstractController {
 		return "dashboard";
 	}
 
-	@RequestMapping(value = { "/dev/dashboard/report/aop/undecided" }, method = RequestMethod.GET)
-	public String listUndecided(ModelMap model)
+	@RequestMapping(value = { "/admin/dashboard/report/aop/undecided" }, method = RequestMethod.GET)
+	public String getDashboardReportListUndecided(ModelMap model)
 	{
 		OrderForm of = orderFormService.getActiveOrderForm();
 		List<District> districts = districtService.findAllUndecidedDistrictsByActiveOrderForm(of.getUuid());
@@ -118,8 +123,8 @@ public class DashboardController extends AbstractController {
 		return "districts";
 	}
 
-	@RequestMapping(value = { "/dev/dashboard/report/aop/ordered" }, method = RequestMethod.GET)
-	public String listUsers(ModelMap model)
+	@RequestMapping(value = { "/admin/dashboard/report/aop/ordered" }, method = RequestMethod.GET)
+	public String getDashboardReportListOrdered(ModelMap model)
 	{
 		OrderForm of = orderFormService.getActiveOrderForm();
 		List<District> districts = districtService.findAllOrderedDistrictsByActiveOrderForm(of.getUuid());
@@ -127,8 +132,8 @@ public class DashboardController extends AbstractController {
 		return "districts";
 	}
 
-	@RequestMapping(value = { "/dev/dashboard/report/aop/na" }, method = RequestMethod.GET)
-	public String listNotAdministering(ModelMap model)
+	@RequestMapping(value = { "/admin/dashboard/report/aop/na" }, method = RequestMethod.GET)
+	public String getDashboardReportListNotAdministering(ModelMap model)
 	{
 		OrderForm of = orderFormService.getActiveOrderForm();
 		List<District> districts = districtService.findAllNADistrictsByActiveOrderForm(of.getUuid());
@@ -141,7 +146,4 @@ public class DashboardController extends AbstractController {
 		float percent = (found * 100.0f) / total;
 		return String.format("%.02f", percent) + "%";
 	}
-
-
-
 }

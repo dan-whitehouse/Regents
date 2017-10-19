@@ -471,6 +471,7 @@ public class OrderController extends AbstractController
 		if(order.getUser().getUsername().equalsIgnoreCase(getPrincipal()) || isAdmin(getPrincipal())) //IDK IF THIS IS THE BEST THING TO DO
 		{
 			model.addAttribute("order", order);
+			model.addAttribute("period", order.getOrderForm().getPeriod());
 			model.addAttribute("sortedExamList", sortedExamList);
 			model.addAttribute("sortedDocumentList", sortedDocumentList);
 			model.addAttribute("orderForm", orderForm);
@@ -516,7 +517,7 @@ public class OrderController extends AbstractController
 					}
 				}
 			}
-	
+
 			xForm.setSelectedOptionScan(order.getOrderScan());
 			xForm.setReportingOption(order.getReportToLevelOne());
 			xForm.setSelectedOptionPrint(order.getOrderPrint());
@@ -525,9 +526,20 @@ public class OrderController extends AbstractController
 			xForm.setDistrict(order.getDistrict());
 			xForm.setSchool(order.getSchool());
 			xForm.setSpecialRequests(order.getSpecialRequests());
-				
+
+
+
+			List<District> userDistricts = new ArrayList<>();
+			order.getUser().getUserDistricts().forEach(userDistrict -> {
+				userDistricts.add(userDistrict.getDistrict());
+			});
+
+
 			model.addAttribute("xForm2", xForm);
 			model.addAttribute("order", order);
+			model.addAttribute("period", order.getOrderForm().getPeriod());
+			model.addAttribute("schoolId", order.getSchool().getId());
+			model.addAttribute("userDistricts", userDistricts);
 			model.addAttribute("edit", true);
 			
 			return "createOrEditOrder";

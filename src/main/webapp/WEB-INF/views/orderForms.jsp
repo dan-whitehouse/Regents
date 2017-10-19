@@ -38,7 +38,8 @@
 										<th>Name</th>
 										<th>Start Date</th>
 										<th>End Date</th>
-										<th>Order Period</th>
+										<th>Period</th>
+										<th>Status</th>
 										<sec:authorize access="hasRole('ADMIN')">
 											<th>Management</th>
 										</sec:authorize>
@@ -56,15 +57,15 @@
 												<tr>
 											</c:otherwise>
 										</c:choose>
-									
-										
-											<td class="col-xs-5"><a href="<c:url value='/admin/orderForms/${orderForm.uuid}' />">${orderForm.name}</a></td>
-											
+											<td class="col-xs-4"><a href="<c:url value='/admin/orderForms/${orderForm.uuid}' />">${orderForm.name}</a></td>
+
 											<fmt:formatDate value="${orderForm.startDate}" type="date" pattern="MM/dd/yyyy" var="fStartDate"/>
 											<fmt:formatDate value="${orderForm.endDate}" type="date" pattern="MM/dd/yyyy" var="fEndDate"/>
+											<fmt:formatDate var="schoolYear" value="${orderForm.startDate}" pattern="yyyy" />
 											
 											<td>${fStartDate}</td>
 											<td>${fEndDate}</td>
+											<td>${orderForm.period} ${schoolYear}</td>
 											<td>
 											<!-- Start Status Test -->
     											<c:choose>
@@ -124,7 +125,7 @@
 										<div class="modal-dialog modal-sm">
 											<div class="modal-content">
 												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">?</span>
 													</button>
 													<h4 class="modal-title" id="myModalLabel2">Confirmation</h4>
 												</div>

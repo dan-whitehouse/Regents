@@ -109,10 +109,6 @@
 												
 												<p>This form must be submitted with the approval of your districts superintendent, business official or whoever else is authorized to approve this expenditure.</p>
 											</div>
-											<div class="col-md-12 col-sm-12 col-xs-12 text-center">
-												<br>
-												<a id="activate-step-2" class="btn btn-primary btn-md">Next</a>
-											</div>
 										</div>
 									</div>
 								</div>
@@ -129,7 +125,7 @@
 																<tr>
 																	<th width="75px">Order <input type="checkbox" id="isCheckedExams" onclick="selectAllExams()"/></th>
 																	<th class="col-md-5 col-xs-12">Exam Name</th>
-																	<c:if test="${orderForm.period eq 'June'}">
+																	<c:if test="${period eq 'June'}">
 																		<th># Students Pull from L0
 																			<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="Pull from Level 0: Number of students enrolled in a course resulting in an exam." >
 																			<span class=" fa fa-info"></span>
@@ -150,6 +146,7 @@
 															</thead>
 															<tbody>
 																<c:forEach items="${allExamOptions}" var="e" varStatus="status">
+																    ${orderForm.period}
 																	<form:hidden path="selectedExams[${status.index}].orderExam.exam.id" value="${e.orderExam.exam.id}"/>
 																	<tr>
 																		<td>
@@ -158,7 +155,7 @@
 																		<td>
 																			<form:input path="selectedExams[${status.index}].orderExam.exam.name" value="${e.orderExam.exam.name } - ${e.orderExam.exam.code}"  class="form-control col-md-3 col-xs-12" readonly="true"/>
 																		</td>
-																		<c:if test="${orderForm.period eq 'June'}">
+																		<c:if test="${period eq 'June'}">
 																			<td>
 																				<form:input path="selectedExams[${status.index}].orderExam.examAmount" type="number" min="0" step="1" class="form-control col-md-3 col-xs-12" />
 																			</td>
@@ -186,7 +183,7 @@
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback input-group"> 
 												<!-- id is used in javascript -->
 												<span class="input-group-addon"><i class="fa fa-university"></i></span>
-												<form:select path="district" id="districtList" items="${districtsByUser}" itemValue="id" itemLabel="name" onchange="updateSchoolList()" cssClass="form-control col-md-12 col-xs-12"/>
+												<form:select path="district" id="districtList" items="${userDistricts}" itemValue="id" itemLabel="name" onchange="updateSchoolList()" cssClass="form-control col-md-12 col-xs-12"/>
 											</div>
 											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback input-group">
 												<!-- id is used in javascript -->
@@ -213,7 +210,7 @@
 									<div class="col-xs-12">
 										<div class="alert alert-softYellow alert-dismissible fade in" role="alert">
                     						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    							<span aria-hidden="true">×</span>
+                    							<span aria-hidden="true">?</span>
                     						</button>
                     						Non-secure documents include Essay Booklets for ELA, USH and GH, and Reference Tables for the Sciences. 
 											See Step 1 for price per document.
@@ -417,9 +414,9 @@
 												</div>
 											</div>
 											<!-- END DOCUMENTS -->
-											
+
 											<!-- START BLANKS -->
-											<div class="col-md-5 col-sm-5 col-xs-5">
+											<div class="col-md-5 col-sm-5 col-xs-5 pull-right">
 												<div class="x_panel">
 													<div class="x_title">
 														<h2>Location for Blanks</h2>
@@ -604,8 +601,8 @@
 			$('#reviewBlanks').append(selectedSchool.options[selectedSchool.selectedIndex].text + ", ");
 			$('#reviewBlanks').append(selectedDistrict.options[selectedDistrict.selectedIndex].text + "<br />");
 			
-			<c:if test="${orderForm.period eq 'August'}">
-				var alt = document.getElementById("orderContact.altContactInfo").value;
+			<c:if test="${period eq 'August'}">
+				var alt = document.getElementById("specialRequests").value;
 				if(alt != null && alt != "")
 				{
 					$('#reviewBlanks').append("<hr />" + alt);
@@ -681,7 +678,7 @@
 			$('#reviewContactInfo').append(email + "<br />");
 			$('#reviewContactInfo').append(phone + "<br />");
 			
-			<c:if test="${orderForm.period eq 'August'}">
+			<c:if test="${period eq 'August'}">
 				var alt = document.getElementById("orderContact.altContactInfo").value;
 				if(alt != null && alt != "")
 				{
@@ -793,6 +790,12 @@
 	    		{
 		    		var opt = document.createElement('option');
 			        opt.value = school.id;
+
+			        if(school.id == ${schoolId})
+                    {
+                        opt.selected = true;
+                    }
+
 			        opt.innerHTML = school.name;
 			        select.appendChild(opt);
 	    		}

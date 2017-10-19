@@ -5,6 +5,7 @@ import org.neric.regents.converture.DistrictEditor;
 import org.neric.regents.converture.SchoolEditor;
 import org.neric.regents.model.*;
 import org.neric.regents.service.*;
+import org.neric.regents.test.UserPassword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomCollectionEditor;
 import org.springframework.context.MessageSource;
@@ -205,6 +206,17 @@ public class UserController extends AbstractController {
 		}
 		
 		User updatedUser = userService.findByUUID(uuid);
+		updatedUser.setFirstName(user.getFirstName());
+		updatedUser.setLastName(user.getLastName());
+		updatedUser.setPassword(user.getPassword());
+
+		/*UserPassword userPassword = new UserPassword(user.getId());
+		userPassword.setUserId(user.getId());
+		userPassword.setNewPassword(user.getPassword());
+		userPassword.setNewPasswordConfirm(user.getPassword());
+		userPassword.setOldPassword(updatedUser.getPassword());
+		userService.updatePassword(userPassword);*/
+
 		updatedUser.getUserDistricts().clear();
 		
 		for(UserDistrict ud : user.getUserDistricts())

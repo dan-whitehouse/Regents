@@ -21,7 +21,7 @@
 <c:url value="/admin/districts" var="districts" />
 <c:url value="/admin/schools" var="schools" />
 <c:url value="/admin/settings" var="settings" />
-<c:url value="/dev/dashboard" var="dashboard" />
+<c:url value="/admin/dashboard" var="dashboard" />
 <c:url value="/dev/csv" var="upload" />
 
 <!DOCTYPE html>
@@ -85,6 +85,7 @@
                                         <li>
                                             <a><i class="fa fa-gears"></i> Admin <span class="fa fa-chevron-down"></span></a>
                                             <ul class="nav child_menu">
+                                                <li><a href="${dashboard}"><i class="fa fa-dashboard"></i> Dashboard</span></a></li>
                                                 <li><a><i class="fa fa-sitemap"></i> Users <span class="fa fa-chevron-down"></span></a>
                                                     <ul class="nav child_menu">
                                                         <li class="sub_menu"><a href="${users}">Users List</a></li>
@@ -113,7 +114,6 @@
                                         <li>
                                             <a><i class="fa fa-code"></i> Dev <span class="fa fa-chevron-down"></span></a>
                                             <ul class="nav child_menu">
-                                                <li><a href="${dashboard}"><i class="fa fa-dashboard"></i> Dashboard</span></a></li>
                                                 <li><a href="${upload}"><i class="fa fa-upload"></i> Upload</span></a></li>
                                             </ul>
                                         </li>

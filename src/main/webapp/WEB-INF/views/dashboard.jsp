@@ -159,7 +159,7 @@
                                                 <p>
                                                     <i class="fa fa-square blue"></i>
                                                     <span style="text-decoration: underline;">
-                                                        <a href="<c:url value='/dev/dashboard/report/aop/ordered' />">Ordered</a>
+                                                        <a href="<c:url value='/admin/dashboard/report/aop/ordered' />">Ordered</a>
                                                     </span>
                                                 </p>
                                             </td>
@@ -170,7 +170,7 @@
                                                 <p>
                                                     <i class="fa fa-square green"></i>
                                                     <span style="text-decoration: underline;">
-                                                        <a href="<c:url value='/dev/dashboard/report/aop/na' />">Not Administering</a>
+                                                        <a href="<c:url value='/admin/dashboard/report/aop/na' />">Not Administering</a>
                                                     </span>
                                                 </p>
                                             </td>
@@ -181,7 +181,7 @@
                                                 <p>
                                                     <i class="fa fa-square purple"></i>
                                                      <span style="text-decoration: underline;">
-                                                        <a href="<c:url value='/dev/dashboard/report/aop/undecided' />">Undecided</a>
+                                                        <a href="<c:url value='/admin/dashboard/report/aop/undecided' />">Undecided</a>
                                                     </span>
                                                 </p>
                                             </td>

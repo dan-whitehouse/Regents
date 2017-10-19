@@ -85,18 +85,17 @@
 		                          <table class="table table-striped">
 		                            <thead>
 		                              <tr>
-		                              	<th width="60%">Exams</th>
+		                              	<th>Exams</th>
 		                              	<c:if test="${orderForm.period eq 'June'}">
-		                              		<th width="15%"># Students Pull from L0 </th>
+		                              		<th># Students Pull from L0 </th>
 	                              		</c:if>
-		                                <th width="15%"># Blank Answer Sheets</th>
-	                                	<!-- <th width="10%">Subtotal</th> -->
+		                                <th># Blank Answer Sheets</th>
 		                              </tr>
 		                            </thead>
 		                            <tbody>
 		                            	<c:forEach items="${sortedExamList}" var="orderExam">
 											<tr>
-												<td>${orderExam.exam.name} - ${orderExam.exam.code}</td>
+												<td class="col-xs-6">${orderExam.exam.name} - ${orderExam.exam.code}</td>
 												<c:if test="${orderForm.period eq 'June'}">
 													<td>${orderExam.examAmount}</td>
 												</c:if>
@@ -123,15 +122,14 @@
 	                          <table class="table table-striped">
 	                            <thead>
 	                              <tr>
-	                              	<th width="80%">Non-Secure Documents</th>
-	                                <th width="10%">Quantity</th>
-	                                <!-- <th width="10%">Subtotal</th> -->
+	                              	<th>Non-Secure Documents</th>
+	                                <th>Quantity</th>
 	                              </tr>
 	                            </thead>
 	                            <tbody>
 	                            	<c:forEach items="${sortedDocumentList}" var="orderDocument">
 										<tr>
-											<td>${orderDocument.document.name}</td>
+											<td class="col-xs-6">${orderDocument.document.name}</td>
 											<td>${orderDocument.documentAmount}</td>
 											<%-- <td>
 												$<fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${(orderDocument.documentAmount * 0.40)}" />
