@@ -16,12 +16,29 @@ public class UserPassword
 	@Size(min=3, max=30)
 	private String newPasswordConfirm;
 
-	
+
+	public UserPassword()
+	{
+		super();
+	}
+
+
 	public UserPassword(int userId)
 	{
 		super();
 		this.userId = userId;
 	}
+	
+	
+	public UserPassword(int userId, String oldPassword, String newPassword, String newPasswordConfirm)
+	{
+		super();
+		this.userId = userId;
+		this.oldPassword = oldPassword;
+		this.newPassword = newPassword;
+		this.newPasswordConfirm = newPasswordConfirm;
+	}
+
 
 	public int getUserId()
 	{

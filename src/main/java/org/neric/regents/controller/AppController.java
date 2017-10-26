@@ -43,9 +43,6 @@ import org.springframework.web.servlet.ModelAndView;
 @SessionAttributes("roles")
 public class AppController extends AbstractController{
 
-	@Autowired
-	UserService userService;
-
 	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
 	public String homePage(ModelMap model) {
 		if(isCurrentAuthenticationAnonymous())
@@ -127,7 +124,7 @@ public class AppController extends AbstractController{
 	}
 	
 	@RequestMapping(value = { "/changePassword" }, method = RequestMethod.POST)
-	public String updateUserPassword(@Valid UserPassword userPassword, BindingResult result, ModelMap model) 
+	public String updateUserPassword(UserPassword userPassword, BindingResult result, ModelMap model) 
 	{
 		if (result.hasErrors()) 
 		{
