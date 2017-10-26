@@ -134,7 +134,7 @@ ALTER TABLE order_contact
 	MODIFY COLUMN contact_first_name varchar(255) DEFAULT NULL AFTER order_id,
 	MODIFY COLUMN contact_middle_name varchar(255) DEFAULT NULL AFTER contact_first_name,
 	MODIFY COLUMN contact_last_name varchar(255) DEFAULT NULL AFTER contact_middle_name,
-	MODIFY COLUMN contact_phone varchar(255) DEFAULT NULL AFTER contact_name,
+	MODIFY COLUMN contact_phone varchar(255) DEFAULT NULL AFTER contact_last_name,
 	MODIFY COLUMN contact_email varchar(255) DEFAULT NULL AFTER contact_phone,
 	MODIFY COLUMN contact_title varchar(255) DEFAULT NULL AFTER contact_email,
 	MODIFY COLUMN alt_contact_info varchar(255) DEFAULT NULL AFTER contact_title;

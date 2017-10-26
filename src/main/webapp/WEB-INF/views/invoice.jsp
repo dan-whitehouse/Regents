@@ -59,7 +59,7 @@
                       
                       <div class="row invoice-info">
                       	<div class="col-sm-4 invoice-col"> 
-                       		<strong>Contact: </strong> ${order.orderContact.name}
+                       		<strong>Contact: </strong> ${order.orderContact.firstName} ${order.orderContact.middleName} ${order.orderContact.lastName}
                       	</div>
                       	<div class="col-sm-4 invoice-col"> 
                        		<strong>Email: </strong> ${order.orderContact.email} 
