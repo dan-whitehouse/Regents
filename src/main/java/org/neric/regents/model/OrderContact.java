@@ -30,8 +30,14 @@ public class OrderContact implements Serializable
 	@JoinColumn(name = "order_id", nullable = false, unique=false)
 	private Order order;
 	
-	@Column(name="contact_name", nullable=true)
-	private String name;
+	@Column(name="contact_first_name", nullable=true)
+	private String firstName;
+	
+	@Column(name="contact_middle_name", nullable=true)
+	private String middleName;
+	
+	@Column(name="contact_last_name", nullable=true)
+	private String lastName;
 	
 	@Column(name="contact_title", nullable=true)
 	private String title;
@@ -77,14 +83,34 @@ public class OrderContact implements Serializable
 		this.order = order;
 	}
 
-	public String getName()
+	public String getFirstName()
 	{
-		return name;
+		return firstName;
 	}
 
-	public void setName(String name)
+	public void setFirstName(String firstName)
 	{
-		this.name = name;
+		this.firstName = firstName;
+	}
+
+	public String getMiddleName()
+	{
+		return middleName;
+	}
+
+	public void setMiddleName(String middleName)
+	{
+		this.middleName = middleName;
+	}
+
+	public String getLastName()
+	{
+		return lastName;
+	}
+
+	public void setLastName(String lastName)
+	{
+		this.lastName = lastName;
 	}
 
 	public String getTitle()

@@ -594,7 +594,9 @@ public class OrderController extends AbstractController
 
 			//Update OrderContact data associated to Order
 			OrderContact oc = xForm.getOrderContact();
-			order.getOrderContact().setName(oc.getName());
+			order.getOrderContact().setFirstName(oc.getFirstName());
+			order.getOrderContact().setMiddleName(oc.getMiddleName());
+			order.getOrderContact().setLastName(oc.getLastName());
 			order.getOrderContact().setTitle(oc.getTitle());
 			order.getOrderContact().setEmail(oc.getEmail());
 			order.getOrderContact().setAltContactInfo(oc.getAltContactInfo());

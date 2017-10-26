@@ -308,23 +308,62 @@
 								<!--  STEP 6 - CONTACT -->
 								<div class="row setup-content" id="step-6">
 									<div class="col-xs-12">
-										<div class="col-md-12 well text-center">
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback input-group">
-												<span class="input-group-addon"><i class="fa fa-user"></i></span>
-												<form:input path="orderContact.name" type="text" class="form-control" id="orderContact.name" placeholder="Name" required="required"/> 
+										<div class="col-md-12 well form-horizontal form-label-left">
+											
+											<div class="item form-group has-feedback">
+												<label for="firstName" class="control-label col-md-3 col-sm-3 col-xs-3 left">First Name</label>
+											    <div class="input-group col-md-6 col-sm-6 col-xs-6">
+											    	<span class="input-group-addon"><i class="fa fa-user"></i></span>
+											    	<form:input type="text" pattern="^[_A-z0-9]{1,}$" maxlength="15" path="orderContact.firstName" id="orderContact.firstName" class="form-control col-md-7 col-xs-12" name="firstName" placeholder="First Name"  required="required" />
+											    </div>
+											    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 											</div>
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback input-group">
-												<span class="input-group-addon"><i class="fa fa-user"></i></span>
-												<form:input path="orderContact.title" type="text" class="form-control" id="orderContact.title" placeholder="Title" required="required"/> 
+											
+											<div class="item form-group has-feedback">
+												<label for="middleName" class="control-label col-md-3 col-sm-3 col-xs-3 left">Middle Name</label>
+											    <div class="input-group col-md-6 col-sm-6 col-xs-6">
+											    	<span class="input-group-addon"><i class="fa fa-user"></i></span>
+											    	<form:input type="text" pattern="^[_A-z0-9]{1,}$" maxlength="15" path="orderContact.middleName" id="orderContact.middleName" class="form-control col-md-7 col-xs-12" name="middleName" placeholder="Middle Name"/>
+											    </div>
+											    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 											</div>
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback input-group">
-												<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-												<form:input path="orderContact.email" type="text" class="form-control" id="orderContact.email" placeholder="Email" required="required"/>
+											
+											<div class="item form-group has-feedback">
+												<label for="lastName" class="control-label col-md-3 col-sm-3 col-xs-3 left">Last Name</label>
+											    <div class="input-group col-md-6 col-sm-6 col-xs-6">
+											    	<span class="input-group-addon"><i class="fa fa-user"></i></span>
+											    	<form:input type="text" pattern="^[_A-z0-9]{1,}$" maxlength="30" path="orderContact.lastName" id="orderContact.lastName" class="form-control col-md-7 col-xs-12" name="lastName" placeholder="Last Name"  required="required" />
+											    </div>
+											    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 											</div>
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback input-group">
-												<span class="input-group-addon"><i class="fa fa-phone"></i></span>
-												<form:input path="orderContact.phone" type="text" class="form-control" id="orderContact.phone" placeholder="Phone" required="required"/>					
+											
+											<div class="item form-group has-feedback">
+												<label for="title" class="control-label col-md-3 col-sm-3 col-xs-3 left">Title</label>
+											    <div class="input-group col-md-6 col-sm-6 col-xs-6">
+											    	<span class="input-group-addon"><i class="fa fa-user"></i></span>
+											    	<form:input type="text" pattern="^[_A-z0-9]{1,}$" maxlength="20" path="orderContact.title" id="orderContact.title" class="form-control col-md-7 col-xs-12" name="title" placeholder="Title"  required="required" />
+											    </div>
+											    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 											</div>
+											
+											<div class="item form-group has-feedback">
+												<label for="email" class="control-label col-md-3 col-sm-3 col-xs-3 left">Email</label>
+											    <div class="input-group col-md-6 col-sm-6 col-xs-6">
+											    	<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+											    	<form:input type="email" maxlength="30" path="orderContact.email" id="orderContact.email" class="form-control col-md-7 col-xs-12" name="email" placeholder="Email" required="required" />
+											    </div>
+											    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+											</div>
+											
+											<div class="item form-group has-feedback">
+												<label for="phone" class="control-label col-md-3 col-sm-3 col-xs-3 left">Phone</label>
+											    <div class="input-group col-md-6 col-sm-6 col-xs-6">
+											    	<span class="input-group-addon"><i class="fa fa-phone"></i></span>
+											    	<form:input type="text" pattern="^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$" maxlength="20" path="orderContact.phone" id="orderContact.phone" class="form-control col-md-7 col-xs-12" name="phone" placeholder="Phone"  required="required" />
+											    </div>
+											    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+											</div>
+											
 										</div>
 									</div>
 		                       		<c:if test="${xForm2.orderForm.period eq 'August'}">
@@ -667,13 +706,15 @@
 		
 		function contactInfo()
 		{
-			var name = document.getElementById("orderContact.name").value;
+			var firstName = document.getElementById("orderContact.firstName").value;
+			var middleName = document.getElementById("orderContact.middleName").value;
+			var lastName = document.getElementById("orderContact.lastName").value;
 			var title = document.getElementById("orderContact.title").value;
 			var email = document.getElementById("orderContact.email").value;
 			var phone = document.getElementById("orderContact.phone").value;
 
 			$('#reviewContactInfo').empty();
-			$('#reviewContactInfo').append(name + "<br />");
+			$('#reviewContactInfo').append(firstName + ' ' + middleName + ' ' + lastName + "<br />");
 			$('#reviewContactInfo').append(title + "<br />");
 			$('#reviewContactInfo').append(email + "<br />");
 			$('#reviewContactInfo').append(phone + "<br />");
