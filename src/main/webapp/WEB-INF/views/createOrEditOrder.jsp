@@ -173,6 +173,7 @@
 													</div>
 												</div>
 											</div>
+											<a id="activate-step-3" class="btn btn-primary btn-md">Next</a>
 										</div>
 									</div>
 								</div>
@@ -201,6 +202,7 @@
 												<form:textarea path="specialRequests" id="specialRequests" rows="10" maxlength="1000" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
 												<span class="fa fa-plus form-control-feedback left" aria-hidden="true"></span>
 											</div>
+											<a id="deactivate-step-3" class="btn btn-primary btn-md">Back</a>
 											<a id="activate-step-4" class="btn btn-primary btn-md">Next</a>
 										</div>
 									</div>
@@ -241,6 +243,8 @@
 													</c:forEach>
 												</tbody>
 											</table>
+											<a id="deactivate-step-4" class="btn btn-primary btn-md">Back</a>
+											<a id="activate-step-5" class="btn btn-primary btn-md">Next</a>
 										</div>
 									</div>
 								</div>
@@ -301,6 +305,9 @@
 											</div>
 											
 											<div class="col-md-12 text-center">
+												<br />
+												<a id="deactivate-step-5" class="btn btn-primary btn-md">Back</a>
+												<a id="activate-step-6" class="btn btn-primary btn-md">Next</a>
 											</div>
 										</div>
 									</div>
@@ -308,7 +315,7 @@
 								<!--  STEP 6 - CONTACT -->
 								<div class="row setup-content" id="step-6">
 									<div class="col-xs-12">
-										<div class="col-md-12 well form-horizontal form-label-left">
+										<div class="col-md-12 well form-horizontal form-label-left text-center">
 											
 											<div class="item form-group has-feedback">
 												<label for="firstName" class="control-label col-md-3 col-sm-3 col-xs-3 left">First Name</label>
@@ -364,6 +371,10 @@
 											    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 											</div>
 											
+											<c:if test="${orderForm.period ne 'August'}">
+												<a id="deactivate-step-6" class="btn btn-primary btn-md">Back</a>
+												<a id="activate-step-7" class="btn btn-primary btn-md text-center" onclick="review()">Review</a>
+											</c:if>
 										</div>
 									</div>
 		                       		<c:if test="${xForm2.orderForm.period eq 'August'}">
@@ -375,6 +386,8 @@
 													<form:textarea path="orderContact.altContactInfo" id="orderContact.altContactInfo" rows="10" maxlength="1000" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
 													<span class="fa fa-truck form-control-feedback left" aria-hidden="true"></span>
 												</div>
+												<a id="deactivate-step-6" class="btn btn-primary btn-md">Back</a>
+												<a id="activate-step-7" class="btn btn-primary btn-md text-center" onclick="review()">Review</a>
 											</div>
 										</div>
 									</c:if>
@@ -537,7 +550,7 @@
 														<div class="form-group">
 															<p class="text-danger">By clicking "Submit", you signify that you have permission to order these Regents forms from an appropriate person who can authorize this expenditure.</p>
 														</div>
-														<input type="submit" value="Submit" class="btn btn-success"/> <a href="<c:url value='/orders' />" class="btn btn-primary">Cancel</a>
+														<input type="submit" value="Submit" class="btn btn-success"/> <a id="deactivate-step-7" class="btn btn-primary btn-md">Back</a> <a href="<c:url value='/orders' />" class="btn btn-primary">Cancel</a>
 													</div>
 												</div>
 											</div>

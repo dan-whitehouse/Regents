@@ -176,6 +176,7 @@
 													</div>
 												</div>
 											</div>
+											<a id="deactivate-step-2" class="btn btn-primary btn-md">Back</a>
 											<a id="activate-step-3" class="btn btn-primary btn-md">Next</a>
 										</div>
 									</div>
@@ -206,6 +207,7 @@
 												<form:textarea path="specialRequests" id="specialRequests" rows="10" maxlength="1000" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
 												<span class="fa fa-plus form-control-feedback left" aria-hidden="true"></span>
 											</div>
+											<a id="deactivate-step-3" class="btn btn-primary btn-md">Back</a>
 											<a id="activate-step-4" class="btn btn-primary btn-md">Next</a>
 										</div>
 									</div>
@@ -247,6 +249,7 @@
 													</c:forEach>
 												</tbody>
 											</table>
+											<a id="deactivate-step-4" class="btn btn-primary btn-md">Back</a>
 											<a id="activate-step-5" class="btn btn-primary btn-md">Next</a>
 										</div>
 									</div>
@@ -313,6 +316,7 @@
 
 											<div class="col-md-12 text-center">
 												<br />
+												<a id="deactivate-step-5" class="btn btn-primary btn-md">Back</a>
 												<a id="activate-step-6" class="btn btn-primary btn-md">Next</a>
 											</div>
 										</div>
@@ -396,6 +400,7 @@
 											
 
 											<c:if test="${orderForm.period ne 'August'}">
+												<a id="deactivate-step-6" class="btn btn-primary btn-md">Back</a>
 												<a id="activate-step-7" class="btn btn-primary btn-md text-center" onclick="review()">Review</a>
 											</c:if>
 										</div>
@@ -409,6 +414,7 @@
 													<form:textarea path="orderContact.altContactInfo" id="orderContact.altContactInfo" rows="10" maxlength="1000" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
 													<span class="fa fa-truck form-control-feedback left" aria-hidden="true"></span>
 												</div>
+												<a id="deactivate-step-6" class="btn btn-primary btn-md">Back</a>
 												<a id="activate-step-7" class="btn btn-primary btn-md" onclick="review()">Review</a>
 											</div>
 										</div>
@@ -577,6 +583,7 @@
 																<p class="text-danger"><strong>By clicking "Submit", you signify that you have permission to order these Regents forms from an appropriate person who can authorize this expenditure.</strong></p>
 															</div>
 															<input type="submit" value="Submit" class="btn btn-success"/> 
+															<a id="deactivate-step-7" class="btn btn-primary btn-md">Back</a>
 															<a href="<c:url value='/orders' />" class="btn btn-primary">Cancel</a>
 															
 														</div>
