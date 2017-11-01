@@ -247,7 +247,6 @@ public class OrderController extends AbstractController
 				
 			}
 		}
-		System.out.println("schools size: " + schools.size());
 		return schools;
 	}
 
@@ -497,9 +496,9 @@ public class OrderController extends AbstractController
 			model.addAttribute("error_message", "It appears the associated Regents period has expired.");
 			return "403";
 		}
-		else if(orderForm.isActivePeriod() && orderForm.getVisible() && !orderForm.getLocked())
+		else if(orderForm.getVisible() && !orderForm.getLocked())
 		{
-			if((order.getUser().getUsername().equalsIgnoreCase(getPrincipal()) && orderForm.getActive()) || isAdmin(getPrincipal())) //IDK IF THIS IS THE BEST THING TO DO
+			if((order.getUser().getUsername().equalsIgnoreCase(getPrincipal()) && orderForm.getActive() && orderForm.isActivePeriod()) || isAdmin(getPrincipal())) //IDK IF THIS IS THE BEST THING TO DO
 			{
 				XForm2 xForm = new XForm2();		
 				xForm.setSelectedDocuments(findAllDocumentsByOrderFormId(orderForm.getId()));

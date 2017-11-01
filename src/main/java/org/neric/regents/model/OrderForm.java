@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+
+import org.apache.commons.lang3.time.DateUtils;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
@@ -339,14 +341,15 @@ public class OrderForm implements Serializable
     public boolean isActivePeriod() 
 	{
 		Date now = new Date();
-		Interval interval = new Interval(startDate.getTime(), endDate.getTime());
+		Interval interval = new Interval(startDate.getTime(), DateUtils.addDays(endDate, 1).getTime());
 		return interval.contains(now.getTime());
     }
 	
 	@Transient
     public boolean isExpiredPeriod() 
 	{
-		Interval interval = new Interval(startDate.getTime(), endDate.getTime());
+		DateUtils.addDays(endDate, 1);
+		Interval interval = new Interval(startDate.getTime(), DateUtils.addDays(endDate, 1).getTime());
 		return interval.isBeforeNow();
     }
 	
