@@ -61,10 +61,10 @@
 														
 														<c:choose>
 															<c:when test="${order.orderStatus == 'Processing'}">
-																<a href="<c:url value='/order/${order.uuid}/complete/true' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Incomplete"><i class="fa fa-square"></i></a>
+																<a href="<c:url value='/admin/order/${order.uuid}/complete/true' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Incomplete"><i class="fa fa-square"></i></a>
 															</c:when>
 															<c:otherwise>
-																<a href="<c:url value='/order/${order.uuid}/complete/false' />" class="btn btn-info custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Complete"><i class="fa fa-check-square"></i></a>
+																<a href="<c:url value='/admin/order/${order.uuid}/complete/false' />" class="btn btn-info custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Complete"><i class="fa fa-check-square"></i></a>
 															</c:otherwise>
 														</c:choose>
 													</td>

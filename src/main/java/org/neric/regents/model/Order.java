@@ -19,7 +19,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
@@ -244,6 +246,13 @@ public class Order implements Serializable
 		this.specialRequests = specialRequests;
 	}
 
+	@Transient
+	public boolean isComplete()
+	{
+		return StringUtils.equalsIgnoreCase(orderStatus, "Complete");
+	}
+	
+	
 	@Override
 	public String toString()
 	{
