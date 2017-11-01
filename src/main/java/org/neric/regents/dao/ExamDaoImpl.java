@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository("examDao")
+@SuppressWarnings("unchecked")
 public class ExamDaoImpl extends AbstractDao<Integer, Exam> implements ExamDao {
 
 	static final Logger logger = LoggerFactory.getLogger(ExamDaoImpl.class);
@@ -52,7 +53,6 @@ public class ExamDaoImpl extends AbstractDao<Integer, Exam> implements ExamDao {
 		return exam;
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<Exam> findAllExams()
 	{
 		Criteria criteria = createEntityCriteria().addOrder(Order.asc("name"));
@@ -61,7 +61,6 @@ public class ExamDaoImpl extends AbstractDao<Integer, Exam> implements ExamDao {
 		return exams;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public List<Exam> findAllActiveExams()
 	{
 		Criteria criteria = getSession().createCriteria(Exam.class, "e");
@@ -75,6 +74,18 @@ public class ExamDaoImpl extends AbstractDao<Integer, Exam> implements ExamDao {
 		return exams;
 	}
 	
+	@Override
+	public List<Exam> findAllExamsByOrderFormId(Integer id)
+	{
+		Criteria criteria = getSession().createCriteria(Exam.class, "e");
+		criteria.createAlias("e.orderFormExams", "ofe");
+		criteria.createAlias("ofe.orderForm", "of");
+		criteria.add(Restrictions.eq("of.id", id));
+		criteria.addOrder(Order.asc("name"));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		List<Exam> exams = (List<Exam>) criteria.list();
+		return exams;
+	}
 
 	public void save(Exam exam) 
 	{

@@ -105,4 +105,10 @@ public class DocumentServiceImpl implements DocumentService{
 			entity.setVisible(isHidden);
 		}
 	}
+
+	@Override
+	public List<Document> findAllDocumentsByOrderFormId(Integer id)
+	{
+		return dao.findAllDocumentsByOrderFormId(id);
+	}
 }

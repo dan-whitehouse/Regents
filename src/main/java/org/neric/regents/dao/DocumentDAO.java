@@ -22,5 +22,5 @@ public interface DocumentDAO {
 
 	void deleteByDocumentUUID(String uuid);
 
-	
+	List<Document> findAllDocumentsByOrderFormId(Integer id);
 }

@@ -64,6 +64,20 @@ public class DocumentDAOImpl extends AbstractDao<Integer, Document> implements D
 		return documents;
 	}
 	
+	@Override
+	public List<Document> findAllDocumentsByOrderFormId(Integer id)
+	{
+		Criteria criteria = getSession().createCriteria(Document.class, "d");
+		criteria.createAlias("d.orderFormDocuments", "ofd");
+		criteria.createAlias("ofd.orderForm", "of");
+		criteria.add(Restrictions.eq("of.id", id));
+		criteria.addOrder(Order.asc("name"));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		List<Document> documents = (List<Document>) criteria.list();
+		
+		return documents;
+	}
+	
 
 	@Override
 	public void deleteByDocumentId(int id)

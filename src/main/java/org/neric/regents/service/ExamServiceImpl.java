@@ -42,6 +42,12 @@ public class ExamServiceImpl implements ExamService{
 	{
 		return dao.findAllActiveExams();
 	}
+	
+	@Override
+	public List<Exam> findAllExamsByOrderFormId(Integer id)
+	{
+		return dao.findAllExamsByOrderFormId(id);
+	}
 
 
 	public void saveExam(Exam exam) 
@@ -116,4 +122,6 @@ public class ExamServiceImpl implements ExamService{
 			entity.setVisible(isHidden);
 		}
 	}
+
+	
 }

@@ -17,6 +17,8 @@ public interface ExamDao {
 	
 	List<Exam> findAllActiveExams();
 	
+	List<Exam> findAllExamsByOrderFormId(Integer id);
+	
 	void save(Exam exam);
 	
 	void deleteByExamName(String examName);

@@ -33,4 +33,6 @@ public interface DocumentService {
 	void lockByDocumentUUID(String uuid, boolean isLocked);
 
 	void hideByDocumentUUID(String uuid, boolean isHidden);
+
+	List<Document> findAllDocumentsByOrderFormId(Integer id);
 }

@@ -145,7 +145,7 @@
 																</tr>
 															</thead>
 															<tbody>
-																<c:forEach items="${allExamOptions}" var="e" varStatus="status">
+																<c:forEach items="${allExamOptionsByOrderForm}" var="e" varStatus="status">
 																    ${orderForm.period}
 																	<form:hidden path="selectedExams[${status.index}].orderExam.exam.id" value="${e.orderExam.exam.id}"/>
 																	<tr>
@@ -225,7 +225,7 @@
 													</tr>
 												</thead>
 												<tbody>
-													<c:forEach items="${allDocumentOptions}" var="d" varStatus="status">
+													<c:forEach items="${allDocumentOptionsByOrderForm}" var="d" varStatus="status">
 														<form:hidden path="selectedDocuments[${status.index}].orderDocument.document.id" value="${d.orderDocument.document.id}"/>
 														<tr>
 															<td>
@@ -803,7 +803,7 @@
 		{
 			//Populate Schools Array, include associated District data
 			var schools = new Array();
-			<c:forEach items="${schoolsByDistrict}" var="school" varStatus="status"> 
+			<c:forEach items="${schoolsByOrderUserDistrict}" var="school" varStatus="status"> 
 				schoolDetails = new Object();
 				schoolDetails.id = ${school.id}; 
 				schoolDetails.name = "${school.name}"; 
@@ -832,7 +832,8 @@
 		    		var opt = document.createElement('option');
 			        opt.value = school.id;
 
-			        if(school.id == ${schoolId})
+			        var schoolId = ${schoolId};
+			        if(school.id == schoolId)
                     {
                         opt.selected = true;
                     }

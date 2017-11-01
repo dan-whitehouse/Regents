@@ -36,9 +36,9 @@
 										<th>District</th>
 										<th>Ordered By</th>
 										<th>Order Status</th>
-										<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
-											<th>Management</th>
-										</sec:authorize>
+										
+										<th>Management</th>
+										
 									</tr>
 								</thead>
 								<tbody>
@@ -64,6 +64,11 @@
 															<a href="<c:url value='/order/${order.uuid}/complete/false' />" class="btn btn-info custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Complete"><i class="fa fa-check-square"></i></a>
 														</c:otherwise>
 													</c:choose>
+												</td>
+											</sec:authorize>
+											<sec:authorize access="hasRole('USER')">
+												<td width="150px">
+													<a href="<c:url value='/order/${order.uuid}/edit' />" class="btn btn-success custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
 												</td>
 											</sec:authorize>
 										</tr>

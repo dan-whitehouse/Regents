@@ -15,6 +15,8 @@ public interface ExamService {
 	
 	List<Exam> findAllExams();
 	
+	List<Exam> findAllExamsByOrderFormId(Integer id);
+	
 	List<Exam> findAllActiveExams();
 	
 	void saveExam(Exam exam);

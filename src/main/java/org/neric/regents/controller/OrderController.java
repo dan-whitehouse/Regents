@@ -171,7 +171,7 @@ public class OrderController extends AbstractController
 		}
 		return options;
 	}
-
+	
 	@ModelAttribute("allDocumentOptions")
 	public List<XDocumentWrapper> populateDocumentOptions()
 	{
@@ -183,7 +183,7 @@ public class OrderController extends AbstractController
 		}
 		return options;
 	}
-
+	
 	@ModelAttribute("allPrintOptions")
 	public List<OptionPrint> populatePrintOptions()
 	{
@@ -244,8 +244,10 @@ public class OrderController extends AbstractController
 			if(ud.getDistrict().getVisible())
 			{
 				schools.addAll(schoolService.findAllByDistrictId(ud.getDistrict().getId()));
+				
 			}
 		}
+		System.out.println("schools size: " + schools.size());
 		return schools;
 	}
 
@@ -283,7 +285,7 @@ public class OrderController extends AbstractController
 				if(orderForm.isExpiredPeriod())
 				{
 					model.addAttribute("error_message", "It appears the active Regents period has expired.");
-					return "204";
+					return "403";
 				}
 				else if(orderForm.isActivePeriod() && orderForm.getVisible() && !orderForm.getLocked())
 				{
@@ -320,6 +322,7 @@ public class OrderController extends AbstractController
 						XForm2 xForm = new XForm2();
 						model.addAttribute("xForm2", xForm);
 						model.addAttribute("orderForm", orderForm);
+						model.addAttribute("period", orderForm.getPeriod());
 						return "order";
 					}
 					else if(wasOptedOutByOtherUser(optOuts))
@@ -487,69 +490,107 @@ public class OrderController extends AbstractController
 	public String editOrder(@PathVariable String uuid, ModelMap model)
 	{
 		Order order = orderService.findByUUID(uuid);
+		OrderForm orderForm = orderFormService.findById(order.getOrderForm().getId());
 		
-		if(order.getUser().getUsername().equalsIgnoreCase(getPrincipal()) || isAdmin(getPrincipal())) //IDK IF THIS IS THE BEST THING TO DO
+		if(orderForm.isExpiredPeriod())
 		{
-			XForm2 xForm = new XForm2();		
-			xForm.setSelectedDocuments(populateDocumentOptions());
-			xForm.setSelectedExams(populateExamOptions());
+			model.addAttribute("error_message", "It appears the associated Regents period has expired.");
+			return "403";
+		}
+		else if(orderForm.isActivePeriod() && orderForm.getVisible() && !orderForm.getLocked())
+		{
+			if((order.getUser().getUsername().equalsIgnoreCase(getPrincipal()) && orderForm.getActive()) || isAdmin(getPrincipal())) //IDK IF THIS IS THE BEST THING TO DO
+			{
+				XForm2 xForm = new XForm2();		
+				xForm.setSelectedDocuments(findAllDocumentsByOrderFormId(orderForm.getId()));
+				xForm.setSelectedExams(findAllExamsByOrderFormId(orderForm.getId()));
+						
+				for(XExamWrapper ew : xForm.getSelectedExams())
+				{
+					for(OrderExam e : order.getOrderExams())
+					{
+						if(e.getExam().getId() == ew.getOrderExam().getExam().getId())
+						{
+							ew.setSelected(true);
+							ew.setOrderExam(e);
+						}
+					}
+				}
 					
-			for(XExamWrapper ew : xForm.getSelectedExams())
-			{
-				for(OrderExam e : order.getOrderExams())
+				for(XDocumentWrapper dw : xForm.getSelectedDocuments())
 				{
-					if(e.getExam().getId() == ew.getOrderExam().getExam().getId())
+					for(OrderDocument d : order.getOrderDocuments())
 					{
-						ew.setSelected(true);
-						ew.setOrderExam(e);
+						if(d.getDocument().getId() == dw.getOrderDocument().getDocument().getId())
+						{
+							dw.setSelected(true);
+							dw.setOrderDocument(d);
+						}
 					}
 				}
-			}
+
+				xForm.setSelectedOptionScan(order.getOrderScan());
+				xForm.setReportingOption(order.getReportToLevelOne());
+				xForm.setSelectedOptionPrint(order.getOrderPrint());
+				xForm.setOrderContact(order.getOrderContact());
+				xForm.setOrderForm(order.getOrderForm());
+				xForm.setDistrict(order.getDistrict());
+				xForm.setSchool(order.getSchool());
+				xForm.setSpecialRequests(order.getSpecialRequests());
+
+
+
+				List<District> userDistricts = new ArrayList<>();
+				order.getUser().getUserDistricts().forEach(userDistrict -> {
+					userDistricts.add(userDistrict.getDistrict());
+				});
+
+
+				model.addAttribute("xForm2", xForm);
+				model.addAttribute("order", order);
+				model.addAttribute("period", order.getOrderForm().getPeriod());
+				model.addAttribute("schoolId", order.getSchool().getId());
+				model.addAttribute("userDistricts", userDistricts);
+				model.addAttribute("edit", true);
 				
-			for(XDocumentWrapper dw : xForm.getSelectedDocuments())
-			{
-				for(OrderDocument d : order.getOrderDocuments())
-				{
-					if(d.getDocument().getId() == dw.getOrderDocument().getDocument().getId())
-					{
-						dw.setSelected(true);
-						dw.setOrderDocument(d);
-					}
-				}
+				model.addAttribute("allDocumentOptionsByOrderForm", findAllDocumentsByOrderFormId(orderForm.getId()));
+				model.addAttribute("allExamOptionsByOrderForm", findAllExamsByOrderFormId(orderForm.getId()));
+				model.addAttribute("schoolsByOrderUserDistrict", findSchoolsByOrderUserDistrict(order));
+				
+				
+				
+				
+				
+				return "createOrEditOrder";
 			}
-
-			xForm.setSelectedOptionScan(order.getOrderScan());
-			xForm.setReportingOption(order.getReportToLevelOne());
-			xForm.setSelectedOptionPrint(order.getOrderPrint());
-			xForm.setOrderContact(order.getOrderContact());
-			xForm.setOrderForm(order.getOrderForm());
-			xForm.setDistrict(order.getDistrict());
-			xForm.setSchool(order.getSchool());
-			xForm.setSpecialRequests(order.getSpecialRequests());
-
-
-
-			List<District> userDistricts = new ArrayList<>();
-			order.getUser().getUserDistricts().forEach(userDistrict -> {
-				userDistricts.add(userDistrict.getDistrict());
-			});
-
-
-			model.addAttribute("xForm2", xForm);
-			model.addAttribute("order", order);
-			model.addAttribute("period", order.getOrderForm().getPeriod());
-			model.addAttribute("schoolId", order.getSchool().getId());
-			model.addAttribute("userDistricts", userDistricts);
-			model.addAttribute("edit", true);
-			
-			return "createOrEditOrder";
+			else
+			{
+				model.addAttribute("error_message", "It appears the associated Regents period has expired.");
+				return "403";
+			}
+		}
+		else if(!orderForm.isActivePeriod())
+		{
+			model.addAttribute("error_message", "No active Regents period.");
+			return "204";
+		}
+		else if(orderForm.getLocked())
+		{
+			model.addAttribute("error_message", "The Regents period has been locked.");
+			return "403";
+		}
+		else if(!orderForm.getVisible())
+		{
+			model.addAttribute("error_message", "...");
+			return "403";
 		}
 		else
 		{
+			model.addAttribute("error_message", "It appears the associated Regents period has expired.");
 			return "403";
-		}
+		}	
 	}
-
+	
 	@RequestMapping(value = { "order/{uuid}/edit" }, method = RequestMethod.POST)
 	public String editExam(@ModelAttribute("xForm2") XForm2 xForm, BindingResult result, SessionStatus status, @PathVariable String uuid, ModelMap model)
 	{
@@ -636,6 +677,45 @@ public class OrderController extends AbstractController
 		return "redirect:/orders";
 	}
 
+	
+	public List<XDocumentWrapper> findAllDocumentsByOrderFormId(Integer id)
+	{
+		List<XDocumentWrapper> options = new ArrayList<>();
+
+		for (Document e : documentService.findAllDocumentsByOrderFormId(id))
+		{
+			options.add(new XDocumentWrapper(new OrderDocument(e)));
+		}
+		return options;
+	}
+
+	public List<XExamWrapper> findAllExamsByOrderFormId(Integer id)
+	{
+		List<XExamWrapper> options = new ArrayList<>();
+
+		for (Exam e : examService.findAllExamsByOrderFormId(id))
+		{
+			options.add(new XExamWrapper(new OrderExam(e)));
+		}
+		return options;
+	}
+	
+	public List<School> findSchoolsByOrderUserDistrict(Order order)
+	{	
+		Set<UserDistrict> userDistricts = order.getUser().getUserDistricts();
+		List<School> schools = new ArrayList<>();
+		
+		for(UserDistrict ud : userDistricts)
+		{
+			if(ud.getDistrict().getVisible())
+			{
+				schools.addAll(schoolService.findAllByDistrictId(ud.getDistrict().getId()));
+				
+			}
+		}
+		return schools;
+	}
+	
 	private boolean isAdmin(String username)
 	{
 		User user = userService.findByUsername(username);
