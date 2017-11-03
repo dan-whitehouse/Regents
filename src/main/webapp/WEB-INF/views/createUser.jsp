@@ -30,7 +30,7 @@
 									<label for="firstName" class="control-label col-md-3 col-sm-3 col-xs-3 left">First Name</label>
 								    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 								    	<span class="input-group-addon"><i class="fa fa-user"></i></span>
-								    	<form:input type="text" pattern="^[_A-z0-9]{1,}$" maxlength="15" path="firstName" id="firstName" class="form-control col-md-7 col-xs-12" name="firstName" placeholder="First Name"  required="required" />
+								    	<form:input type="text" pattern="^[_A-z0-9]{1,}$" maxlength="50" path="firstName" id="firstName" class="form-control col-md-7 col-xs-12" name="firstName" placeholder="First Name"  required="required" />
 								    </div>
 								    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 								    <!-- <div class="help-block with-errors">Hey look, this one has feedback icons!</div> -->
@@ -40,7 +40,7 @@
 									<label for="lastName" class="control-label col-md-3 col-sm-3 col-xs-3 left">Last Name</label>
 								    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 								    	<span class="input-group-addon"><i class="fa fa-user"></i></span>
-								    	<form:input type="text" pattern="^[_A-z0-9]{1,}$" maxlength="30" path="lastName" id="lastName" class="form-control col-md-7 col-xs-12" name="lastName" placeholder="Last Name"  required="required" />
+								    	<form:input type="text" pattern="^[_A-z0-9]{1,}$" maxlength="50" path="lastName" id="lastName" class="form-control col-md-7 col-xs-12" name="lastName" placeholder="Last Name"  required="required" />
 								    </div>
 								    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 								    <!-- <div class="help-block with-errors">Hey look, this one has feedback icons!</div> -->
@@ -52,10 +52,10 @@
 								    	<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
 								    	<c:choose>
 											<c:when test="${edit}">
-												<form:input type="email" path="username" id="username" class="form-control col-md-7 col-xs-12" name="username" placeholder="test@district.com"  data-error="Bruh, that email address is invalid" maxlength="30" required="required" readonly="true"/>
+												<form:input type="email" path="username" id="username" class="form-control col-md-7 col-xs-12" name="username" placeholder="test@district.com"  data-error="That email address is invalid" maxlength="50" required="required" readonly="true"/>
 											</c:when>
 											<c:otherwise>
-												<form:input type="email" path="username" id="username" class="form-control col-md-7 col-xs-12" name="username" placeholder="test@district.com"  data-error="Bruh, that email address is invalid" maxlength="30" required="required" />
+												<form:input type="email" path="username" id="username" class="form-control col-md-7 col-xs-12" name="username" placeholder="test@district.com"  data-error="That email address is invalid" maxlength="50" required="required" />
 											</c:otherwise>
 										</c:choose>
 								    	
@@ -68,7 +68,7 @@
 									<label for="password" class="control-label col-md-3 col-sm-3 col-xs-3 left">Password</label>
 								    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 								    	<span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
-								    	<form:input type="password" path="password" id="password" name="password" class="form-control col-md-7 col-xs-12" placeholder="Password"  data-error="Bruh, that email address is invalid" maxlength="30" required="required" />
+								    	<form:input type="password" path="password" id="password" name="password" class="form-control col-md-7 col-xs-12" placeholder="Password"  data-error="Bruh, that email address is invalid" maxlength="50" required="required" />
 								    </div>
 								    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 								    <!-- <div class="help-block with-errors">Looks good...</div> -->
