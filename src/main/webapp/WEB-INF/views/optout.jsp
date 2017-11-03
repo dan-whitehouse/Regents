@@ -32,7 +32,7 @@
 											    By "Not Administering", you are signifying that you are not testing any students in your building, or have students in other locations taking any Regents exams for this examination period, and that you are an authorized person who can indicate this for your district.
 											</p>
 										</div>
-										<input type="submit" value="Not Administering" class="btn btn-success"/> <a href="<c:url value='/notadministering' />" class="btn btn-primary">Cancel</a>
+										<input type="submit" value="Not Administering" class="btn btn-success"/> <a href="<c:url value='/' />" class="btn btn-primary">Cancel</a>
 									</div>
 								</div>
 							</form:form>
