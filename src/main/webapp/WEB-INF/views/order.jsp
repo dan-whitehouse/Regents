@@ -7,6 +7,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:url value="/order" var="order" />
+<c:url value='/orders' var="ordersLink"/>
 <fmt:formatDate var="schoolYear" value="${orderForm.startDate}" pattern="yyyy" />
 <fmt:formatNumber var="rescanFee" value="${orderForm.rescanFee}" type="currency"/>
 <fmt:formatNumber var="inDistrictScanFee" value="${orderForm.inDistrictScanFee}" type="currency"/>
@@ -575,7 +576,7 @@
 													<div class="x_panel">
 														<div class="x_title">
 															<h2 class="pull-left">Submit</h2>
-															<button class="btn btn-default pull-right" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
+															<a class="btn btn-default pull-right" onclick="window.print();"><i class="fa fa-print"></i> Print</a>
 															<div class="clearfix"></div>
 														</div>
 														<div class="x_content">
@@ -584,8 +585,7 @@
 															</div>
 															<input type="submit" value="Submit" class="btn btn-success"/> 
 															<a id="deactivate-step-7" class="btn btn-primary btn-md">Back</a>
-															<a href="<c:url value='/orders' />" class="btn btn-primary">Cancel</a>
-															
+															<a href="${ordersLink}" class="btn btn-primary">Cancel</a>
 														</div>
 													</div>
 												</div>
