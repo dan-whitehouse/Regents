@@ -35,7 +35,7 @@
 								    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 								    <!-- <div class="help-block with-errors">Hey look, this one has feedback icons!</div> -->
 								</div>
-								
+
 								<div class="form-group has-feedback">
 									<label for="lastName" class="control-label col-md-3 col-sm-3 col-xs-3 left">Last Name</label>
 								    <div class="input-group col-md-6 col-sm-6 col-xs-6">

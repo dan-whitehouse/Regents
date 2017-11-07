@@ -321,7 +321,7 @@
 												<label for="firstName" class="control-label col-md-3 col-sm-3 col-xs-3 left">First Name</label>
 											    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 											    	<span class="input-group-addon"><i class="fa fa-user"></i></span>
-											    	<form:input type="text" pattern="^[_A-z0-9]{1,}$" maxlength="15" path="orderContact.firstName" id="orderContact.firstName" class="form-control col-md-7 col-xs-12" name="firstName" placeholder="First Name"  required="required" />
+											    	<form:input type="text" pattern="^[_A-z0-9]{1,}$" maxlength="50" path="orderContact.firstName" id="orderContact.firstName" class="form-control col-md-7 col-xs-12" name="firstName" placeholder="First Name"  required="required" />
 											    </div>
 											    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 											</div>
@@ -330,7 +330,7 @@
 												<label for="middleName" class="control-label col-md-3 col-sm-3 col-xs-3 left">Middle Name</label>
 											    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 											    	<span class="input-group-addon"><i class="fa fa-user"></i></span>
-											    	<form:input type="text" pattern="^[_A-z0-9]{1,}$" maxlength="15" path="orderContact.middleName" id="orderContact.middleName" class="form-control col-md-7 col-xs-12" name="middleName" placeholder="Middle Name"/>
+											    	<form:input type="text" pattern="^[_A-z0-9]{1,}$" maxlength="50" path="orderContact.middleName" id="orderContact.middleName" class="form-control col-md-7 col-xs-12" name="middleName" placeholder="Middle Name"/>
 											    </div>
 											    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 											</div>
@@ -339,7 +339,7 @@
 												<label for="lastName" class="control-label col-md-3 col-sm-3 col-xs-3 left">Last Name</label>
 											    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 											    	<span class="input-group-addon"><i class="fa fa-user"></i></span>
-											    	<form:input type="text" pattern="^[_A-z0-9]{1,}$" maxlength="30" path="orderContact.lastName" id="orderContact.lastName" class="form-control col-md-7 col-xs-12" name="lastName" placeholder="Last Name"  required="required" />
+											    	<form:input type="text" pattern="^[_A-z0-9]{1,}$" maxlength="50" path="orderContact.lastName" id="orderContact.lastName" class="form-control col-md-7 col-xs-12" name="lastName" placeholder="Last Name"  required="required" />
 											    </div>
 											    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 											</div>
@@ -348,7 +348,7 @@
 												<label for="title" class="control-label col-md-3 col-sm-3 col-xs-3 left">Title</label>
 											    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 											    	<span class="input-group-addon"><i class="fa fa-user"></i></span>
-											    	<form:input type="text" pattern="^[_A-z0-9]{1,}$" maxlength="20" path="orderContact.title" id="orderContact.title" class="form-control col-md-7 col-xs-12" name="title" placeholder="Title"  required="required" />
+											    	<form:input type="text" pattern="^[_A-z0-9]{1,}$" maxlength="50" path="orderContact.title" id="orderContact.title" class="form-control col-md-7 col-xs-12" name="title" placeholder="Title"  required="required" />
 											    </div>
 											    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 											</div>
@@ -357,7 +357,7 @@
 												<label for="email" class="control-label col-md-3 col-sm-3 col-xs-3 left">Email</label>
 											    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 											    	<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-											    	<form:input type="email" maxlength="30" path="orderContact.email" id="orderContact.email" class="form-control col-md-7 col-xs-12" name="email" placeholder="Email" required="required" />
+											    	<form:input type="email" maxlength="50" path="orderContact.email" id="orderContact.email" class="form-control col-md-7 col-xs-12" name="email" placeholder="Email" required="required" />
 											    </div>
 											    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 											</div>
@@ -366,7 +366,7 @@
 												<label for="phone" class="control-label col-md-3 col-sm-3 col-xs-3 left">Phone</label>
 											    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 											    	<span class="input-group-addon"><i class="fa fa-phone"></i></span>
-											    	<form:input type="text" pattern="^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$" maxlength="20" path="orderContact.phone" id="orderContact.phone" class="form-control col-md-7 col-xs-12" name="phone" placeholder="Phone"  required="required" />
+											    	<form:input type="text" pattern="^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$" maxlength="50" path="orderContact.phone" id="orderContact.phone" class="form-control col-md-7 col-xs-12" name="phone" placeholder="Phone"  required="required" />
 											    </div>
 											    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 											</div>
