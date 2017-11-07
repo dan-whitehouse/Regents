@@ -87,7 +87,7 @@
 									<div class="col-xs-12">
 										<div class="col-md-12 well">
 											<div class="col-md-12 col-sm-12 col-xs-12">	
-												<h2 class="StepTitle text-center">${orderForm.period} ${schoolYear} - REGENTS ANSWER SHEET SERVICES & NON SECURE DOCUMENTS ORDER FORM</h2>
+												<h2 class="StepTitle text-center">${orderForm.name} - REGENTS ANSWER SHEET SERVICES & NON SECURE DOCUMENTS ORDER FORM</h2>
 												<p>
 													<strong><u>Directions:</u> The order form and data file MUST be received by NERIC no later than ${endDate}.</strong>
 												</p>
