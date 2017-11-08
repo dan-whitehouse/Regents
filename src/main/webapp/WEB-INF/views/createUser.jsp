@@ -30,7 +30,7 @@
 									<label for="firstName" class="control-label col-md-3 col-sm-3 col-xs-3 left">First Name</label>
 								    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 								    	<span class="input-group-addon"><i class="fa fa-user"></i></span>
-								    	<form:input type="text" pattern="^[_A-z0-9]{1,}$" maxlength="50" path="firstName" id="firstName" class="form-control col-md-7 col-xs-12" name="firstName" placeholder="First Name"  required="required" />
+								    	<form:input type="text" pattern="^[\w\-\s]+$" maxlength="50" path="firstName" id="firstName" class="form-control col-md-7 col-xs-12" name="firstName" placeholder="First Name"  required="required" />
 								    </div>
 								    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 								    <!-- <div class="help-block with-errors">Hey look, this one has feedback icons!</div> -->
@@ -40,7 +40,7 @@
 									<label for="lastName" class="control-label col-md-3 col-sm-3 col-xs-3 left">Last Name</label>
 								    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 								    	<span class="input-group-addon"><i class="fa fa-user"></i></span>
-								    	<form:input type="text" pattern="^[_A-z0-9]{1,}$" maxlength="50" path="lastName" id="lastName" class="form-control col-md-7 col-xs-12" name="lastName" placeholder="Last Name"  required="required" />
+								    	<form:input type="text" pattern="^[\w\-\s]+$" maxlength="50" path="lastName" id="lastName" class="form-control col-md-7 col-xs-12" name="lastName" placeholder="Last Name"  required="required" />
 								    </div>
 								    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 								    <!-- <div class="help-block with-errors">Hey look, this one has feedback icons!</div> -->
