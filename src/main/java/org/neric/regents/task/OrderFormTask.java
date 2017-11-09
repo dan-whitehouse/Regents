@@ -16,13 +16,14 @@ public class OrderFormTask
 	OrderFormService orderFormService;
 	
 	
-	@Scheduled(cron="0 59 23 1/1 * ?") //every day @ 11:59PM via http://www.cronmaker.com/
+	//@Scheduled(cron="0 59 23 1/1 * ?") //every day @ 11:59PM via http://www.cronmaker.com/
+	@Scheduled(cron="0 1 0 1/1 * ?") //every day @ 12:01AM via http://www.cronmaker.com/
     public void test() 
     {
     	Date now = new Date();
     	for(OrderForm of : orderFormService.findAllOrderForms())
     	{
-    		if(of.getEndDate().after(now));
+    		if(of.isExpiredPeriod() == true)
     		{
     			of.setActive(false);
     			of.setLocked(true);
