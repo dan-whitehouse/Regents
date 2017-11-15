@@ -4408,3 +4408,6 @@ ul.notifications {
         text-align: justify;
     }
 }
+span.break-word {
+    word-wrap: break-word;
+}

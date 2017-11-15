@@ -15,7 +15,6 @@
 <fmt:formatNumber var="processingFee" value="${orderForm.processingFee}" type="currency"/>
 <fmt:formatDate value="${orderForm.endDate}" type="date" pattern="MM/dd/yyyy" var="endDate"/>
 
-
 	<jsp:include page="fragments/header.jsp" />
 	<!-- page content -->
 	<div class="right_col" role="main">
@@ -219,7 +218,7 @@
 									<div class="col-xs-12">
 										<div class="alert alert-softYellow alert-dismissible fade in" role="alert">
                     						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    							<span aria-hidden="true">?</span>
+                    							<span aria-hidden="true">X</span>
                     						</button>
                     						Non-secure documents include Essay Booklets for ELA, USH and GH, and Reference Tables for the Sciences. 
 											See Step 1 for price per document.
@@ -376,25 +375,6 @@
 											    </div>
 											    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 											</div>
-										
-										
-											<%-- <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback input-group">
-												<span class="input-group-addon"><i class="fa fa-user"></i></span>
-												<form:input path="orderContact.name" type="text" class="form-control" id="orderContact.name" placeholder="Name" required="required"/> 
-											</div>
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback input-group">
-												<span class="input-group-addon"><i class="fa fa-user"></i></span>
-												<form:input path="orderContact.title" type="text" class="form-control" id="orderContact.title" placeholder="Title" required="required"/> 
-											</div>
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback input-group">
-												<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-												<form:input path="orderContact.email" type="text" class="form-control" id="orderContact.email" placeholder="Email" required="required"/>
-											</div>
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback input-group">
-												<span class="input-group-addon"><i class="fa fa-phone"></i></span>
-												<form:input path="orderContact.phone" type="text" class="form-control" id="orderContact.phone" placeholder="Phone" required="required"/>					
-											</div> --%>
-											
 
 											<c:if test="${orderForm.period ne 'August'}">
 												<a id="deactivate-step-6" class="btn btn-primary btn-md">Back</a>
@@ -499,16 +479,30 @@
 														<h2>Location for Blanks</h2>
 														<div class="clearfix"></div>
 													</div>
-													<div class="x_content" id="reviewBlanks">
-														<!-- Filled in by JS -->
+													<div class="x_content">
+														<ul class="list-unstyled">
+															<li>
+																<i class="fa fa-university"></i> <strong>District: </strong>
+																<span id="reviewBlanks_district"></span>
+															</li>
+															<li>
+																<i class="fa fa-graduation-cap"></i> <strong>School: </strong>
+																<span id="reviewBlanks_school"></span>
+															</li>
+															<hr id="reviewBlanks_specialRequests_hr"/>
+															<li id="reviewBlanks_specialRequests_li">
+																<i class="fa fa-plus"></i>
+																<strong>Special Requests:</strong><br />
+																<span id="reviewBlanks_specialRequests" class="break-word"> </span>
+															</li>
+														</ul>
 													</div>
 												</div>
 											</div>
 											<!-- END BLANKS -->
-											
-											
-											
+
 											<div class="clearfix"></div>
+											
 											<!-- START OPTIONS -->
 											<div class="col-md-7 col-sm-7 col-xs-7">
 												<div class="x_panel">
@@ -551,7 +545,7 @@
 												</div>
 											</div>
 											<!-- END OPTIONS -->
-											
+
 											<!-- START CONTACT -->
 											<div class="col-md-5 col-sm-5 col-xs-5" >
 												<div class="x_panel">
@@ -559,12 +553,41 @@
 														<h2>Contact</h2>
 														<div class="clearfix"></div>
 													</div>
-													<div class="x_content" id="reviewContactInfo">
-														<!-- Filled in by JS -->
+													<div class="profile_details">
+														<div class="profile_view">
+															<div class="col-xs-12">
+																<h2>
+																	<span id="reviewContactInfo_firstName"> </span> 
+																	<span id="reviewContactInfo_middleName"> </span> 
+																	<span id="reviewContactInfo_lastName"> </span> 
+																</h2>
+																<span id="reviewContactInfo_title" class="font-italic"> </span>
+																<ul class="list-unstyled">
+																	<li id="reviewContactInfo_email_li">
+																		<i class="fa fa-envelope"></i> <strong>Email: </strong>
+																		<span id="reviewContactInfo_email"></span>
+																	</li>
+																	<li id="reviewContactInfo_phone_li">
+																		<i class="fa fa-phone"></i> <strong>Phone: </strong>
+																		<span id="reviewContactInfo_phone"></span>
+																	</li>
+																	
+																	<c:if test="${orderForm.period eq 'August'}">
+																		<hr id="reviewContactInfo_alt_hr"/>
+																		<li id="reviewContactInfo_alt_li">
+																			<i class="fa fa-truck"></i>
+																			<strong>Alternate Shipping Information:</strong><br />
+																			<span id="reviewContactInfo_alt" class="break-word"> </span>
+																		</li>
+																	</c:if>
+																</ul>
+															</div>
+														</div>
 													</div>
 												</div>
 											</div>
 											<!-- END CONTACT -->
+											
 											<div class="clearfix"></div>
 											<!-- START SUBMIT -->
 											<div class="row no-print">
@@ -677,21 +700,31 @@
 		
 		function blanks()
 		{
-			$('#reviewBlanks').empty();
-			
 			var selectedDistrict = document.getElementById("districtList");		
 			var selectedSchool = document.getElementById("schoolList");
+
+			$('#reviewBlanks_district').empty();
+			$('#reviewBlanks_school').empty();
+			$('#reviewBlanks_specialRequests').empty();
 			
-			$('#reviewBlanks').append(selectedSchool.options[selectedSchool.selectedIndex].text + ", ");
-			$('#reviewBlanks').append(selectedDistrict.options[selectedDistrict.selectedIndex].text + "<br />");
-			
-			<c:if test="${orderForm.period eq 'August'}">
-				var alt = document.getElementById("specialRequests").value;
-				if(alt != null && alt != "")
-				{
-					$('#reviewBlanks').append("<hr />" + alt);
+			$('#reviewBlanks_district').append(selectedDistrict.options[selectedDistrict.selectedIndex].text);
+			$('#reviewBlanks_school').append(selectedSchool.options[selectedSchool.selectedIndex].text);
+
+			var alt = document.getElementById("specialRequests").value;
+			if(alt != null && alt != "")
+			{
+				$('#reviewBlanks_specialRequests_hr').show();
+				$('#reviewBlanks_specialRequests_li').show();
+				
+				var lines = alt.split('\n');   // lines is an array of strings
+				for (var j = 0; j < lines.length; j++) {
+				  $('#reviewBlanks_specialRequests').append(lines[j] + "<br />");
 				}
-			</c:if>
+			}
+			else {
+				$('#reviewBlanks_specialRequests_hr').hide();
+				$('#reviewBlanks_specialRequests_li').hide();
+			}
 		}
 		
 		function documents()
@@ -759,22 +792,58 @@
 			var email = document.getElementById("orderContact.email").value;
 			var phone = document.getElementById("orderContact.phone").value;
 
-			$('#reviewContactInfo').empty();
-			$('#reviewContactInfo').append(firstName + ' ' + middleName + ' ' + lastName + "<br />");
-			$('#reviewContactInfo').append(title + "<br />");
-			$('#reviewContactInfo').append(email + "<br />");
-			$('#reviewContactInfo').append(phone + "<br />");
+			$('#reviewContactInfo_firstName').empty();
+			$('#reviewContactInfo_middleName').empty();
+			$('#reviewContactInfo_lastName').empty();
+			$('#reviewContactInfo_title').empty();
+			$('#reviewContactInfo_email').empty();
+			$('#reviewContactInfo_phone').empty();
+			$('#reviewContactInfo_alt').empty();
 			
+			$('#reviewContactInfo_firstName').append(firstName);
+			$('#reviewContactInfo_middleName').append(middleName);
+			$('#reviewContactInfo_lastName').append(lastName);
+			$('#reviewContactInfo_title').append(title);
+			$('#reviewContactInfo_email').append(email);
+			$('#reviewContactInfo_phone').append(phone);
+			
+			if(email != null && email != "")
+			{
+				$('#reviewContactInfo_email_li').show();
+			}
+			else {
+				$('#reviewContactInfo_email_li').hide();
+			}
+			
+			
+			if(phone != null && phone != "")
+			{
+				$('#reviewContactInfo_phone_li').show();
+			}
+			else {
+				$('#reviewContactInfo_phone_li').hide();
+			}
+			
+
 			<c:if test="${orderForm.period eq 'August'}">
 				var alt = document.getElementById("orderContact.altContactInfo").value;
 				if(alt != null && alt != "")
-				{
-					$('#reviewContactInfo').append("<hr />" + alt);
+				{					
+					$('#reviewContactInfo_alt_hr').show();
+					$('#reviewContactInfo_alt_li').show();
+
+					var lines = alt.split('\n');   // lines is an array of strings
+					for (var j = 0; j < lines.length; j++) {
+					  $('#reviewContactInfo_alt').append(lines[j] + "<br />");
+					}
+				}
+				else {
+					$('#reviewContactInfo_alt_hr').hide();
+					$('#reviewContactInfo_alt_li').hide();
 				}
 			</c:if>
 		}
 		
-			
 		function getRadioButtonIndex(n) {
 		   var i, r = document.getElementsByName(n);
 		    for (i = 0; i < r.length; i++) {
