@@ -90,7 +90,7 @@
 													</div>
 													<div class="modal-footer">
 														<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-														<a href="<c:url value='/order/${order.uuid}/delete' />" class="btn btn-danger">Delete</a>
+														<a href="<c:url value='/admin/order/${order.uuid}/delete' />" class="btn btn-danger">Delete</a>
 													</div>
 												</div>
 											</div>
