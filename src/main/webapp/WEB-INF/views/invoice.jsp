@@ -90,6 +90,7 @@
 		                              		<th># Students Pull from L0 </th>
 	                              		</c:if>
 		                                <th># Blank Answer Sheets</th>
+		                                <th># Students in CSV</th>
 		                              </tr>
 		                            </thead>
 		                            <tbody>
@@ -100,6 +101,7 @@
 													<td>${orderExam.examAmount}</td>
 												</c:if>
 												<td>${orderExam.answerSheetAmount}</td>
+												<td>${orderExam.studentsPerCSV}</td>
 		 										<%-- <td>
 		 											$<fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${(orderExam.examAmount * 2.10)}" />
 		 										</td>
