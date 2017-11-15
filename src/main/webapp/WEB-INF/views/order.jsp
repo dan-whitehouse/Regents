@@ -298,11 +298,7 @@
 											<div class="clearfix"></div>
 											
 											<div class="form-group col-xs-12 has-feedback">
-												<label class="control-label col-md-6 col-sm-6 col-xs-12">Answer Sheets Scanning Option:
-												<!-- <span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default.">
-													<span class=" fa fa-info"></span>
-												</span>-->
-												</label>
+												<label class="control-label col-md-6 col-sm-6 col-xs-12">Answer Sheets Scanning Option:</label>
 												<div class="col-md-6 col-sm-6 col-xs-12">
 													<div class="radio">
 														<ul class="list-unstyled">
