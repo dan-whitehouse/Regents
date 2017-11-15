@@ -254,7 +254,7 @@
 										<div class="col-md-12 well">
 											<div class="form-group col-xs-12">
 												<label class="control-label col-md-6 col-sm-6 col-xs-12">Reporting Option: 
-												<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default." >
+												<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="For January and June Regents NERIC will load scores in L1. NERIC will NOT load score for August." >
 												<span class=" fa fa-info"></span>
 												</span>
 												</label>
@@ -290,11 +290,7 @@
 											<div class="clearfix"></div>
 											
 											<div class="form-group col-xs-12 has-feedback">
-												<label class="control-label col-md-6 col-sm-6 col-xs-12">Scanning/Scoring Option: 
-												<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default." >
-												<span class=" fa fa-info"></span>
-												</span>
-												</label>
+												<label class="control-label col-md-6 col-sm-6 col-xs-12">Answer Sheets Scanning Option:</label>
 												<div class="col-md-6 col-sm-6 col-xs-12">
 													<div class="radio">
 														<ul class="list-unstyled">
