@@ -118,7 +118,7 @@ public class OrderForm implements Serializable
 	private String name;
 	
 	@NotEmpty
-	@Column(name="period", unique=true, nullable=false)
+	@Column(name="period", nullable=false)
 	private String period;
 	
 	@Temporal(TemporalType.DATE)

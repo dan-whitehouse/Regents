@@ -395,7 +395,7 @@
 								<!--  STEP 7 - REVIEW -->
 								<div class="row setup-content" id="step-7">
 									<div class="col-xs-12">
-										<div class="col-md-12 well text-center">
+										<div class="col-md-12 well">
 											<!-- START EXAMS -->
 											<div class="col-md-7 col-sm-7 col-xs-7" >
 												<div class="x_panel">
@@ -408,10 +408,10 @@
 															<table class="table table-striped jambo_table bulk_action">
 																<thead>
 																	<tr class="headings">
-																		<th class="column-title">Test Name </th>
-																		<th class="column-title">Number of Test </th>
-																		<th class="column-title">Answer Sheets </th>
-																		<th class="column-title">Students Per CSV </th>
+																		<th class="column-title">Exam Name </th>
+																		<th class="column-title">Students Pull from L0</th>
+																		<th class="column-title">Blank Answer Sheets </th>
+																		<th class="column-title">Students in CSV </th>
 																	</tr>
 																</thead>
 																<tbody id="reviewExams">															
@@ -446,8 +446,8 @@
 															<table class="table table-striped jambo_table bulk_action">
 																<thead>
 																	<tr class="headings">
-																		<th class="column-title">Name </th>
-																		<th class="column-title">Number Requested </th>
+																		<th class="column-title">Non-Secure Document </th>
+																		<th class="column-title">Quantity </th>
 																	</tr>
 																</thead>
 																<tbody id="reviewDocuments">
@@ -547,9 +547,9 @@
 														<a class="btn btn-default pull-right" onclick="window.print();"><i class="fa fa-print"></i> Print</a>
 														<div class="clearfix"></div>
 													</div>
-													<div class="x_content">
+													<div class="x_content text-center">
 														<div class="form-group">
-															<p class="text-danger">By clicking "Submit", you signify that you have permission to order these Regents forms from an appropriate person who can authorize this expenditure.</p>
+															<p class="text-danger"><strong>By clicking "Submit", you signify that you have permission to order these Regents forms from an appropriate person who can authorize this expenditure.</strong></p>
 														</div>
 														<input type="submit" value="Submit" class="btn btn-success"/> <a id="deactivate-step-7" class="btn btn-primary btn-md">Back</a> <a href="<c:url value='/orders' />" class="btn btn-primary">Cancel</a>
 													</div>
