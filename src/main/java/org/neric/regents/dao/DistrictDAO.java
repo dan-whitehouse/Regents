@@ -3,6 +3,7 @@ package org.neric.regents.dao;
 import java.util.List;
 
 import org.neric.regents.model.District;
+import org.neric.regents.model.dashboard.DistrictOrder;
 
 
 public interface DistrictDAO {
@@ -25,7 +26,7 @@ public interface DistrictDAO {
 
 	List<District> findAllUndecidedDistrictsByActiveOrderForm(String uuid);
 
-	List<District> findAllOrderedDistrictsByActiveOrderForm(String uuid);
+	List<DistrictOrder> findAllOrderedDistrictsByActiveOrderForm(String uuid);
 
 	List<District> findAllNADistrictsByActiveOrderForm(String uuid);
 }

@@ -4,6 +4,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.neric.regents.controller.AbstractController;
 import org.neric.regents.converture.DistrictEditor;
 import org.neric.regents.model.*;
+import org.neric.regents.model.dashboard.DistrictOrder;
 import org.neric.regents.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -119,17 +120,22 @@ public class DashboardController extends AbstractController {
 	{
 		OrderForm of = orderFormService.getActiveOrderForm();
 		List<District> districts = districtService.findAllUndecidedDistrictsByActiveOrderForm(of.getUuid());
-		model.addAttribute("districts", districts);
-		return "districts";
+		List<DistrictOrder> districtsOrder = new ArrayList<>();
+		districts.forEach(district -> districtsOrder.add(new DistrictOrder(district, null)));
+		
+		model.addAttribute("districtsOrder", districtsOrder);
+		model.addAttribute("showNumberOfOrders", false);
+		return "districtsAOP";
 	}
 
 	@RequestMapping(value = { "/admin/dashboard/report/aop/ordered" }, method = RequestMethod.GET)
 	public String getDashboardReportListOrdered(ModelMap model)
 	{
 		OrderForm of = orderFormService.getActiveOrderForm();
-		List<District> districts = districtService.findAllOrderedDistrictsByActiveOrderForm(of.getUuid());
-		model.addAttribute("districts", districts);
-		return "districts";
+		List<DistrictOrder> districtsOrder = districtService.findAllOrderedDistrictsByActiveOrderForm(of.getUuid());
+		model.addAttribute("districtsOrder", districtsOrder);
+		model.addAttribute("showNumberOfOrders", true);
+		return "districtsAOP";
 	}
 
 	@RequestMapping(value = { "/admin/dashboard/report/aop/na" }, method = RequestMethod.GET)
@@ -137,8 +143,12 @@ public class DashboardController extends AbstractController {
 	{
 		OrderForm of = orderFormService.getActiveOrderForm();
 		List<District> districts = districtService.findAllNADistrictsByActiveOrderForm(of.getUuid());
-		model.addAttribute("districts", districts);
-		return "districts";
+		List<DistrictOrder> districtsOrder = new ArrayList<>();
+		districts.forEach(district -> districtsOrder.add(new DistrictOrder(district, null)));
+		
+		model.addAttribute("districtsOrder", districtsOrder);
+		model.addAttribute("showNumberOfOrders", false);
+		return "districtsAOP";
 	}
 
 	private String getPercentage(int total, int found)

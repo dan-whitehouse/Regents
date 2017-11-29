@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.neric.regents.model.District;
 import org.neric.regents.model.User;
+import org.neric.regents.model.dashboard.DistrictOrder;
 
 
 public interface DistrictService {
@@ -36,7 +37,7 @@ public interface DistrictService {
 
     List<District> findAllUndecidedDistrictsByActiveOrderForm(String uuid);
 
-	List<District> findAllOrderedDistrictsByActiveOrderForm(String uuid);
+	List<DistrictOrder> findAllOrderedDistrictsByActiveOrderForm(String uuid);
 
 	List<District> findAllNADistrictsByActiveOrderForm(String uuid);
 }

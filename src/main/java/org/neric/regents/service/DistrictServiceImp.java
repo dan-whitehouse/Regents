@@ -5,6 +5,7 @@ import java.util.List;
 import org.neric.regents.dao.DistrictDAO;
 import org.neric.regents.model.District;
 import org.neric.regents.model.OptionPrint;
+import org.neric.regents.model.dashboard.DistrictOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -119,7 +120,7 @@ public class DistrictServiceImp implements DistrictService{
 	}
 
 	@Override
-	public List<District> findAllOrderedDistrictsByActiveOrderForm(String uuid) {
+	public List<DistrictOrder> findAllOrderedDistrictsByActiveOrderForm(String uuid) {
 		return dao.findAllOrderedDistrictsByActiveOrderForm(uuid);
 	}
 

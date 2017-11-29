@@ -88,7 +88,7 @@
                                         <tr>
                                             <td>
                                                 <p>
-                                                    <i class="fa fa-square green"></i>
+                                                    <i class="fa fa-square red"></i>
                                                     <span style="text-decoration: underline;">
                                                         <a href="<c:url value='/admin/dashboard/report/aop/na' />">Not Administering</a>
                                                     </span>
@@ -152,14 +152,14 @@
                         datasets: [{
                             data: [${activeOrdersUniqueDistrictCount}, ${activeNotAdministering}, ${activeUndecided}],
                             backgroundColor: [
-                                "#BDC3C7",
-                                "#E74C3C",
-                                "#9B59B6"
+                                "#3498db",
+                                "#e74c3c",
+                                "#9b59b6"
                             ],
                             hoverBackgroundColor: [
-                                "#CFD4D8",
-                                "#E95E4F",
-                                "#B370CF"
+                                "#3aa5ed",
+                                "#f54d3b",
+                                "#b063cc"
                             ]
                         }]
                     },

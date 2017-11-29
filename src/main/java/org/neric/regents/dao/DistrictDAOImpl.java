@@ -10,12 +10,15 @@ import org.neric.regents.model.District;
 import org.neric.regents.model.OptOut;
 import org.neric.regents.model.Order;
 import org.neric.regents.model.User;
+import org.neric.regents.model.dashboard.DistrictOrder;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+
+import com.mysql.fabric.xmlrpc.base.Array;
 
 
 
@@ -97,31 +100,36 @@ public class DistrictDAOImpl extends AbstractDao<Integer, District> implements D
 
 	@Override
 	public List<District> findAllUndecidedDistrictsByActiveOrderForm(String uuid) {
-
-		List<District> ordered = findAllOrderedDistrictsByActiveOrderForm(uuid);
+		List<District> orderedDistricts = new ArrayList<>();
+		List<DistrictOrder> ordered = findAllOrderedDistrictsByActiveOrderForm(uuid);
+		ordered.forEach(o -> orderedDistricts.add(o.getDistrict()));
+		
+		
 		List<District> all = findAllDistricts();
 
-		Collection<District> subtracted = CollectionUtils.subtract(all, ordered);
+		Collection<District> subtracted = CollectionUtils.subtract(all, orderedDistricts);
 		List<District> districts = new ArrayList<>(subtracted);
 		return districts;
 	}
 
 	@Override
-	public List<District> findAllOrderedDistrictsByActiveOrderForm(String uuid) {
+	public List<DistrictOrder> findAllOrderedDistrictsByActiveOrderForm(String uuid) {
 		Criteria criteria = getSession().createCriteria(Order.class,"o");
 		criteria.createAlias("o.orderForm",  "of");
 		criteria.add(Restrictions.eq("of.uuid", uuid));
 		criteria.addOrder(org.hibernate.criterion.Order.asc("o.uuid"));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
+		
 		List<Order> orders = (List<Order>) criteria.list();
-		List<District> districts = new ArrayList<>();
-		Set<District> set = new HashSet<>();
 		orders.forEach(order -> {
 			Hibernate.initialize(order.getDistrict());
-			set.add(order.getDistrict());
 		});
-		districts.addAll(set);
-		return districts;
+		
+		//https://stackoverflow.com/questions/31537763/java8-stream-groupingby-enum-and-counting
+		List<DistrictOrder> districtsOrder = new ArrayList<>();
+		Map<District, Long> districtOrderMap = orders.stream().collect(Collectors.groupingBy(Order::getDistrict, Collectors.counting()));
+		districtOrderMap.forEach((k,v) -> districtsOrder.add(new DistrictOrder(k, v)));
+		return districtsOrder;
 	}
 
 	@Override
