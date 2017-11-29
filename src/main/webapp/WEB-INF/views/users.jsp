@@ -49,7 +49,7 @@
 											<td>${user.lastName}</td>
 											<td>
 												<c:forEach items="${user.userDistricts}" var="userDistrict">
-													<span class = "label label-default">${userDistrict.district.name}</span>
+													<span class = "label label-lightGrey">${userDistrict.district.name}</span>
 												</c:forEach>
 											</td>
 										    <sec:authorize access="hasRole('ADMIN')">

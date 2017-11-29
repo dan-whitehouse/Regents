@@ -4865,6 +4865,7 @@ a.label:focus {
   position: relative;
   top: -1px;
 }
+.label-lightGrey { background-color: #9c9896; }
 .label-default {
   background-color: #777;
 }
