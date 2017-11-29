@@ -154,7 +154,7 @@
                         <div class="col-xs-12">
                           <p class="lead">Billing:</p>
                           <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-                             Your district will be billed for the precise number of tests and non-secure documents processed through NERIC. The rate for the Regents scanning/scoring service is ${inDistrictScanFee} per student per test processed. The rate for non-secure documents is ${nonSecureDocumentFee} per document ordered. Your district will be billed in the academic year. If you need a data file you must request it by sending an email to testing@neric.org; do this only after you confirm the accuracy of the scores on your reports.
+                             Your district will be billed for the precise number of tests and non-secure documents processed through NERIC. The in-district rate for the Regents scanning service is ${inDistrictScanFee} per student per test processed.The rate for non-secure documents is ${nonSecureDocumentFee} per document ordered. Your district will be billed in the academic year. If you need a data file you must request it by sending an email to testing@neric.org; do this only after you confirm the accuracy of the scores on your reports.
                           </p>
                         </div>
 

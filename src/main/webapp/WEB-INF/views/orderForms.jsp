@@ -65,7 +65,14 @@
 											
 											<td>${fStartDate}</td>
 											<td>${fEndDate}</td>
-											<td>${orderForm.period} ${schoolYear}</td>
+											<c:choose>
+												<c:when test="${orderForm.period eq 'January' }">
+													<td>${orderForm.period} ${schoolYear + 1}</td>
+												</c:when>
+												<c:otherwise>
+													<td>${orderForm.period} ${schoolYear}</td>
+												</c:otherwise>
+											</c:choose>
 											<td>
 											<!-- Start Status Test -->
     											<c:choose>
