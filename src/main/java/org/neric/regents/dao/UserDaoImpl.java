@@ -92,12 +92,14 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
 		List<User> users = (List<User>) criteria.list();
 		
-		// No need to fetch userProfiles since we are not showing them on list page. Let them lazy load. 
-		// Uncomment below lines for eagerly fetching of userProfiles if you want.
-		/*
-		for(User user : users){
-			Hibernate.initialize(user.getUserProfiles());
-		}*/
+		for(User user : users) {
+			Hibernate.initialize(user.getUserDistricts());
+			for(UserDistrict ud : user.getUserDistricts())
+			{
+				Hibernate.initialize(ud.getDistrict());
+			}
+		}
+		
 		return users;
 	}
 

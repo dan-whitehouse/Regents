@@ -35,6 +35,7 @@
 									    <th>Username</th>
 										<th>First Name</th>
 										<th>Last Name</th>
+										<th>District</th>
 										<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
 											<th>Management</th>
 										</sec:authorize>
@@ -46,6 +47,11 @@
 										    <td><span style="text-decoration: underline;"><a href="<c:url value='/admin/users/${user.uuid}' />">${user.username}</a></span></td>
 											<td>${user.firstName}</td>
 											<td>${user.lastName}</td>
+											<td>
+												<c:forEach items="${user.userDistricts}" var="userDistrict">
+													<span class = "label label-default">${userDistrict.district.name}</span>
+												</c:forEach>
+											</td>
 										    <sec:authorize access="hasRole('ADMIN')">
 												<td width="195px">
 													<a href="<c:url value='/admin/users/${user.uuid}/edit' />" class="btn btn-success custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>

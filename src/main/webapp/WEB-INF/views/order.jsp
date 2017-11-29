@@ -371,7 +371,7 @@
 												<label for="phone" class="control-label col-md-3 col-sm-3 col-xs-3 left">Phone</label>
 											    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 											    	<span class="input-group-addon"><i class="fa fa-phone"></i></span>
-											    	<form:input type="text" pattern="^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$" maxlength="50" path="orderContact.phone" id="orderContact.phone" class="form-control col-md-7 col-xs-12" name="phone" placeholder="Phone"  required="required" />
+											    	<form:input type="text" pattern="^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *ext(\d+))?\s*$" maxlength="50" path="orderContact.phone" id="orderContact.phone" class="form-control col-md-7 col-xs-12" name="phone" placeholder="Phone"  required="required" />
 											    </div>
 											    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 											</div>
