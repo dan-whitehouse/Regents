@@ -33,7 +33,7 @@ public class DocumentController extends AbstractController {
 
 		List<Document> documents = documentService.findAllDocuments();
 		model.addAttribute("documents", documents);
-		return "documents";
+		return "document/documents";
 	}
 		
 	@RequestMapping(value = { "/admin/documents/create" }, method = RequestMethod.GET)
@@ -42,7 +42,7 @@ public class DocumentController extends AbstractController {
 		Document document = new Document();
 		model.addAttribute("document", document);
 		model.addAttribute("edit", false);
-		return "createOrEditDocument";
+		return "document/createOrEditDocument";
 	}
 
 	@RequestMapping(value = { "/admin/documents/create" }, method = RequestMethod.POST)
@@ -50,7 +50,7 @@ public class DocumentController extends AbstractController {
 	{
 		if (result.hasErrors()) 
 		{
-			return "createOrEditDocument";
+			return "document/createOrEditDocument";
 		}
 		document.setUuid(UUID.randomUUID().toString());
 		document.setVisible(true);
@@ -60,7 +60,7 @@ public class DocumentController extends AbstractController {
 		model.addAttribute("success", "Document: " + document.getName() + " was created successfully.");
 		model.addAttribute("returnLink", "/admin/documents");
 		model.addAttribute("returnLinkText", "Documents");
-		return "success";
+		return "message/success";
 	}
 	
 	@RequestMapping(value = { "/admin/documents/{uuid}/edit" }, method = RequestMethod.GET)
@@ -72,12 +72,12 @@ public class DocumentController extends AbstractController {
 		{
 			model.addAttribute("document", document);
 			model.addAttribute("edit", true);
-			return "createOrEditDocument";
+			return "document/createOrEditDocument";
 		}
 		else
 		{
 			model.addAttribute("error_message", "The document you are trying to edit is locked, please unlock it and try again.");
-			return "403";
+			return "message/403";
 		}
 		
 	}
@@ -87,7 +87,7 @@ public class DocumentController extends AbstractController {
 	{
 		if (result.hasErrors()) 
 		{
-			return "createOrEditDocument";
+			return "document/createOrEditDocument";
 		}
 
 		documentService.updateDocument(document);
@@ -95,7 +95,7 @@ public class DocumentController extends AbstractController {
 		model.addAttribute("success", "Document: " + document.getName() + " was updated successfully.");
 		model.addAttribute("returnLink", "/admin/documents");
 		model.addAttribute("returnLinkText", "Documents");
-		return "success";
+		return "message/success";
 	}
 
 
@@ -111,7 +111,7 @@ public class DocumentController extends AbstractController {
 		else
 		{
 			model.addAttribute("error_message", "The document you are trying to delete is locked, please unlock it and try again.");
-			return "403";	
+			return "message/403";	
 		}
 	}
 	

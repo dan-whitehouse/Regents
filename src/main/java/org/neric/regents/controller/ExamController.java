@@ -33,7 +33,7 @@ public class ExamController extends AbstractController {
 
 		List<Exam> exams = examService.findAllExams();
 		model.addAttribute("exams", exams);
-		return "exams";
+		return "exam/exams";
 	}
 	
 	@RequestMapping(value = { "/admin/exams/create" }, method = RequestMethod.GET)
@@ -42,7 +42,7 @@ public class ExamController extends AbstractController {
 		Exam exam = new Exam();
 		model.addAttribute("exam", exam);
 		model.addAttribute("edit", false);
-		return "createOrEditExam";
+		return "exam/createOrEditExam";
 	}
 
 	@RequestMapping(value = { "/admin/exams/create" }, method = RequestMethod.POST)
@@ -50,7 +50,7 @@ public class ExamController extends AbstractController {
 	{
 		if (result.hasErrors()) 
 		{
-			return "createOrEditExam";
+			return "exam/createOrEditExam";
 		}
 		exam.setUuid(UUID.randomUUID().toString());
 		exam.setVisible(true);
@@ -60,7 +60,7 @@ public class ExamController extends AbstractController {
 		model.addAttribute("success", "Exam: " + exam.getName() + " was created successfully.");
 		model.addAttribute("returnLink", "/admin/exams");
 		model.addAttribute("returnLinkText", "Exams");
-		return "success";
+		return "message/success";
 	}
 	
 	@RequestMapping(value = { "/admin/exams/{uuid}/edit" }, method = RequestMethod.GET)
@@ -72,12 +72,12 @@ public class ExamController extends AbstractController {
 		{
 			model.addAttribute("exam", exam);
 			model.addAttribute("edit", true);
-			return "createOrEditExam";
+			return "exam/createOrEditExam";
 		}
 		else
 		{
 			model.addAttribute("error_message", "The exam you are trying to edit is locked, please unlock it and try again.");
-			return "403";
+			return "message/403";
 		}
 	}
 	
@@ -86,7 +86,7 @@ public class ExamController extends AbstractController {
 	{
 		if (result.hasErrors()) 
 		{
-			return "createOrEditExam";
+			return "exam/createOrEditExam";
 		}
 
 		examService.updateExam(exam);
@@ -94,7 +94,7 @@ public class ExamController extends AbstractController {
 		model.addAttribute("success", "Exam: " + exam.getName() + " - " + exam.getCode() +  " was updated successfully.");
 		model.addAttribute("returnLink", "/admin/exams");
 		model.addAttribute("returnLinkText", "Exams");
-		return "success";
+		return "message/success";
 	}
 
 
@@ -110,7 +110,7 @@ public class ExamController extends AbstractController {
 		else
 		{
 			model.addAttribute("error_message", "The exam you are trying to delete is locked, please unlock it and try again.");
-			return "403";
+			return "message/403";
 		}
 	}
 	

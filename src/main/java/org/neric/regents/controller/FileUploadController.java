@@ -32,7 +32,7 @@ public class FileUploadController extends AbstractController {
        @RequestMapping("/dev/csv")
        public String home(Model model, HttpServletRequest request) {
               model.addAttribute("postUrl", request.getRequestURL()+"/upload");
-              return "csv";
+              return "fileupload/csv";
        }
 
        @RequestMapping(value = "/dev/csv/upload", method = RequestMethod.POST)

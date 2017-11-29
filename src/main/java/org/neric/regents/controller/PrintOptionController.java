@@ -33,7 +33,7 @@ public class PrintOptionController extends AbstractController {
 
 		List<OptionPrint> printOptions = optionPrintService.findAllOptionPrints();
 		model.addAttribute("printOptions", printOptions);
-		return "printOptions";
+		return "printoption/printOptions";
 	}
 		
 	@RequestMapping(value = { "/admin/printOptions/create" }, method = RequestMethod.GET)
@@ -42,7 +42,7 @@ public class PrintOptionController extends AbstractController {
 		OptionPrint printOption = new OptionPrint();
 		model.addAttribute("printOption", printOption);
 		model.addAttribute("edit", false);
-		return "createOrEditPrintOption";
+		return "printoption/createOrEditPrintOption";
 	}
 
 	@RequestMapping(value = { "/admin/printOptions/create" }, method = RequestMethod.POST)
@@ -50,7 +50,7 @@ public class PrintOptionController extends AbstractController {
 	{
 		if (result.hasErrors()) 
 		{
-			return "createOrEditPrintOption";
+			return "printoption/createOrEditPrintOption";
 		}	
 		
 		optionPrint.setUuid(UUID.randomUUID().toString());
@@ -61,7 +61,7 @@ public class PrintOptionController extends AbstractController {
 		model.addAttribute("success", "Print Option: " + optionPrint.getName() + " was created successfully.");
 		model.addAttribute("returnLink", "/admin/printOptions");
 		model.addAttribute("returnLinkText", "Print Options");
-		return "success";
+		return "message/success";
 	}
 	
 	@RequestMapping(value = { "/admin/printOptions/{uuid}/edit" }, method = RequestMethod.GET)
@@ -73,12 +73,12 @@ public class PrintOptionController extends AbstractController {
 		{
 			model.addAttribute("printOption", printOption);
 			model.addAttribute("edit", true);
-			return "createOrEditPrintOption";
+			return "printoption/createOrEditPrintOption";
 		}
 		else
 		{
 			model.addAttribute("error_message", "The print option you are trying to edit is locked, please unlock it and try again.");
-			return "403";
+			return "message/403";
 		}
 		
 	}
@@ -88,7 +88,7 @@ public class PrintOptionController extends AbstractController {
 	{
 		if (result.hasErrors()) 
 		{
-			return "createOrEditPrintOption";
+			return "printoption/createOrEditPrintOption";
 		}
 
 		optionPrintService.update(optionPrint);
@@ -96,7 +96,7 @@ public class PrintOptionController extends AbstractController {
 		model.addAttribute("success", "Print Option: " + optionPrint.getName() + " was updated successfully.");
 		model.addAttribute("returnLink", "/admin/printOptions");
 		model.addAttribute("returnLinkText", "Print Options");
-		return "success";
+		return "message/success";
 	}
 
 
@@ -113,7 +113,7 @@ public class PrintOptionController extends AbstractController {
 		else
 		{
 			model.addAttribute("error_message", "The print option you are trying to delete is locked, please unlock it and try again.");
-			return "403";	
+			return "message/403";	
 		}
 	}
 	

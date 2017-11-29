@@ -72,7 +72,7 @@ public class SchoolController extends AbstractController {
 
 		List<School> schools = schoolService.findAll();
 		model.addAttribute("schools", schools);
-		return "schools";
+		return "school/schools";
 	}
 		
 	@RequestMapping(value = { "/admin/schools/create" }, method = RequestMethod.GET)
@@ -84,7 +84,7 @@ public class SchoolController extends AbstractController {
 		model.addAttribute("school", school);
 		model.addAttribute("districts", districts);
 		model.addAttribute("edit", false);
-		return "createOrEditSchool";
+		return "school/createOrEditSchool";
 	}
 
 	@RequestMapping(value = { "/admin/schools/create" }, method = RequestMethod.POST)
@@ -92,7 +92,7 @@ public class SchoolController extends AbstractController {
 	{
 		if (result.hasErrors()) 
 		{
-			return "createOrEditSchool";
+			return "school/createOrEditSchool";
 		}	
 		
 		school.setUuid(UUID.randomUUID().toString());
@@ -103,7 +103,7 @@ public class SchoolController extends AbstractController {
 		model.addAttribute("success", "School: " + school.getName() + " was created successfully.");
 		model.addAttribute("returnLink", "/admin/schools");
 		model.addAttribute("returnLinkText", "Schools");
-		return "success";
+		return "message/success";
 	}
 	
 	@RequestMapping(value = { "/admin/schools/{uuid}/edit" }, method = RequestMethod.GET)
@@ -114,7 +114,7 @@ public class SchoolController extends AbstractController {
 		model.addAttribute("school", school);
 		model.addAttribute("districts", districts);
 		model.addAttribute("edit", true);
-		return "createOrEditSchool";
+		return "school/createOrEditSchool";
 	}
 	
 	@RequestMapping(value = { "/admin/schools/{uuid}/edit" }, method = RequestMethod.POST)
@@ -122,14 +122,14 @@ public class SchoolController extends AbstractController {
 	{
 		if (result.hasErrors()) 
 		{
-			return "createOrEditSchool";
+			return "school/createOrEditSchool";
 		}
 		schoolService.update(school);
 
 		model.addAttribute("success", "School: " + school.getName() + " was updated successfully.");
 		model.addAttribute("returnLink", "/admin/schools");
 		model.addAttribute("returnLinkText", "Schools");
-		return "success";
+		return "message/success";
 	}
 	
 	@RequestMapping(value = { "/admin/schools/{uuid}/delete" }, method = RequestMethod.GET)
@@ -145,7 +145,7 @@ public class SchoolController extends AbstractController {
 		else
 		{
 			model.addAttribute("error_message", "The school you are trying to delete is locked, please unlock it and try again.");
-			return "403";
+			return "message/403";
 		}
 	}
 	

@@ -72,7 +72,7 @@ public class DistrictController extends AbstractController {
 
 		List<District> districts = districtService.findAllDistricts();
 		model.addAttribute("districts", districts);
-		return "districts";
+		return "district/districts";
 	}
 		
 	@RequestMapping(value = { "/admin/districts/create" }, method = RequestMethod.GET)
@@ -82,7 +82,7 @@ public class DistrictController extends AbstractController {
 		
 		model.addAttribute("district", district);
 		model.addAttribute("edit", false);
-		return "createOrEditDistrict";
+		return "district/createOrEditDistrict";
 	}
 
 	@RequestMapping(value = { "/admin/districts/create" }, method = RequestMethod.POST)
@@ -90,7 +90,7 @@ public class DistrictController extends AbstractController {
 	{
 		if (result.hasErrors()) 
 		{
-			return "createOrEditDistrict";
+			return "district/createOrEditDistrict";
 		}	
 		
 		district.setUuid(UUID.randomUUID().toString());
@@ -102,7 +102,7 @@ public class DistrictController extends AbstractController {
 		model.addAttribute("success", "District: " + district.getName() + " was created successfully");
 		model.addAttribute("returnLink", "/admin/districts");
 		model.addAttribute("returnLinkText", "Districts");
-		return "success";
+		return "message/success";
 	}
 
 	@RequestMapping(value = { "/admin/districts/{uuid}" }, method = RequestMethod.GET)
@@ -110,7 +110,7 @@ public class DistrictController extends AbstractController {
 	{
 		District district = districtService.findByUUID(uuid);
 		model.addAttribute("district", district);
-		return "district";
+		return "district/district";
 	}
 
 	
@@ -123,12 +123,12 @@ public class DistrictController extends AbstractController {
 		{
 			model.addAttribute("district", district);
 			model.addAttribute("edit", true);
-			return "createOrEditDistrict";
+			return "district/createOrEditDistrict";
 		}
 		else 
 		{
 			model.addAttribute("error_message", "The district you are trying to edit is locked, please unlock it and try again");
-			return "403";
+			return "message/403";
 		}
 	}
 	
@@ -137,14 +137,14 @@ public class DistrictController extends AbstractController {
 	{
 		if (result.hasErrors()) 
 		{
-			return "createOrEditDistrict";
+			return "district/createOrEditDistrict";
 		}
 		districtService.updateDistrict(district);
 
 		model.addAttribute("success", "District: " + district.getName() + " was updated successfully");
 		model.addAttribute("returnLink", "/admin/districts");
 		model.addAttribute("returnLinkText", "Districts");
-		return "success";
+		return "message/success";
 	}
 	
 	@RequestMapping(value = { "/admin/districts/{uuid}/delete" }, method = RequestMethod.GET)
@@ -159,7 +159,7 @@ public class DistrictController extends AbstractController {
 		else 
 		{
 			model.addAttribute("error_message", "The district you are trying to delete is locked, please unlock it and try again");
-			return "403";	
+			return "message/403";	
 		}
 	}
 	

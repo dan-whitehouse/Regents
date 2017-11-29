@@ -33,7 +33,7 @@ public class ScanOptionController extends AbstractController {
 
 		List<OptionScan> scanOptions = optionScanService.findAllOptionScans();
 		model.addAttribute("scanOptions", scanOptions);
-		return "scanOptions";
+		return "scanoption/scanOptions";
 	}
 		
 	@RequestMapping(value = { "/admin/scanOptions/create" }, method = RequestMethod.GET)
@@ -42,7 +42,7 @@ public class ScanOptionController extends AbstractController {
 		OptionScan scanOption = new OptionScan();
 		model.addAttribute("scanOption", scanOption);
 		model.addAttribute("edit", false);
-		return "createOrEditScanOption";
+		return "scanoption/createOrEditScanOption";
 	}
 
 	@RequestMapping(value = { "/admin/scanOptions/create" }, method = RequestMethod.POST)
@@ -50,7 +50,7 @@ public class ScanOptionController extends AbstractController {
 	{
 		if (result.hasErrors()) 
 		{
-			return "createOrEditScanOption";
+			return "scanoption/createOrEditScanOption";
 		}	
 		
 		optionScan.setUuid(UUID.randomUUID().toString());
@@ -61,7 +61,7 @@ public class ScanOptionController extends AbstractController {
 		model.addAttribute("success", "Scan Option: " + optionScan.getName() + " was created successfully.");
 		model.addAttribute("returnLink", "/admin/scanOptions");
 		model.addAttribute("returnLinkText", "Scan Options");
-		return "success";
+		return "message/success";
 	}
 	
 	@RequestMapping(value = { "/admin/scanOptions/{uuid}/edit" }, method = RequestMethod.GET)
@@ -73,12 +73,12 @@ public class ScanOptionController extends AbstractController {
 		{
 			model.addAttribute("scanOption", scanOption);
 			model.addAttribute("edit", true);
-			return "createOrEditScanOption";
+			return "scanoption/createOrEditScanOption";
 		}
 		else
 		{
 			model.addAttribute("error_message", "The scan option you are trying to edit is locked, please unlock it and try again.");
-			return "403";	
+			return "message/403";	
 		}
 	}
 	
@@ -87,7 +87,7 @@ public class ScanOptionController extends AbstractController {
 	{
 		if (result.hasErrors()) 
 		{
-			return "createOrEditScanOption";
+			return "scanoption/createOrEditScanOption";
 		}
 
 		optionScanService.update(optionScan);
@@ -95,7 +95,7 @@ public class ScanOptionController extends AbstractController {
 		model.addAttribute("success", "Scan Option: " + optionScan.getName() + " was updated successfully.");
 		model.addAttribute("returnLink", "/admin/scanOptions");
 		model.addAttribute("returnLinkText", "Scan Options");
-		return "success";
+		return "message/success";
 	}
 
 
@@ -112,7 +112,7 @@ public class ScanOptionController extends AbstractController {
 		else 
 		{
 			model.addAttribute("error_message", "The scan option you are trying to delete is locked, please unlock it and try again.");
-			return "403";
+			return "message/403";
 		}
 	}
 	

@@ -256,7 +256,7 @@ public class OrderController extends AbstractController
 		List<Order> orders = orderService.findAllOrders();
 		model.addAttribute("orders", orders);
 		model.addAttribute("loggedinuser", getPrincipal());
-		return "ordersAdmin";
+		return "order/ordersAdmin";
 	}
 	
 	@RequestMapping(value = { "/orders" }, method = RequestMethod.GET)
@@ -265,7 +265,7 @@ public class OrderController extends AbstractController
 		List<Order> orders = orderService.findAllOrdersByUsername(loggedInUserName());
 		model.addAttribute("orders", orders);
 		model.addAttribute("loggedinuser", getPrincipal());
-		return "orders";
+		return "order/orders";
 	}
 
 	@RequestMapping(value = { "/order" }, method = RequestMethod.GET)
@@ -284,7 +284,7 @@ public class OrderController extends AbstractController
 				if(orderForm.isExpiredPeriod())
 				{
 					model.addAttribute("error_message", "It appears the active Regents period has expired.");
-					return "403";
+					return "message/403";
 				}
 				else if(orderForm.isActivePeriod() && orderForm.getVisible() && !orderForm.getLocked())
 				{
@@ -322,50 +322,50 @@ public class OrderController extends AbstractController
 						model.addAttribute("xForm2", xForm);
 						model.addAttribute("orderForm", orderForm);
 						model.addAttribute("period", orderForm.getPeriod());
-						return "order";
+						return "order/order";
 					}
 					else if(wasOptedOutByOtherUser(optOuts))
 					{
 						model.addAttribute("error_message", "It appears another user may have already marked all of the districts associated with this account as 'Not Administering'.");
-						return "204";
+						return "message/204";
 					}
 					else
 					{
 						model.addAttribute("error_message", "It appears you are not administering this Regents period.");
-						return "204";
+						return "message/204";
 					}
 				}
 				else if(!orderForm.isActivePeriod())
 				{
 					model.addAttribute("error_message", "No active Regents period.");
-					return "204";
+					return "message/204";
 				}
 				else if(orderForm.getLocked())
 				{
 					model.addAttribute("error_message", "The Regents period has been locked.");
-					return "403";
+					return "message/403";
 				}
 				else if(!orderForm.getVisible())
 				{
 					model.addAttribute("error_message", "...");
-					return "403";
+					return "message/403";
 				}
 				else
 				{
 					model.addAttribute("error_message", "Not expired, and is visible...");
-					return "403";
+					return "message/403";
 				}	
 			}
 			else
 			{
 				model.addAttribute("error_message", "It appears you are not administering this Regents period.");
-				return "204";
+				return "message/204";
 			}
 		}
 		else
 		{
 			model.addAttribute("error_message", "No active Regents period.");
-			return "204"; //No Active OrderForm
+			return "message/204"; //No Active OrderForm
 		}
 	}
 
@@ -390,7 +390,7 @@ public class OrderController extends AbstractController
 			{
 				System.out.println(x.getCode() + " | " + x.getObjectName() + " | " + x.getDefaultMessage());
 			}
-			return "error";
+			return "message/error";
 		}
 
 		
@@ -444,7 +444,7 @@ public class OrderController extends AbstractController
 	@RequestMapping(value = "/orderSuccess", method = RequestMethod.GET)
 	public String success(Model model)
 	{
-		return "orderSuccess";
+		return "order/orderSuccess";
 	}
 
 	@RequestMapping(value = { "order/{uuid}" }, method = RequestMethod.GET)
@@ -477,11 +477,11 @@ public class OrderController extends AbstractController
 			model.addAttribute("sortedExamList", sortedExamList);
 			model.addAttribute("sortedDocumentList", sortedDocumentList);
 			model.addAttribute("orderForm", orderForm);
-			return "invoice";
+			return "order/invoice";
 		}
 		else
 		{
-			return "403";
+			return "message/403";
 		}
 	}
 
@@ -550,27 +550,27 @@ public class OrderController extends AbstractController
 			model.addAttribute("allExamOptionsByOrderForm", findAllExamsByOrderFormId(orderForm.getId()));
 			model.addAttribute("schoolsByOrderUserDistrict", findSchoolsByOrderUserDistrict(order));
 
-			return "createOrEditOrder";
+			return "order/createOrEditOrder";
 		}
 		else if(order.isComplete())
 		{
 			model.addAttribute("error_message", "This order has been marked as complete.");
-			return "403";
+			return "message/403";
 		}
 		if(orderForm.isExpiredPeriod())
 		{
 			model.addAttribute("error_message", "It appears the associated Regents period has expired.");
-			return "403";
+			return "message/403";
 		}
 		else if(!orderForm.isActivePeriod())
 		{
 			model.addAttribute("error_message", "No active Regents period.");
-			return "204";
+			return "message/204";
 		}
 		else
 		{
 			model.addAttribute("error_message", "It appears the associated Regents period has expired.");
-			return "403";
+			return "message/403";
 		}
 	}
 	
@@ -581,7 +581,7 @@ public class OrderController extends AbstractController
 	{
 		if (result.hasErrors())
 		{
-			return "createOrEditOrder";
+			return "order/createOrEditOrder";
 		}
 
 		try
@@ -644,7 +644,7 @@ public class OrderController extends AbstractController
 			e.printStackTrace();
 		}
 
-		return "success";
+		return "message/success";
 	}
 
 	@RequestMapping(value = { "order/{uuid}/delete" }, method = RequestMethod.GET)

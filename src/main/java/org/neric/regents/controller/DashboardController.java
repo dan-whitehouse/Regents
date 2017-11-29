@@ -112,7 +112,7 @@ public class DashboardController extends AbstractController {
 		model.addAttribute("activeNotAdministeringPercent", getPercentage(districtCount, activeNotAdministering));
 		model.addAttribute("activeUndecidedPercent", getPercentage(districtCount, activeNeither));
 
-		return "dashboard";
+		return "dashboard/dashboard";
 	}
 
 	@RequestMapping(value = { "/admin/dashboard/report/aop/undecided" }, method = RequestMethod.GET)
@@ -125,7 +125,7 @@ public class DashboardController extends AbstractController {
 		
 		model.addAttribute("districtsOrder", districtsOrder);
 		model.addAttribute("showNumberOfOrders", false);
-		return "districtsAOP";
+		return "dashboard/districtsAOP";
 	}
 
 	@RequestMapping(value = { "/admin/dashboard/report/aop/ordered" }, method = RequestMethod.GET)
@@ -135,7 +135,7 @@ public class DashboardController extends AbstractController {
 		List<DistrictOrder> districtsOrder = districtService.findAllOrderedDistrictsByActiveOrderForm(of.getUuid());
 		model.addAttribute("districtsOrder", districtsOrder);
 		model.addAttribute("showNumberOfOrders", true);
-		return "districtsAOP";
+		return "dashboard/districtsAOP";
 	}
 
 	@RequestMapping(value = { "/admin/dashboard/report/aop/na" }, method = RequestMethod.GET)
@@ -148,7 +148,7 @@ public class DashboardController extends AbstractController {
 		
 		model.addAttribute("districtsOrder", districtsOrder);
 		model.addAttribute("showNumberOfOrders", false);
-		return "districtsAOP";
+		return "dashboard/districtsAOP";
 	}
 
 	private String getPercentage(int total, int found)

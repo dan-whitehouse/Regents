@@ -181,7 +181,7 @@ public class OrderFormController extends AbstractController {
 
 		List<OrderForm> orderForms = orderFormService.findAllOrderForms();
 		model.addAttribute("orderForms", orderForms);
-		return "orderForms";
+		return "orderform/orderForms";
 	}
 	
 	@RequestMapping(value = { "/admin/orderForms/{uuid}" }, method = RequestMethod.GET)
@@ -190,7 +190,7 @@ public class OrderFormController extends AbstractController {
 		OrderForm orderForm = orderFormService.findByUUID(uuid);
 		model.addAttribute("orderForm", orderForm);
 		model.addAttribute("edit", false);
-		return "orderForm";
+		return "orderform/orderForm";
 	}
 		
 	@RequestMapping(value = { "/admin/orderForms/create" }, method = RequestMethod.GET)
@@ -207,7 +207,7 @@ public class OrderFormController extends AbstractController {
 		model.addAttribute("orderForm", orderForm);
 		model.addAttribute("edit", false);
 		
-		return "createOrEditOrderForm";
+		return "orderform/createOrEditOrderForm";
 	}
 
 	@RequestMapping(value = { "/admin/orderForms/create" }, method = RequestMethod.POST)
@@ -215,7 +215,7 @@ public class OrderFormController extends AbstractController {
 	{
 		if (result.hasErrors()) 
 		{
-			return "createOrEditOrderForm";
+			return "orderform/createOrEditOrderForm";
 		}		
 		
 		orderForm.setUuid(UUID.randomUUID().toString());
@@ -235,7 +235,7 @@ public class OrderFormController extends AbstractController {
 		model.addAttribute("success", "OrderForm: " + orderForm.getName() + " was created successfully.");
 		model.addAttribute("returnLink", "/admin/orderForms");
 		model.addAttribute("returnLinkText", "Order Forms");
-		return "success";
+		return "message/success";
 	}
 	
 	@RequestMapping(value = { "/admin/orderForms/{uuid}/edit" }, method = RequestMethod.GET)
@@ -286,12 +286,12 @@ public class OrderFormController extends AbstractController {
 			model.addAttribute("docs", documents);
 			model.addAttribute("orderForm", orderForm);
 			model.addAttribute("edit", true);
-			return "createOrEditOrderForm";
+			return "orderform/createOrEditOrderForm";
 		}
 		else
 		{
 			model.addAttribute("error_message", "The order form you are trying to edit is locked, please unlock it and try again.");
-			return "403";	
+			return "message/403";	
 		}
 	}
 	
@@ -301,7 +301,7 @@ public class OrderFormController extends AbstractController {
 	{
 		if (result.hasErrors()) 
 		{
-			return "createOrEditOrderForm";
+			return "orderform/createOrEditOrderForm";
 		}
 		
 		OrderForm orderFormUpdate = orderFormService.findByUUID(uuid);
@@ -334,7 +334,7 @@ public class OrderFormController extends AbstractController {
 		model.addAttribute("returnLink", "/admin/orderForms");
 		model.addAttribute("returnLinkText", "Order Forms");
 
-		return "success";
+		return "message/success";
 	}
 	
 	@RequestMapping(value = { "admin/orderForms/{uuid}/delete" }, method = RequestMethod.GET)
@@ -349,7 +349,7 @@ public class OrderFormController extends AbstractController {
 		else
 		{
 			model.addAttribute("error_message", "The order form you are trying to delete is locked, please unlock it and try again.");
-			return "403";	
+			return "message/403";	
 		}
 	}
 	

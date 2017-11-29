@@ -80,7 +80,7 @@ public class UserController extends AbstractController {
 	{
 		List<User> users = userService.findAllUsers();
 		model.addAttribute("users", users);
-		return "users";
+		return "user/users";
 	}
 
 	@RequestMapping(value = { "/admin/users/{uuid}" }, method = RequestMethod.GET)
@@ -94,7 +94,7 @@ public class UserController extends AbstractController {
 
 		model.addAttribute("edit", false);
 		model.addAttribute("loggedinusername", getPrincipal());
-		return "user";
+		return "user/user";
 	}
 
 	@RequestMapping(value = { "/profile" }, method = RequestMethod.GET)
@@ -108,7 +108,7 @@ public class UserController extends AbstractController {
 
 		model.addAttribute("edit", false);
 		model.addAttribute("loggedinusername", getPrincipal());
-		return "user";
+		return "user/user";
 	}
 	
 	@RequestMapping(value = { "admin/users/create" }, method = RequestMethod.GET)
@@ -119,7 +119,7 @@ public class UserController extends AbstractController {
 		model.addAttribute("user", user);
 		model.addAttribute("districts", districts);
 		model.addAttribute("edit", false);
-		return "createUser";
+		return "user/createUser";
 	}
 	
 	@RequestMapping(value = { "admin/users/create" }, method = RequestMethod.POST)
@@ -131,14 +131,14 @@ public class UserController extends AbstractController {
 			{
 				System.err.println(objectError.getDefaultMessage());
 			}
-			return "createUser";
+			return "user/createUser";
 		}
 
 		if(!userService.isUserUsernameUnique(user.getId(), user.getUsername()))
 		{
 			FieldError usernameError =new FieldError("user","username",messageSource.getMessage("non.unique.username", new String[]{user.getUsername()}, Locale.getDefault()));
 		    result.addError(usernameError);
-			return "createUser";
+			return "user/createUser";
 		}
 		
 		user.setLocked(false);
@@ -156,7 +156,7 @@ public class UserController extends AbstractController {
 		model.addAttribute("success", "User: " + user.getUsername() + " was registered successfully.");
 		model.addAttribute("returnLink", "/admin/users");
 		model.addAttribute("returnLinkText", "Users");
-		return "success";
+		return "message/success";
 	}
 	
 	@RequestMapping(value = { "/admin/users/{uuid}/edit" }, method = RequestMethod.GET)
@@ -187,12 +187,12 @@ public class UserController extends AbstractController {
 			model.addAttribute("districts", districts);
 			model.addAttribute("selectedDistricts", selectedDistricts);
 			model.addAttribute("edit", true);
-			return "createUser";
+			return "user/createUser";
 		}
 		else
 		{
 			model.addAttribute("error_message", "The user you are trying to edit is locked, please unlock it and try again.");
-			return "403";
+			return "message/403";
 		}
 	}
 	
@@ -202,7 +202,7 @@ public class UserController extends AbstractController {
 	{
 		if (result.hasErrors()) 
 		{
-			return "createUser";
+			return "user/createUser";
 		}
 		
 		User updatedUser = userService.findByUUID(uuid);
@@ -230,7 +230,7 @@ public class UserController extends AbstractController {
 		model.addAttribute("success", "User: " + user.getUsername() +  " was updated successfully.");
 		model.addAttribute("returnLink", "/admin/users");
 		model.addAttribute("returnLinkText", "Users");
-		return "success";
+		return "message/success";
 	}
 	
 	
@@ -246,7 +246,7 @@ public class UserController extends AbstractController {
 		else
 		{
 			model.addAttribute("error_message", "The user you are trying to delete is locked, please unlock it and try again.");
-			return "403";	
+			return "message/403";	
 		}
 	}
 	
