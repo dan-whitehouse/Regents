@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- footer content -->
         <footer>
+       	<div class="clearfix"></div>
           <div class="pull-right">
 <!--             Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a> -->
 			<p style="font-size:13px;"> NERIC - Northeaster Regional Information Center</p>
