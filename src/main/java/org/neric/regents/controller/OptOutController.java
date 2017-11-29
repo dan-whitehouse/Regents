@@ -231,15 +231,6 @@ public class OptOutController extends AbstractController {
 		return "success";
 	}
 	
-	@RequestMapping(value = { "notadministration/{uuid}" }, method = RequestMethod.GET)
-	public String optOut(@PathVariable String uuid, ModelMap model)
-	{
-		OptOut optOut = optOutService.findByUUID(uuid);
-		model.addAttribute("optOut", optOut);
-		// create page called optoutresponse
-		return "optoutresponse";
-	}
-	
 	@RequestMapping(value = { "notadministration/{uuid}/delete" }, method = RequestMethod.GET)
 	public String deleteOptOut(@PathVariable String uuid, ModelMap model)
 	{

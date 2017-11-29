@@ -47,10 +47,10 @@ public class AppController extends AbstractController{
 	public String homePage(ModelMap model) {
 		if(isCurrentAuthenticationAnonymous())
 		{
-			return "login";
+			return "app/login";
 		}
 		model.addAttribute("loggedinusername", getPrincipal());
-		return "home";
+		return "app/home";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -67,7 +67,7 @@ public class AppController extends AbstractController{
 			{
 				model.addAttribute("msg", "You have been logged out successfully.");
 			}
-			return "login";
+			return "app/login";
 	    } 
 		else 
 		{
@@ -120,7 +120,7 @@ public class AppController extends AbstractController{
 		UserPassword userPassword = new UserPassword(user.getId());
 		model.addAttribute("userPassword", userPassword);
 		model.addAttribute("loggedinusername", getPrincipal());
-		return "changePassword";
+		return "app/changePassword";
 	}
 	
 	@RequestMapping(value = { "/changePassword" }, method = RequestMethod.POST)
@@ -132,7 +132,7 @@ public class AppController extends AbstractController{
 			{
 				System.err.println(error.getObjectName() + " | " + error.getCode() + " | " + error.getDefaultMessage());
 			}
-			return "changePassword";
+			return "app/changePassword";
 		}
 		
 		userService.updatePassword(userPassword);
@@ -141,6 +141,6 @@ public class AppController extends AbstractController{
 		model.addAttribute("returnLink", "/");
 		model.addAttribute("returnLinkText", "Users");
 		model.addAttribute("loggedinusername", getPrincipal());
-		return "success";
+		return "message/success";
 	}
 }
