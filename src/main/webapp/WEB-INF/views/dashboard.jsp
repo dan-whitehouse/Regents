@@ -36,7 +36,7 @@
         </div>
         <!-- /top tiles -->
         <div class="row">
-            <div class="col-md-4 col-sm-4 col-xs-12">
+           <!--  <div class="col-md-4 col-sm-4 col-xs-12">
                 <div class="x_panel tile fixed_height_320">
                     <div class="x_title">
                         <h2>Widget</h2>
@@ -46,7 +46,7 @@
                         <h4></h4>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="col-md-4 col-sm-4 col-xs-12">
                 <div class="x_panel tile fixed_height_320 overflow_hidden">
                     <div class="x_title">
@@ -114,7 +114,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 col-sm-6 col-xs-12 widget_tally_box">
+            <div class="col-md-8 col-sm-8 col-xs-8 widget_tally_box">
                 <div class="x_panel tile fixed_height_320 overflow_hidden">
                     <div class="x_title">
                         <h2>Active Orders By Day</h2>
@@ -199,7 +199,7 @@
                   labels: ['Orders: '],
                   barRatio: 0.4,
                   barColors: ['#1ABB9C'],
-                  xLabelAngle: 35,
+                  xLabelAngle: 45,
                   hideHover: 'auto',
                   resize: true
                 });

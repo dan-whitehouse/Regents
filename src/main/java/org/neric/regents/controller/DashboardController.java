@@ -87,7 +87,14 @@ public class DashboardController extends AbstractController {
 			activeNeither = (districtCount - activeOrdersUniqueDistrictCount - activeNotAdministering);
 
 			List<Order> orders = orderService.findAllOrdersByActiveOrderForm(of.getId());
-			Map<Date, Long> counted = orders.stream().limit(5).collect(Collectors.groupingBy(Order::getOrderDate, Collectors.counting()));
+			Map<Date, Long> counted = new TreeMap<Date, Long>(new Comparator<Date>() {
+		        public int compare(Date date1, Date date2) {
+		            return date1.compareTo(date2);
+		        }
+		    });
+
+			counted.putAll(orders.stream().collect(Collectors.groupingBy(Order::getOrderDate, Collectors.counting())));
+
 			model.addAttribute("orders", counted);
 		}
 		else
