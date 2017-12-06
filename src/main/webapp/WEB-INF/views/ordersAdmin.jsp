@@ -50,7 +50,14 @@
 											<tr>
 												<td><span style="text-decoration: underline;"><a href="<c:url value='/order/${order.uuid}' />"> ${order.uuid} </a></span></td>
 												<td><fmt:formatDate value="${order.orderDate}" type="date" pattern="MM/dd/yyyy"/></td>
-												<td>${order.orderForm.period} ${year} </td>
+												<c:choose>
+												<c:when test="${order.orderForm.period eq 'January' }">
+													<td>${order.orderForm.period} ${year + 1}</td>
+												</c:when>
+												<c:otherwise>
+													<td>${order.orderForm.period} ${year}</td>
+												</c:otherwise>
+											</c:choose>			
 												<td>${order.district.name}</td>
 												<td>${order.user.firstName} ${order.user.lastName}</td>
 												<td>${order.orderStatus}</td>
