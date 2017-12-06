@@ -216,8 +216,8 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 	@Override
 	public List<Order> findAllOrdersByActiveOrderForm(int id) {
 		Criteria crit = createEntityCriteria();
-		crit.addOrder(org.hibernate.criterion.Order.desc("orderDate"));
 		crit.add(Restrictions.eq("orderForm.id", id));
+		crit.addOrder(org.hibernate.criterion.Order.desc("orderDate"));
 
 		List<Order> orders = (List<Order>)crit.list();
 		if(orders!=null)
@@ -233,6 +233,6 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 				}
 			}
 		}
-		return (List<Order>)crit.list();
+		return orders;
 	}
 }

@@ -39,7 +39,14 @@
 										<tr>
 											<td>${optout.uuid}</td>
 											<td><fmt:formatDate value="${optout.optOutDate}" type="date" pattern="MM/dd/yyyy"/></td>
-											<td>${optout.orderForm.period} ${year} </td>
+											<c:choose>
+												<c:when test="${optout.orderForm.period eq 'January' }">
+													<td>${optout.orderForm.period} ${year + 1}</td>
+												</c:when>
+												<c:otherwise>
+													<td>${optout.orderForm.period} ${year}</td>
+												</c:otherwise>
+											</c:choose>			
 											<td>${optout.district.name}</td>
 											<td>${optout.optOutUser.firstName} ${optout.optOutUser.lastName}</td>
 											<sec:authorize access="hasRole('ADMIN')">

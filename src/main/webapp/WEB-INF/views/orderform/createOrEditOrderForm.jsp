@@ -322,7 +322,7 @@
 								<div class="col-md-6 col-md-offset-3">
 									<c:choose>
 										<c:when test="${edit}">
-											<input type="submit" value="Update" class="btn btn-success"/> <a href="<c:url value='/admin/orderForms/${orderForm.uuid}' />" class="btn btn-primary">Cancel</a>
+											<input type="submit" value="Update" class="btn btn-success"/> <a href="<c:url value='/admin/orderForms' />" class="btn btn-primary">Cancel</a>
 										</c:when>
 										<c:otherwise>
 											<input type="submit" value="Add" class="btn btn-success"/> <a href="<c:url value='/admin/orderForms' />" class="btn btn-primary">Cancel</a>

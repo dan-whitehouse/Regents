@@ -636,7 +636,14 @@ public class OrderController extends AbstractController
 			
 			orderService.updateOrder(order);
 			model.addAttribute("success", "Order: " + order.getUuid() + " - " + " was updated successfully.");
-			model.addAttribute("returnLink", "/orders");
+			if(isAdmin(loggedInUser().getUsername()))
+			{
+				model.addAttribute("returnLink", "/admin/orders");
+			}
+			else
+			{
+				model.addAttribute("returnLink", "/orders");
+			}
 			model.addAttribute("returnLinkText", "Orders");
 		}
 		catch(Exception e)

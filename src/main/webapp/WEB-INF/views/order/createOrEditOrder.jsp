@@ -594,7 +594,12 @@
 														<div class="form-group">
 															<p class="text-danger"><strong>By clicking "Submit", you signify that you have permission to order these Regents forms from an appropriate person who can authorize this expenditure.</strong></p>
 														</div>
-														<input type="submit" value="Submit" class="btn btn-success"/> <a id="deactivate-step-7" class="btn btn-primary btn-md">Back</a> <a href="<c:url value='/orders' />" class="btn btn-primary">Cancel</a>
+														<sec:authorize access="hasRole('USER')">
+															<input type="submit" value="Submit" class="btn btn-success"/> <a id="deactivate-step-7" class="btn btn-primary btn-md">Back</a> <a href="<c:url value='/orders' />" class="btn btn-primary">Cancel</a>
+														</sec:authorize>
+														<sec:authorize access="hasRole('ADMIN')">
+															<input type="submit" value="Submit" class="btn btn-success"/> <a id="deactivate-step-7" class="btn btn-primary btn-md">Back</a> <a href="<c:url value='/admin/orders' />" class="btn btn-primary">Cancel</a>
+														</sec:authorize>
 													</div>
 												</div>
 											</div>

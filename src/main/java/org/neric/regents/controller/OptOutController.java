@@ -89,6 +89,9 @@ public class OptOutController extends AbstractController {
 	@Autowired
 	DistrictEditor districtEditor;
 	
+	@Autowired
+	OrderService orderService;
+	
 	
 	@InitBinder
     public void initBinder(WebDataBinder binder) 
@@ -138,6 +141,7 @@ public class OptOutController extends AbstractController {
 	{
 		List<District> activeOptOutDistricts = new ArrayList<>();
 		List<District> selectableDistricts = new ArrayList<>();	
+		List<District> activeOrderDistricts = new ArrayList<>();
 		OrderForm orderForm = orderFormService.getActiveOrderForm();
 		
 		if(orderForm != null)
@@ -170,6 +174,23 @@ public class OptOutController extends AbstractController {
 					}
 				}
 				
+				//Add all districts currently ordered.
+				List<Order> orders = orderService.findAllOrdersByActiveOrderForm(orderForm.getId());
+				for(Order o : orders)
+				{
+					activeOrderDistricts.add(o.getDistrict());
+				}
+				
+				for(District d : activeOrderDistricts)
+				{
+					for (Iterator<District> iterator = selectableDistricts.iterator(); iterator.hasNext();) {
+					    District district = iterator.next();
+					    if (district.getUuid().equalsIgnoreCase(d.getUuid())) {
+					        iterator.remove();
+					    }
+					}
+				}
+				
 				//Sort SelectableDistricts by Name
 				Collections.sort(selectableDistricts, new Comparator<District>() {
 				    public int compare(District one, District other) {
@@ -192,7 +213,7 @@ public class OptOutController extends AbstractController {
 				}
 				else
 				{
-					model.addAttribute("error_message", "It appears you are not administering this Regents period.");
+					model.addAttribute("error_message", "It appears you are not administering or have already submitted an order this Regents period.");
 					return "message/204";
 				}
 			}
@@ -226,7 +247,7 @@ public class OptOutController extends AbstractController {
 		optOutService.save(optOut);
 		
 		model.addAttribute("success", "Non-Administration: " + optOut.getDistrict().getName() + " has been successfully submitted.");
-		model.addAttribute("returnLink", "/notadministration");
+		model.addAttribute("returnLink", "/");
 		model.addAttribute("returnLinkText", "Not Administering");
 		return "message/success";
 	}
@@ -237,7 +258,7 @@ public class OptOutController extends AbstractController {
 		optOutService.deleteByUUID(uuid);
 		
 		// redirect to some sweet spot called outputs
-		return "redirect:/notadministration";
+		return "redirect:/notadministrations";
 	}
 	
 	
