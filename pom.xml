@@ -6,7 +6,7 @@
 	<artifactId>Regents</artifactId>
 	<name>neric</name>
 	<packaging>war</packaging>
-	<version>1.0.0-BUILD-SNAPSHOT</version>
+	<version>1.0.2-BUILD-SNAPSHOT</version>
 	<properties>
 		<java-version>1.8</java-version>
 		<servlet-version>3.0.1</servlet-version>
