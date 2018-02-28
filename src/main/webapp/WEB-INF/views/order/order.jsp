@@ -100,11 +100,12 @@
 												</p>
 												<p>
 													<strong>Billing: </strong>
-													Your district will be billed based on the number of answer sheets scanned, not printed. 
-													For Regents scanned at NERIC, you will be billed in the ${schoolYear}-${schoolYear+1} academic year at ${processingFee} per student per test. 
-													For Regents scanned in-district it will be ${inDistrictScanFee} per student per test. 
-													For any test that is rescanned you will be billed ${rescanFee}. 
-													The rate for non-secure documents is ${nonSecureDocumentFee} per document ordered.
+													Beginning with the 2018-2019 school year, NERIC is moving to a pay one price model based on RWADA (student counts for non-public schools) for testing services.
+													This will simplify the billing process for both BOCES and districts and you will now have exact testing charges ahead of time for budget planning rather than having to wait much later in the year to be billed for number of tests scanned. 
+													<strong>This model will include all scanning and non-secure documents charges for the Regents Exams.</strong> 
+													If you are a public school district, this will be implemented immediately on the commitment forms that were sent to districts in February 2018.  
+													Non-public schools will be billed in the fall of 2018 for the 2018-2019 testing charge.  
+													Questions about this billing model can be directed to <u><a href="mailto:testing@neric.org">testing@neric.org</a></u>.<br> 
 												</p>
 												
 												<p>This form must be submitted with the approval of your districts superintendent, business official or whoever else is authorized to approve this expenditure.</p>
@@ -177,7 +178,7 @@
 												</div>
 											</div>
 											<a id="deactivate-step-2" class="btn btn-primary btn-md">Back</a>
-											<a id="activate-step-3" class="btn btn-primary btn-md">Next2</a>
+											<a id="activate-step-3" class="btn btn-primary btn-md">Next</a>
 										</div>
 									</div>
 								</div>
@@ -201,7 +202,8 @@
 									</div>
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
-											<h2 class="text-center"> Special Requests</h2>
+											<h2 class="text-center"> Special Requests for Blanks for Additional Locations</h2>
+											<p class="text-center"> Requests <b><u>MUST</u></b> include DW Location code, which exam(s), and amount needed.</p>
 											<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback"> 
 												<!-- id is used in javascript -->
 												<form:textarea path="specialRequests" id="specialRequests" rows="10" maxlength="1000" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
@@ -221,7 +223,7 @@
                     							<span aria-hidden="true">X</span>
                     						</button>
                     						Non-secure documents include Essay Booklets for ELA, USH and GH, and Reference Tables for the Sciences. 
-											See Step 1 for price per document.
+                    						Charges are included in the new billing model.
                   						</div>
 										<div class="col-md-12 well text-center">
 											<table class="table">
