@@ -136,11 +136,7 @@
             $('ul.setup-panel li a[href="#step-3"]').trigger('click');
             //$(this).remove();
         })
-       /*  $('#activate-step-3').on('click', function(e) {
-            $('ul.setup-panel li:eq(2)').removeClass('disabled');
-            $('ul.setup-panel li a[href="#step-3"]').trigger('click');
-            $(this).remove();
-        }) */
+
         
         $('#activate-step-5').on('click', function(e) {
             $('ul.setup-panel li:eq(4)').removeClass('disabled');
@@ -155,9 +151,16 @@
         })
         
         $('#activate-step-6').on('click', function(e) {
-            $('ul.setup-panel li:eq(5)').removeClass('disabled');
-            $('ul.setup-panel li a[href="#step-6"]').trigger('click');
-            //$(this).remove();
+        	if(!validateStep5()) {
+				$('#xForm2').validator('validate');
+			}
+        	else {
+        		$('ul.setup-panel li:eq(5)').removeClass('disabled');
+                $('ul.setup-panel li a[href="#step-6"]').trigger('click');
+                
+                $('#xForm2').validator('destroy');
+                $('#xForm2').validator('update');
+        	}
         })
         
          $('#deactivate-step-6').on('click', function(e) {
@@ -167,9 +170,15 @@
         })
         
         $('#activate-step-7').on('click', function(e) {
-            $('ul.setup-panel li:eq(6)').removeClass('disabled');
-            $('ul.setup-panel li a[href="#step-7"]').trigger('click');
-            //$(this).remove();
+        	if(!validateStep6()) {
+				$('#xForm2').validator('validate');
+			}
+        	else {
+        		 $('ul.setup-panel li:eq(6)').removeClass('disabled');
+                 $('ul.setup-panel li a[href="#step-7"]').trigger('click');
+                
+                $('#xForm2').validator('destroy');
+        	}
         })
         
          $('#deactivate-step-7').on('click', function(e) {
@@ -179,6 +188,95 @@
         })
     });
 
+ 
+ 	//TEST
+ 	function isEmpty(str) {
+		    return (!str || 0 === str.length);
+		}
+		
+		function isValidEmail(email) {
+		    var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		    return regex.test(String(email).toLowerCase());
+		}
+	
+		function validateStep2() {
+			var i, count = 0, checkedCount = 0, validCount = 0;
+			$('input[id^="selectedExams"][id$="selected1"]').each(function() { count++ }); //Count Number Of Exams
+			
+			for(i = 0; i <= count-1; i++) {
+				if(document.getElementById('selectedExams' + i + '.selected1').checked) {	
+					var answerSheetAmount = document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").value;
+					var studentsPerCSV = document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").value;
+
+					<c:choose> 
+					  <c:when test="${orderForm.period eq 'June'}">
+					 	 var examAmount = document.getElementById("selectedExams" + i + ".orderExam.examAmount").value;
+					 	 
+					 	 if(!isEmpty(examAmount) || !isEmpty(answerSheetAmount) || !isEmpty(studentsPerCSV)) {
+					 		validCount++;
+				 		 }
+					  </c:when>
+					  <c:otherwise>
+				  		if(!isEmpty(answerSheetAmount) || !isEmpty(studentsPerCSV)) {
+				  			validCount++;
+				 		}
+					  </c:otherwise>
+					</c:choose>
+					
+					checkedCount++;
+				}
+			}
+
+		    var isValid = (checkedCount == validCount);
+			//alert(isValid);
+			return isValid;
+		} 
+		
+		function validateStep4() {
+			var i, count = 0, checkedCount = 0, validCount = 0;
+			$('input[id^="selectedDocuments"][id$="selected1"]').each(function() { count++ }); //Count Number Of Documents
+
+			for(i = 0; i <= count-1; i++) {
+				if(document.getElementById('selectedDocuments' + i + '.selected1').checked) {
+					checkedCount++;
+					var docAmount = document.getElementById("selectedDocuments" + i + ".orderDocument.documentAmount").value;
+					if(!isEmpty(docAmount)) {
+						validCount++;
+			 		}
+				}
+			}
+			var isValid = (checkedCount == validCount);
+			//alert(isValid);
+			return isValid;
+		} 
+		
+		function validateStep5() {
+			var selectedOptionScanIndex = getRadioButtonIndex('selectedOptionScan');
+			var selectedOptionScan = '';
+			if(selectedOptionScanIndex != null) {
+				selectedOptionScan = document.querySelector('label[for="selectedOptionScan' + selectedOptionScanIndex + '"]').textContent;
+			}
+			
+			var isValid = !isEmpty(selectedOptionScan);
+			//alert(isValid);
+			return isValid;
+		} 
+		
+		function validateStep6() {
+			var firstName = document.getElementById("orderContact.firstName").value;
+			var lastName = document.getElementById("orderContact.lastName").value;
+			var title = document.getElementById("orderContact.title").value;
+			var email = document.getElementById("orderContact.email").value;
+			var phone = document.getElementById("orderContact.phone").value;
+			
+			var isValid = (!isEmpty(firstName) && !isEmpty(lastName) && !isEmpty(title) && isValidEmail(email) && !isEmpty(phone));
+			//alert(isValid);
+			return isValid;
+		} 
+ 	
+ 	//END TEST
+ 
+ 
 
     // Add , Dlelete row dynamically
 

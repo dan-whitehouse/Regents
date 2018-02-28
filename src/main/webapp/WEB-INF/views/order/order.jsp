@@ -177,7 +177,7 @@
 												</div>
 											</div>
 											<a id="deactivate-step-2" class="btn btn-primary btn-md">Back</a>
-											<a id="activate-step-3" class="btn btn-primary btn-md" onclick="validateStep2()">Next2</a>
+											<a id="activate-step-3" class="btn btn-primary btn-md">Next2</a>
 										</div>
 									</div>
 								</div>
@@ -250,7 +250,7 @@
 												</tbody>
 											</table>
 											<a id="deactivate-step-4" class="btn btn-primary btn-md">Back</a>
-											<a id="activate-step-5" class="btn btn-primary btn-md" onclick="validateStep4()">Next</a>
+											<a id="activate-step-5" class="btn btn-primary btn-md">Next</a>
 										</div>
 									</div>
 								</div>
@@ -313,7 +313,7 @@
 											<div class="col-md-12 text-center">
 												<br />
 												<a id="deactivate-step-5" class="btn btn-primary btn-md">Back</a>
-												<a id="activate-step-6" class="btn btn-primary btn-md" onclick="validateStep5()">Next</a>
+												<a id="activate-step-6" class="btn btn-primary btn-md">Next</a>
 											</div>
 										</div>
 									</div>
@@ -326,7 +326,7 @@
 												<label for="firstName" class="control-label col-md-3 col-sm-3 col-xs-3 left">First Name</label>
 											    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 											    	<span class="input-group-addon"><i class="fa fa-user"></i></span>
-											    	<form:input type="text" pattern="^[\w\-\s]+$" maxlength="50" path="orderContact.firstName" id="orderContact.firstName" class="form-control col-md-7 col-xs-12" name="firstName" placeholder="First Name"  required="required" />
+											    	<form:input type="text" pattern="^([a-zA-Z '-]*)$" maxlength="50" path="orderContact.firstName" id="orderContact.firstName" class="form-control col-md-7 col-xs-12" name="firstName" placeholder="First Name"  required="required" />
 											    </div>
 											    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 											</div>
@@ -335,7 +335,7 @@
 												<label for="middleName" class="control-label col-md-3 col-sm-3 col-xs-3 left">Middle Name</label>
 											    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 											    	<span class="input-group-addon"><i class="fa fa-user"></i></span>
-											    	<form:input type="text" pattern="^[\w\-\s]+$" maxlength="50" path="orderContact.middleName" id="orderContact.middleName" class="form-control col-md-7 col-xs-12" name="middleName" placeholder="Middle Name"/>
+											    	<form:input type="text" pattern="^([a-zA-Z '-]*)$" maxlength="50" path="orderContact.middleName" id="orderContact.middleName" class="form-control col-md-7 col-xs-12" name="middleName" placeholder="Middle Name"/>
 											    </div>
 											    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 											</div>
@@ -344,7 +344,7 @@
 												<label for="lastName" class="control-label col-md-3 col-sm-3 col-xs-3 left">Last Name</label>
 											    <div class="input-group col-md-6 col-sm-6 col-xs-6">
 											    	<span class="input-group-addon"><i class="fa fa-user"></i></span>
-											    	<form:input type="text" pattern="^[\w\-\s]+$" maxlength="50" path="orderContact.lastName" id="orderContact.lastName" class="form-control col-md-7 col-xs-12" name="lastName" placeholder="Last Name"  required="required" />
+											    	<form:input type="text" pattern="^([a-zA-Z '-]*)$" maxlength="50" path="orderContact.lastName" id="orderContact.lastName" class="form-control col-md-7 col-xs-12" name="lastName" placeholder="Last Name"  required="required" />
 											    </div>
 											    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 											</div>
@@ -626,76 +626,7 @@
 	</div>
 	<!-- /page content -->
 	<script type="text/javascript">
-	
-		function isEmpty(str) {
-		    return (!str || 0 === str.length);
-		}
-	
-		function validateStep2() {
-			var checkedCount = 0;
-			var i, count = 0;
-			$('input[id^="selectedExams"][id$="selected1"]').each(function() { count++ }); //Count Number Of Exams
-			
-			for(i = 0; i <= count-1; i++) //For each exam
-			{
-				if(document.getElementById('selectedExams' + i + '.selected1').checked) 
-				{	
-					var answerSheetAmount = document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").value;
-					var studentsPerCSV = document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").value;
 
-					<c:choose> 
-					  <c:when test="${orderForm.period eq 'June'}">
-					 	 var examAmount = document.getElementById("selectedExams" + i + ".orderExam.examAmount").value;
-					 	 
-					 	 if(!isEmpty(examAmount) && !isEmpty(answerSheetAmount) && !isEmpty(studentsPerCSV))
-				 		 {
-					 		checkedCount++;
-				 		 }
-
-					  </c:when>
-					  <c:otherwise>
-				  		if(!isEmpty(answerSheetAmount) && !isEmpty(studentsPerCSV))
-				  		{
-					 		checkedCount++;
-				 		}
-					  </c:otherwise>
-					</c:choose>
-				}
-			}
-		    alert('Checked? - ' + checkedCount);
-		} 
-		
-		function validateStep4() {
-			var checkedCount = 0;
-			var i, count = 0;
-			$('input[id^="selectedDocuments"][id$="selected1"]').each(function() { count++ }); //Count Number Of Documents
-			
-			for(i = 0; i <= count-1; i++) //For each exam
-			{
-				if(document.getElementById('selectedDocuments' + i + '.selected1').checked) 
-				{
-					var docAmount = document.getElementById("selectedDocuments" + i + ".orderDocument.documentAmount").value;
-
-					if(!isEmpty(docAmount))
-			 		{
-				 		checkedCount++;
-			 		}
-				}
-			}
-		    alert('Checked? - ' + checkedCount);
-		} 
-		
-		function validateStep5() {
-			var selectedOptionScanIndex = getRadioButtonIndex('selectedOptionScan');
-			var selectedOptionScan = '';
-			if(selectedOptionScanIndex != null)
-			{
-				selectedOptionScan = document.querySelector('label[for="selectedOptionScan' + selectedOptionScanIndex + '"]').textContent;
-			}
-			return !isEmpty(selectedOptionScan);
-		} 
-		
-	
 		function review() 
 		{				
 			//Exams
