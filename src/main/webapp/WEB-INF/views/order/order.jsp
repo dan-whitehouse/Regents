@@ -245,7 +245,17 @@
 																<form:input path="selectedDocuments[${status.index}].orderDocument.document.name" value="${d.orderDocument.document.name }"  class="form-control col-md-3 col-xs-12" readonly="true" />
 															</td>
 															<td>
-																<form:input path="selectedDocuments[${status.index}].orderDocument.documentAmount" type="number" min="0" step="1" class="form-control col-md-3 col-xs-12" />
+																<div class="item form-group has-feedback">
+																    <div class="input-group col-md-6 col-sm-6 col-xs-6">
+																    	<span class="input-group-addon"><i class="fa fa-user"></i></span>
+																    	<form:input path="selectedDocuments[${status.index}].orderDocument.documentAmount" type="number" min="0" step="1" class="form-control col-md-3 col-xs-12" />
+																    </div>
+																    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+																</div>
+															
+															
+															
+																<%-- <form:input path="selectedDocuments[${status.index}].orderDocument.documentAmount" type="number" min="0" step="1" data-validate="false" class="form-control col-md-3 col-xs-12" /> --%>
 															</td>
 														</tr>
 													</c:forEach>

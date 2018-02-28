@@ -75,8 +75,7 @@
    
     
     <script>
- // Activate Next Step
-
+ 	// Activate Next Step
     $(document).ready(function() {
         
         var navListItems = $('ul.setup-panel li a'),
@@ -113,10 +112,17 @@
             //$(this).remove();
         })
         
-        $('#activate-step-3').on('click', function(e) {
-            $('ul.setup-panel li:eq(2)').removeClass('disabled');
-            $('ul.setup-panel li a[href="#step-3"]').trigger('click');
-            //$(this).remove();
+        $('#activate-step-3').on('click', function(e) {	
+        	if(!validateStep2()) {
+				$('#xForm2').validator('validate');
+			}
+        	else {
+				$('ul.setup-panel li:eq(2)').removeClass('disabled');
+                $('ul.setup-panel li a[href="#step-3"]').trigger('click');
+                
+                $('#xForm2').validator('destroy');
+                $('#xForm2').validator('update');
+        	}
         })
         
          $('#deactivate-step-3').on('click', function(e) {
@@ -134,20 +140,26 @@
          $('#deactivate-step-4').on('click', function(e) {
             $('ul.setup-panel li:eq(3)').removeClass('active');
             $('ul.setup-panel li a[href="#step-3"]').trigger('click');
-            //$(this).remove();
         })
 
         
-        $('#activate-step-5').on('click', function(e) {
-            $('ul.setup-panel li:eq(4)').removeClass('disabled');
-            $('ul.setup-panel li a[href="#step-5"]').trigger('click');
-            //$(this).remove();
+        $('#activate-step-5').on('click', function(e) {	
+        	if(!validateStep4()) {
+                $('#xForm2').validator('update');
+				$('#xForm2').validator('validate');
+			}
+        	else {
+        		 $('ul.setup-panel li:eq(4)').removeClass('disabled');
+                 $('ul.setup-panel li a[href="#step-5"]').trigger('click');
+                
+                $('#xForm2').validator('destroy');
+                $('#xForm2').validator('update');
+        	}
         })
         
          $('#deactivate-step-5').on('click', function(e) {
             $('ul.setup-panel li:eq(4)').removeClass('active');
             $('ul.setup-panel li a[href="#step-4"]').trigger('click');
-            //$(this).remove();
         })
         
         $('#activate-step-6').on('click', function(e) {
@@ -243,6 +255,17 @@
 					if(!isEmpty(docAmount)) {
 						validCount++;
 			 		}
+					else {
+						//$("#selectedDocuments" + i + ".orderDocument.documentAmount").attr("data-validate", true);
+						document.getElementById("selectedDocuments" + i + ".orderDocument.documentAmount").setAttribute("required", "required");
+						//$('#xForm2').validator('update');
+						//$('#xForm2').validator('validate');
+						
+						
+						//document.getElementById("selectedDocuments" + i + ".orderDocument.documentAmount").classList.add('has-success');
+						
+						
+					}
 				}
 			}
 			var isValid = (checkedCount == validCount);
