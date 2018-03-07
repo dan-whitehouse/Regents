@@ -114,6 +114,7 @@
         
         $('#activate-step-3').on('click', function(e) {	
         	if(!validateStep2()) {
+        		$('#xForm2').validator('update');
 				$('#xForm2').validator('validate');
 			}
         	else {
@@ -123,6 +124,36 @@
                 $('#xForm2').validator('destroy');
                 $('#xForm2').validator('update');
         	}
+        	
+        	var i, count = 0, checkedCount = 0, validCount = 0;
+			$('input[id^="selectedExams"][id$="selected1"]').each(function() { count++ }); //Count Number Of Exams
+			
+        	for(i = 0; i <= count-1; i++) {
+				if(!document.getElementById('selectedExams' + i + '.selected1').checked) {	
+					
+					document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").removeAttribute("required");
+					var answerSheetAmountParent = document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").parentNode;
+					var answerSheetAmountSpan = answerSheetAmountParent.getElementsByTagName("span")[0];
+					$(answerSheetAmountParent).removeClass('has-success');
+					$(answerSheetAmountSpan).removeClass('glyphicon-ok');
+					
+
+		  			document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").removeAttribute("required");
+		  			var studentsPerCSVParent = document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").parentNode;
+		  			var studentsPerCSVSpan = studentsPerCSVParent.getElementsByTagName("span")[0];
+					$(studentsPerCSVParent).removeClass('has-success');
+					$(studentsPerCSVSpan).removeClass('glyphicon-ok');
+		  			
+		  			
+		  			<c:if test="${orderForm.period eq 'June'}">
+		  				document.getElementById("selectedExams" + i + ".orderExam.examAmount").removeAttribute("required");
+		  				var examAmountParent = document.getElementById("selectedExams" + i + ".orderExam.examAmount").parentNode;
+			  			var examAmountSpan = examAmountParent.getElementsByTagName("span")[0];
+						$(examAmountParent).removeClass('has-success');
+						$(examAmountSpan).removeClass('glyphicon-ok');
+	  				</c:if>
+				}
+			}
         })
         
          $('#deactivate-step-3').on('click', function(e) {
@@ -155,6 +186,19 @@
                 $('#xForm2').validator('destroy');
                 $('#xForm2').validator('update');
         	}
+        	
+        	
+        	var i, count = 0, checkedCount = 0, validCount = 0;
+			$('input[id^="selectedDocuments"][id$="selected1"]').each(function() { count++ }); //Count Number Of Documents
+			for(i = 0; i <= count-1; i++) {
+				if(!document.getElementById('selectedDocuments' + i + '.selected1').checked) {
+					document.getElementById("selectedDocuments" + i + ".orderDocument.documentAmount").removeAttribute("required");
+					var documentAmountParent = document.getElementById("selectedDocuments" + i + ".orderDocument.documentAmount").parentNode;
+					var documentAmountSpan = documentAmountParent.getElementsByTagName("span")[0];
+					$(documentAmountParent).removeClass('has-success');
+					$(documentAmountSpan).removeClass('glyphicon-ok');
+				}
+			}
         })
         
          $('#deactivate-step-5').on('click', function(e) {
@@ -164,6 +208,7 @@
         
         $('#activate-step-6').on('click', function(e) {
         	if(!validateStep5()) {
+        		$('#xForm2').validator('update');
 				$('#xForm2').validator('validate');
 			}
         	else {
@@ -183,6 +228,7 @@
         
         $('#activate-step-7').on('click', function(e) {
         	if(!validateStep6()) {
+        		$('#xForm2').validator('update');
 				$('#xForm2').validator('validate');
 			}
         	else {
@@ -190,6 +236,7 @@
                  $('ul.setup-panel li a[href="#step-7"]').trigger('click');
                 
                 $('#xForm2').validator('destroy');
+                $('#xForm2').validator('update');
         	}
         })
         
@@ -225,17 +272,54 @@
 					 	 var examAmount = document.getElementById("selectedExams" + i + ".orderExam.examAmount").value;
 					 	 
 					 	 if(!isEmpty(examAmount) || !isEmpty(answerSheetAmount) || !isEmpty(studentsPerCSV)) {
+					 		 
+					 		if(!isEmpty(examAmount)) {
+					 			document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").removeAttribute("required");
+				  				document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").removeAttribute("required");
+				  			}
+				  			if(!isEmpty(answerSheetAmount)) {
+				  				document.getElementById("selectedExams" + i + ".orderExam.examAmount").removeAttribute("required");
+				  				document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").removeAttribute("required");
+				  			}
+				  			if(!isEmpty(studentsPerCSV)) {
+				  				document.getElementById("selectedExams" + i + ".orderExam.examAmount").removeAttribute("required");
+				  				document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").removeAttribute("required");
+				  			}
 					 		validCount++;
 				 		 }
+					 	 else {
+				  			document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").setAttribute("required", "required");
+				  			document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").setAttribute("required", "required");
+				  			document.getElementById("selectedExams" + i + ".orderExam.examAmount").setAttribute("required", "required");
+						}
 					  </c:when>
 					  <c:otherwise>
 				  		if(!isEmpty(answerSheetAmount) || !isEmpty(studentsPerCSV)) {
+				  			
+				  			if(!isEmpty(answerSheetAmount)) {
+				  				document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").removeAttribute("required");
+				  			}
+				  			if(!isEmpty(studentsPerCSV)) {
+				  				document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").removeAttribute("required");
+				  			}
+				  			
 				  			validCount++;
 				 		}
+ 				  		else {
+				  			document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").setAttribute("required", "required");
+				  			document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").setAttribute("required", "required");
+						}
 					  </c:otherwise>
 					</c:choose>
 					
 					checkedCount++;
+				}
+				else {
+					document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").removeAttribute("required");
+		  			document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").removeAttribute("required");
+		  			<c:if test="${orderForm.period eq 'June'}">
+		  				document.getElementById("selectedExams" + i + ".orderExam.examAmount").removeAttribute("required");
+	  				</c:if>
 				}
 			}
 
@@ -243,6 +327,19 @@
 			//alert(isValid);
 			return isValid;
 		} 
+		
+		
+		
+		function hasClass(ele,cls) {
+		    return ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
+		}
+
+		function removeClass(ele,cls) {
+		        if (hasClass(ele,cls)) {
+		            var reg = new RegExp('(\\s|^)'+cls+'(\\s|$)');
+		            ele.className=ele.className.replace(reg,' ');
+		        }
+		    }
 		
 		function validateStep4() {
 			var i, count = 0, checkedCount = 0, validCount = 0;
@@ -256,16 +353,11 @@
 						validCount++;
 			 		}
 					else {
-						//$("#selectedDocuments" + i + ".orderDocument.documentAmount").attr("data-validate", true);
 						document.getElementById("selectedDocuments" + i + ".orderDocument.documentAmount").setAttribute("required", "required");
-						//$('#xForm2').validator('update');
-						//$('#xForm2').validator('validate');
-						
-						
-						//document.getElementById("selectedDocuments" + i + ".orderDocument.documentAmount").classList.add('has-success');
-						
-						
 					}
+				}
+				else {
+					document.getElementById("selectedDocuments" + i + ".orderDocument.documentAmount").removeAttribute("required");
 				}
 			}
 			var isValid = (checkedCount == validCount);
