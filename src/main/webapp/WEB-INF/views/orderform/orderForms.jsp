@@ -3,9 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
-
 <c:url value="/admin/orderForms/create" var="createOrderFormLink" />
-
 <html>
 	<jsp:include page="../fragments/header.jsp" />
 	<!-- page content -->
@@ -29,9 +27,6 @@
 							<div class="clearfix"></div>
 						</div>
 						<div class="x_content">
-<!-- 							<p class="text-muted font-13 m-b-30"> -->
-<%-- 								DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function: <code>$().DataTable();</code> --%>
-<!-- 							</p> -->
 							<table id="datatable" class="table table-striped table-bordered">
 								<thead>
 									<tr>
@@ -47,82 +42,78 @@
 								</thead>
 								<tbody>
 									<c:forEach items="${orderForms}" var="orderForm">
-									
 										<c:choose>
-											<c:when test="${orderForm.locked == true}"> 
-												<!-- <tr class="alert-danger"> -->
+											<c:when test="${orderForm.locked == true}">
 												<tr>
 											</c:when>
 											<c:otherwise>
 												<tr>
 											</c:otherwise>
 										</c:choose>
-											<td class="col-xs-4"><a href="<c:url value='/admin/orderForms/${orderForm.uuid}' />">${orderForm.name}</a></td>
-
-											<fmt:formatDate value="${orderForm.startDate}" type="date" pattern="MM/dd/yyyy" var="fStartDate"/>
-											<fmt:formatDate value="${orderForm.endDate}" type="date" pattern="MM/dd/yyyy" var="fEndDate"/>
-											<fmt:formatDate var="schoolYear" value="${orderForm.startDate}" pattern="yyyy" />
-											
-											<td>${fStartDate}</td>
-											<td>${fEndDate}</td>
+										<td class="col-xs-4">
+											<a href="<c:url value='/admin/orderForms/${orderForm.uuid}' />">${orderForm.name}</a>
+										</td>
+										<fmt:formatDate value="${orderForm.startDate}" type="date" pattern="MM/dd/yyyy" var="fStartDate"/>
+										<fmt:formatDate value="${orderForm.endDate}" type="date" pattern="MM/dd/yyyy" var="fEndDate"/>
+										<fmt:formatDate var="schoolYear" value="${orderForm.startDate}" pattern="yyyy" />
+										<td>${fStartDate}</td>
+										<td>${fEndDate}</td>
+										<c:choose>
+											<c:when test="${orderForm.period eq 'January' }">
+												<td>${orderForm.period} ${schoolYear + 1}</td>
+											</c:when>
+											<c:otherwise>
+												<td>${orderForm.period} ${schoolYear}</td>
+											</c:otherwise>
+										</c:choose>
+										<td>
 											<c:choose>
-												<c:when test="${orderForm.period eq 'January' }">
-													<td>${orderForm.period} ${schoolYear + 1}</td>
+												<c:when test="${orderForm.activePeriod}"> 
+													<span class="label label-info">Active</span>
 												</c:when>
-												<c:otherwise>
-													<td>${orderForm.period} ${schoolYear}</td>
+												<c:when test="${orderForm.expiredPeriod}"> 
+													<span class="label label-danger">Expired</span>
+												</c:when>
+											<c:otherwise>
+												<span class="label label-default">Inactive</span>
 												</c:otherwise>
-											</c:choose>
-											<td>
-											<!-- Start Status Test -->
-    											<c:choose>
-													<c:when test="${orderForm.activePeriod}"> 
-														<span class="label label-info">Active</span>
-													</c:when>
-													<c:when test="${orderForm.expiredPeriod}"> 
-														<span class="label label-danger">Expired</span>
+										</c:choose>
+										<!-- End Status Test -->
+										</td>
+										<sec:authorize access="hasRole('ADMIN')">
+											<td width="245px">
+												<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/edit' />" class="btn btn-success custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+												<a type="button" class="btn btn-danger custom-width" data-toggle="modal" data-target=".modal-sm-${orderForm.uuid}"><i class="fa fa-trash"></i></a>
+												<!-- Visible -->
+												<c:choose>
+													<c:when test="${orderForm.visible == true}">
+														<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/hide/false' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Visible"><i class="fa fa-eye"></i></a>
 													</c:when>
 													<c:otherwise>
-														<span class="label label-default">Inactive</span>
+														<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/hide/true' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Hidden"><i class="fa fa-eye-slash"></i></a>
 													</c:otherwise>
 												</c:choose>
-    										<!-- End Status Test -->
+												<!-- Lock -->
+												<c:choose>
+													<c:when test="${orderForm.locked == true}">
+														<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/lock/false' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Locked"><i class="fa fa-lock"></i></a>
+													</c:when>
+													<c:otherwise>
+														<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/lock/true' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Unlocked"><i class="fa fa-unlock"></i></a>
+													</c:otherwise>
+												</c:choose>
+												<!-- Active -->
+												<c:choose>
+													<c:when test="${orderForm.active == true}">
+														<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/active/false' />" class="btn btn-info custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Active"><i class="fa fa-check-square"></i></a>
+													</c:when>
+													<c:otherwise>
+														<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/active/true' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Inactive"><i class="fa fa-square"></i></a>
+													</c:otherwise>
+												</c:choose>
 											</td>
-											<sec:authorize access="hasRole('ADMIN')">
-												<td width="245px">
-													<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/edit' />" class="btn btn-success custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
-													<a type="button" class="btn btn-danger custom-width" data-toggle="modal" data-target=".modal-sm-${orderForm.uuid}"><i class="fa fa-trash"></i></a>
-													<!-- Visible -->
-													<c:choose>
-														<c:when test="${orderForm.visible == true}">
-															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/hide/false' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Visible"><i class="fa fa-eye"></i></a>
-														</c:when>
-														<c:otherwise>
-															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/hide/true' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Hidden"><i class="fa fa-eye-slash"></i></a>
-														</c:otherwise>
-													</c:choose>
-													<!-- Lock -->
-													<c:choose>
-														<c:when test="${orderForm.locked == true}">
-															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/lock/false' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Locked"><i class="fa fa-lock"></i></a>
-														</c:when>
-														<c:otherwise>
-															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/lock/true' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Unlocked"><i class="fa fa-unlock"></i></a>
-														</c:otherwise>
-													</c:choose>
-													<!-- Active -->
-													<c:choose>
-														<c:when test="${orderForm.active == true}">
-															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/active/false' />" class="btn btn-info custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Active"><i class="fa fa-check-square"></i></a>
-														</c:when>
-														<c:otherwise>
-															<a href="<c:url value='/admin/orderForms/${orderForm.uuid}/active/true' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Inactive"><i class="fa fa-square"></i></a>
-														</c:otherwise>
-													</c:choose>
-												</td>
-											</sec:authorize>
-										
-									</c:forEach>	
+										</sec:authorize>
+									</c:forEach>
 								</tbody>
 							</table>
 							<!-- Start Delete Popup Confirmation -->

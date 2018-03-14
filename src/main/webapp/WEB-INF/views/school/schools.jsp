@@ -42,7 +42,7 @@
 										<tr>
 											<td>${school.name}</td>
 											<td>${school.district.name}</td>
-										    <sec:authorize access="hasRole('ADMIN')">
+											<sec:authorize access="hasRole('ADMIN')">
 												<td width="195px">
 													<a href="<c:url value='/admin/schools/${school.uuid}/edit' />" class="btn btn-success custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
 													<a type="button" class="btn btn-danger custom-width" data-toggle="modal" data-target=".modal-sm-${school.uuid}"><i class="fa fa-trash"></i></a>
@@ -65,9 +65,9 @@
 														</c:otherwise>
 													</c:choose>
 												</td>
-					        				</sec:authorize>
+											</sec:authorize>
 										</tr>
-									</c:forEach>									
+									</c:forEach>
 								</tbody>
 							</table>
 							<!-- Start Delete Popup Confirmation -->

@@ -23,14 +23,10 @@
 										</li>
 									</ul>
 								</li>
-<!-- 								<li><a class="close-link"><i class="fa fa-close"></i></a> -->
 							</ul>
 							<div class="clearfix"></div>
 						</div>
 						<div class="x_content">
-<!-- 							<p class="text-muted font-13 m-b-30"> -->
-<%-- 								DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function: <code>$().DataTable();</code> --%>
-<!-- 							</p> -->
 							<table id="datatable" class="table table-striped table-bordered">
 								<thead>
 									<tr>
@@ -44,7 +40,7 @@
 									<c:forEach items="${scanOptions}" var="scanOption">
 										<tr>
 											<td>${scanOption.name}</td>
-										    <sec:authorize access="hasRole('ADMIN')">
+											<sec:authorize access="hasRole('ADMIN')">
 												<td width="195px">
 													<a href="<c:url value='/admin/scanOptions/${scanOption.uuid}/edit' />" class="btn btn-success custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
 													<a type="button" class="btn btn-danger custom-width" data-toggle="modal" data-target=".modal-sm-${scanOption.uuid}"><i class="fa fa-trash"></i></a>
@@ -67,9 +63,9 @@
 														</c:otherwise>
 													</c:choose>
 												</td>
-					        				</sec:authorize>
+											</sec:authorize>
 										</tr>
-									</c:forEach>									
+									</c:forEach>
 								</tbody>
 							</table>
 							<!-- Start Delete Popup Confirmation -->

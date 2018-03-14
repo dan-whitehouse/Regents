@@ -5,7 +5,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <c:url value="/order" var="order" />
 <fmt:formatDate var="schoolYear" value="${orderForm.startDate}" pattern="yyyy" />
 <fmt:formatNumber var="rescanFee" value="${orderForm.rescanFee}" type="currency"/>
@@ -13,7 +12,7 @@
 <fmt:formatNumber var="nonSecureDocumentFee" value="${orderForm.nonSecureDocumentFee}" type="currency"/>
 <fmt:formatNumber var="processingFee" value="${orderForm.processingFee}" type="currency"/>
 <fmt:formatDate value="${orderForm.endDate}" type="date" pattern="MM/dd/yyyy" var="endDate"/>
-
+<html>
 	<jsp:include page="../fragments/header.jsp" />
 	<!-- page content -->
 	<div class="right_col" role="main">
@@ -83,7 +82,7 @@
 								<div class="row setup-content" id="step-1">
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
-											<div class="col-md-12 col-sm-12 col-xs-12">	
+											<div class="col-md-12 col-sm-12 col-xs-12">
 												<h2 class="StepTitle text-center">${orderForm.period} ${schoolYear} - REGENTS ANSWER SHEET SERVICES & NON SECURE DOCUMENTS ORDER FORM</h2>
 												<p>
 													<strong><u>Directions:</u> The order form and data file MUST be received by NERIC no later than ${endDate}.</strong>
@@ -94,7 +93,8 @@
 													securely through Serv-U. You can find the student data file template 
 													<a href="http://neric.org/Testing/Regents.cfm" class="link" target="_blank">here</a>, 
 													and directions on how to upload files to Serv-U <a href="http://neric.org/documents/Testing/How%20to%20Upload%20Files%20to%20ServU.pdf" class="link" target="_blank">here</a>. If you do not have access to SERV-U, a request for a secure link can be e-mailed 
-													to testing@neric.org. <p class="text-danger">No student data files should be e-mailed to NERIC</p>
+													to testing@neric.org. 
+												<p class="text-danger">No student data files should be e-mailed to NERIC</p>
 												</p>
 												<p>
 													<strong>Billing: </strong>
@@ -105,7 +105,6 @@
 													Non-public schools will be billed in the fall of 2018 for the 2018-2019 testing charge.  
 													Questions about this billing model can be directed to <u><a href="mailto:testing@neric.org">testing@neric.org</a></u>.<br> 
 												</p>
-												
 												<p>This form must be submitted with the approval of your districts superintendent, business official or whoever else is authorized to approve this expenditure.</p>
 											</div>
 										</div>
@@ -145,7 +144,7 @@
 															</thead>
 															<tbody>
 																<c:forEach items="${allExamOptionsByOrderForm}" var="e" varStatus="status">
-																    ${orderForm.period}
+																	${orderForm.period}
 																	<form:hidden path="selectedExams[${status.index}].orderExam.exam.id" value="${e.orderExam.exam.id}"/>
 																	<tr>
 																		<td>
@@ -189,7 +188,7 @@
 								<div class="row setup-content" id="step-3">
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
-											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback input-group"> 
+											<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback input-group">
 												<!-- id is used in javascript -->
 												<span class="input-group-addon"><i class="fa fa-university"></i></span>
 												<form:select path="district" id="districtList" items="${userDistricts}" itemValue="id" itemLabel="name" onchange="updateSchoolList()" cssClass="form-control col-md-12 col-xs-12"/>
@@ -199,14 +198,13 @@
 												<span class="input-group-addon"><i class="fa fa-graduation-cap"></i></span>
 												<form:select path="school" id="schoolList" cssClass="form-control col-md-12 col-xs-12"/>
 											</div>
-
 										</div>
 									</div>
 									<div class="col-xs-12">
 										<div class="col-md-12 well text-center">
 											<h2 class="text-center"> Special Requests for Blanks for Additional Locations</h2>
 											<p class="text-center"> Requests <b><u>MUST</u></b> include DW Location code, which exam(s), and amount needed.</p>
-											<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback"> 
+											<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
 												<!-- id is used in javascript -->
 												<form:textarea path="specialRequests" id="specialRequests" rows="10" maxlength="1000" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
 												<span class="fa fa-plus form-control-feedback left" aria-hidden="true"></span>
@@ -220,12 +218,12 @@
 								<div class="row setup-content" id="step-4">
 									<div class="col-xs-12">
 										<div class="alert alert-softYellow alert-dismissible fade in" role="alert">
-                    						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    							<span aria-hidden="true">X</span>
-                    						</button>
-                    						Non-secure documents include Essay Booklets for ELA, USH and GH, and Reference Tables for the Sciences. 
-                    						Charges are included in the new billing model.
-                  						</div>
+											<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+											<span aria-hidden="true">X</span>
+											</button>
+											Non-secure documents include Essay Booklets for ELA, USH and GH, and Reference Tables for the Sciences. 
+											Charges are included in the new billing model.
+										</div>
 										<div class="col-md-12 well text-center">
 											<table class="table">
 												<thead>
@@ -283,24 +281,20 @@
 													</div>
 												</div>
 											</div>
-											
 											<br />
 											<div class="clearfix"></div>
-											
 											<div class="form-group col-xs-12 has-feedback">
 												<label class="control-label col-md-6 col-sm-6 col-xs-12">Printing Option: 
-													<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default." >
-														<span class=" fa fa-info"></span>
-													</span>
+												<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="If nothing is selected, Alpha will be chosen by default." >
+												<span class=" fa fa-info"></span>
+												</span>
 												</label>
 												<div class="input-group col-md-6 col-sm-6 col-xs-12">
 													<span class="input-group-addon"><i class="fa fa-print"></i></span>
 													<form:select path="selectedOptionPrint" items="${allPrintOptions}" itemValue="id" itemLabel="name" cssClass="form-control"/>
 												</div>
 											</div>
-											
 											<div class="clearfix"></div>
-											
 											<div class="form-group col-xs-12 has-feedback">
 												<label class="control-label col-md-6 col-sm-6 col-xs-12">Answer Sheets Scanning Option:</label>
 												<div class="col-md-6 col-sm-6 col-xs-12">
@@ -311,7 +305,6 @@
 													</div>
 												</div>
 											</div>
-											
 											<div class="col-md-12 text-center">
 												<br />
 												<a id="deactivate-step-5" class="btn btn-primary btn-md">Back</a>
@@ -324,73 +317,66 @@
 								<div class="row setup-content" id="step-6">
 									<div class="col-xs-12">
 										<div class="col-md-12 well form-horizontal form-label-left text-center">
-											
 											<div class="item form-group has-feedback">
 												<label for="firstName" class="control-label col-md-3 col-sm-3 col-xs-3 left">First Name</label>
-											    <div class="input-group col-md-6 col-sm-6 col-xs-6">
-											    	<span class="input-group-addon"><i class="fa fa-user"></i></span>
-											    	<form:input type="text" pattern="^[\w\-\s]+$" maxlength="50" path="orderContact.firstName" id="orderContact.firstName" class="form-control col-md-7 col-xs-12" name="firstName" placeholder="First Name"  required="required" />
-											    </div>
-											    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+												<div class="input-group col-md-6 col-sm-6 col-xs-6">
+													<span class="input-group-addon"><i class="fa fa-user"></i></span>
+													<form:input type="text" pattern="^[\w\-\s]+$" maxlength="50" path="orderContact.firstName" id="orderContact.firstName" class="form-control col-md-7 col-xs-12" name="firstName" placeholder="First Name"  required="required" />
+												</div>
+												<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 											</div>
-											
 											<div class="item form-group has-feedback">
 												<label for="middleName" class="control-label col-md-3 col-sm-3 col-xs-3 left">Middle Name</label>
-											    <div class="input-group col-md-6 col-sm-6 col-xs-6">
-											    	<span class="input-group-addon"><i class="fa fa-user"></i></span>
-											    	<form:input type="text" pattern="^[\w\-\s]+$" maxlength="50" path="orderContact.middleName" id="orderContact.middleName" class="form-control col-md-7 col-xs-12" name="middleName" placeholder="Middle Name"/>
-											    </div>
-											    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+												<div class="input-group col-md-6 col-sm-6 col-xs-6">
+													<span class="input-group-addon"><i class="fa fa-user"></i></span>
+													<form:input type="text" pattern="^[\w\-\s]+$" maxlength="50" path="orderContact.middleName" id="orderContact.middleName" class="form-control col-md-7 col-xs-12" name="middleName" placeholder="Middle Name"/>
+												</div>
+												<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 											</div>
-											
 											<div class="item form-group has-feedback">
 												<label for="lastName" class="control-label col-md-3 col-sm-3 col-xs-3 left">Last Name</label>
-											    <div class="input-group col-md-6 col-sm-6 col-xs-6">
-											    	<span class="input-group-addon"><i class="fa fa-user"></i></span>
-											    	<form:input type="text" pattern="^[\w\-\s]+$" maxlength="50" path="orderContact.lastName" id="orderContact.lastName" class="form-control col-md-7 col-xs-12" name="lastName" placeholder="Last Name"  required="required" />
-											    </div>
-											    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+												<div class="input-group col-md-6 col-sm-6 col-xs-6">
+													<span class="input-group-addon"><i class="fa fa-user"></i></span>
+													<form:input type="text" pattern="^[\w\-\s]+$" maxlength="50" path="orderContact.lastName" id="orderContact.lastName" class="form-control col-md-7 col-xs-12" name="lastName" placeholder="Last Name"  required="required" />
+												</div>
+												<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 											</div>
-											
 											<div class="item form-group has-feedback">
 												<label for="title" class="control-label col-md-3 col-sm-3 col-xs-3 left">Title</label>
-											    <div class="input-group col-md-6 col-sm-6 col-xs-6">
-											    	<span class="input-group-addon"><i class="fa fa-user"></i></span>
-											    	<form:input type="text" pattern="^[\w\-\s]+$" maxlength="50" path="orderContact.title" id="orderContact.title" class="form-control col-md-7 col-xs-12" name="title" placeholder="Title"  required="required" />
-											    </div>
-											    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+												<div class="input-group col-md-6 col-sm-6 col-xs-6">
+													<span class="input-group-addon"><i class="fa fa-user"></i></span>
+													<form:input type="text" pattern="^[\w\-\s]+$" maxlength="50" path="orderContact.title" id="orderContact.title" class="form-control col-md-7 col-xs-12" name="title" placeholder="Title"  required="required" />
+												</div>
+												<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 											</div>
-											
 											<div class="item form-group has-feedback">
 												<label for="email" class="control-label col-md-3 col-sm-3 col-xs-3 left">Email</label>
-											    <div class="input-group col-md-6 col-sm-6 col-xs-6">
-											    	<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-											    	<form:input type="email" maxlength="50" path="orderContact.email" id="orderContact.email" class="form-control col-md-7 col-xs-12" name="email" placeholder="Email" required="required" />
-											    </div>
-											    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+												<div class="input-group col-md-6 col-sm-6 col-xs-6">
+													<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+													<form:input type="email" maxlength="50" path="orderContact.email" id="orderContact.email" class="form-control col-md-7 col-xs-12" name="email" placeholder="Email" required="required" />
+												</div>
+												<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 											</div>
-											
 											<div class="item form-group has-feedback">
 												<label for="phone" class="control-label col-md-3 col-sm-3 col-xs-3 left">Phone</label>
-											    <div class="input-group col-md-6 col-sm-6 col-xs-6">
-											    	<span class="input-group-addon"><i class="fa fa-phone"></i></span>
-											    	<!-- pattern="^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *ext(\d+))?\s*$" -->
-											    	<form:input type="text" maxlength="50" path="orderContact.phone" id="orderContact.phone" class="form-control col-md-7 col-xs-12" name="phone" placeholder="Phone"  required="required" />
-											    </div>
-											    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+												<div class="input-group col-md-6 col-sm-6 col-xs-6">
+													<span class="input-group-addon"><i class="fa fa-phone"></i></span>
+													<!-- pattern="^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *ext(\d+))?\s*$" -->
+													<form:input type="text" maxlength="50" path="orderContact.phone" id="orderContact.phone" class="form-control col-md-7 col-xs-12" name="phone" placeholder="Phone"  required="required" />
+												</div>
+												<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 											</div>
-											
 											<c:if test="${xForm2.orderForm.period ne 'August'}">
 												<a id="deactivate-step-6" class="btn btn-primary btn-md">Back</a>
 												<a id="activate-step-7" class="btn btn-primary btn-md text-center" onclick="review()">Review</a>
 											</c:if>
 										</div>
 									</div>
-		                       		<c:if test="${xForm2.orderForm.period eq 'August'}">
+									<c:if test="${xForm2.orderForm.period eq 'August'}">
 										<div class="col-xs-12">
 											<div class="col-md-12 well text-center">
 												<h2 class="text-center"> Alternate Shipping Information</h2>
-												<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback"> 
+												<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
 													<!-- id is used in javascript -->
 													<form:textarea path="orderContact.altContactInfo" id="orderContact.altContactInfo" rows="10" maxlength="1000" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
 													<span class="fa fa-truck form-control-feedback left" aria-hidden="true"></span>
@@ -423,7 +409,7 @@
 																		<th class="column-title">Students in CSV </th>
 																	</tr>
 																</thead>
-																<tbody id="reviewExams">															
+																<tbody id="reviewExams">
 																	<tr class="even pointer">
 																		<td class=" ">Algebra 2 / Trigonometry - 02052CC</td>
 																		<td class=" ">61</td>
@@ -475,7 +461,6 @@
 												</div>
 											</div>
 											<!-- END DOCUMENTS -->
-
 											<!-- START BLANKS -->
 											<div class="col-md-5 col-sm-5 col-xs-5 pull-right">
 												<div class="x_panel">
@@ -504,9 +489,7 @@
 												</div>
 											</div>
 											<!-- END BLANKS -->
-											
 											<div class="clearfix"></div>
-											
 											<!-- START OPTIONS -->
 											<div class="col-md-7 col-sm-7 col-xs-7">
 												<div class="x_panel">
@@ -528,13 +511,13 @@
 																		<td class=" ">Scanning/Scoring Option: </td>
 																		<td class=" ">
 																			<input type="text" class="form-control" readonly="readonly" id="reviewScanOption" value="">
-																		 </td>
+																		</td>
 																	</tr>
 																	<tr class="odd pointer">
 																		<td class=" ">Printing Option: </td>
 																		<td class=" ">
 																			<input type="text" class="form-control" readonly="readonly" id="reviewPrintOption" value="">
-																		 </td>
+																		</td>
 																	</tr>
 																	<tr class="even pointer">
 																		<td class=" ">Reporting Option: </td>
@@ -549,7 +532,6 @@
 												</div>
 											</div>
 											<!-- END OPTIONS -->
-											
 											<!-- CONTACT -->
 											<div class="col-md-5 col-sm-5 col-xs-5" >
 												<div class="x_panel">
@@ -575,7 +557,6 @@
 																		<i class="fa fa-phone"></i> <strong>Phone: </strong>
 																		<span id="reviewContactInfo_phone"></span>
 																	</li>
-																	
 																	<c:if test="${period eq 'August'}">
 																		<hr id="reviewContactInfo_alt_hr"/>
 																		<li id="reviewContactInfo_alt_li">
@@ -591,9 +572,7 @@
 												</div>
 											</div>
 											<!-- END CONTACT -->
-
 											<div class="clearfix"></div>
-											
 											<!-- START SUBMIT -->
 											<div class="col-md-12 col-sm-12 col-xs-12">
 												<div class="x_panel">
@@ -630,7 +609,6 @@
 	</div>
 	<!-- /page content -->
 	<script type="text/javascript">
-	
 		function review() 
 		{				
 			//Exams
@@ -677,7 +655,7 @@
 					var studentsPerCSV = document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").value;
 					var evenOddClass = 'odd';
 					
-	
+		
 					if(examAmount == '')
 					{
 						examAmount = '0';
@@ -708,14 +686,14 @@
 		{
 			var selectedDistrict = document.getElementById("districtList");		
 			var selectedSchool = document.getElementById("schoolList");
-
+		
 			$('#reviewBlanks_district').empty();
 			$('#reviewBlanks_school').empty();
 			$('#reviewBlanks_specialRequests').empty();
 			
 			$('#reviewBlanks_district').append(selectedDistrict.options[selectedDistrict.selectedIndex].text);
 			$('#reviewBlanks_school').append(selectedSchool.options[selectedSchool.selectedIndex].text);
-
+		
 			var alt = document.getElementById("specialRequests").value;
 			if(alt != null && alt != "")
 			{
@@ -796,7 +774,7 @@
 			var title = document.getElementById("orderContact.title").value;
 			var email = document.getElementById("orderContact.email").value;
 			var phone = document.getElementById("orderContact.phone").value;
-
+		
 			$('#reviewContactInfo_firstName').empty();
 			$('#reviewContactInfo_middleName').empty();
 			$('#reviewContactInfo_lastName').empty();
@@ -836,7 +814,7 @@
 				{					
 					$('#reviewContactInfo_alt_hr').show();
 					$('#reviewContactInfo_alt_li').show();
-	
+		
 					var lines = alt.split('\n');   // lines is an array of strings
 					for (var j = 0; j < lines.length; j++) {
 					  $('#reviewContactInfo_alt').append(lines[j] + "<br />");
@@ -936,11 +914,11 @@
 				schoolDetails.district = districtDetails;
 			    schools.push(schoolDetails);
 		    </c:forEach> 
-
+		
 		    //Get Selected District from District Dropdwon
 		    var d = document.getElementById('districtList');
 		    var districtId = d.options[d.selectedIndex].value;
-
+		
 		  	//Get and Clear School Dropdown
 		    var select = document.getElementById('schoolList');
 		    select.innerHTML = null;
@@ -949,19 +927,19 @@
 		    schools.forEach(function(school)
 		    {
 		    	if(school.district.id == districtId)
-	    		{
+		   		{
 		    		var opt = document.createElement('option');
 			        opt.value = school.id;
-
+		
 			        var schoolId = ${schoolId};
 			        if(school.id == schoolId)
-                    {
-                        opt.selected = true;
-                    }
-
+		                  {
+		                      opt.selected = true;
+		                  }
+		
 			        opt.innerHTML = school.name;
 			        select.appendChild(opt);
-	    		}
+		   		}
 		    });
 		}
 	</script>

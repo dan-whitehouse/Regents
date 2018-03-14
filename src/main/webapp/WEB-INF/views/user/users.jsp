@@ -26,13 +26,10 @@
 							<div class="clearfix"></div>
 						</div>
 						<div class="x_content">
-<!-- 							<p class="text-muted font-13 m-b-30"> -->
-<%-- 								DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function: <code>$().DataTable();</code> --%>
-<!-- 							</p> -->
 							<table id="datatable" class="table table-striped table-bordered">
 								<thead>
 									<tr>
-									    <th>Username</th>
+										<th>Username</th>
 										<th>First Name</th>
 										<th>Last Name</th>
 										<th>District</th>
@@ -44,7 +41,7 @@
 								<tbody>
 									<c:forEach items="${users}" var="user">
 										<tr>
-										    <td><span style="text-decoration: underline;"><a href="<c:url value='/admin/users/${user.uuid}' />">${user.username}</a></span></td>
+											<td><span style="text-decoration: underline;"><a href="<c:url value='/admin/users/${user.uuid}' />">${user.username}</a></span></td>
 											<td>${user.firstName}</td>
 											<td>${user.lastName}</td>
 											<td>
@@ -52,7 +49,7 @@
 													<span class = "label label-lightGrey">${userDistrict.district.name}</span>
 												</c:forEach>
 											</td>
-										    <sec:authorize access="hasRole('ADMIN')">
+											<sec:authorize access="hasRole('ADMIN')">
 												<td width="195px">
 													<a href="<c:url value='/admin/users/${user.uuid}/edit' />" class="btn btn-success custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
 													<a type="button" class="btn btn-danger custom-width" data-toggle="modal" data-target=".modal-sm-${user.uuid}"><i class="fa fa-trash"></i></a>
@@ -75,9 +72,9 @@
 														</c:otherwise>
 													</c:choose>
 												</td>
-					        				</sec:authorize>
+											</sec:authorize>
 										</tr>
-									</c:forEach>									
+									</c:forEach>
 								</tbody>
 							</table>
 							<!-- Start Delete Popup Confirmation -->

@@ -3,9 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
-
 <c:url value="/order" var="orderLink" />
-
 <html>
 	<jsp:include page="../fragments/header.jsp" />
 	<sec:authorize access="hasRole('ADMIN')">
@@ -49,15 +47,17 @@
 											<fmt:formatDate var="year" value="${order.orderForm.startDate}" pattern="yyyy" />
 											<tr>
 												<td><span style="text-decoration: underline;"><a href="<c:url value='/order/${order.uuid}' />"> ${order.uuid} </a></span></td>
-												<td><fmt:formatDate value="${order.orderDate}" type="date" pattern="MM/dd/yyyy"/></td>
+												<td>
+													<fmt:formatDate value="${order.orderDate}" type="date" pattern="MM/dd/yyyy"/>
+												</td>
 												<c:choose>
-												<c:when test="${order.orderForm.period eq 'January' }">
-													<td>${order.orderForm.period} ${year + 1}</td>
-												</c:when>
-												<c:otherwise>
-													<td>${order.orderForm.period} ${year}</td>
-												</c:otherwise>
-												</c:choose>	
+													<c:when test="${order.orderForm.period eq 'January' }">
+														<td>${order.orderForm.period} ${year + 1}</td>
+													</c:when>
+													<c:otherwise>
+														<td>${order.orderForm.period} ${year}</td>
+													</c:otherwise>
+												</c:choose>
 												<td>${order.district.name}</td>
 												<td>${order.user.firstName} ${order.user.lastName}</td>
 												<td>${order.orderStatus}</td>
@@ -65,7 +65,6 @@
 													<td width="150px">
 														<a href="<c:url value='/order/${order.uuid}/edit' />" class="btn btn-success custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
 														<a type="button" class="btn btn-danger custom-width" data-toggle="modal" data-target=".modal-sm-${order.uuid}"><i class="fa fa-trash"></i></a>
-														
 														<c:choose>
 															<c:when test="${order.orderStatus == 'Processing'}">
 																<a href="<c:url value='/admin/order/${order.uuid}/complete/true' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Incomplete"><i class="fa fa-square"></i></a>
@@ -111,6 +110,6 @@
 				</div>
 			</div>
 		</div>
-		</sec:authorize>
+	</sec:authorize>
 	<jsp:include page="../fragments/footer.jsp" />
 </html>

@@ -17,14 +17,14 @@
 						<div class="x_title">
 							<h2>User</h2>
 							<ul class="nav navbar-right panel_toolbox">
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="${editLink}">Edit User</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+									<ul class="dropdown-menu" role="menu">
+										<li><a href="${editLink}">Edit User</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
 							<div class="clearfix"></div>
 						</div>
 						<div class="x_content">
@@ -63,20 +63,20 @@
 														<th>Period</th>
 														<th>Status</th>
 														<th>District</th>
-                                                        <th>School</th>
+														<th>School</th>
 														<sec:authorize access="hasRole('ADMIN')">
-                                                            <th></th>
-                                                        </sec:authorize>
+															<th></th>
+														</sec:authorize>
 													</tr>
 												</thead>
 												<tbody>
 													<c:forEach items="${user.orders}" var="order" varStatus="status">
-													    <fmt:formatDate var="schoolYear" value="${order.orderForm.startDate}" pattern="yyyy" />
+														<fmt:formatDate var="schoolYear" value="${order.orderForm.startDate}" pattern="yyyy" />
 														<tr>
 															<td><span style="text-decoration: underline;"><a href="<c:url value='/order/${order.uuid}' />">${order.uuid}</a></span></td>
 															<td>${order.orderDate}</td>
 															<td>
-															    ${order.orderForm.period} ${schoolYear}
+																${order.orderForm.period} ${schoolYear}
 															</td>
 															<td>
 																<c:choose>
@@ -89,50 +89,50 @@
 																</c:choose>
 															</td>
 															<td>${order.district.name}</td>
-                                                            <td>${order.school.name}</td>
-                                                            <sec:authorize access="hasRole('ADMIN')">
-                                                                <td>
-                                                                    <p  class="pull-right">
-                                                                        <a href="<c:url value='/order/${order.uuid}/edit' />" class="btn btn-success custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
-                                                                        <a type="button" class="btn btn-danger custom-width" data-toggle="modal" data-target=".modal-sm-${order.uuid}"><i class="fa fa-trash"></i></a>
-                                                                        <c:choose>
-                                                                            <c:when test="${order.orderStatus == 'Processing'}">
-                                                                                <a href="<c:url value='/order/${order.uuid}/complete/true' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Incomplete"><i class="fa fa-square"></i></a>
-                                                                            </c:when>
-                                                                            <c:otherwise>
-                                                                                <a href="<c:url value='/order/${order.uuid}/complete/false' />" class="btn btn-info custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Complete"><i class="fa fa-check-square"></i></a>
-                                                                            </c:otherwise>
-                                                                        </c:choose>
-                                                                    </p>
-                                                                </td>
-                                                            </sec:authorize>
+															<td>${order.school.name}</td>
+															<sec:authorize access="hasRole('ADMIN')">
+																<td>
+																	<p  class="pull-right">
+																		<a href="<c:url value='/order/${order.uuid}/edit' />" class="btn btn-success custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+																		<a type="button" class="btn btn-danger custom-width" data-toggle="modal" data-target=".modal-sm-${order.uuid}"><i class="fa fa-trash"></i></a>
+																		<c:choose>
+																			<c:when test="${order.orderStatus == 'Processing'}">
+																				<a href="<c:url value='/order/${order.uuid}/complete/true' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Incomplete"><i class="fa fa-square"></i></a>
+																			</c:when>
+																			<c:otherwise>
+																				<a href="<c:url value='/order/${order.uuid}/complete/false' />" class="btn btn-info custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Complete"><i class="fa fa-check-square"></i></a>
+																			</c:otherwise>
+																		</c:choose>
+																	</p>
+																</td>
+															</sec:authorize>
 														</tr>
 													</c:forEach>
 												</tbody>
 											</table>
 											<sec:authorize access="hasRole('ADMIN')">
-                                                <c:forEach items="${user.orders}" var="order">
-                                                    <div class="modal fade modal-sm-${order.uuid}" tabindex="-2" role="dialog" aria-hidden="true">
-                                                        <div class="modal-dialog modal-sm">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">?</span>
-                                                                    </button>
-                                                                    <h4 class="modal-title" id="myModalLabel2">Confirmation</h4>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <h5>Delete Order: </h5>
-                                                                    <p>${order.uuid}</p>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                                                    <a href="<c:url value='/admin/order/${order.uuid}/delete' />" class="btn btn-danger">Delete</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </c:forEach>
-                                            </sec:authorize>
+												<c:forEach items="${user.orders}" var="order">
+													<div class="modal fade modal-sm-${order.uuid}" tabindex="-2" role="dialog" aria-hidden="true">
+														<div class="modal-dialog modal-sm">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">?</span>
+																	</button>
+																	<h4 class="modal-title" id="myModalLabel2">Confirmation</h4>
+																</div>
+																<div class="modal-body">
+																	<h5>Delete Order: </h5>
+																	<p>${order.uuid}</p>
+																</div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+																	<a href="<c:url value='/admin/order/${order.uuid}/delete' />" class="btn btn-danger">Delete</a>
+																</div>
+															</div>
+														</div>
+													</div>
+												</c:forEach>
+											</sec:authorize>
 											<!-- END ORDERS -->
 										</div>
 										<div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
@@ -144,7 +144,7 @@
 														<th>Date</th>
 														<th>District</th>
 														<sec:authorize access="hasRole('ADMIN')">
-														    <th></th>
+															<th></th>
 														</sec:authorize>
 													</tr>
 												</thead>
@@ -155,39 +155,39 @@
 															<td>${optOut.optOutDate}</td>
 															<td>${optOut.district.name}</td>
 															<sec:authorize access="hasRole('ADMIN')">
-                                                                <td>
-                                                                    <p  class="pull-right">
-                                                                        <a type="button" class="btn btn-danger custom-width" data-toggle="modal" data-target=".modal-sm-${optOut.uuid}"><i class="fa fa-trash"></i></a>
-                                                                    </p>
-                                                                </td>
-                                                            </sec:authorize>
+																<td>
+																	<p  class="pull-right">
+																		<a type="button" class="btn btn-danger custom-width" data-toggle="modal" data-target=".modal-sm-${optOut.uuid}"><i class="fa fa-trash"></i></a>
+																	</p>
+																</td>
+															</sec:authorize>
 														</tr>
 													</c:forEach>
 												</tbody>
 											</table>
 											<sec:authorize access="hasRole('ADMIN')">
-                                                <c:forEach items="${optOuts}" var="optOut">
-                                                    <div class="modal fade modal-sm-${optOut.uuid}" tabindex="-3" role="dialog" aria-hidden="true">
-                                                        <div class="modal-dialog modal-sm">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">?</span>
-                                                                    </button>
-                                                                    <h4 class="modal-title" id="myModalLabel3">Confirmation</h4>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <h5>Delete Not Administering: </h5>
-                                                                    <p>${optOut.uuid}</p>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                                                    <a href="<c:url value='/admin/optout/${optOut.uuid}/delete' />" class="btn btn-danger">Delete</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </c:forEach>
-                                            </sec:authorize>
+												<c:forEach items="${optOuts}" var="optOut">
+													<div class="modal fade modal-sm-${optOut.uuid}" tabindex="-3" role="dialog" aria-hidden="true">
+														<div class="modal-dialog modal-sm">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">?</span>
+																	</button>
+																	<h4 class="modal-title" id="myModalLabel3">Confirmation</h4>
+																</div>
+																<div class="modal-body">
+																	<h5>Delete Not Administering: </h5>
+																	<p>${optOut.uuid}</p>
+																</div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+																	<a href="<c:url value='/admin/optout/${optOut.uuid}/delete' />" class="btn btn-danger">Delete</a>
+																</div>
+															</div>
+														</div>
+													</div>
+												</c:forEach>
+											</sec:authorize>
 											<!-- END NOT ADMINISTERING -->
 										</div>
 										<div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
@@ -198,79 +198,79 @@
 														<th>Name</th>
 														<th>BEDS Code</th>
 														<sec:authorize access="hasRole('ADMIN')">
-                                                            <th></th>
-                                                        </sec:authorize>
+															<th></th>
+														</sec:authorize>
 													</tr>
 												</thead>
 												<tbody>
 													<c:forEach items="${user.userDistricts}" var="userDistrict" varStatus="status">
 														<tr>
 															<td>
-                                                                <sec:authorize access="hasRole('ADMIN')">
-															        <span style="text-decoration: underline;">
-															            <a href="<c:url value='/admin/districts/${userDistrict.district.uuid}' />">
-															                ${userDistrict.district.name}
-                                                                        </a>
-                                                                    </span>
-                                                                    </sec:authorize>
-                                                                    <sec:authorize access="hasRole('USER')">
-                                                                        ${userDistrict.district.name}
-                                                                </sec:authorize>
-                                                            </td>
+																<sec:authorize access="hasRole('ADMIN')">
+																	<span style="text-decoration: underline;">
+																	<a href="<c:url value='/admin/districts/${userDistrict.district.uuid}' />">
+																	${userDistrict.district.name}
+																	</a>
+																	</span>
+																</sec:authorize>
+																<sec:authorize access="hasRole('USER')">
+																	${userDistrict.district.name}
+																</sec:authorize>
+															</td>
 															<td>${userDistrict.district.bedsCode}</td>
 															<sec:authorize access="hasRole('ADMIN')">
-                                                                <td>
-                                                                    <p  class="pull-right">
-                                                                        <a href="<c:url value='/admin/districts/${userDistrict.district.uuid}/edit' />" class="btn btn-success custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
-                                                                        <a type="button" class="btn btn-danger custom-width" data-toggle="modal" data-target=".modal-sm-${userDistrict.district.uuid}"><i class="fa fa-trash"></i></a>
-                                                                        <!-- Visible -->
-                                                                        <c:choose>
-                                                                            <c:when test="${userDistrict.district.visible == true}">
-                                                                                <a href="<c:url value='/admin/districts/${userDistrict.district.uuid}/hide/false' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Visible"><i class="fa fa-eye"></i></a>
-                                                                            </c:when>
-                                                                            <c:otherwise>
-                                                                                <a href="<c:url value='/admin/districts/${userDistrict.district.uuid}/hide/true' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Hidden"><i class="fa fa-eye-slash"></i></a>
-                                                                            </c:otherwise>
-                                                                        </c:choose>
-                                                                        <!-- Lock -->
-                                                                        <c:choose>
-                                                                            <c:when test="${userDistrict.district.locked == true}">
-                                                                                <a href="<c:url value='/admin/districts/${userDistrict.district.uuid}/lock/false' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Locked"><i class="fa fa-lock"></i></a>
-                                                                            </c:when>
-                                                                            <c:otherwise>
-                                                                                <a href="<c:url value='/admin/districts/${userDistrict.district.uuid}/lock/true' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Unlocked"><i class="fa fa-unlock"></i></a>
-                                                                            </c:otherwise>
-                                                                        </c:choose>
-                                                                    </p>
-                                                                </td>
-                                                            </sec:authorize>
+																<td>
+																	<p  class="pull-right">
+																		<a href="<c:url value='/admin/districts/${userDistrict.district.uuid}/edit' />" class="btn btn-success custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
+																		<a type="button" class="btn btn-danger custom-width" data-toggle="modal" data-target=".modal-sm-${userDistrict.district.uuid}"><i class="fa fa-trash"></i></a>
+																		<!-- Visible -->
+																		<c:choose>
+																			<c:when test="${userDistrict.district.visible == true}">
+																				<a href="<c:url value='/admin/districts/${userDistrict.district.uuid}/hide/false' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Visible"><i class="fa fa-eye"></i></a>
+																			</c:when>
+																			<c:otherwise>
+																				<a href="<c:url value='/admin/districts/${userDistrict.district.uuid}/hide/true' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Hidden"><i class="fa fa-eye-slash"></i></a>
+																			</c:otherwise>
+																		</c:choose>
+																		<!-- Lock -->
+																		<c:choose>
+																			<c:when test="${userDistrict.district.locked == true}">
+																				<a href="<c:url value='/admin/districts/${userDistrict.district.uuid}/lock/false' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Locked"><i class="fa fa-lock"></i></a>
+																			</c:when>
+																			<c:otherwise>
+																				<a href="<c:url value='/admin/districts/${userDistrict.district.uuid}/lock/true' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Unlocked"><i class="fa fa-unlock"></i></a>
+																			</c:otherwise>
+																		</c:choose>
+																	</p>
+																</td>
+															</sec:authorize>
 														</tr>
 													</c:forEach>
 												</tbody>
 											</table>
 											<sec:authorize access="hasRole('ADMIN')">
-                                                <c:forEach items="${user.userDistricts}" var="userDistrict">
-                                                    <div class="modal fade modal-sm-${userDistrict.district.uuid}" tabindex="-1" role="dialog" aria-hidden="true">
-                                                        <div class="modal-dialog modal-sm">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">?</span>
-                                                                    </button>
-                                                                    <h4 class="modal-title" id="myModalLabel1">Confirmation</h4>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <h5>Delete District: </h5>
-                                                                    <p>${userDistrict.district.name}</p>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                                                    <a href="<c:url value='/admin/districts/${userDistrict.district.uuid}/delete' />" class="btn btn-danger">Delete</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </c:forEach>
-                                            </sec:authorize>
+												<c:forEach items="${user.userDistricts}" var="userDistrict">
+													<div class="modal fade modal-sm-${userDistrict.district.uuid}" tabindex="-1" role="dialog" aria-hidden="true">
+														<div class="modal-dialog modal-sm">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">?</span>
+																	</button>
+																	<h4 class="modal-title" id="myModalLabel1">Confirmation</h4>
+																</div>
+																<div class="modal-body">
+																	<h5>Delete District: </h5>
+																	<p>${userDistrict.district.name}</p>
+																</div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+																	<a href="<c:url value='/admin/districts/${userDistrict.district.uuid}/delete' />" class="btn btn-danger">Delete</a>
+																</div>
+															</div>
+														</div>
+													</div>
+												</c:forEach>
+											</sec:authorize>
 											<!-- END DISTRICTS -->
 										</div>
 									</div>
