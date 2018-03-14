@@ -1,5 +1,5 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!-- footer content -->
+		<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+		<!-- footer content -->
         <footer>
        	<div class="clearfix"></div>
           <div class="pull-right">

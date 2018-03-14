@@ -3,9 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
-
-<%-- <c:url value="/optout" var="optoutLink" /> --%>
-
 <html>
 	<jsp:include page="../fragments/header.jsp" />
 	<!-- page content -->
@@ -38,7 +35,9 @@
 										<fmt:formatDate var="year" value="${optout.orderForm.startDate}" pattern="yyyy" />
 										<tr>
 											<td>${optout.uuid}</td>
-											<td><fmt:formatDate value="${optout.optOutDate}" type="date" pattern="MM/dd/yyyy"/></td>
+											<td>
+												<fmt:formatDate value="${optout.optOutDate}" type="date" pattern="MM/dd/yyyy"/>
+											</td>
 											<c:choose>
 												<c:when test="${optout.orderForm.period eq 'January' }">
 													<td>${optout.orderForm.period} ${year + 1}</td>
@@ -46,7 +45,7 @@
 												<c:otherwise>
 													<td>${optout.orderForm.period} ${year}</td>
 												</c:otherwise>
-											</c:choose>			
+											</c:choose>
 											<td>${optout.district.name}</td>
 											<td>${optout.optOutUser.firstName} ${optout.optOutUser.lastName}</td>
 											<sec:authorize access="hasRole('ADMIN')">
