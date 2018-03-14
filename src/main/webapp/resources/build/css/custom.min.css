@@ -1431,6 +1431,9 @@ ul.msg_list li a .message {
     right: 2px;
     top: 8px
 }
+
+.badge-lightGrey{background-color: #9c9896;}
+
 ul.to_do {
     padding: 0
 }

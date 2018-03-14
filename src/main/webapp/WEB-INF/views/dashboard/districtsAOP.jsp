@@ -33,48 +33,29 @@
 							<table id="datatable" class="table table-striped table-bordered">
 								<thead>
 									<tr>
-										<th>Name</th>
-										<th>BEDS Code</th>
+										<th width="30%">Name</th>
+										<th width="10%">BEDS Code</th>
 										<c:if test="${showNumberOfOrders eq true}">
-											<th>Number of Orders</th>
+											<th width="20%">Number of Orders</th>
+											<th width="40%">Orders</th>
 										</c:if>
-										<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
-											<th>Management</th>
-										</sec:authorize>
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach items="${districtsOrder}" var="districtOrder">
+									<c:forEach var="districtOrder" items="${districtsOrder}">
 										<tr>
 											<td><a href="<c:url value='/admin/districts/${districtOrder.district.uuid}' />">${districtOrder.district.name}</a></td>
 											<td>${districtOrder.district.bedsCode}</td>
 											<c:if test="${showNumberOfOrders eq true}">
 												<td>${districtOrder.orderCount}</td>
-											</c:if>
-										    <sec:authorize access="hasRole('ADMIN')">
-												<td width="195px">
-													<a href="<c:url value='/admin/districts/${districtOrder.district.uuid}/edit' />" class="btn btn-success custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
-													<a type="button" class="btn btn-danger custom-width" data-toggle="modal" data-target=".modal-sm-${istrictOrder.district.uuid}"><i class="fa fa-trash"></i></a>
-													<!-- Visible -->
-													<c:choose>
-														<c:when test="${districtOrder.district.visible == true}">
-															<a href="<c:url value='/admin/districts/${districtOrder.district.uuid}/hide/false' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Visible"><i class="fa fa-eye"></i></a>
-														</c:when>
-														<c:otherwise>
-															<a href="<c:url value='/admin/districts/${districtOrder.district.uuid}/hide/true' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Hidden"><i class="fa fa-eye-slash"></i></a>
-														</c:otherwise>
-													</c:choose>
-													<!-- Lock -->
-													<c:choose>
-														<c:when test="${districtOrder.district.locked == true}">
-															<a href="<c:url value='/admin/districts/${districtOrder.district.uuid}/lock/false' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Locked"><i class="fa fa-lock"></i></a>
-														</c:when>
-														<c:otherwise>
-															<a href="<c:url value='/admin/districts/${districtOrder.district.uuid}/lock/true' />" class="btn btn-dark custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Unlocked"><i class="fa fa-unlock"></i></a>
-														</c:otherwise>
-													</c:choose>
+												<td>
+													<c:forEach  var="order" items="${districtOrder.orders}">
+														<a href="<c:url value='/order/${order.uuid}' />">
+															<p class="badge badge-lightGrey">${order.uuid}</p>
+														</a>
+													</c:forEach>
 												</td>
-					        				</sec:authorize>
+											</c:if>
 										</tr>
 									</c:forEach>									
 								</tbody>

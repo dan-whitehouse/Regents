@@ -14,8 +14,6 @@
 <fmt:formatNumber var="processingFee" value="${orderForm.processingFee}" type="currency"/>
 <fmt:formatDate value="${orderForm.endDate}" type="date" pattern="MM/dd/yyyy" var="endDate"/>
 
-
-
 	<jsp:include page="../fragments/header.jsp" />
 	<!-- page content -->
 	<div class="right_col" role="main">
@@ -158,14 +156,23 @@
 																		</td>
 																		<c:if test="${period eq 'June'}">
 																			<td>
-																				<form:input path="selectedExams[${status.index}].orderExam.examAmount" type="number" min="0" step="1" class="form-control col-md-3 col-xs-12" />
+																				<div class="item form-group has-feedback">
+																					<form:input path="selectedExams[${status.index}].orderExam.examAmount" type="number" min="0" step="1" class="form-control col-md-3 col-xs-12" />
+																					<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+																				</div>
 																			</td>
 																		</c:if>
 																		<td>
-																			<form:input path="selectedExams[${status.index}].orderExam.answerSheetAmount" type="number" min="0" step="1" class="form-control col-md-3 col-xs-12" />
+																			<div class="item form-group has-feedback">
+																				<form:input path="selectedExams[${status.index}].orderExam.answerSheetAmount" type="number" min="0" step="1" class="form-control col-md-3 col-xs-12" />
+																				<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+																			</div>
 																		</td>
 																		<td>
-																			<form:input path="selectedExams[${status.index}].orderExam.studentsPerCSV" type="number" min="0" step="1" class="form-control col-md-3 col-xs-12" />
+																			<div class="item form-group has-feedback">
+																				<form:input path="selectedExams[${status.index}].orderExam.studentsPerCSV" type="number" min="0" step="1" class="form-control col-md-3 col-xs-12" />
+																				<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+																			</div>
 																		</td>
 																	</tr>
 																</c:forEach>
@@ -239,7 +246,10 @@
 																<form:input path="selectedDocuments[${status.index}].orderDocument.document.name" value="${d.orderDocument.document.name }"  class="form-control col-md-3 col-xs-12" readonly="true" />
 															</td>
 															<td>
-																<form:input path="selectedDocuments[${status.index}].orderDocument.documentAmount" type="number" min="0" step="1" class="form-control col-md-3 col-xs-12" />
+																<div class="item form-group has-feedback">
+																	<form:input path="selectedDocuments[${status.index}].orderDocument.documentAmount" type="number" min="0" step="1" class="form-control col-md-3 col-xs-12" />
+																	<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+																</div>
 															</td>
 														</tr>
 													</c:forEach>

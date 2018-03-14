@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.neric.regents.model.District;
@@ -126,10 +127,18 @@ public class DistrictDAOImpl extends AbstractDao<Integer, District> implements D
 		});
 		
 		//https://stackoverflow.com/questions/31537763/java8-stream-groupingby-enum-and-counting
-		List<DistrictOrder> districtsOrder = new ArrayList<>();
+		List<DistrictOrder> districtsOrders = new ArrayList<>();
 		Map<District, Long> districtOrderMap = orders.stream().collect(Collectors.groupingBy(Order::getDistrict, Collectors.counting()));
-		districtOrderMap.forEach((k,v) -> districtsOrder.add(new DistrictOrder(k, v)));
-		return districtsOrder;
+		districtOrderMap.forEach((k,v) -> districtsOrders.add(new DistrictOrder(k, v)));
+		
+		for(DistrictOrder districtOrder : districtsOrders) {
+			for(Order order : orders) {
+				if(StringUtils.equalsIgnoreCase(districtOrder.getDistrict().getUuid(), order.getDistrict().getUuid())) {
+					districtOrder.getOrders().add(order);
+				}
+			}
+		}
+		return districtsOrders;
 	}
 
 	@Override
