@@ -30,6 +30,7 @@ import org.neric.regents.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -54,7 +55,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 @ControllerAdvice
 public class ErrorController 
 {
-	public static final String DEFAULT_ERROR_VIEW = "error";
+	public static final String DEFAULT_ERROR_VIEW = "message/error";
 	
 	@ExceptionHandler(value = Exception.class)
 	public ModelAndView defaultErrorHandler(HttpServletRequest httpRequest, Exception e) throws Exception 
@@ -94,6 +95,26 @@ public class ErrorController
 	    mav.addObject("errorCode", "400");
 	    mav.addObject("errorMsg", "Bad Request");
 	    mav.addObject("exception", "Could not insert record, key constraint violation was detected on: " + value);
+	    mav.addObject("url", httpRequest.getRequestURL());
+	    mav.setViewName(DEFAULT_ERROR_VIEW);
+	    return mav;
+	}
+	
+	@ExceptionHandler(value = DataIntegrityViolationException.class)
+	public ModelAndView dataIntegrityViolationExceptionHandler(HttpServletRequest httpRequest, DataIntegrityViolationException e) throws DataIntegrityViolationException 
+	{
+	    if (AnnotationUtils.findAnnotation(e.getClass(), ResponseStatus.class) != null)
+	    {
+	    	throw e;
+	    }
+
+	    //String value = StringUtils.substringBetween(e.getMessage(), "'");
+	    
+	    // Otherwise setup and send the user to a default error-view.
+	    ModelAndView mav = new ModelAndView();
+	    mav.addObject("errorCode", "400");
+	    mav.addObject("errorMsg", "Bad Request");
+	    mav.addObject("exception", "The object you are trying to delete has a dependency. Mark as invisible to no longer display. ");
 	    mav.addObject("url", httpRequest.getRequestURL());
 	    mav.setViewName(DEFAULT_ERROR_VIEW);
 	    return mav;

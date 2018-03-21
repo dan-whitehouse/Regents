@@ -72,7 +72,16 @@
 									<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 									<!-- <div class="help-block with-errors">Hey look, this one has feedback icons!</div> -->
 								</div>
-								<div class="item form-group has-feedback">
+
+								
+								<form:input type="hidden" value="0.00" path="rescanFee" id="rescanFee" name="rescanFee"/>
+								<form:input type="hidden" value="0.00" path="inDistrictScanFee" id="inDistrictScanFee" name="inDistrictScanFee"/>
+								<form:input type="hidden" value="0.00" path="processingFee" id="processingFee" name="processingFee"/>
+								<form:input type="hidden" value="0.00" path="nonSecureDocumentFee" id="nonSecureDocumentFee" name="nonSecureDocumentFee"/>
+								
+								<%-- Commented out code below is replaced by hidden inputs above --%>
+								
+								<%-- <div class="item form-group has-feedback">
 									<label for="rescanFee" class="control-label col-md-3 col-sm-3 col-xs-3 left">Rescan Fee</label>
 									<div class="input-group col-md-6 col-sm-6 col-xs-6">
 										<span class="input-group-addon"><i class="fa fa-usd"></i></span>
@@ -111,7 +120,7 @@
 									</div>
 									<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 									<!-- <div class="help-block with-errors">Hey look, this one has feedback icons!</div> -->
-								</div>
+								</div> --%>
 								<div class="item form-group has-feedback">
 									<label for="orderFormExams" class="control-label col-md-3 col-sm-3 col-xs-3 left">Exams</label>
 									<div class="input-group col-md-6 col-sm-6 col-xs-6">
@@ -125,7 +134,9 @@
 																<form:option selected="true" value="${selectedExam.exam.id}" label="${selectedExam.exam.name}"  />
 															</c:when>
 															<c:otherwise>
-																<form:option value="${selectedExam.exam.id}" label="${selectedExam.exam.name}" />
+																<c:if test="${selectedExam.exam.visible eq true}">
+																	<form:option value="${selectedExam.exam.id}" label="${selectedExam.exam.name}" />
+																</c:if>
 															</c:otherwise>
 														</c:choose>
 													</c:forEach>
@@ -134,7 +145,9 @@
 											<c:otherwise>
 												<form:select path="orderFormExams" multiple="true" class="select2_multiple form-control" required="required">
 													<c:forEach items="${exams}" var="exam" varStatus="status">
-														<form:option value="${exam.id}">${exam.name}</form:option>
+														<c:if test="${exam.visible eq true}">
+															<form:option value="${exam.id}">${exam.name}</form:option>
+														</c:if>
 													</c:forEach>
 												</form:select>
 											</c:otherwise>
@@ -156,7 +169,9 @@
 																<form:option selected="true" value="${selectedDocument.document.id}" label="${selectedDocument.document.name}"  />
 															</c:when>
 															<c:otherwise>
-																<form:option value="${selectedDocument.document.id}" label="${selectedDocument.document.name}" />
+																<c:if test="${selectedDocument.document.visible eq true}">
+																	<form:option value="${selectedDocument.document.id}" label="${selectedDocument.document.name}" />
+																</c:if>
 															</c:otherwise>
 														</c:choose>
 													</c:forEach>
@@ -165,7 +180,9 @@
 											<c:otherwise>
 												<form:select path="orderFormDocuments" multiple="true" class="select2_multiple form-control" required="required">
 													<c:forEach items="${docs}" var="doc">
-														<form:option value="${doc.id}">${doc.name}</form:option>
+														<c:if test="${doc.visible eq true}">
+															<form:option value="${doc.id}">${doc.name}</form:option>
+														</c:if>
 													</c:forEach>
 												</form:select>
 											</c:otherwise>

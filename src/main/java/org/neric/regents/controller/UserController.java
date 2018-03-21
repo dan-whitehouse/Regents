@@ -1,5 +1,6 @@
 package org.neric.regents.controller;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.neric.regents.controller.AbstractController;
 import org.neric.regents.converture.DistrictEditor;
 import org.neric.regents.converture.SchoolEditor;
@@ -9,6 +10,7 @@ import org.neric.regents.test.UserPassword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomCollectionEditor;
 import org.springframework.context.MessageSource;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -238,14 +240,21 @@ public class UserController extends AbstractController {
 	public String deleteUser(@PathVariable String uuid, ModelMap model) 
 	{	
 		User user = userService.findByUUID(uuid);	
-		if(!user.getLocked())
-		{
-			userService.deleteUserByUUID(uuid);
-			return "redirect:/admin/users";
+		
+		try {
+			if(!user.getLocked())
+			{
+				userService.deleteUserByUUID(uuid);
+				return "redirect:/admin/users";
+			}
+			else
+			{
+				model.addAttribute("error_message", "The user you are trying to delete is locked, please unlock it and try again.");
+				return "message/403";	
+			}
 		}
-		else
-		{
-			model.addAttribute("error_message", "The user you are trying to delete is locked, please unlock it and try again.");
+		catch(DataIntegrityViolationException e) {
+			model.addAttribute("error_message", "The user appears to have order data associated with it. Lock this account to restrict it's login access.");
 			return "message/403";	
 		}
 	}
