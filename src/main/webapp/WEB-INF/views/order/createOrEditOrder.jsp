@@ -92,8 +92,8 @@
 													If you are ordering preprinted answer sheets your district needs to provide NERIC with a student data file 
 													securely through Serv-U. You can find the student data file template 
 													<a href="http://neric.org/Testing/Regents.cfm" class="link" target="_blank">here</a>, 
-													and directions on how to upload files to Serv-U <a href="http://neric.org/documents/Testing/How%20to%20Upload%20Files%20to%20ServU.pdf" class="link" target="_blank">here</a>. If you do not have access to SERV-U, a request for a secure link can be e-mailed 
-													to testing@neric.org. 
+													and directions on how to upload files to Serv-U <a href="http://neric.org/documents/Testing/How%20to%20Upload%20Files%20to%20ServU.pdf" class="link" target="_blank">here</a>. If you do not have access to Serv-U, a request for a secure link can be e-mailed 
+													to <u><a href="mailto:testing@neric.org">testing@neric.org</a></u>. 
 												<p class="text-danger">No student data files should be e-mailed to NERIC</p>
 												</p>
 												<p>
