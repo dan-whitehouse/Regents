@@ -363,7 +363,7 @@
 												<label for="email" class="control-label col-md-3 col-sm-3 col-xs-3 left">Email</label>
 												<div class="input-group col-md-6 col-sm-6 col-xs-6">
 													<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-													<form:input type="email" maxlength="50" path="orderContact.email" id="orderContact.email" class="form-control col-md-7 col-xs-12" name="email" placeholder="Email" required="required" />
+													<form:input type="email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" maxlength="50" path="orderContact.email" id="orderContact.email" class="form-control col-md-7 col-xs-12" name="email" placeholder="Email" required="required" />
 												</div>
 												<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 											</div>
