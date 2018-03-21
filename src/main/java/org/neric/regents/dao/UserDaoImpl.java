@@ -2,6 +2,7 @@ package org.neric.regents.dao;
 
 import java.util.List;
 
+import org.neric.regents.model.Document;
 import org.neric.regents.model.User;
 import org.neric.regents.model.UserDistrict;
 import org.hibernate.Criteria;
@@ -103,6 +104,20 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		return users;
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<User> findAllUsersByDistrictUuId(String uuid) {
+		
+		Criteria criteria = getSession().createCriteria(User.class, "u");
+		criteria.createAlias("u.userDistricts", "ud");
+		criteria.createAlias("ud.district", "d");
+		criteria.add(Restrictions.eq("d.uuid", uuid));
+		criteria.addOrder(Order.asc("u.firstName"));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
+		List<User> users = (List<User>) criteria.list();
+		return users;
+	}
+	
+	
 	public void save(User user) {
 		persist(user);
 	}
@@ -126,6 +141,4 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		int count = ((Long)getSession().createQuery("select count(*) from User").uniqueResult()).intValue();
 		return count;
 	}
-	
-
 }

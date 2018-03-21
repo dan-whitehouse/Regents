@@ -26,6 +26,9 @@ public class DistrictController extends AbstractController {
 
 	@Autowired
 	DistrictService districtService;
+	
+	@Autowired
+	UserService userService;
 
 	@Autowired
 	SchoolService schoolService;
@@ -109,7 +112,10 @@ public class DistrictController extends AbstractController {
 	public String getDistrict(@PathVariable String uuid, ModelMap model)
 	{
 		District district = districtService.findByUUID(uuid);
+		List<User> districtUsers = userService.findAllUsersByDistrictUuId(uuid);
+
 		model.addAttribute("district", district);
+		model.addAttribute("users", districtUsers);
 		return "district/district";
 	}
 

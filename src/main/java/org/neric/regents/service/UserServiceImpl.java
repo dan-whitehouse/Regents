@@ -80,6 +80,10 @@ public class UserServiceImpl implements UserService{
 	{
 		return dao.findAllUsers();
 	}
+	
+	public List<User> findAllUsersByDistrictUuId(String uuid) {
+		return dao.findAllUsersByDistrictUuId(uuid);
+	}
 
 	public boolean isUserUsernameUnique(Integer id, String username) 
 	{
