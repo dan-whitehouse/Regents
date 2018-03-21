@@ -16,6 +16,8 @@ public interface UserService {
 	
 	List<User> findAllUsers(); 
 	
+	List<User> findAllUsersByDistrictUuId(String uuid);
+	
 	void saveUser(User user);
 	
 	void updateUser(User user);

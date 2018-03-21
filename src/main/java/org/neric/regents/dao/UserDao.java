@@ -15,6 +15,8 @@ public interface UserDao {
 	
 	List<User> findAllUsers();
 	
+	List<User> findAllUsersByDistrictUuId(String uuid);
+	
 	void save(User user);
 	
 	void delete(User user);

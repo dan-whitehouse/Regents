@@ -64,6 +64,45 @@
                                     <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                 </div>
 
+								<div class="item form-group">
+									<label class="control-label col-md-3 col-sm-3 col-xs-3 left">Users</label>
+									<div class="col-md-6 col-sm-6 col-xs-6">
+										<table class="col-md-6 col-sm-6 col-xs-6 table table-striped table-bordered">
+											<thead>
+												<tr>
+													<th>Username</th>
+													<th>First Name</th>
+													<th>Last Name</th>
+													<th>Status</th>
+												</tr>
+											</thead>
+											<tbody>
+												<c:forEach items="${users}" var="user">
+													<tr>
+														<td><span style="text-decoration: underline;"><a href="<c:url value='/admin/users/${user.uuid}' />">${user.username}</a></span></td>
+														<td>${user.firstName}</td>
+														<td>${user.lastName}</td>
+														<c:choose>
+															<c:when test="${user.locked == true}">
+																<td>
+																	Locked
+																</td>
+															</c:when>
+															<c:otherwise>
+																<td>
+																	Unlocked
+																</td>
+															</c:otherwise>
+														</c:choose>
+													</tr>
+												</c:forEach>
+											</tbody>
+										</table>
+									</div>
+									
+								</div>
+
+
 
 							</form:form>
 						</div>
