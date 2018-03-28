@@ -153,7 +153,7 @@
 						$(studentsPerCSVSpan).addClass('glyphicon-remove');
 					}
 							  			
-		  			<c:if test="${orderForm.period eq 'June'}">
+		  			<c:if test="${period eq 'June'}">
 		  				var examAmount = document.getElementById("selectedExams" + i + ".orderExam.examAmount").value;
 		  				document.getElementById("selectedExams" + i + ".orderExam.examAmount").removeAttribute("required");
 		  				var examAmountParent = document.getElementById("selectedExams" + i + ".orderExam.examAmount").parentNode;
@@ -289,22 +289,18 @@
 					var studentsPerCSV = document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").value;
 
 					<c:choose> 
-					  <c:when test="${orderForm.period eq 'June'}">
+					  <c:when test="${period eq 'June'}">
 					 	 var examAmount = document.getElementById("selectedExams" + i + ".orderExam.examAmount").value;
-					 	 
+ 
 					 	 if(!isEmpty(examAmount) || !isEmpty(answerSheetAmount) || !isEmpty(studentsPerCSV)) {
-					 		 
 					 		if(isEmpty(examAmount)) {
-					 			document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").removeAttribute("required");
-				  				document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").removeAttribute("required");
+					 			document.getElementById("selectedExams" + i + ".orderExam.examAmount").removeAttribute("required");
 				  			}
 				  			if(isEmpty(answerSheetAmount)) {
-				  				document.getElementById("selectedExams" + i + ".orderExam.examAmount").removeAttribute("required");
-				  				document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").removeAttribute("required");
+				  				document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").removeAttribute("required")
 				  			}
 				  			if(isEmpty(studentsPerCSV)) {
-				  				document.getElementById("selectedExams" + i + ".orderExam.examAmount").removeAttribute("required");
-				  				document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").removeAttribute("required");
+				  				document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").removeAttribute("required");
 				  			}
 					 		validCount++;
 				 		 }
@@ -317,13 +313,12 @@
 					  <c:otherwise>
 				  		if(!isEmpty(answerSheetAmount) || !isEmpty(studentsPerCSV)) {
 				  			
-				  			if(!isEmpty(answerSheetAmount)) {
-				  				document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").removeAttribute("required");
-				  			}
-				  			if(!isEmpty(studentsPerCSV)) {
+				  			if(isEmpty(answerSheetAmount)) {
 				  				document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").removeAttribute("required");
 				  			}
-				  			
+				  			if(isEmpty(studentsPerCSV)) {
+				  				document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").removeAttribute("required");
+				  			}
 				  			validCount++;
 				 		}
  				  		else {
@@ -336,17 +331,11 @@
 					checkedCount++;
 				}
 				else {
-					/* document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").removeAttribute("required");
-		  			document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").removeAttribute("required");
-		  			<c:if test="${orderForm.period eq 'June'}">
-		  				document.getElementById("selectedExams" + i + ".orderExam.examAmount").removeAttribute("required");
-	  				</c:if> */
-
 	  				var answerSheetAmount = document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").value;
 					var studentsPerCSV = document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").value;
 
 					<c:choose> 
-					  	<c:when test="${orderForm.period eq 'June'}">
+					  	<c:when test="${period eq 'June'}">
 					 	 	var examAmount = document.getElementById("selectedExams" + i + ".orderExam.examAmount").value;
 					 	 	 if(!isEmpty(examAmount) || !isEmpty(answerSheetAmount) || !isEmpty(studentsPerCSV)) {
 					 	 		uncheckedCount++; 

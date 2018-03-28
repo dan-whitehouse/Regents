@@ -414,7 +414,9 @@
 																<thead>
 																	<tr class="headings">
 																		<th class="column-title">Exam Name </th>
-																		<th class="column-title">Students Pull from L0</th>
+																		<c:if test="${period eq 'June'}">
+																			<th class="column-title">Students Pull from L0</th>
+																		</c:if>
 																		<th class="column-title">Blank Answer Sheets </th>
 																		<th class="column-title">Students in CSV </th>
 																	</tr>
@@ -422,13 +424,17 @@
 																<tbody id="reviewExams">
 																	<tr class="even pointer">
 																		<td class=" ">Algebra 2 / Trigonometry - 02052CC</td>
-																		<td class=" ">61</td>
+																		<c:if test="${period eq 'June'}">
+																			<td class=" ">61</td>
+																		</c:if>
 																		<td class=" ">10</td>
 																		<td class=" ">1</td>
 																	</tr>
 																	<tr class="odd pointer">
 																		<td class=" ">ELA (Common Core) - 01003CC</td>
-																		<td class=" ">116</td>
+																		<c:if test="${period eq 'June'}">
+																			<td class=" ">116</td>
+																		</c:if>
 																		<td class=" ">20</td>
 																		<td class=" ">0</td>
 																	</tr>
@@ -654,22 +660,10 @@
 				if(document.getElementById('selectedExams' + i + '.selected1').checked) 
 				{
 					var examName = document.getElementById("selectedExams" + i + ".orderExam.exam.name").value;
-					var examAmount = '';
-					
-					<c:if test="${orderForm.period eq 'June'}">
-						examAmount = document.getElementById("selectedExams" + i + ".orderExam.examAmount").value;
-					</c:if>
-							
 					var answerSheetAmount = document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").value;
 					var studentsPerCSV = document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").value;
 					var evenOddClass = 'odd';
-					
-		
-					if(examAmount == '')
-					{
-						examAmount = '0';
-					}
-					
+
 					if(answerSheetAmount == '')
 					{
 						answerSheetAmount = '0';
@@ -685,8 +679,18 @@
 						evenOddClass = 'even'
 					}
 					
-					//Add HTML
-					$('#reviewExams').append("<tr class='" + evenOddClass + " pointer'><td>" + examName + "</td><td>" + examAmount + "</td><td>" + answerSheetAmount + "</td><td>" + studentsPerCSV + "</td></tr>");
+					<c:choose>
+						<c:when test="${period eq 'June'}">
+							var examAmount = document.getElementById("selectedExams" + i + ".orderExam.examAmount").value;
+							if(examAmount == '') {
+								examAmount = '0';
+							}
+							$('#reviewExams').append("<tr class='" + evenOddClass + " pointer'><td>" + examName + "</td><td>" + examAmount + "</td><td>" + answerSheetAmount + "</td><td>" + studentsPerCSV + "</td></tr>");
+						</c:when>
+						<c:otherwise>
+							$('#reviewExams').append("<tr class='" + evenOddClass + " pointer'><td>" + examName + "</td><td>" + answerSheetAmount + "</td><td>" + studentsPerCSV + "</td></tr>");
+						</c:otherwise>
+					</c:choose>
 				}
 			} 
 		}
