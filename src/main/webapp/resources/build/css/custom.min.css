@@ -1546,6 +1546,13 @@ span.right {
     float: right;
     font-size: 14px !important
 }
+.right_orgInfo {
+    float: right;
+}
+.right_version {
+    float: right;
+    clear: both;
+}
 .tile_info a {
     text-overflow: ellipsis
 }

@@ -3,18 +3,17 @@
         <footer>
        	<div class="clearfix"></div>
           <div class="pull-right">
-<!--             Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a> -->
-			<p style="font-size:13px;"> NERIC - Northeaster Regional Information Center</p>
-			<p style="font-size:10px;">900 Watervliet-Shaker Road | Albany, New York 12205</p>
-<!-- 			<p style="font-size:10px;">Tel: 518.862.5300 | Fax: 518.862.5378</p> -->
+			<p class="right_orgInfo" style="font-size:13px;">Northeastern Regional Information Center<br />
+				<span class="right_orgInfo" style="font-size:10px;">900 Watervliet-Shaker Road | Albany, New York 12205</span>
+				<span class="right_version" style="font-size:10px;">NERIC Regents Order Form v1.0.3</span>
+			</p>
           </div>
           <div class="clearfix"></div>
         </footer>
         <!-- /footer content -->
       </div>
     </div>
-</body>
-</html>
+
     <!-- jQuery -->
     <script src="<c:url value='/resources/vendors/jquery/dist/jquery.min.js' />"></script>
     
@@ -127,38 +126,45 @@
         	
         	var i, count = 0;
 			$('input[id^="selectedExams"][id$="selected1"]').each(function() { count++ }); //Count Number Of Exams
-			
         	for(i = 0; i <= count-1; i++) {
-				if(!document.getElementById('selectedExams' + i + '.selected1').checked) {	
-					
+				if(!document.getElementById('selectedExams' + i + '.selected1').checked) {		
+					/* Remove Validation on fields which are not selected */
 					var answerSheetAmount = document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").value;
-					if(isBlank(answerSheetAmount)) {
-						document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").removeAttribute("required");
-						var answerSheetAmountParent = document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").parentNode;
-						var answerSheetAmountSpan = answerSheetAmountParent.getElementsByTagName("span")[0];
-						$(answerSheetAmountParent).removeClass('has-success');
-						$(answerSheetAmountSpan).removeClass('glyphicon-ok');
+					document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").removeAttribute("required");
+					var answerSheetAmountParent = document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").parentNode;
+					var answerSheetAmountSpan = answerSheetAmountParent.getElementsByTagName("span")[0];
+					$(answerSheetAmountParent).removeClass('has-success');
+					$(answerSheetAmountSpan).removeClass('glyphicon-ok');
+					if(!isEmpty(answerSheetAmount)) {
+						$(answerSheetAmountParent).addClass('has-error');
+						$(answerSheetAmountParent).addClass('has-danger');
+						$(answerSheetAmountSpan).addClass('glyphicon-remove');
 					}
-					
+										
 					var studentsPerCSV = document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").value;
-					if(isBlank(studentsPerCSV)) {
-						document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").removeAttribute("required");
-			  			var studentsPerCSVParent = document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").parentNode;
-			  			var studentsPerCSVSpan = studentsPerCSVParent.getElementsByTagName("span")[0];
-						$(studentsPerCSVParent).removeClass('has-success');
-						$(studentsPerCSVSpan).removeClass('glyphicon-ok');
+					document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").removeAttribute("required");
+		  			var studentsPerCSVParent = document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").parentNode;
+		  			var studentsPerCSVSpan = studentsPerCSVParent.getElementsByTagName("span")[0];
+					$(studentsPerCSVParent).removeClass('has-success');
+					$(studentsPerCSVSpan).removeClass('glyphicon-ok');
+					if(!isEmpty(studentsPerCSV)) {
+						$(studentsPerCSVParent).addClass('has-error');
+						$(studentsPerCSVParent).addClass('has-danger');
+						$(studentsPerCSVSpan).addClass('glyphicon-remove');
 					}
-		  			
-		  			
+							  			
 		  			<c:if test="${orderForm.period eq 'June'}">
 		  				var examAmount = document.getElementById("selectedExams" + i + ".orderExam.examAmount").value;
-		  				if(isBlank(examAmount)) {
-			  				document.getElementById("selectedExams" + i + ".orderExam.examAmount").removeAttribute("required");
-			  				var examAmountParent = document.getElementById("selectedExams" + i + ".orderExam.examAmount").parentNode;
-				  			var examAmountSpan = examAmountParent.getElementsByTagName("span")[0];
-							$(examAmountParent).removeClass('has-success');
-							$(examAmountSpan).removeClass('glyphicon-ok');
-		  				}
+		  				document.getElementById("selectedExams" + i + ".orderExam.examAmount").removeAttribute("required");
+		  				var examAmountParent = document.getElementById("selectedExams" + i + ".orderExam.examAmount").parentNode;
+			  			var examAmountSpan = examAmountParent.getElementsByTagName("span")[0];
+						$(examAmountParent).removeClass('has-success');
+						$(examAmountSpan).removeClass('glyphicon-ok');
+						if(!isEmpty(examAmount)) {
+							$(examAmountParent).addClass('has-error');
+							$(examAmountParent).addClass('has-danger');
+							$(examAmountSpan).addClass('glyphicon-remove');
+						}
 	  				</c:if>
 				}
 			}
@@ -201,10 +207,17 @@
 			for(i = 0; i <= count-1; i++) {
 				if(!document.getElementById('selectedDocuments' + i + '.selected1').checked) {
 					document.getElementById("selectedDocuments" + i + ".orderDocument.documentAmount").removeAttribute("required");
+					var documentAmount = document.getElementById("selectedDocuments" + i + ".orderDocument.documentAmount").value;
 					var documentAmountParent = document.getElementById("selectedDocuments" + i + ".orderDocument.documentAmount").parentNode;
 					var documentAmountSpan = documentAmountParent.getElementsByTagName("span")[0];
 					$(documentAmountParent).removeClass('has-success');
 					$(documentAmountSpan).removeClass('glyphicon-ok');
+					
+					if(!isEmpty(documentAmount)) {
+						$(documentAmountParent).addClass('has-error');
+						$(documentAmountParent).addClass('has-danger');
+						$(documentAmountSpan).addClass('glyphicon-remove');
+					}
 				}
 			}
         })
@@ -281,15 +294,15 @@
 					 	 
 					 	 if(!isEmpty(examAmount) || !isEmpty(answerSheetAmount) || !isEmpty(studentsPerCSV)) {
 					 		 
-					 		if(!isEmpty(examAmount)) {
+					 		if(isEmpty(examAmount)) {
 					 			document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").removeAttribute("required");
 				  				document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").removeAttribute("required");
 				  			}
-				  			if(!isEmpty(answerSheetAmount)) {
+				  			if(isEmpty(answerSheetAmount)) {
 				  				document.getElementById("selectedExams" + i + ".orderExam.examAmount").removeAttribute("required");
 				  				document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").removeAttribute("required");
 				  			}
-				  			if(!isEmpty(studentsPerCSV)) {
+				  			if(isEmpty(studentsPerCSV)) {
 				  				document.getElementById("selectedExams" + i + ".orderExam.examAmount").removeAttribute("required");
 				  				document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").removeAttribute("required");
 				  			}
@@ -349,8 +362,6 @@
 			}
 			
 			if(uncheckedCount > 0) return false;
-			
-
 		    var isValid = (checkedCount == validCount);
 			return isValid;
 		} 
@@ -369,7 +380,7 @@
 		    }
 		
 		function validateStep4() {
-			var i, count = 0, checkedCount = 0, validCount = 0;
+			var i, count = 0, checkedCount = 0, validCount = 0, uncheckedCount = 0;
 			$('input[id^="selectedDocuments"][id$="selected1"]').each(function() { count++ }); //Count Number Of Documents
 
 			for(i = 0; i <= count-1; i++) {
@@ -384,11 +395,15 @@
 					}
 				}
 				else {
-					document.getElementById("selectedDocuments" + i + ".orderDocument.documentAmount").removeAttribute("required");
+					//document.getElementById("selectedDocuments" + i + ".orderDocument.documentAmount").removeAttribute("required");
+					var docAmount = document.getElementById("selectedDocuments" + i + ".orderDocument.documentAmount").value;
+					if(!isEmpty(docAmount)) {
+						uncheckedCount++; 
+					}
 				}
 			}
+			if(uncheckedCount > 0) return false;
 			var isValid = (checkedCount == validCount);
-			//alert(isValid);
 			return isValid;
 		} 
 		
