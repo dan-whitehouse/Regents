@@ -97,6 +97,13 @@
 			<version>2.5.3</version>
 		</dependency>
 		
+		<!-- Mail -->
+		<dependency>
+   			<groupId>javax.mail</groupId>
+   			<artifactId>mail</artifactId>
+   			<version>1.4.7</version>
+		</dependency>
+		
 		<!-- JDBC -->
 		<dependency>
 			<groupId>org.hibernate</groupId>

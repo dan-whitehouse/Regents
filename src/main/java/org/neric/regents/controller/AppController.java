@@ -11,6 +11,7 @@ import org.neric.regents.model.District;
 import org.neric.regents.model.User;
 import org.neric.regents.model.UserProfile;
 import org.neric.regents.service.DistrictService;
+import org.neric.regents.service.EmailService;
 import org.neric.regents.service.UserProfileService;
 import org.neric.regents.service.UserService;
 import org.neric.regents.test.UserPassword;
@@ -43,6 +44,9 @@ import org.springframework.web.servlet.ModelAndView;
 @SessionAttributes("roles")
 public class AppController extends AbstractController{
 
+	@Autowired
+	EmailService emailService;
+	
 	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
 	public String homePage(ModelMap model) {
 		if(isCurrentAuthenticationAnonymous())
@@ -50,6 +54,8 @@ public class AppController extends AbstractController{
 			return "app/login";
 		}
 		model.addAttribute("loggedinusername", getPrincipal());
+		System.out.println("Trying to send an email....");
+		emailService.sendSimpleMessage("daniel.whitehouse@neric.org", "Test Message", "Test sending an email from Regents Order Form Application");
 		return "app/home";
 	}
 
