@@ -81,7 +81,7 @@
 															<th># Students Pull from L0 </th>
 														</c:if>
 														<th># Blank Answer Sheets</th>
-														<th># Students in CSV</th>
+														<th># Students in Data File</th>
 													</tr>
 												</thead>
 												<tbody>
