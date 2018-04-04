@@ -135,8 +135,8 @@
 																		<span class=" fa fa-info"></span>
 																		</span>
 																	</th>
-																	<th># Students in CSV
-																		<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="Number of students included on the CSV file." >
+																	<th># Students in Student Data File
+																		<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="Number of students included in your Student Data File. Files can be .xls, .txt, .mdb or .csv." >
 																		<span class=" fa fa-info"></span>
 																		</span>
 																	</th>
@@ -406,7 +406,7 @@
 																		<th class="column-title">Exam Name </th>
 																		<th class="column-title">Students Pull from L0</th>
 																		<th class="column-title">Blank Answer Sheets </th>
-																		<th class="column-title">Students in CSV </th>
+																		<th class="column-title">Students in Data File </th>
 																	</tr>
 																</thead>
 																<tbody id="reviewExams">
