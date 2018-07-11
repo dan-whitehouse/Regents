@@ -208,6 +208,7 @@
 												<!-- id is used in javascript -->
 												<form:textarea path="specialRequests" id="specialRequests" rows="10" maxlength="1000" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
 												<span class="fa fa-plus form-control-feedback left" aria-hidden="true"></span>
+												<div id="specialRequestsCount" class="pull-right"></div>
 											</div>
 											<a id="deactivate-step-3" class="btn btn-primary btn-md">Back</a>
 											<a id="activate-step-4" class="btn btn-primary btn-md">Next</a>
@@ -380,6 +381,7 @@
 													<!-- id is used in javascript -->
 													<form:textarea path="orderContact.altContactInfo" id="orderContact.altContactInfo" rows="10" maxlength="1000" cssClass="form-control col-md-12 col-xs-12 has-feedback-left"/>
 													<span class="fa fa-truck form-control-feedback left" aria-hidden="true"></span>
+													<div id="orderContact.altContactInfoCount" class="pull-right"></div>
 												</div>
 												<a id="deactivate-step-6" class="btn btn-primary btn-md">Back</a>
 												<a id="activate-step-7" class="btn btn-primary btn-md text-center" onclick="review()">Review</a>
@@ -946,6 +948,34 @@
 		   		}
 		    });
 		}
+	</script>
+	<script>	
+		<!-- Script to determine the number of characters left available in the Special Requests for Blanks for Additional Locations TextArea -->
+		var textarea = document.getElementById('specialRequests');
+		textarea.addEventListener("input", function(){
+		    var maxlength = this.getAttribute("maxlength");
+		    var currentLength = this.value.length;
+
+		    if( currentLength >= maxlength ){
+		    	document.getElementById('specialRequestsCount').innerHTML = "You have reached the maximum number of characters.";
+		    }else{
+		    	document.getElementById('specialRequestsCount').innerHTML = maxlength - currentLength + " characters left";
+		    }
+		});
+	</script>
+	<script>	
+		<!-- Script to determine the number of characters left available in the Alternate Sipping Information TextArea -->
+		var textarea = document.getElementById('orderContact.altContactInfo');
+		textarea.addEventListener("input", function(){
+		    var maxlength = this.getAttribute("maxlength");
+		    var currentLength = this.value.length;
+
+		    if( currentLength >= maxlength ){
+		    	document.getElementById('orderContact.altContactInfoCount').innerHTML = "You have reached the maximum number of characters.";
+		    }else{
+		    	document.getElementById('orderContact.altContactInfoCount').innerHTML = maxlength - currentLength + " characters left";
+		    }
+		});
 	</script>
 	<jsp:include page="../fragments/footer.jsp" />
 	<script>
