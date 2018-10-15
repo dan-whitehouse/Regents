@@ -2,6 +2,7 @@
 <%@ page session="false"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <jsp:include page="../fragments/header.jsp" />
+<jsp:include page="../fragments/nav.jsp" />
 <!-- page content -->
 <div class="right_col" role="main">
 	<div class="">
@@ -23,3 +24,5 @@
 	</div>
 </div>
 <jsp:include page="../fragments/footer.jsp" />
+<jsp:include page="../fragments/scripts.jsp" />
+<jsp:include page="../fragments/close.jsp" />

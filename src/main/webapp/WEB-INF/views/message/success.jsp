@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-	<jsp:include page="../fragments/header.jsp" />
+<jsp:include page="../fragments/header.jsp" />
+<jsp:include page="../fragments/nav.jsp" />
 	<!-- page content -->
 	<div class="right_col" role="main">
 		<div class="">
@@ -24,5 +24,6 @@
 		</div>
 	</div>
 	<!-- /page content -->
-	<jsp:include page="../fragments/footer.jsp" />
-</html>
+<jsp:include page="../fragments/footer.jsp" />
+<jsp:include page="../fragments/scripts.jsp" />
+<jsp:include page="../fragments/close.jsp" />

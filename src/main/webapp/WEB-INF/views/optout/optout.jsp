@@ -2,8 +2,8 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-	<jsp:include page="../fragments/header.jsp" />
+<jsp:include page="../fragments/header.jsp" />
+<jsp:include page="../fragments/nav.jsp" />
 	<!-- page content -->
 	<div class="right_col" role="main">
 		<div class="">
@@ -43,9 +43,10 @@
 	</div>
 	<!-- /page content -->
 	<jsp:include page="../fragments/footer.jsp" />
-	<!-- Select2 -->
+	<jsp:include page="../fragments/scripts.jsp" />
+	
+	<!-- Custom Scripts -->
 	<script src="<c:url value='/resources/vendors/select2/dist/js/select2.full.min.js' />"></script>
-	<!-- Select2 -->
 	<script>
 		$(document).ready(function() {
 		  $(".select2_single").select2({
@@ -60,5 +61,4 @@
 		  });
 		});
 	</script>
-	<!-- /Select2 -->
-</html>
+<jsp:include page="../fragments/close.jsp" />

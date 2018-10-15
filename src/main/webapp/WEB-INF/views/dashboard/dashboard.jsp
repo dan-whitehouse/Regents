@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
-<html>
-    <jsp:include page="../fragments/header.jsp" />
+<jsp:include page="../fragments/header.jsp" />
+<jsp:include page="../fragments/nav.jsp" />
     <!-- page content -->
     <div class="right_col" role="main">
         <!-- top tiles -->
@@ -131,6 +131,19 @@
         </div>
 
     <!-- /page content -->
+    <jsp:include page="../fragments/footer.jsp" />
+	<jsp:include page="../fragments/scripts.jsp" />
+	
+	<!-- Custom Scripts -->
+    <script src="<c:url value='/resources/vendors/Chart.js/dist/Chart.min.js' />"></script>
+    <script src="<c:url value='/resources/vendors/Flot/jquery.flot.js' />"></script>
+    <script src="<c:url value='/resources/vendors/Flot/jquery.flot.pie.js' />"></script>
+    <script src="<c:url value='/resources/vendors/Flot/jquery.flot.time.js' />"></script>
+    <script src="<c:url value='/resources/vendors/Flot/jquery.flot.stack.js' />"></script>
+    <script src="<c:url value='/resources/vendors/Flot/jquery.flot.resize.js' />"></script>
+    <script src="<c:url value='/resources/vendors/raphael/raphael.min.js' />"></script>
+    <script src="<c:url value='/resources/vendors/morris.js/morris.min.js' />"></script>
+    
     <script>
         function init_chart_doughnut()
         {
@@ -216,6 +229,4 @@
         }
         window.onload = loadCharts;
     </script>
-
-    <jsp:include page="../fragments/footer.jsp" />
-</html>
+<jsp:include page="../fragments/close.jsp" />

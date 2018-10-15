@@ -4,6 +4,11 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"  %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<jsp:include page="../fragments/header.jsp" />
+<jsp:include page="../fragments/nav.jsp" />
+
+<!-- page variables -->
 <c:set var="examTotal" value="0.00" />
 <c:set var="docTotal" value="0.00" />
 <c:set var="total" value="0.00" />
@@ -11,8 +16,7 @@
 <c:url value="/order/${order.uuid}/edit" var="editOrderLink" />
 <fmt:formatNumber var="inDistrictScanFee" value="${orderForm.inDistrictScanFee}" type="currency"/>
 <fmt:formatNumber var="nonSecureDocumentFee" value="${orderForm.nonSecureDocumentFee}" type="currency"/>
-<html>
-	<jsp:include page="../fragments/header.jsp" />
+
 	<!-- page content -->
 	<div class="right_col" role="main">
 		<div class="">
@@ -150,5 +154,6 @@
 		</div>
 	</div>
 	<!-- /page content -->
-	<jsp:include page="../fragments/footer.jsp" />
-</html>
+<jsp:include page="../fragments/footer.jsp" />
+<jsp:include page="../fragments/scripts.jsp" />
+<jsp:include page="../fragments/close.jsp" />

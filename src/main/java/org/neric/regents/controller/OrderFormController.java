@@ -176,6 +176,11 @@ public class OrderFormController extends AbstractController {
 	}
 
 	/************************** ORDER FORMS **************************/
+	@RequestMapping(value = { "/admin/orderFormInfo" }, method = RequestMethod.GET)
+	public String orderFormInfo(ModelMap model) {
+		return "orderform/orderFormInfo";
+	}
+	
 	@RequestMapping(value = { "/admin/orderForms" }, method = RequestMethod.GET)
 	public String listOrderForms(ModelMap model) {
 
