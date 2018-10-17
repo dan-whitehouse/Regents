@@ -98,11 +98,10 @@
 												</p>
 												<p>
 													<strong>Billing: </strong>
-													Beginning with the 2018-2019 school year, NERIC is moving to a pay one price model based on RWADA (student counts for non-public schools) for testing services.
-													This will simplify the billing process for both BOCES and districts and you will now have exact testing charges ahead of time for budget planning rather than having to wait much later in the year to be billed for number of tests scanned. 
-													<strong>This model will include all scanning and non-secure documents charges for the Regents Exams.</strong> 
-													If you are a public school district, this will be implemented immediately on the commitment forms that were sent to districts in February 2018.  
-													Non-public schools will be billed in the fall of 2018 for the 2018-2019 testing charge.  
+													NERIC no longer charges by scanned exams. NERIC moved to a pay one price model based on RWADA (student counts for non-public schools) for testing services. 
+													This will simplify the billing process for both BOCES and districts and you will now have exact testing charges ahead of time for budget planning rather than having to wait much later in the year to be billed for number of tests scanned.   
+													<strong>This model will include all scanning and non-secure documents charges for the Regents Exams.</strong>
+													If you are a public school district, this will be implemented immediately on the commitment forms that are sent to districts. Non-public schools will be billed in the fall of the current school year for testing services.  
 													Questions about this billing model can be directed to <u><a href="mailto:testing@neric.org">testing@neric.org</a></u>.<br> 
 												</p>
 												<p>This form must be submitted with the approval of your districts superintendent, business official or whoever else is authorized to approve this expenditure.</p>

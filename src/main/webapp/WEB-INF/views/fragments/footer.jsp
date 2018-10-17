@@ -5,7 +5,7 @@
           <div class="pull-right">
 			<p class="right_orgInfo" style="font-size:13px;">Northeastern Regional Information Center<br />
 				<span class="right_orgInfo" style="font-size:10px;">900 Watervliet-Shaker Road | Albany, New York 12205</span>
-				<span class="right_version" style="font-size:10px;">NERIC Regents Order Form v1.0.6</span>
+				<span class="right_version" style="font-size:10px;">NERIC Regents Order Form v1.0.7</span>
 			</p>
           </div>
           <div class="clearfix"></div>
@@ -103,13 +103,13 @@
             $('ul.setup-panel li:eq(1)').removeClass('disabled');
             $('ul.setup-panel li a[href="#step-2"]').trigger('click');
             //$(this).remove();
-        })
+        });
         
          $('#deactivate-step-2').on('click', function(e) {
             $('ul.setup-panel li:eq(1)').removeClass('active');
             $('ul.setup-panel li a[href="#step-1"]').trigger('click');
             //$(this).remove();
-        })
+        });
         
         $('#activate-step-3').on('click', function(e) {	
         	if(!validateStep2()) {
@@ -123,53 +123,10 @@
                 $('#xForm2').validator('destroy');
                 $('#xForm2').validator('update');
         	}
-        	
-        	var i, count = 0;
-			$('input[id^="selectedExams"][id$="selected1"]').each(function() { count++ }); //Count Number Of Exams
-        	for(i = 0; i <= count-1; i++) {
-				if(!document.getElementById('selectedExams' + i + '.selected1').checked) {		
-					/* Remove Validation on fields which are not selected */
-					var answerSheetAmount = document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").value;
-					document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").removeAttribute("required");
-					var answerSheetAmountParent = document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").parentNode;
-					var answerSheetAmountSpan = answerSheetAmountParent.getElementsByTagName("span")[0];
-					$(answerSheetAmountParent).removeClass('has-success');
-					$(answerSheetAmountSpan).removeClass('glyphicon-ok');
-					if(!isEmpty(answerSheetAmount)) {
-						$(answerSheetAmountParent).addClass('has-error');
-						$(answerSheetAmountParent).addClass('has-danger');
-						$(answerSheetAmountSpan).addClass('glyphicon-remove');
-					}
-										
-					var studentsPerCSV = document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").value;
-					document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").removeAttribute("required");
-		  			var studentsPerCSVParent = document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").parentNode;
-		  			var studentsPerCSVSpan = studentsPerCSVParent.getElementsByTagName("span")[0];
-					$(studentsPerCSVParent).removeClass('has-success');
-					$(studentsPerCSVSpan).removeClass('glyphicon-ok');
-					if(!isEmpty(studentsPerCSV)) {
-						$(studentsPerCSVParent).addClass('has-error');
-						$(studentsPerCSVParent).addClass('has-danger');
-						$(studentsPerCSVSpan).addClass('glyphicon-remove');
-					}
-							  			
-		  			<c:if test="${period eq 'June'}">
-		  				var examAmount = document.getElementById("selectedExams" + i + ".orderExam.examAmount").value;
-		  				document.getElementById("selectedExams" + i + ".orderExam.examAmount").removeAttribute("required");
-		  				var examAmountParent = document.getElementById("selectedExams" + i + ".orderExam.examAmount").parentNode;
-			  			var examAmountSpan = examAmountParent.getElementsByTagName("span")[0];
-						$(examAmountParent).removeClass('has-success');
-						$(examAmountSpan).removeClass('glyphicon-ok');
-						if(!isEmpty(examAmount)) {
-							$(examAmountParent).addClass('has-error');
-							$(examAmountParent).addClass('has-danger');
-							$(examAmountSpan).addClass('glyphicon-remove');
-						}
-	  				</c:if>
-				}
-			}
-        })
-        
+
+        	markupStep2Fields();
+        });
+		
          $('#deactivate-step-3').on('click', function(e) {
             $('ul.setup-panel li:eq(2)').removeClass('active');
             $('ul.setup-panel li a[href="#step-2"]').trigger('click');
@@ -180,12 +137,12 @@
             $('ul.setup-panel li:eq(3)').removeClass('disabled');
             $('ul.setup-panel li a[href="#step-4"]').trigger('click');
             //$(this).remove();
-        })
+        });
         
          $('#deactivate-step-4').on('click', function(e) {
             $('ul.setup-panel li:eq(3)').removeClass('active');
             $('ul.setup-panel li a[href="#step-3"]').trigger('click');
-        })
+        });
 
         
         $('#activate-step-5').on('click', function(e) {	
@@ -201,31 +158,14 @@
                 $('#xForm2').validator('update');
         	}
         	
-        	
-        	var i, count = 0, checkedCount = 0, validCount = 0;
-			$('input[id^="selectedDocuments"][id$="selected1"]').each(function() { count++ }); //Count Number Of Documents
-			for(i = 0; i <= count-1; i++) {
-				if(!document.getElementById('selectedDocuments' + i + '.selected1').checked) {
-					document.getElementById("selectedDocuments" + i + ".orderDocument.documentAmount").removeAttribute("required");
-					var documentAmount = document.getElementById("selectedDocuments" + i + ".orderDocument.documentAmount").value;
-					var documentAmountParent = document.getElementById("selectedDocuments" + i + ".orderDocument.documentAmount").parentNode;
-					var documentAmountSpan = documentAmountParent.getElementsByTagName("span")[0];
-					$(documentAmountParent).removeClass('has-success');
-					$(documentAmountSpan).removeClass('glyphicon-ok');
-					
-					if(!isEmpty(documentAmount)) {
-						$(documentAmountParent).addClass('has-error');
-						$(documentAmountParent).addClass('has-danger');
-						$(documentAmountSpan).addClass('glyphicon-remove');
-					}
-				}
-			}
-        })
+        	markupStep4Fields();
+        });
+        
         
          $('#deactivate-step-5').on('click', function(e) {
             $('ul.setup-panel li:eq(4)').removeClass('active');
             $('ul.setup-panel li a[href="#step-4"]').trigger('click');
-        })
+        });
         
         $('#activate-step-6').on('click', function(e) {
         	if(!validateStep5()) {
@@ -239,13 +179,13 @@
                 $('#xForm2').validator('destroy');
                 $('#xForm2').validator('update');
         	}
-        })
+        });
         
          $('#deactivate-step-6').on('click', function(e) {
             $('ul.setup-panel li:eq(5)').removeClass('active');
             $('ul.setup-panel li a[href="#step-5"]').trigger('click');
             //$(this).remove();
-        })
+        });
         
         $('#activate-step-7').on('click', function(e) {
         	if(!validateStep6()) {
@@ -259,15 +199,32 @@
                 $('#xForm2').validator('destroy');
                 $('#xForm2').validator('update');
         	}
-        })
+        });
         
          $('#deactivate-step-7').on('click', function(e) {
             $('ul.setup-panel li:eq(6)').removeClass('active');
             $('ul.setup-panel li a[href="#step-6"]').trigger('click');
             //$(this).remove();
-        })
+        });
     });
 
+    // Tab Validation
+    
+    $('ul.setup-panel li a[href="#step-3"]').on('click', function() {
+		markup();
+	});
+    $('ul.setup-panel li a[href="#step-4"]').on('click', function() {
+    	markup();
+	});
+    $('ul.setup-panel li a[href="#step-5"]').on('click', function() {
+    	markup();
+	});
+    $('ul.setup-panel li a[href="#step-6"]').on('click', function() {
+		markup();
+	});
+    $('ul.setup-panel li a[href="#step-7"]').on('click', function() {
+    	markup();
+	});
  
  	//TEST
  	function isEmpty(str) {
@@ -349,9 +306,10 @@
 					</c:choose>
 				}
 			}
-			
+
 			if(uncheckedCount > 0) return false;
 		    var isValid = (checkedCount == validCount);
+
 			return isValid;
 		} 
 		
@@ -419,6 +377,95 @@
 			//alert(isValid);
 			return isValid;
 		} 
+
+		function markupStep2Fields() {
+			var i, count = 0;
+			$('input[id^="selectedExams"][id$="selected1"]').each(function() { count++ }); //Count Number Of Exams
+        	for(i = 0; i <= count-1; i++) {
+				if(!document.getElementById('selectedExams' + i + '.selected1').checked) {		
+					/* Remove Validation on fields which are not selected */
+					var answerSheetAmount = document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").value;
+					document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").removeAttribute("required");
+					var answerSheetAmountParent = document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").parentNode;
+					var answerSheetAmountSpan = answerSheetAmountParent.getElementsByTagName("span")[0];
+					$(answerSheetAmountParent).removeClass('has-success');
+					$(answerSheetAmountSpan).removeClass('glyphicon-ok');
+					if(!isEmpty(answerSheetAmount)) {
+						$(answerSheetAmountParent).addClass('has-error');
+						$(answerSheetAmountParent).addClass('has-danger');
+						$(answerSheetAmountSpan).addClass('glyphicon-remove');
+					}
+										
+					var studentsPerCSV = document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").value;
+					document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").removeAttribute("required");
+		  			var studentsPerCSVParent = document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").parentNode;
+		  			var studentsPerCSVSpan = studentsPerCSVParent.getElementsByTagName("span")[0];
+					$(studentsPerCSVParent).removeClass('has-success');
+					$(studentsPerCSVSpan).removeClass('glyphicon-ok');
+					if(!isEmpty(studentsPerCSV)) {
+						$(studentsPerCSVParent).addClass('has-error');
+						$(studentsPerCSVParent).addClass('has-danger');
+						$(studentsPerCSVSpan).addClass('glyphicon-remove');
+					}
+							  			
+		  			<c:if test="${period eq 'June'}">
+		  				var examAmount = document.getElementById("selectedExams" + i + ".orderExam.examAmount").value;
+		  				document.getElementById("selectedExams" + i + ".orderExam.examAmount").removeAttribute("required");
+		  				var examAmountParent = document.getElementById("selectedExams" + i + ".orderExam.examAmount").parentNode;
+			  			var examAmountSpan = examAmountParent.getElementsByTagName("span")[0];
+						$(examAmountParent).removeClass('has-success');
+						$(examAmountSpan).removeClass('glyphicon-ok');
+						if(!isEmpty(examAmount)) {
+							$(examAmountParent).addClass('has-error');
+							$(examAmountParent).addClass('has-danger');
+							$(examAmountSpan).addClass('glyphicon-remove');
+						}
+	  				</c:if>
+				}
+			}
+        }
+
+		function markupStep4Fields() {
+			var i, count = 0, checkedCount = 0, validCount = 0;
+			$('input[id^="selectedDocuments"][id$="selected1"]').each(function() { count++ }); //Count Number Of Documents
+			for(i = 0; i <= count-1; i++) {
+				if(!document.getElementById('selectedDocuments' + i + '.selected1').checked) {
+					document.getElementById("selectedDocuments" + i + ".orderDocument.documentAmount").removeAttribute("required");
+					var documentAmount = document.getElementById("selectedDocuments" + i + ".orderDocument.documentAmount").value;
+					var documentAmountParent = document.getElementById("selectedDocuments" + i + ".orderDocument.documentAmount").parentNode;
+					var documentAmountSpan = documentAmountParent.getElementsByTagName("span")[0];
+					$(documentAmountParent).removeClass('has-success');
+					$(documentAmountSpan).removeClass('glyphicon-ok');
+					
+					if(!isEmpty(documentAmount)) {
+						$(documentAmountParent).addClass('has-error');
+						$(documentAmountParent).addClass('has-danger');
+						$(documentAmountSpan).addClass('glyphicon-remove');
+					}
+				}
+			}
+		}
+
+		function markup() {
+			if(validateStep2() === false) {
+				$('ul.setup-panel li:eq(2)').addClass('disabled');
+				$('ul.setup-panel li:eq(3)').addClass('disabled');
+				$('ul.setup-panel li:eq(4)').addClass('disabled');
+				$('ul.setup-panel li:eq(5)').addClass('disabled');
+				$('ul.setup-panel li:eq(6)').addClass('disabled');
+			}
+
+			if(validateStep4() === false) {
+				$('ul.setup-panel li:eq(4)').addClass('disabled');
+				$('ul.setup-panel li:eq(5)').addClass('disabled');
+				$('ul.setup-panel li:eq(6)').addClass('disabled');
+			}
+			
+			$('#xForm2').validator('update');
+			$('#xForm2').validator('validate');
+			markupStep2Fields();
+			markupStep4Fields();
+		}
  	
  	//END TEST
  
