@@ -90,7 +90,9 @@
 										<div class="col-md-12 col-sm-12 col-xs-12">
 											<h2 class="StepTitle text-center">${orderForm.name} - REGENTS ANSWER SHEET SERVICES & NON SECURE DOCUMENTS ORDER FORM</h2>
 											
-											<p>
+											${configDataOrderFormInfo}
+											
+											<!--<p>
 												<strong><u>Directions:</u> The order form and data file MUST be received by NERIC no later than ${endDate}.</strong>
 											</p>
 											<p>
@@ -111,7 +113,7 @@
 												Non-public schools will be billed in the fall of 2018 for the 2018-2019 testing charge.  
 												Questions about this billing model can be directed to <u><a href="mailto:testing@neric.org">testing@neric.org</a></u>.<br> 
 											</p>
-											<p>This form must be submitted with the approval of your districts superintendent, business official or whoever else is authorized to approve this expenditure.</p>
+											<p>This form must be submitted with the approval of your districts superintendent, business official or whoever else is authorized to approve this expenditure.</p> -->
 										</div>
 										<div class="col-md-12 col-sm-12 col-xs-12 text-center">
 											<br>

@@ -18,6 +18,7 @@ import org.neric.regents.converture.DistrictEditor;
 import org.neric.regents.converture.OptionPrintEditor;
 import org.neric.regents.converture.OptionScanEditor;
 import org.neric.regents.converture.SchoolEditor;
+import org.neric.regents.model.Config;
 import org.neric.regents.model.District;
 import org.neric.regents.model.Document;
 import org.neric.regents.model.Exam;
@@ -34,6 +35,7 @@ import org.neric.regents.model.User;
 import org.neric.regents.model.UserDistrict;
 import org.neric.regents.model.UserProfile;
 import org.neric.regents.model.Wizard;
+import org.neric.regents.service.ConfigService;
 import org.neric.regents.service.DistrictService;
 import org.neric.regents.service.DocumentService;
 import org.neric.regents.service.ExamService;
@@ -87,6 +89,9 @@ public class OrderController extends AbstractController
 		validator = validatorFactory.getValidator();
 	}
 
+	@Autowired
+	ConfigService configService;
+	
 	@Autowired
 	UserService userService;
 
@@ -319,6 +324,8 @@ public class OrderController extends AbstractController
 					if(CollectionUtils.isNotEmpty(selectableDistricts))
 					{
 						XForm2 xForm = new XForm2();
+						Config config = configService.findById("orderFormInfo");
+						model.addAttribute("configDataOrderFormInfo", config.getData());
 						model.addAttribute("xForm2", xForm);
 						model.addAttribute("orderForm", orderForm);
 						model.addAttribute("period", orderForm.getPeriod());

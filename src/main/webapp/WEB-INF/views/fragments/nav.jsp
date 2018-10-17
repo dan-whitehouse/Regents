@@ -14,6 +14,7 @@
 <c:url value="/admin/notadministrations" var="adminOptouts" />
 <c:url value="/admin/orderForms" var="orderForms" />
 <c:url value="/admin/orderForms/create" var="createOrderForm" />
+<c:url value="/admin/orderFormInfo" var="orderFormInfo" />
 <c:url value="/admin/documents" var="documents" />
 <c:url value="/admin/exams" var="exams" />
 <c:url value="/admin/printOptions" var="printOptions" />
@@ -60,6 +61,7 @@
                                                     <ul class="nav child_menu">
                                                         <li class="sub_menu"><a href="${orderForms}">Order Form List</a></li>
                                                         <li class="sub_menu"><a href="${createOrderForm}">Create Form</a></li>
+                                                        <li class="sub_menu"><a href="${orderFormInfo}">Order Form Info</a></li>
                                                     </ul>
                                                 </li>
                                                 <li><a href="${adminOrders}"><i class="fa fa-truck"></i>Orders</a></li>

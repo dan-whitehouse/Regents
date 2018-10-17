@@ -75,7 +75,7 @@ function Switchery(element, options) {
  */
 
 Switchery.prototype.hide = function() {
-  this..display = 'none';
+  this.display = 'none';
 };
 
 /**

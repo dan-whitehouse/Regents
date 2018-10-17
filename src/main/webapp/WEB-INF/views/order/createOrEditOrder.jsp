@@ -621,6 +621,9 @@
 <jsp:include page="../fragments/footer.jsp" />
 <jsp:include page="../fragments/scripts.jsp" />
 
+<!-- Wizard -->
+<script src="<c:url value='/resources/build/js/wizard.js' />"></script>
+
 <!-- Custom Scripts -->
 <script type="text/javascript">
 	function review() 

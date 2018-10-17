@@ -24,14 +24,18 @@
 				<div class="col-md-12 col-sm-12 col-xs-12">
 					<div class="x_panel">
 						<div class="x_title">
-							<h2>Regents Order Form </h2>
+							<h2>Order Form Info</h2>
 							<div class="clearfix"></div>
 						</div>
 						<div class="x_content">
-							<form method="post">
-							  <textarea id="editor" class="trumbowyg-textarea"></textarea>
-							</form>
+							<form:form method="POST" modelAttribute="config" role="form">
+								<form:input type="hidden" path="id" id="id"/>
+								<form:textarea path="data" id="editor" cssClass="trumbowyg-textarea"/>
+							  	<!-- <textarea id="editor" class="trumbowyg-textarea"></textarea> -->
+							  <input type="submit" value="Update" class="btn btn-success"/> <a href="<c:url value='/admin/orderFormInfo' />" class="btn btn-primary">Cancel</a>
+							</form:form>
 						</div>
+						
 					</div>
 				</div>
 			</div>
@@ -63,5 +67,7 @@
 		        ['removeformat']
 		    ]
 	  });
+	  
+	  $('#editor').trumbowyg('html', '${config.data}');
 	</script>
 <jsp:include page="../fragments/close.jsp" />

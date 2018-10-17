@@ -1,4 +1,4 @@
-/* Puts the wizard in a tab format and allows stepping through the tabs */
+/** Puts the wizard in a tab format and allows stepping through the tabs **/
 $(document).ready(function() {     
     var navListItems = $('ul.setup-panel li a'),
         allWells = $('.setup-content');
@@ -23,16 +23,15 @@ $(document).ready(function() {
 });
 
 
+/** Trigger Validation For Each Step via Buttons **/
 $('#activate-step-2').on('click', function(e) {
     $('ul.setup-panel li:eq(1)').removeClass('disabled');
     $('ul.setup-panel li a[href="#step-2"]').trigger('click');
-    //$(this).remove();
 })
 
  $('#deactivate-step-2').on('click', function(e) {
     $('ul.setup-panel li:eq(1)').removeClass('active');
     $('ul.setup-panel li a[href="#step-1"]').trigger('click');
-    //$(this).remove();
 })
         
 $('#activate-step-3').on('click', function(e) {	
@@ -47,7 +46,124 @@ $('#activate-step-3').on('click', function(e) {
         $('#xForm2').validator('destroy');
         $('#xForm2').validator('update');
 	}
-	
+	markupStep2();
+});
+
+
+ $('#deactivate-step-3').on('click', function(e) {
+    $('ul.setup-panel li:eq(2)').removeClass('active');
+    $('ul.setup-panel li a[href="#step-2"]').trigger('click');
+})
+
+$('#activate-step-4').on('click', function(e) {
+    $('ul.setup-panel li:eq(3)').removeClass('disabled');
+    $('ul.setup-panel li a[href="#step-4"]').trigger('click');
+})
+
+ $('#deactivate-step-4').on('click', function(e) {
+    $('ul.setup-panel li:eq(3)').removeClass('active');
+    $('ul.setup-panel li a[href="#step-3"]').trigger('click');
+})
+
+
+$('#activate-step-5').on('click', function(e) {	
+	if(!validateStep4()) {
+        $('#xForm2').validator('update');
+		$('#xForm2').validator('validate');
+	}
+	else {
+		 $('ul.setup-panel li:eq(4)').removeClass('disabled');
+         $('ul.setup-panel li a[href="#step-5"]').trigger('click');
+        
+        $('#xForm2').validator('destroy');
+        $('#xForm2').validator('update');
+	}		
+	markupStep4();
+})
+
+$('#deactivate-step-5').on('click', function(e) {
+    $('ul.setup-panel li:eq(4)').removeClass('active');
+    $('ul.setup-panel li a[href="#step-4"]').trigger('click');
+})
+
+$('#activate-step-6').on('click', function(e) {
+	if(!validateStep5()) {
+		$('#xForm2').validator('update');
+		$('#xForm2').validator('validate');
+	}
+	else {
+		$('ul.setup-panel li:eq(5)').removeClass('disabled');
+        $('ul.setup-panel li a[href="#step-6"]').trigger('click');
+        
+        $('#xForm2').validator('destroy');
+        $('#xForm2').validator('update');
+	}
+})
+
+ $('#deactivate-step-6').on('click', function(e) {
+    $('ul.setup-panel li:eq(5)').removeClass('active');
+    $('ul.setup-panel li a[href="#step-5"]').trigger('click');
+})
+
+$('#activate-step-7').on('click', function(e) {
+	if(!validateStep6()) {
+		$('#xForm2').validator('update');
+		$('#xForm2').validator('validate');
+	}
+	else {
+		 $('ul.setup-panel li:eq(6)').removeClass('disabled');
+         $('ul.setup-panel li a[href="#step-7"]').trigger('click');
+        
+        $('#xForm2').validator('destroy');
+        $('#xForm2').validator('update');
+	}
+})
+
+$('#deactivate-step-7').on('click', function(e) {
+    $('ul.setup-panel li:eq(6)').removeClass('active');
+    $('ul.setup-panel li a[href="#step-6"]').trigger('click');
+})
+
+
+/** Trigger Markup For Each Step via Tabs **/
+$('ul.setup-panel li a[href="#step-3"]').on('click', function() {
+	markup();
+});
+$('ul.setup-panel li a[href="#step-4"]').on('click', function() {
+	markup();
+});
+$('ul.setup-panel li a[href="#step-5"]').on('click', function() {
+	markup();
+});
+$('ul.setup-panel li a[href="#step-6"]').on('click', function() {
+	markup();
+});
+$('ul.setup-panel li a[href="#step-7"]').on('click', function() {
+	markup();
+});
+
+
+/** Validation Markup **/
+function markup() {
+	if(validateStep2() === false) {
+	    $('ul.setup-panel li:eq(2)').addClass('disabled');
+	    $('ul.setup-panel li:eq(3)').addClass('disabled');
+	    $('ul.setup-panel li:eq(4)').addClass('disabled');
+	    $('ul.setup-panel li:eq(5)').addClass('disabled');
+	    $('ul.setup-panel li:eq(6)').addClass('disabled');
+	}
+	if(validateStep4() === false) {
+		$('ul.setup-panel li:eq(4)').addClass('disabled');
+	    $('ul.setup-panel li:eq(5)').addClass('disabled');
+	    $('ul.setup-panel li:eq(6)').addClass('disabled');
+	}
+	$('#xForm2').validator('update');
+	$('#xForm2').validator('validate');
+	markupStep2();
+	markupStep4();
+}
+
+function markupStep2() {
 	var i, count = 0;
 	$('input[id^="selectedExams"][id$="selected1"]').each(function() { count++ }); //Count Number Of Exams
 	for(i = 0; i <= count-1; i++) {
@@ -93,40 +209,9 @@ $('#activate-step-3').on('click', function(e) {
 			}
 		}
 	}
-})
+}
 
- $('#deactivate-step-3').on('click', function(e) {
-    $('ul.setup-panel li:eq(2)').removeClass('active');
-    $('ul.setup-panel li a[href="#step-2"]').trigger('click');
-    //$(this).remove();
-})
-
-$('#activate-step-4').on('click', function(e) {
-    $('ul.setup-panel li:eq(3)').removeClass('disabled');
-    $('ul.setup-panel li a[href="#step-4"]').trigger('click');
-    //$(this).remove();
-})
-
- $('#deactivate-step-4').on('click', function(e) {
-    $('ul.setup-panel li:eq(3)').removeClass('active');
-    $('ul.setup-panel li a[href="#step-3"]').trigger('click');
-})
-
-
-$('#activate-step-5').on('click', function(e) {	
-	if(!validateStep4()) {
-        $('#xForm2').validator('update');
-		$('#xForm2').validator('validate');
-	}
-	else {
-		 $('ul.setup-panel li:eq(4)').removeClass('disabled');
-         $('ul.setup-panel li a[href="#step-5"]').trigger('click');
-        
-        $('#xForm2').validator('destroy');
-        $('#xForm2').validator('update');
-	}
-	
-	
+function markupStep4(){
 	var i, count = 0, checkedCount = 0, validCount = 0;
 	$('input[id^="selectedDocuments"][id$="selected1"]').each(function() { count++ }); //Count Number Of Documents
 	for(i = 0; i <= count-1; i++) {
@@ -145,133 +230,98 @@ $('#activate-step-5').on('click', function(e) {
 			}
 		}
 	}
-})
-
-$('#deactivate-step-5').on('click', function(e) {
-    $('ul.setup-panel li:eq(4)').removeClass('active');
-    $('ul.setup-panel li a[href="#step-4"]').trigger('click');
-})
-
-$('#activate-step-6').on('click', function(e) {
-	if(!validateStep5()) {
-		$('#xForm2').validator('update');
-		$('#xForm2').validator('validate');
-	}
-	else {
-		$('ul.setup-panel li:eq(5)').removeClass('disabled');
-        $('ul.setup-panel li a[href="#step-6"]').trigger('click');
-        
-        $('#xForm2').validator('destroy');
-        $('#xForm2').validator('update');
-	}
-})
-
- $('#deactivate-step-6').on('click', function(e) {
-    $('ul.setup-panel li:eq(5)').removeClass('active');
-    $('ul.setup-panel li a[href="#step-5"]').trigger('click');
-    //$(this).remove();
-})
-
-$('#activate-step-7').on('click', function(e) {
-	if(!validateStep6()) {
-		$('#xForm2').validator('update');
-		$('#xForm2').validator('validate');
-	}
-	else {
-		 $('ul.setup-panel li:eq(6)').removeClass('disabled');
-         $('ul.setup-panel li a[href="#step-7"]').trigger('click');
-        
-        $('#xForm2').validator('destroy');
-        $('#xForm2').validator('update');
-	}
-})
-
-$('#deactivate-step-7').on('click', function(e) {
-    $('ul.setup-panel li:eq(6)').removeClass('active');
-    $('ul.setup-panel li a[href="#step-6"]').trigger('click');
-    //$(this).remove();
-})
+}
 
 
 /** Validation For Each Step **/
 function validateStep2() {
-	var i, count = 0, checkedCount = 0, validCount = 0, uncheckedCount = 0;
-	$('input[id^="selectedExams"][id$="selected1"]').each(function() { count++ }); //Count Number Of Exams
-	
-	for(i = 0; i <= count-1; i++) {
-		if(document.getElementById('selectedExams' + i + '.selected1').checked) {	
+	var i, count = 0,
+		checkedCount = 0,
+		validCount = 0,
+		uncheckedCount = 0,
+		rowHasValue = 0;
+		
+	//Count Number Of Exams
+	$('input[id^="selectedExams"][id$="selected1"]').each(function () {
+		count++
+	}); 
+	var period = document.getElementById("hiddenPeriod").value;
+	for (i = 0; i <= count - 1; i++) {
+		if (document.getElementById('selectedExams' + i + '.selected1').checked) {
 			var answerSheetAmount = document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").value;
 			var studentsPerCSV = document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").value;
-
-			var period = document.getElementById("hiddenPeriod").value;
-
-			  if(period === 'June') {
-				  var examAmount = document.getElementById("selectedExams" + i + ".orderExam.examAmount").value;
-				  
-				 	 if(!isEmpty(examAmount) || !isEmpty(answerSheetAmount) || !isEmpty(studentsPerCSV)) {
-				 		if(isEmpty(examAmount)) {
-				 			document.getElementById("selectedExams" + i + ".orderExam.examAmount").removeAttribute("required");
-			  			}
-			  			if(isEmpty(answerSheetAmount)) {
-			  				document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").removeAttribute("required")
-			  			}
-			  			if(isEmpty(studentsPerCSV)) {
-			  				document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").removeAttribute("required");
-			  			}
-				 		validCount++;
-			 		 }
-				 	 else {
-			  			document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").setAttribute("required", "required");
-			  			document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").setAttribute("required", "required");
-			  			document.getElementById("selectedExams" + i + ".orderExam.examAmount").setAttribute("required", "required");
-					}
-			  }
-			  else {
-				  if(!isEmpty(answerSheetAmount) || !isEmpty(studentsPerCSV)) {
-			  			
-			  			if(isEmpty(answerSheetAmount)) {
-			  				document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").removeAttribute("required");
-			  			}
-			  			if(isEmpty(studentsPerCSV)) {
-			  				document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").removeAttribute("required");
-			  			}
-			  			validCount++;
-			 		}
-			  		else {
-			  			document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").setAttribute("required", "required");
-			  			document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").setAttribute("required", "required");
-					}
-			  }
 			
+			if (period === 'June') {
+				var examAmount = document.getElementById("selectedExams" + i + ".orderExam.examAmount").value;
+
+				if (!isEmpty(examAmount) || !isEmpty(answerSheetAmount) || !isEmpty(studentsPerCSV)) {
+					if (isEmpty(examAmount)) {
+						document.getElementById("selectedExams" + i + ".orderExam.examAmount").removeAttribute("required");
+					}
+					if (isEmpty(answerSheetAmount)) {
+						document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").removeAttribute("required")
+					}
+					if (isEmpty(studentsPerCSV)) {
+						document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").removeAttribute("required");
+					}
+					validCount++;
+				} 
+				else {
+					document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").setAttribute("required", "required");
+					document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").setAttribute("required", "required");
+					document.getElementById("selectedExams" + i + ".orderExam.examAmount").setAttribute("required", "required");
+				}
+			} 
+			else {
+				if (!isEmpty(answerSheetAmount) || !isEmpty(studentsPerCSV)) {
+
+					if (isEmpty(answerSheetAmount)) {
+						document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").removeAttribute("required");
+					}
+					if (isEmpty(studentsPerCSV)) {
+						document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").removeAttribute("required");
+					}
+					validCount++;
+				} 
+				else {
+					document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").setAttribute("required", "required");
+					document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").setAttribute("required", "required");
+				}
+			}
+
 			checkedCount++;
-		}
+		} 
 		else {
 			var answerSheetAmount = document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").value;
 			var studentsPerCSV = document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").value;
 
-		  	if(hiddenPeriod === 'June') {
-		  		var examAmount = document.getElementById("selectedExams" + i + ".orderExam.examAmount").value;
-		 	 	 if(!isEmpty(examAmount) || !isEmpty(answerSheetAmount) || !isEmpty(studentsPerCSV)) {
-		 	 		uncheckedCount++; 
-		 	 	 }
-		  	}
-		  	else {
-		  		if(!isEmpty(answerSheetAmount) || !isEmpty(studentsPerCSV)) {
-		 	 		uncheckedCount++; 
-		 	 	 }
-		  	}
+			if (period === 'June') {
+				var examAmount = document.getElementById("selectedExams" + i + ".orderExam.examAmount").value;
+				if (!isEmpty(examAmount) || !isEmpty(answerSheetAmount) || !isEmpty(studentsPerCSV)) {
+					uncheckedCount++;
+					rowHasValue++;
+				}
+			} 
+			else {
+				if (!isEmpty(answerSheetAmount) || !isEmpty(studentsPerCSV)) {
+					uncheckedCount++;
+					rowHasValue++;
+				}
+			}
 		}
 	}
-	
-	if(uncheckedCount > 0) return false;
-    var isValid = (checkedCount == validCount);
+
+
+	//if (uncheckedCount === 0) return false;
+	if (uncheckedCount > 0) return false;
+	var isValid = (checkedCount == validCount);
 	return isValid;
-} 
+}
 
 
-/** Checks to make sure all required Non-Secure Documents information has been entered. 
- *  Ie: If a check box is selected, the quantity text field must have a value.
-**/
+/* Checks to make sure all required Non-Secure Documents information has been entered. 
+ * Ie: If a check box is selected, the quantity text field must have a value.
+*/
 function validateStep4() {
 	var i, count = 0, checkedCount = 0, validCount = 0, uncheckedCount = 0;
 	$('input[id^="selectedDocuments"][id$="selected1"]').each(function() { count++ }); //Count Number Of Documents
@@ -301,7 +351,7 @@ function validateStep4() {
 } 
 
 
-/** Checks to see if the radio button has been chosen. **/
+/* Checks to see if the radio button has been chosen. */
 function validateStep5() {
 	var selectedOptionScanIndex = getRadioButtonIndex('selectedOptionScan');
 	var selectedOptionScan = '';
@@ -310,11 +360,10 @@ function validateStep5() {
 	}
 	
 	var isValid = !isEmpty(selectedOptionScan);
-	//alert(isValid);
 	return isValid;
 } 
 	
-/** Checks to make sure all required Contact information has been entered. **/
+/* Checks to make sure all required Contact information has been entered. */
 function validateStep6() {
 	var firstName = document.getElementById("orderContact.firstName").value;
 	var lastName = document.getElementById("orderContact.lastName").value;
@@ -323,7 +372,6 @@ function validateStep6() {
 	var phone = document.getElementById("orderContact.phone").value;
 	
 	var isValid = (!isEmpty(firstName) && !isEmpty(lastName) && !isEmpty(title) && isValidEmail(email) && !isEmpty(phone));
-	//alert(isValid);
 	return isValid;
 } 
 

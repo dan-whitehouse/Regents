@@ -15,6 +15,7 @@ import org.neric.regents.controller.AbstractController;
 import org.neric.regents.converture.DistrictEditor;
 import org.neric.regents.converture.OptionPrintEditor;
 import org.neric.regents.converture.SchoolEditor;
+import org.neric.regents.model.Config;
 import org.neric.regents.model.District;
 import org.neric.regents.model.Document;
 import org.neric.regents.model.Exam;
@@ -31,6 +32,7 @@ import org.neric.regents.model.SelectedExam;
 import org.neric.regents.model.User;
 import org.neric.regents.model.UserDistrict;
 import org.neric.regents.model.UserProfile;
+import org.neric.regents.service.ConfigService;
 import org.neric.regents.service.DistrictService;
 import org.neric.regents.service.DocumentService;
 import org.neric.regents.service.ExamService;
@@ -53,6 +55,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -68,6 +71,9 @@ import org.springframework.web.bind.support.SessionStatus;
 @SessionAttributes("roles")
 public class OrderFormController extends AbstractController {
 
+	@Autowired
+	ConfigService configService;
+	
 	@Autowired
 	ExamService examService;
 	
@@ -178,7 +184,33 @@ public class OrderFormController extends AbstractController {
 	/************************** ORDER FORMS **************************/
 	@RequestMapping(value = { "/admin/orderFormInfo" }, method = RequestMethod.GET)
 	public String orderFormInfo(ModelMap model) {
+		Config config = configService.findById("orderFormInfo");
+		model.addAttribute("config", config);
 		return "orderform/orderFormInfo";
+	}
+	
+	
+	@RequestMapping(value = { "/admin/orderFormInfo" }, method = RequestMethod.POST)
+	public String createOrderForm(@Valid Config config, BindingResult result, ModelMap model) 
+	{
+		if (result.hasErrors()) 
+		{
+			for(ObjectError error : result.getAllErrors()) {
+				System.out.println(error.getDefaultMessage());
+			}
+			return "orderform/orderFormInfo";
+		}
+			
+		Config updatedConfig = configService.findById("orderFormInfo");
+		updatedConfig.setId(config.getId());
+		updatedConfig.setUuid(config.getUuid());
+		updatedConfig.setData(config.getData());
+		configService.updateConfig(updatedConfig);
+		
+		model.addAttribute("success", "OrderFormInfo: " + config.getId() + " was created successfully.");
+		model.addAttribute("returnLink", "/admin/orderFormInfo");
+		model.addAttribute("returnLinkText", "Order Forms");
+		return "message/success";
 	}
 	
 	@RequestMapping(value = { "/admin/orderForms" }, method = RequestMethod.GET)
