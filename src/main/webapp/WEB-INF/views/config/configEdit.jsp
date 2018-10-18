@@ -62,7 +62,7 @@
 		        ['superscript', 'subscript'],
 		        ['foreColor', 'backColor'],
 		        ['link'],
-				/* ['insertImage'], */
+				['insertImage'],
 		        ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
 		        ['unorderedList', 'orderedList'],
 		        ['horizontalRule'],

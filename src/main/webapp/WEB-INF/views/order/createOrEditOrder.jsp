@@ -940,30 +940,34 @@
 <script>	
 	<!-- Script to determine the number of characters left available in the Special Requests for Blanks for Additional Locations TextArea -->
 	var textarea = document.getElementById('specialRequests');
-	textarea.addEventListener("input", function(){
-	    var maxlength = this.getAttribute("maxlength");
-	    var currentLength = this.value.length;
-	
-	    if( currentLength >= maxlength ){
-	    	document.getElementById('specialRequestsCount').innerHTML = "You have reached the maximum number of characters.";
-	    }else{
-	    	document.getElementById('specialRequestsCount').innerHTML = maxlength - currentLength + " characters left";
-	    }
-	});
+	if(textarea !== null) {
+		textarea.addEventListener("input", function(){
+		    var maxlength = this.getAttribute("maxlength");
+		    var currentLength = this.value.length;
+		
+		    if( currentLength >= maxlength ){
+		    	document.getElementById('specialRequestsCount').innerHTML = "You have reached the maximum number of characters.";
+		    }else{
+		    	document.getElementById('specialRequestsCount').innerHTML = maxlength - currentLength + " characters left";
+		    }
+		});
+	}
 </script>
 <script>	
 	<!-- Script to determine the number of characters left available in the Alternate Sipping Information TextArea -->
 	var textarea = document.getElementById('orderContact.altContactInfo');
-	textarea.addEventListener("input", function(){
-	    var maxlength = this.getAttribute("maxlength");
-	    var currentLength = this.value.length;
-	
-	    if( currentLength >= maxlength ){
-	    	document.getElementById('orderContact.altContactInfoCount').innerHTML = "You have reached the maximum number of characters.";
-	    }else{
-	    	document.getElementById('orderContact.altContactInfoCount').innerHTML = maxlength - currentLength + " characters left";
-	    }
-	});
+	if(textarea !== null) {
+		textarea.addEventListener("input", function(){
+		    var maxlength = this.getAttribute("maxlength");
+		    var currentLength = this.value.length;
+		
+		    if( currentLength >= maxlength ){
+		    	document.getElementById('orderContact.altContactInfoCount').innerHTML = "You have reached the maximum number of characters.";
+		    }else{
+		    	document.getElementById('orderContact.altContactInfoCount').innerHTML = maxlength - currentLength + " characters left";
+		    }
+		});
+	}
 </script>
 <script>
 	//Set default Schools in Contact School List

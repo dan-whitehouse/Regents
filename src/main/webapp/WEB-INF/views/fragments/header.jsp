@@ -13,7 +13,8 @@
 		<title>NERIC - Regents Order Form</title>
 	
 		<!-- Bootstrap -->
-		<link href="<c:url value='/resources/vendors/bootstrap/dist/css/bootstrap.min.css' />" rel="stylesheet" type="text/css">
+		<%-- <link href="<c:url value='/resources/vendors/bootstrap/dist/css/bootstrap.min.css' />" rel="stylesheet" type="text/css"> --%>
+		<link href="<c:url value='/resources/vendors/bootstrap-3.3.7/css/bootstrap.min.css' />" rel="stylesheet" type="text/css">
 		
 		<!-- Font Awesome -->
 		<link href="<c:url value='/resources/vendors/font-awesome/css/font-awesome.min.css' />" rel="stylesheet" type="text/css">

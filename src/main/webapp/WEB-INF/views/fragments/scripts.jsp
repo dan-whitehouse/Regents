@@ -4,10 +4,12 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
     <!-- jQuery -->
-    <script src="<c:url value='/resources/vendors/jquery/dist/jquery.min.js' />"></script>
+   <%--  <script src="<c:url value='/resources/vendors/jquery/dist/jquery.min.js' />"></script> --%>
+    <script src="<c:url value='/resources/vendors/jquery/dist/jquery-3.3.1.min.js' />"></script>
     
     <!-- Bootstrap -->    
-    <script src="<c:url value='/resources/vendors/bootstrap/dist/js/bootstrap.min.js' />"></script>
+    <%-- <script src="<c:url value='/resources/vendors/bootstrap/dist/js/bootstrap.min.js' />"></script> --%>
+	<script src="<c:url value='/resources/vendors/bootstrap-3.3.7/js/bootstrap.min.js' />"></script>
 
     <!-- FastClick -->    
     <script src="<c:url value='/resources/vendors/fastclick/lib/fastclick.js' />"></script>
