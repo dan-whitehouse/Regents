@@ -14,6 +14,7 @@
 	
 		<!-- Bootstrap -->
 		<link href="<c:url value='/resources/vendors/bootstrap/dist/css/bootstrap.min.css' />" rel="stylesheet" type="text/css">
+
 		
 		<!-- Font Awesome -->
 		<link href="<c:url value='/resources/vendors/font-awesome/css/font-awesome.min.css' />" rel="stylesheet" type="text/css">

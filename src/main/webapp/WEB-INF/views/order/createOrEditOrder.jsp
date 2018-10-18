@@ -86,28 +86,7 @@
 									<div class="col-md-12 well text-center">
 										<div class="col-md-12 col-sm-12 col-xs-12">
 											<h2 class="StepTitle text-center">${orderForm.period} ${schoolYear} - REGENTS ANSWER SHEET SERVICES & NON SECURE DOCUMENTS ORDER FORM</h2>
-											<p>
-												<strong><u>Directions:</u> The order form and data file MUST be received by NERIC no later than ${endDate}.</strong>
-											</p>
-											<p>
-												<strong><u>Student Demographic Data File:</u></strong>
-												If you are ordering preprinted answer sheets your district needs to provide NERIC with a student data file 
-												securely through Serv-U. You can find the student data file template 
-												<a href="https://drive.google.com/drive/folders/0ByS2ptEWO31_OU5VSDlEY0FQblU" class="link" target="_blank">here</a>, 
-												and directions on how to upload files to Serv-U <a href="https://drive.google.com/drive/folders/0ByS2ptEWO31_OU5VSDlEY0FQblU" class="link" target="_blank">here</a>. If you do not have access to Serv-U, a request for a secure link can be e-mailed 
-												to <u><a href="mailto:testing@neric.org">testing@neric.org</a></u>. 
-											<p class="text-danger">No student data files should be e-mailed to NERIC</p>
-											</p>
-											<p>
-												<strong>Billing: </strong>
-												Beginning with the 2018-2019 school year, NERIC is moving to a pay one price model based on RWADA (student counts for non-public schools) for testing services.
-												This will simplify the billing process for both BOCES and districts and you will now have exact testing charges ahead of time for budget planning rather than having to wait much later in the year to be billed for number of tests scanned. 
-												<strong>This model will include all scanning and non-secure documents charges for the Regents Exams.</strong> 
-												If you are a public school district, this will be implemented immediately on the commitment forms that were sent to districts in February 2018.  
-												Non-public schools will be billed in the fall of 2018 for the 2018-2019 testing charge.  
-												Questions about this billing model can be directed to <u><a href="mailto:testing@neric.org">testing@neric.org</a></u>.<br> 
-											</p>
-											<p>This form must be submitted with the approval of your districts superintendent, business official or whoever else is authorized to approve this expenditure.</p>
+											${orderForm_step1}
 										</div>
 									</div>
 								</div>

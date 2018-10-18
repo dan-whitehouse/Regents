@@ -7,9 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.neric.regents.model.Config;
 import org.neric.regents.model.District;
 import org.neric.regents.model.User;
 import org.neric.regents.model.UserProfile;
+import org.neric.regents.service.ConfigService;
 import org.neric.regents.service.DistrictService;
 import org.neric.regents.service.UserProfileService;
 import org.neric.regents.service.UserService;
@@ -43,12 +45,16 @@ import org.springframework.web.servlet.ModelAndView;
 @SessionAttributes("roles")
 public class AppController extends AbstractController{
 
+	@Autowired
+	ConfigService configService;
+	
 	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
 	public String homePage(ModelMap model) {
-		if(isCurrentAuthenticationAnonymous())
-		{
+		if(isCurrentAuthenticationAnonymous()) {
 			return "app/login";
 		}
+		Config config = configService.findById("home_message");
+		model.addAttribute("home_message", config.getData());
 		model.addAttribute("loggedinusername", getPrincipal());
 		return "app/home";
 	}

@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../fragments/header.jsp" />
 <jsp:include page="../fragments/nav.jsp" />
 <!-- page content -->
@@ -20,40 +23,9 @@
                   <div class="col-md-8 col-lg-8 col-sm-7">
                      <div class="bs-example" data-example-id="simple-jumbotron">
                         <div class="jumbotron">
-                           <h1>Welcome!</h1>
-                           <p>For support, please contact the Testing and Evaluations Services team.</p>
+                          ${home_message}
                         </div>
                      </div>
-                     <!-- <div class="row top_tiles">
-                        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        	<div class="tile-stats">
-                        		<div class="count">179</div>
-                        		<h3>Order Period</h3>
-                        		<p>Lorem ipsum psdea itgum rixt.</p>
-                        	</div>
-                        </div>
-                        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        	<div class="tile-stats">
-                        		<div class="count">179</div>
-                        		<h3>New Sign ups</h3>
-                        		<p>Lorem ipsum psdea itgum rixt.</p>
-                        	</div>
-                        </div>
-                        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        	<div class="tile-stats">
-                        		<div class="count">179</div>
-                        		<h3>New Sign ups</h3>
-                        		<p>Lorem ipsum psdea itgum rixt.</p>
-                        	</div>
-                        </div>
-                        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        	<div class="tile-stats">
-                        		<div class="count">179</div>
-                        		<h3>New Sign ups</h3>
-                        		<p>Lorem ipsum psdea itgum rixt.</p>
-                        	</div>
-                        </div>
-                        </div> -->
                   </div>
                   <div class="col-md-4 col-lg-4 col-sm-5">
                      <ul class="list-unstyled msg_list">

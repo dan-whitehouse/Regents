@@ -182,37 +182,6 @@ public class OrderFormController extends AbstractController {
 	}
 
 	/************************** ORDER FORMS **************************/
-	@RequestMapping(value = { "/admin/orderFormInfo" }, method = RequestMethod.GET)
-	public String orderFormInfo(ModelMap model) {
-		Config config = configService.findById("orderFormInfo");
-		model.addAttribute("config", config);
-		return "orderform/orderFormInfo";
-	}
-	
-	
-	@RequestMapping(value = { "/admin/orderFormInfo" }, method = RequestMethod.POST)
-	public String createOrderForm(@Valid Config config, BindingResult result, ModelMap model) 
-	{
-		if (result.hasErrors()) 
-		{
-			for(ObjectError error : result.getAllErrors()) {
-				System.out.println(error.getDefaultMessage());
-			}
-			return "orderform/orderFormInfo";
-		}
-			
-		Config updatedConfig = configService.findById("orderFormInfo");
-		updatedConfig.setId(config.getId());
-		updatedConfig.setUuid(config.getUuid());
-		updatedConfig.setData(config.getData());
-		configService.updateConfig(updatedConfig);
-		
-		model.addAttribute("success", "OrderFormInfo: " + config.getId() + " was created successfully.");
-		model.addAttribute("returnLink", "/admin/orderFormInfo");
-		model.addAttribute("returnLinkText", "Order Forms");
-		return "message/success";
-	}
-	
 	@RequestMapping(value = { "/admin/orderForms" }, method = RequestMethod.GET)
 	public String listOrderForms(ModelMap model) {
 

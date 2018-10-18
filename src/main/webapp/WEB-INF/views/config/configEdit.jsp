@@ -30,9 +30,11 @@
 						<div class="x_content">
 							<form:form method="POST" modelAttribute="config" role="form">
 								<form:input type="hidden" path="id" id="id"/>
+								<form:input type="hidden" path="href" id="href"/>
+								<form:input type="hidden" path="description" id="description"/>
 								<form:textarea path="data" id="editor" cssClass="trumbowyg-textarea"/>
 							  	<!-- <textarea id="editor" class="trumbowyg-textarea"></textarea> -->
-							  <input type="submit" value="Update" class="btn btn-success"/> <a href="<c:url value='/admin/orderFormInfo' />" class="btn btn-primary">Cancel</a>
+							  <input type="submit" value="Update" class="btn btn-success"/> <a href="<c:url value='/admin/config' />" class="btn btn-primary">Cancel</a>
 							</form:form>
 						</div>
 						
@@ -56,11 +58,11 @@
 			    ['viewHTML'],
 		        ['undo', 'redo'], // Only supported in Blink browsers
 		        ['formatting'],
-		        ['strong', 'em'],
+		        ['strong', 'em', 'underline'],
 		        ['superscript', 'subscript'],
 		        ['foreColor', 'backColor'],
 		        ['link'],
-		        ['insertImage'],
+				/* ['insertImage'], */
 		        ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
 		        ['unorderedList', 'orderedList'],
 		        ['horizontalRule'],

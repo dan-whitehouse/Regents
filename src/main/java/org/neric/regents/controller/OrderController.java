@@ -324,8 +324,8 @@ public class OrderController extends AbstractController
 					if(CollectionUtils.isNotEmpty(selectableDistricts))
 					{
 						XForm2 xForm = new XForm2();
-						Config config = configService.findById("orderFormInfo");
-						model.addAttribute("configDataOrderFormInfo", config.getData());
+						Config config = configService.findById("orderForm_step1");
+						model.addAttribute("orderForm_step1", config.getData());
 						model.addAttribute("xForm2", xForm);
 						model.addAttribute("orderForm", orderForm);
 						model.addAttribute("period", orderForm.getPeriod());
@@ -479,6 +479,8 @@ public class OrderController extends AbstractController
 
 		if(order.getUser().getUsername().equalsIgnoreCase(getPrincipal()) || isAdmin(getPrincipal())) //IDK IF THIS IS THE BEST THING TO DO
 		{
+			Config config = configService.findById("order_invoice_billing");
+			model.addAttribute("order_invoice_billing", config.getData());
 			model.addAttribute("order", order);
 			model.addAttribute("period", order.getOrderForm().getPeriod());
 			model.addAttribute("sortedExamList", sortedExamList);
@@ -545,7 +547,9 @@ public class OrderController extends AbstractController
 				userDistricts.add(userDistrict.getDistrict());
 			});
 
-
+			Config config = configService.findById("orderForm_step1");
+			model.addAttribute("orderForm_step1", config.getData());
+			
 			model.addAttribute("xForm2", xForm);
 			model.addAttribute("order", order);
 			model.addAttribute("period", order.getOrderForm().getPeriod());

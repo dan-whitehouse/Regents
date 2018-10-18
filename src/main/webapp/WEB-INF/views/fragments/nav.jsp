@@ -23,6 +23,7 @@
 <c:url value="/admin/schools" var="schools" />
 <c:url value="/admin/settings" var="settings" />
 <c:url value="/admin/dashboard" var="dashboard" />
+<c:url value="/admin/config" var="config" />
 <c:url value="/dev/csv" var="upload" />
 	</head>
 	<body class="nav-md footer_fixed">
@@ -65,13 +66,14 @@
                                                     </ul>
                                                 </li>
                                                 <li><a href="${adminOrders}"><i class="fa fa-truck"></i>Orders</a></li>
-                                                <li><a href="${adminOptouts}"><i class="fa fa-exclamation-triangle"></i> Not Administering</span></a></li>
-                                                <li><a href="${documents}"><i class="fa fa-file-text"></i> Documents </a></li>
-                                                <li><a href="${exams}"><i class="fa fa-list"></i> Exams </a></li>
-                                                <li><a href="${printOptions}"><i class="fa fa-print"></i> Print Options </a></li>
-                                                <li><a href="${scanOptions}"><i class="fa fa-clipboard"></i> Scan Options </a></li>
-                                                <li><a href="${districts}"><i class="fa fa-university"></i> Districts </a></li>
-                                                <li><a href="${schools}"><i class="fa fa-graduation-cap"></i> Schools </a></li>
+                                                <li><a href="${adminOptouts}"><i class="fa fa-exclamation-triangle"></i> Not Administering</a></li>
+                                                <li><a href="${documents}"><i class="fa fa-file-text"></i> Documents</a></li>
+                                                <li><a href="${exams}"><i class="fa fa-list"></i> Exams</a></li>
+                                                <li><a href="${printOptions}"><i class="fa fa-print"></i> Print Options</a></li>
+                                                <li><a href="${scanOptions}"><i class="fa fa-clipboard"></i> Scan Options</a></li>
+                                                <li><a href="${districts}"><i class="fa fa-university"></i> Districts</a></li>
+                                                <li><a href="${schools}"><i class="fa fa-graduation-cap"></i> Schools</a></li>
+                                                 <li><a href="${config}"><i class="fa fa-gear"></i> Configurables</a></li>
                                             </ul>
                                         </li>
                                     </sec:authorize>

@@ -1,5 +1,7 @@
 package org.neric.regents.service;
 
+import java.util.List;
+
 import org.neric.regents.dao.ConfigDAO;
 import org.neric.regents.model.Config;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +43,10 @@ public class ConfigServiceImp implements ConfigService{
 		{
 			entity.setData(config.getData());
 		}
+	}
+
+	@Override
+	public List<Config> findAll() {
+		return dao.findAll();
 	}
 }
