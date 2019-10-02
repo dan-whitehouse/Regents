@@ -237,18 +237,25 @@
 		}
 	
 		function validateStep2() {
-			var i, count = 0, checkedCount = 0, validCount = 0, uncheckedCount = 0;
+			var i, count = 0, checkedCount = 0, validCount = 0, uncheckedCount = 0, zeroCount = 0;
 			$('input[id^="selectedExams"][id$="selected1"]').each(function() { count++ }); //Count Number Of Exams
 			
 			for(i = 0; i <= count-1; i++) {
 				if(document.getElementById('selectedExams' + i + '.selected1').checked) {	
 					var answerSheetAmount = document.getElementById("selectedExams" + i + ".orderExam.answerSheetAmount").value;
 					var studentsPerCSV = document.getElementById("selectedExams" + i + ".orderExam.studentsPerCSV").value;
-
+					
+					if(answerSheetAmount == 0 || studentsPerCSV == 0) {
+				 		 zeroCount++;
+				 	 }
+					
 					<c:choose> 
 					  <c:when test="${period eq 'June'}">
 					 	 var examAmount = document.getElementById("selectedExams" + i + ".orderExam.examAmount").value;
- 
+					 	 if(examAmount == 0) {
+					 		 zeroCount++;
+					 	 }
+						
 					 	 if(!isEmpty(examAmount) || !isEmpty(answerSheetAmount) || !isEmpty(studentsPerCSV)) {
 					 		if(isEmpty(examAmount)) {
 					 			document.getElementById("selectedExams" + i + ".orderExam.examAmount").removeAttribute("required");
@@ -308,6 +315,7 @@
 			}
 
 			if(uncheckedCount > 0) return false;
+			if(zeroCount > 0) return false;
 		    var isValid = (checkedCount == validCount);
 
 			return isValid;
@@ -327,13 +335,17 @@
 		    }
 		
 		function validateStep4() {
-			var i, count = 0, checkedCount = 0, validCount = 0, uncheckedCount = 0;
+			var i, count = 0, checkedCount = 0, validCount = 0, uncheckedCount = 0, zeroCount = 0;
 			$('input[id^="selectedDocuments"][id$="selected1"]').each(function() { count++ }); //Count Number Of Documents
 
 			for(i = 0; i <= count-1; i++) {
 				if(document.getElementById('selectedDocuments' + i + '.selected1').checked) {
 					checkedCount++;
 					var docAmount = document.getElementById("selectedDocuments" + i + ".orderDocument.documentAmount").value;
+					if(docAmount == 0) {
+						zeroCount++;
+					}
+					
 					if(!isEmpty(docAmount)) {
 						validCount++;
 			 		}
@@ -349,7 +361,9 @@
 					}
 				}
 			}
+
 			if(uncheckedCount > 0) return false;
+			if(zeroCount > 0) return false;
 			var isValid = (checkedCount == validCount);
 			return isValid;
 		} 

@@ -160,20 +160,20 @@
 																		<c:if test="${period eq 'June'}">
 																			<td>
 																				<div class="item form-group has-feedback">
-																					<form:input path="selectedExams[${status.index}].orderExam.examAmount" type="number" min="0" step="1" class="form-control col-md-3 col-xs-12" />
+																					<form:input path="selectedExams[${status.index}].orderExam.examAmount" type="number" min="1" step="1" class="form-control col-md-3 col-xs-12" />
 																					<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 																				</div>
 																			</td>
 																		</c:if>
 																		<td>
 																			<div class="item form-group has-feedback">
-																				<form:input path="selectedExams[${status.index}].orderExam.answerSheetAmount" type="number" min="0" step="1" class="form-control col-md-4 col-xs-12" />
+																				<form:input path="selectedExams[${status.index}].orderExam.answerSheetAmount" type="number" min="1" step="1" class="form-control col-md-4 col-xs-12" />
 																				<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 																			</div>
 																		</td>
 																		<td>
 																			<div class="item form-group has-feedback">
-																				<form:input path="selectedExams[${status.index}].orderExam.studentsPerCSV" type="number" min="0" step="1" class="form-control col-md-4 col-xs-12" />
+																				<form:input path="selectedExams[${status.index}].orderExam.studentsPerCSV" type="number" min="1" step="1" class="form-control col-md-4 col-xs-12" />
 																				<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 																			</div>
 																			<%-- <form:input path="selectedExams[${status.index}].orderExam.studentsPerCSV" type="number" min="0" step="1" class="form-control col-md-3 col-xs-12" /> --%>
@@ -252,7 +252,7 @@
 															</td>
 															<td>
 																<div class="item form-group has-feedback">
-																	<form:input path="selectedDocuments[${status.index}].orderDocument.documentAmount" type="number" min="0" step="1" class="form-control col-md-4 col-xs-12" />
+																	<form:input path="selectedDocuments[${status.index}].orderDocument.documentAmount" type="number" min="1" step="1" class="form-control col-md-4 col-xs-12" />
 																	<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 																</div>
 															</td>

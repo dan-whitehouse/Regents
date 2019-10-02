@@ -92,16 +92,6 @@
 									<li>
 										<a>
 										<span>
-										<span>Andrea Vamvas</span>
-										</span>
-										<span class="message">
-										andrea.vamvas@neric.org
-										</span>
-										</a>
-									</li>
-									<li>
-										<a>
-										<span>
 										<span>Testing and Evaluation Services</span>
 										</span>
 										<span class="message">
