@@ -32,6 +32,8 @@ public interface OrderService
 	void deleteOrder(String uuid);
 	
 	void updateStatus(String uuid, Boolean isComplete);
+	
+	public void updateStatus (List<String> uuids, String action);
 
 	int count();
 

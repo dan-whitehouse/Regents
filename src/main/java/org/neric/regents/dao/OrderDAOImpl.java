@@ -2,6 +2,8 @@ package org.neric.regents.dao;
 
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Projection;
@@ -103,6 +105,19 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 	public void updateOrder(Order order)
 	{
 		saveOrUpdate(order);
+	}
+	
+	
+	@Override
+	public void updateStatusOfOrders(List<String> uuids, String status)
+	{
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.in("uuid", uuids));
+		List<Order> orders = (List<Order>)crit.list();
+		for(Order order : orders) {
+			order.setOrderStatus(status);
+			update(order);
+		}
 	}
 
 	@Override

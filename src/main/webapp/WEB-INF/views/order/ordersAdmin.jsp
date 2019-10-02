@@ -3,11 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <c:url value="/order" var="orderLink" />
 <html>
 	<jsp:include page="../fragments/header.jsp" />
 	<sec:authorize access="hasRole('ADMIN')">
 		<!-- page content -->
+		<form:form method="POST" modelAttribute="AdminOrdersForm" role="form">
 		<div class="right_col" role="main">
 			<div class="">
 				<div class="clearfix"></div>
@@ -20,8 +22,9 @@
 									<li class="dropdown">
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
 										<ul class="dropdown-menu" role="menu">
-											<li><a href="${orderLink}">Create Order</a>
-											</li>
+											<li><a href="${orderLink}">Create Order</a></li>
+											<li><a href="${orderLink}" onclick="setAction('Complete'); document.getElementById('AdminOrdersForm').submit(); return false;">Set Selected As Complete</a></li>
+											<li><a href="${orderLink}" onclick="setAction('Bullshit'); document.getElementById('AdminOrdersForm').submit(); return false;">Set Selected As Processing</a></li>
 										</ul>
 									</li>
 								</ul>
@@ -43,7 +46,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach items="${orders}" var="order">
+										<c:forEach items="${orders}" var="order" varStatus="status">
 											<fmt:formatDate var="year" value="${order.orderForm.startDate}" pattern="yyyy" />
 											<tr>
 												<td><span style="text-decoration: underline;"><a href="<c:url value='/order/${order.uuid}' />"> ${order.uuid} </a></span></td>
@@ -62,17 +65,16 @@
 												<td>${order.user.firstName} ${order.user.lastName}</td>
 												<td>${order.orderStatus}</td>
 												<sec:authorize access="hasRole('ADMIN')">
+												
+												
 													<td width="150px">
+														<form:hidden path="action" value="action();"  />
+														<form:hidden path="selectedOrders[${status.index}].uuid" value="${order.uuid}"/>
 														<a href="<c:url value='/order/${order.uuid}/edit' />" class="btn btn-success custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
 														<a type="button" class="btn btn-danger custom-width" data-toggle="modal" data-target=".modal-sm-${order.uuid}"><i class="fa fa-trash"></i></a>
-														<c:choose>
-															<c:when test="${order.orderStatus == 'Processing'}">
-																<a href="<c:url value='/admin/order/${order.uuid}/complete/true' />" class="btn btn-default custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Incomplete"><i class="fa fa-square"></i></a>
-															</c:when>
-															<c:otherwise>
-																<a href="<c:url value='/admin/order/${order.uuid}/complete/false' />" class="btn btn-info custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Complete"><i class="fa fa-check-square"></i></a>
-															</c:otherwise>
-														</c:choose>
+														<span class="btn btn-default custom-width">
+															<form:checkbox path="selectedOrders[${status.index}].selected" class="orderForm"/>
+														</span>
 													</td>
 												</sec:authorize>
 											</tr>
@@ -86,7 +88,8 @@
 											<div class="modal-dialog modal-sm">
 												<div class="modal-content">
 													<div class="modal-header">
-														<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+															<span aria-hidden="true">×</span>
 														</button>
 														<h4 class="modal-title" id="myModalLabel2">Confirmation</h4>
 													</div>
@@ -110,6 +113,22 @@
 				</div>
 			</div>
 		</div>
+		
+		<script>
+			var action = "";
+			
+			function getAction() {
+				alert(action);
+				return action;
+			}
+			
+			function setAction(action) {
+				this.action = action;
+			}
+		</script>
+		
+		
+	</form:form>
 	</sec:authorize>
 	<jsp:include page="../fragments/footer.jsp" />
 </html>

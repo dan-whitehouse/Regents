@@ -2,6 +2,7 @@ package org.neric.regents.controller;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,6 +35,8 @@ import org.neric.regents.model.User;
 import org.neric.regents.model.UserDistrict;
 import org.neric.regents.model.UserProfile;
 import org.neric.regents.model.Wizard;
+import org.neric.regents.model.form.SelectedAction;
+import org.neric.regents.model.form.AdminOrdersForm;
 import org.neric.regents.service.DistrictService;
 import org.neric.regents.service.DocumentService;
 import org.neric.regents.service.ExamService;
@@ -254,8 +257,20 @@ public class OrderController extends AbstractController
 	public String listAllOrders(ModelMap model)
 	{
 		List<Order> orders = orderService.findAllOrders();
+
 		model.addAttribute("orders", orders);
+		model.addAttribute("AdminOrdersForm", new AdminOrdersForm());
 		model.addAttribute("loggedinuser", getPrincipal());
+		return "order/ordersAdmin";
+	}
+	
+	@RequestMapping(value = { "/admin/orders" }, method = RequestMethod.POST)
+	public String postUpdateOrders(@ModelAttribute("AdminOrdersForm") AdminOrdersForm adminOrdersForm, BindingResult result, SessionStatus status)
+	{
+		List<String> uuids = adminOrdersForm.getSelectedOrders().stream().filter(f -> f.isSelected()).map(SelectedAction::getUuid).collect(Collectors.toList());
+		
+		
+		orderService.updateStatus(uuids, adminOrdersForm.getAction());
 		return "order/ordersAdmin";
 	}
 	

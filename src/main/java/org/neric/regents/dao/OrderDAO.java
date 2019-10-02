@@ -20,6 +20,8 @@ public interface OrderDAO {
 	
 	void updateOrder(Order order);
 	
+	void updateStatusOfOrders(List<String> uuids, String action);
+	
 	void deleteOrder(int id);
 	
 	void deleteOrder(String uuid);

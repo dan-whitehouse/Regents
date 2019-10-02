@@ -85,6 +85,11 @@ public class OrderServiceImpl implements OrderService
 			}
 		}
 	}
+	
+	public void updateStatus (List<String> uuids, String action) {
+		dao.updateStatusOfOrders(uuids, action);
+	}
+	
 
 	@Override
 	public int count()
