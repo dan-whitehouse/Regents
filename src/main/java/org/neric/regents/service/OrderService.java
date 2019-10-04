@@ -1,15 +1,8 @@
-/**
- * @author      Andrew Pieniezny <andrew.pieniezny@neric.org>
- * @version     x.x.x
- * @since       Nov 2, 2016
- * @filename	OptionScanService.java
- */
 package org.neric.regents.service;
 
-import java.util.List;
-
 import org.neric.regents.model.Order;
-import org.neric.regents.model.OrderForm;
+
+import java.util.List;
 
 public interface OrderService
 {
@@ -33,7 +26,7 @@ public interface OrderService
 	
 	void updateStatus(String uuid, Boolean isComplete);
 	
-	public void updateStatus (List<String> uuids, String action);
+	void updateStatus(List<String> uuids, String action);
 
 	int count();
 

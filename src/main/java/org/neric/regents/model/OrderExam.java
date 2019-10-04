@@ -1,17 +1,7 @@
 package org.neric.regents.model;
 
+import javax.persistence.*;
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name="order_exam")
@@ -32,13 +22,13 @@ public class OrderExam implements Serializable
 	@JoinColumn(name = "exam_id", nullable = false)
 	private Exam exam;
 
-	@Column(name="exam_amount", nullable=true)
+	@Column(name="exam_amount")
 	private Integer examAmount;
 
-	@Column(name="answer_sheet_amount", nullable=true)
+	@Column(name="answer_sheet_amount")
 	private String answerSheetAmount;
 	
-	@Column(name="students_per_csv", nullable=true)
+	@Column(name="students_per_csv")
 	private String studentsPerCSV;
 	
 

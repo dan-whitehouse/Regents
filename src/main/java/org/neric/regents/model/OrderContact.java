@@ -1,155 +1,122 @@
 package org.neric.regents.model;
 
+import javax.persistence.*;
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
-
-import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="order_contact")
-public class OrderContact implements Serializable
-{
-	private static final long serialVersionUID = 1L;
+@Table(name = "order_contact")
+public class OrderContact implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-	@Id 
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "order_contact_id", unique = true, nullable = false)
-	private Integer id;
-	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "order_id", nullable = false, unique=false)
-	private Order order;
-	
-	@Column(name="contact_first_name", nullable=true)
-	private String firstName;
-	
-	@Column(name="contact_middle_name", nullable=true)
-	private String middleName;
-	
-	@Column(name="contact_last_name", nullable=true)
-	private String lastName;
-	
-	@Column(name="contact_title", nullable=true)
-	private String title;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "order_contact_id", unique = true, nullable = false)
+    private Integer id;
 
-	@Column(name="contact_email", nullable=true)
-	private String email;
-	
-	@Column(name="contact_phone", nullable=true)
-	private String phone;
-	
-	@Column(name="alt_contact_info", nullable=true, length = 1000)
-	private String altContactInfo;
-	
-	
-	public OrderContact()
-	{
-		super();
-	}
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", nullable = false)
+    private Order order;
 
-	public OrderContact(Order order)
-	{
-		super();
-		this.order = order;
-	}
-	
-	public Integer getId()
-	{
-		return id;
-	}
+    @Column(name = "contact_first_name")
+    private String firstName;
 
-	public void setId(Integer id)
-	{
-		this.id = id;
-	}
+    @Column(name = "contact_middle_name")
+    private String middleName;
 
-	public Order getOrder()
-	{
-		return order;
-	}
+    @Column(name = "contact_last_name")
+    private String lastName;
 
-	public void setOrder(Order order)
-	{
-		this.order = order;
-	}
+    @Column(name = "contact_title")
+    private String title;
 
-	public String getFirstName()
-	{
-		return firstName;
-	}
+    @Column(name = "contact_email")
+    private String email;
 
-	public void setFirstName(String firstName)
-	{
-		this.firstName = firstName;
-	}
+    @Column(name = "contact_phone")
+    private String phone;
 
-	public String getMiddleName()
-	{
-		return middleName;
-	}
+    @Column(name = "alt_contact_info", length = 1000)
+    private String altContactInfo;
 
-	public void setMiddleName(String middleName)
-	{
-		this.middleName = middleName;
-	}
 
-	public String getLastName()
-	{
-		return lastName;
-	}
+    public OrderContact() {
+        super();
+    }
 
-	public void setLastName(String lastName)
-	{
-		this.lastName = lastName;
-	}
+    public OrderContact(Order order) {
+        super();
+        this.order = order;
+    }
 
-	public String getTitle()
-	{
-		return title;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setTitle(String title)
-	{
-		this.title = title;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public String getEmail()
-	{
-		return email;
-	}
+    public Order getOrder() {
+        return order;
+    }
 
-	public void setEmail(String email)
-	{
-		this.email = email;
-	}
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 
-	public String getPhone()
-	{
-		return phone;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public void setPhone(String phone)
-	{
-		this.phone = phone;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public String getAltContactInfo()
-	{
-		return altContactInfo;
-	}
+    public String getMiddleName() {
+        return middleName;
+    }
 
-	public void setAltContactInfo(String altContactInfo)
-	{
-		this.altContactInfo = altContactInfo;
-	}
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAltContactInfo() {
+        return altContactInfo;
+    }
+
+    public void setAltContactInfo(String altContactInfo) {
+        this.altContactInfo = altContactInfo;
+    }
 }

@@ -2,44 +2,36 @@ package org.neric.regents.wizard;
 
 import org.neric.regents.model.OrderExam;
 
-public class ExamWrapper
-{
-	private boolean selected;
+public class ExamWrapper {
+    private boolean selected;
     private OrderExam orderExam;
-    
-	public ExamWrapper()
-	{
-		super();
-	}
 
-	public ExamWrapper(OrderExam orderExam)
-	{
-		 this.orderExam = orderExam;
-	}
+    public ExamWrapper() {
+        super();
+    }
 
-	public boolean isSelected()
-	{
-		return selected;
-	}
+    public ExamWrapper(OrderExam orderExam) {
+        this.orderExam = orderExam;
+    }
 
-	public void setSelected(boolean selected)
-	{
-		this.selected = selected;
-	}
+    public boolean isSelected() {
+        return selected;
+    }
 
-	public OrderExam getOrderExam()
-	{
-		return orderExam;
-	}
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
 
-	public void setOrderExam(OrderExam orderExam)
-	{
-		this.orderExam = orderExam;
-	}
+    public OrderExam getOrderExam() {
+        return orderExam;
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ExamWrapper [selected=" + selected + ", orderExam=" + orderExam + "]";
-	}
+    public void setOrderExam(OrderExam orderExam) {
+        this.orderExam = orderExam;
+    }
+
+    @Override
+    public String toString() {
+        return "ExamWrapper [selected=" + selected + ", orderExam=" + orderExam + "]";
+    }
 }

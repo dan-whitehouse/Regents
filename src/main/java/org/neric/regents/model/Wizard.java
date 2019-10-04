@@ -8,105 +8,88 @@ import javax.validation.constraints.NotNull;
 import org.neric.regents.wizard.DocumentWrapper;
 import org.neric.regents.wizard.ExamWrapper;
 
-public class Wizard
-{
-	private static final long serialVersionUID = 1L;	 
+public class Wizard {
+    private static final long serialVersionUID = 1L;
     private Integer id;
-    
+
     private String title;
-    
+
     @NotNull
     private OptionPrint selectedOptionPrint;
 
-	private boolean reportingOption;
-    
+    private boolean reportingOption;
+
     @NotNull
     private OptionScan selectedOptionScan;
-    
+
     @NotNull
     private List<ExamWrapper> selectedExams = new ArrayList<>();
-    
+
     @NotNull
     private List<DocumentWrapper> selectedDocuments = new ArrayList<>();
 
-	public Integer getId()
-	{
-		return id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setId(Integer id)
-	{
-		this.id = id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public String getTitle()
-	{
-		return title;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public void setTitle(String title)
-	{
-		this.title = title;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public OptionPrint getSelectedOptionPrint()
-	{
-		return selectedOptionPrint;
-	}
+    public OptionPrint getSelectedOptionPrint() {
+        return selectedOptionPrint;
+    }
 
-	public void setSelectedOptionPrint(OptionPrint selectedOptionPrint)
-	{
-		this.selectedOptionPrint = selectedOptionPrint;
-	}
-	
-	public boolean isReportingOption()
-	{
-		return reportingOption;
-	}
+    public void setSelectedOptionPrint(OptionPrint selectedOptionPrint) {
+        this.selectedOptionPrint = selectedOptionPrint;
+    }
 
-	public void setReportingOption(boolean reportingOption)
-	{
-		this.reportingOption = reportingOption;
-	}
+    public boolean isReportingOption() {
+        return reportingOption;
+    }
 
-	public OptionScan getSelectedOptionScan()
-	{
-		return selectedOptionScan;
-	}
+    public void setReportingOption(boolean reportingOption) {
+        this.reportingOption = reportingOption;
+    }
 
-	public void setSelectedOptionScan(OptionScan selectedOptionScan)
-	{
-		this.selectedOptionScan = selectedOptionScan;
-	}
+    public OptionScan getSelectedOptionScan() {
+        return selectedOptionScan;
+    }
 
-	public List<ExamWrapper> getSelectedExams()
-	{
-		return selectedExams;
-	}
+    public void setSelectedOptionScan(OptionScan selectedOptionScan) {
+        this.selectedOptionScan = selectedOptionScan;
+    }
 
-	public void setSelectedExams(List<ExamWrapper> selectedExams)
-	{
-		this.selectedExams = selectedExams;
-	}
-	
-	
+    public List<ExamWrapper> getSelectedExams() {
+        return selectedExams;
+    }
 
-	public List<DocumentWrapper> getSelectedDocuments()
-	{
-		return selectedDocuments;
-	}
+    public void setSelectedExams(List<ExamWrapper> selectedExams) {
+        this.selectedExams = selectedExams;
+    }
 
-	public void setSelectedDocuments(List<DocumentWrapper> selectedDocuments)
-	{
-		this.selectedDocuments = selectedDocuments;
-	}
 
-	@Override
-	public String toString()
-	{
-		return "Wizard [id=" + id + ", title=" + title + ", selectedOptionPrint=" + selectedOptionPrint + ", reportingOption=" + reportingOption + ", selectedOptionScan=" + selectedOptionScan + ", selectedExams=" + selectedExams + ", selectedDocuments=" + selectedDocuments + "]";
-	}
-	
+    public List<DocumentWrapper> getSelectedDocuments() {
+        return selectedDocuments;
+    }
+
+    public void setSelectedDocuments(List<DocumentWrapper> selectedDocuments) {
+        this.selectedDocuments = selectedDocuments;
+    }
+
+    @Override
+    public String toString() {
+        return "Wizard [id=" + id + ", title=" + title + ", selectedOptionPrint=" + selectedOptionPrint + ", reportingOption=" + reportingOption + ", selectedOptionScan=" + selectedOptionScan + ", selectedExams=" + selectedExams + ", selectedDocuments=" + selectedDocuments + "]";
+    }
+
 //	private List<ExamWrapper> allAvailableExams = new ArrayList<>();
 //	private List<DocumentWrapper> allAvailableDocuments = new ArrayList<>();
 //	 
@@ -134,5 +117,5 @@ public class Wizard
 //	{
 //		this.allAvailableDocuments = allAvailableDocuments;
 //	}
-	
+
 }

@@ -1,38 +1,35 @@
 package org.neric.regents.service;
 
-import java.util.List;
-
 import org.neric.regents.model.Document;
-import org.neric.regents.model.Exam;
-import org.neric.regents.model.School;
-import org.neric.regents.model.UserProfile;
+
+import java.util.List;
 
 
 public interface DocumentService {
 
-	Document findById(int id);
-	
-	Document findByUUID(String uuid);
+    Document findById(int id);
 
-	List<Document> findAllDocuments();
-	
-	List<Document> findAllActiveDocuments();
-	
-	void saveDocument(Document document);
+    Document findByUUID(String uuid);
 
-	void updateDocument(Document document);
+    List<Document> findAllDocuments();
 
-	void deleteByDocumentId(int id);
-	
-	void deleteByDocumentUUID(String uuid);
-	
-	void lockByDocumentId(int id, Boolean locked);
-	
-	void hideByDocumentId(int id, Boolean hidden);
+    List<Document> findAllActiveDocuments();
 
-	void lockByDocumentUUID(String uuid, boolean isLocked);
+    void saveDocument(Document document);
 
-	void hideByDocumentUUID(String uuid, boolean isHidden);
+    void updateDocument(Document document);
 
-	List<Document> findAllDocumentsByOrderFormId(Integer id);
+    void deleteByDocumentId(int id);
+
+    void deleteByDocumentUUID(String uuid);
+
+    void lockByDocumentId(int id, Boolean locked);
+
+    void hideByDocumentId(int id, Boolean hidden);
+
+    void lockByDocumentUUID(String uuid, boolean isLocked);
+
+    void hideByDocumentUUID(String uuid, boolean isHidden);
+
+    List<Document> findAllDocumentsByOrderFormId(Integer id);
 }

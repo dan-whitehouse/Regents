@@ -1,169 +1,135 @@
 package org.neric.regents.model;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.JoinColumn;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.validator.constraints.NotEmpty;
-
 @Entity
-@Table(name="exam")
-public class Exam implements Serializable
-{
-	private static final long serialVersionUID = 1L;
+@Table(name = "exam")
+public class Exam implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-	public Exam()
-	{
-		super();
-	}
+    public Exam() {
+        super();
+    }
 
-	public Exam(Integer id, String name, String code)
-	{
-		super();
-		this.id = id;
-		this.name = name;
-		this.code = code;
-	}
-	
-	public Exam(Integer id, String name, String code, Boolean visible, Boolean locked)
-	{
-		super();
-		this.id = id;
-		this.name = name;
-		this.code = code;
-		this.visible = visible;
-		this.locked = locked;
-	}
+    public Exam(Integer id, String name, String code) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.code = code;
+    }
 
-	@Id 
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "exam_id", unique = true, nullable = false)
-	private Integer id;
-	
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	@Column(name = "uuid", unique = true, nullable = false)
-	private String uuid;
-	
-	@NotEmpty
-	@Column(name="name", unique=true, nullable=false)
-	private String name;
-	
-	@NotEmpty
-	@Column(name="code", unique=true, nullable=false)
-	private String code;
-	
-	@Column(name="visible", unique=false, nullable=true)	
-	private Boolean visible;
-	
-	@Column(name="locked", unique=false, nullable=true)	
-	private Boolean locked;
-		
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "exam")
-	private Set<OrderExam> exams = new HashSet<OrderExam>(0);
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "exam")
-	private Set<OrderFormExam> orderFormExams = new HashSet<OrderFormExam>(0);
-	
+    public Exam(Integer id, String name, String code, Boolean visible, Boolean locked) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.code = code;
+        this.visible = visible;
+        this.locked = locked;
+    }
 
-	
-	public Integer getId()
-	{
-		return id;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "exam_id", unique = true, nullable = false)
+    private Integer id;
 
-	public void setId(Integer id)
-	{
-		this.id = id;
-	}
-	
-	public String getUuid()
-	{
-		return uuid;
-	}
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    @Column(name = "uuid", unique = true, nullable = false)
+    private String uuid;
 
-	public void setUuid(String uuid)
-	{
-		this.uuid = uuid;
-	}
+    @NotEmpty
+    @Column(name = "name", unique = true, nullable = false)
+    private String name;
 
-	public Set<OrderExam> getExams()
-	{
-		return exams;
-	}
+    @NotEmpty
+    @Column(name = "code", unique = true, nullable = false)
+    private String code;
 
-	public void setExams(Set<OrderExam> exams)
-	{
-		this.exams = exams;
-	}
+    @Column(name = "visible")
+    private Boolean visible;
 
-	public String getName()
-	{
-		return name;
-	}
+    @Column(name = "locked")
+    private Boolean locked;
 
-	public void setName(String name)
-	{
-		this.name = name;
-	}
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "exam")
+    private Set<OrderExam> exams = new HashSet<>(0);
 
-	public String getCode()
-	{
-		return code;
-	}
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "exam")
+    private Set<OrderFormExam> orderFormExams = new HashSet<>(0);
 
-	public void setCode(String code)
-	{
-		this.code = code;
-	}
 
-	public Set<OrderFormExam> getOrderFormExams()
-	{
-		return orderFormExams;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setOrderFormExams(Set<OrderFormExam> orderFormExams)
-	{
-		this.orderFormExams = orderFormExams;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public Boolean getVisible()
-	{
-		return visible;
-	}
+    public String getUuid() {
+        return uuid;
+    }
 
-	public void setVisible(Boolean visible)
-	{
-		this.visible = visible;
-	}
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
-	public Boolean getLocked()
-	{
-		return locked;
-	}
+    public Set<OrderExam> getExams() {
+        return exams;
+    }
 
-	public void setLocked(Boolean locked)
-	{
-		this.locked = locked;
-	}
+    public void setExams(Set<OrderExam> exams) {
+        this.exams = exams;
+    }
 
-	@Override
-	public String toString()
-	{
-		return "Exam [id=" + id + ", name=" + name + ", code=" + code + ", visible=" + visible + ", locked=" + locked +"]";
-	}
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Set<OrderFormExam> getOrderFormExams() {
+        return orderFormExams;
+    }
+
+    public void setOrderFormExams(Set<OrderFormExam> orderFormExams) {
+        this.orderFormExams = orderFormExams;
+    }
+
+    public Boolean getVisible() {
+        return visible;
+    }
+
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
+    }
+
+    public Boolean getLocked() {
+        return locked;
+    }
+
+    public void setLocked(Boolean locked) {
+        this.locked = locked;
+    }
+
+    @Override
+    public String toString() {
+        return "Exam [id=" + id + ", name=" + name + ", code=" + code + ", visible=" + visible + ", locked=" + locked + "]";
+    }
 }

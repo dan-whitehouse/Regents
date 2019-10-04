@@ -2,44 +2,36 @@ package org.neric.regents.wizard;
 
 import org.neric.regents.model.OrderDocument;
 
-public class XDocumentWrapper
-{
-	 private boolean selected;
-	 private OrderDocument orderDocument;
+public class XDocumentWrapper {
+    private boolean selected;
+    private OrderDocument orderDocument;
 
-	 public XDocumentWrapper(OrderDocument orderDocument)
-	 {
+    public XDocumentWrapper(OrderDocument orderDocument) {
         this.orderDocument = orderDocument;
-	 }
-	 
-	public XDocumentWrapper() 
-	{
-		super();
-	}
+    }
 
-	public boolean isSelected()
-	{
-		return selected;
-	}
+    public XDocumentWrapper() {
+        super();
+    }
 
-	public void setSelected(boolean selected)
-	{
-		this.selected = selected;
-	}
+    public boolean isSelected() {
+        return selected;
+    }
 
-	public OrderDocument getOrderDocument()
-	{
-		return orderDocument;
-	}
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
 
-	public void setOrderDocument(OrderDocument orderDocument)
-	{
-		this.orderDocument = orderDocument;
-	}
+    public OrderDocument getOrderDocument() {
+        return orderDocument;
+    }
 
-	@Override
-	public String toString()
-	{
-		return "XDocumentWrapper [selected=" + selected + ", orderDocument=" + orderDocument + "]";
-	}
+    public void setOrderDocument(OrderDocument orderDocument) {
+        this.orderDocument = orderDocument;
+    }
+
+    @Override
+    public String toString() {
+        return "XDocumentWrapper [selected=" + selected + ", orderDocument=" + orderDocument + "]";
+    }
 }

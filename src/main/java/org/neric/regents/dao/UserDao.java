@@ -7,24 +7,24 @@ import java.util.List;
 
 public interface UserDao {
 
-	User findById(int id);
-	
-	User findByUsername(String username);
-	
-	User findByUUID(String uuid);
-	
-	List<User> findAllUsers();
-	
-	List<User> findAllUsersByDistrictUuId(String uuid);
-	
-	void save(User user);
-	
-	void delete(User user);
-	
-	void deleteByUsername(String username);
+    User findById(int id);
 
-	void deleteByUUID(String uuid);
+    User findByUsername(String username);
 
-	int count();
+    User findByUUID(String uuid);
+
+    List<User> findAllUsers();
+
+    List<User> findAllUsersByDistrictUuId(String uuid);
+
+    void save(User user);
+
+    void delete(User user);
+
+    void deleteByUsername(String username);
+
+    void deleteByUUID(String uuid);
+
+    int count();
 }
 

@@ -1,79 +1,71 @@
 package org.neric.regents.test;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class UserPassword
-{
-	private int userId;
-	
-	@Size(min=3, max=30)
-	private String oldPassword;
-	
-	@Size(min=3, max=30)
-	private String newPassword;
-	
-	@Size(min=3, max=30)
-	private String newPasswordConfirm;
+public class UserPassword {
+    private int userId;
+
+    @Size(min = 3, max = 30)
+    private String oldPassword;
+
+    @Size(min = 3, max = 30)
+    private String newPassword;
+
+    @Size(min = 3, max = 30)
+    private String newPasswordConfirm;
 
 
-	public UserPassword()
-	{
-		super();
-	}
+    public UserPassword() {
+        super();
+    }
 
 
-	public UserPassword(int userId)
-	{
-		super();
-		this.userId = userId;
-	}
-	
-	
-	public UserPassword(int userId, String oldPassword, String newPassword, String newPasswordConfirm)
-	{
-		super();
-		this.userId = userId;
-		this.oldPassword = oldPassword;
-		this.newPassword = newPassword;
-		this.newPasswordConfirm = newPasswordConfirm;
-	}
+    public UserPassword(int userId) {
+        super();
+        this.userId = userId;
+    }
 
 
-	public int getUserId()
-	{
-		return userId;
-	}
+    public UserPassword(int userId, String oldPassword, String newPassword, String newPasswordConfirm) {
+        super();
+        this.userId = userId;
+        this.oldPassword = oldPassword;
+        this.newPassword = newPassword;
+        this.newPasswordConfirm = newPasswordConfirm;
+    }
 
-	public void setUserId(int userId)
-	{
-		this.userId = userId;
-	}
 
-	public String getOldPassword()
-	{
-		return oldPassword;
-	}
-	public void setOldPassword(String oldPassword)
-	{
-		this.oldPassword = oldPassword;
-	}
-	public String getNewPassword()
-	{
-		return newPassword;
-	}
-	public void setNewPassword(String newPassword)
-	{
-		this.newPassword = newPassword;
-	}
-	public String getNewPasswordConfirm()
-	{
-		return newPasswordConfirm;
-	}
-	public void setNewPasswordConfirm(String newPasswordConfirm)
-	{
-		this.newPasswordConfirm = newPasswordConfirm;
-	}
-	
-	
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
+    public String getNewPasswordConfirm() {
+        return newPasswordConfirm;
+    }
+
+    public void setNewPasswordConfirm(String newPasswordConfirm) {
+        this.newPasswordConfirm = newPasswordConfirm;
+    }
+
+
 }

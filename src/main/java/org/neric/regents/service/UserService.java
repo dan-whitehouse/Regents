@@ -7,35 +7,35 @@ import java.util.List;
 
 
 public interface UserService {
-	
-	User findById(int id);
-	
-	User findByUUID(String uuid);
-	
-	User findByUsername(String username);
-	
-	List<User> findAllUsers(); 
-	
-	List<User> findAllUsersByDistrictUuId(String uuid);
-	
-	void saveUser(User user);
-	
-	void updateUser(User user);
-	
-	void updatePassword(UserPassword userPassword);
 
-	void deleteUserByUsername(String username);
-	
-	void deleteUserByUUID(String uuid);
-	
-	void deleteUser(User user);
+    User findById(int id);
 
-	void lockByUUID(String uuid, boolean isLocked);
+    User findByUUID(String uuid);
 
-	void hideByUUID(String uuid, boolean isHidden); 
-	
-	boolean isUserUsernameUnique(Integer id, String username);
+    User findByUsername(String username);
 
-	int count();
+    List<User> findAllUsers();
+
+    List<User> findAllUsersByDistrictUuId(String uuid);
+
+    void saveUser(User user);
+
+    void updateUser(User user);
+
+    void updatePassword(UserPassword userPassword);
+
+    void deleteUserByUsername(String username);
+
+    void deleteUserByUUID(String uuid);
+
+    void deleteUser(User user);
+
+    void lockByUUID(String uuid, boolean isLocked);
+
+    void hideByUUID(String uuid, boolean isHidden);
+
+    boolean isUserUsernameUnique(Integer id, String username);
+
+    int count();
 
 }

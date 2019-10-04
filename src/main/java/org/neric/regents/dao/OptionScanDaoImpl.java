@@ -1,20 +1,13 @@
-/**
- * @author      Andrew Pieniezny <andrew.pieniezny@neric.org>
- * @version     x.x.x
- * @since       Nov 2, 2016
- * @filename	OptionScanDaoImpl.java
- */
 package org.neric.regents.dao;
-
-import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.neric.regents.model.OptionPrint;
 import org.neric.regents.model.OptionScan;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository("optionScanDao")
 public class OptionScanDaoImpl extends AbstractDao<Integer, OptionScan> implements OptionScanDao
@@ -47,8 +40,7 @@ public class OptionScanDaoImpl extends AbstractDao<Integer, OptionScan> implemen
 	{
 		Criteria criteria = createEntityCriteria().addOrder(Order.asc("id"));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		List<OptionScan> optionScans = (List<OptionScan>) criteria.list();
-		return optionScans;
+		return (List<OptionScan>) criteria.list();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -57,8 +49,7 @@ public class OptionScanDaoImpl extends AbstractDao<Integer, OptionScan> implemen
 		Criteria criteria = createEntityCriteria().addOrder(Order.asc("id"));
 		criteria.add(Restrictions.eq("visible", true));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		List<OptionScan> optionScans = (List<OptionScan>) criteria.list();
-		return optionScans;
+		return (List<OptionScan>) criteria.list();
 	}
 	
 	public void save(OptionScan optionScan)

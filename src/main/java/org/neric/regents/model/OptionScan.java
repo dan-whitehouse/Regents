@@ -1,22 +1,12 @@
 package org.neric.regents.model;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name="option_scan")
@@ -59,14 +49,14 @@ public class OptionScan implements Serializable
 	@Column(name="name", unique=true, nullable=false)
 	private String name;
 			
-	@Column(name="visible", unique=false, nullable=true)	
+	@Column(name="visible")
 	private Boolean visible;
 	
-	@Column(name="locked", unique=false, nullable=true)	
+	@Column(name="locked")
 	private Boolean locked;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderScan")
-	private Set<Order> ordersScan = new HashSet<Order>(0);
+	private Set<Order> ordersScan = new HashSet<>(0);
 	
 	public Integer getId()
 	{

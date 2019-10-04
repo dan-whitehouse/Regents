@@ -13,22 +13,23 @@ import org.springframework.stereotype.Component;
  * A converter class used in views to map id's to actual userProfile objects.
  */
 @Component
-public class RoleToUserProfileConverter implements Converter<Object, UserProfile>{
+public class RoleToUserProfileConverter implements Converter<Object, UserProfile> {
 
-	static final Logger logger = LoggerFactory.getLogger(RoleToUserProfileConverter.class);
-	
-	@Autowired
-	UserProfileService userProfileService;
+    private static final Logger logger = LoggerFactory.getLogger(RoleToUserProfileConverter.class);
 
-	/**
-	 * Gets UserProfile by Id
-	 * @see org.springframework.core.convert.converter.Converter#convert(java.lang.Object)
-	 */
-	public UserProfile convert(Object element) {
-		Integer id = Integer.parseInt((String)element);
-		UserProfile profile= userProfileService.findById(id);
-		logger.info("Profile : {}",profile);
-		return profile;
-	}
-	
+    @Autowired
+    UserProfileService userProfileService;
+
+    /**
+     * Gets UserProfile by Id
+     *
+     * @see org.springframework.core.convert.converter.Converter#convert(java.lang.Object)
+     */
+    public UserProfile convert(Object element) {
+        int id = Integer.parseInt((String) element);
+        UserProfile profile = userProfileService.findById(id);
+        logger.info("Profile : {}", profile);
+        return profile;
+    }
+
 }

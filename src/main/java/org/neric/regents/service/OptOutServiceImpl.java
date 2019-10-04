@@ -12,71 +12,63 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("optOutService")
 @Transactional
-public class OptOutServiceImpl implements OptOutService
-{
+public class OptOutServiceImpl implements OptOutService {
 
-	@Autowired
-	private OptOutDAO dao;
-	
-	@Override
-	public OptOut findById(int id)
-	{
-		return dao.findById(id);
-	}
-	
-	@Override
-	public OptOut findByUUID(String uuid)
-	{
-		return dao.findByUUID(uuid);
-	}
+    @Autowired
+    private OptOutDAO dao;
 
-	@Override
-	public List<OptOut> findAllOptOuts()
-	{
-		return dao.findAllOptOuts();
-	}
-	
-	@Override
-	public List<OptOut> findAllOptOutsByUsername(String username)
-	{
-		return dao.findAllOptOutsByUsername(username);
-	}
+    @Override
+    public OptOut findById(int id) {
+        return dao.findById(id);
+    }
 
-	@Override
-	public List<OptOut> findAllOptOutsByUserUUID(String uuid) { return dao.findAllOptOutsByUserUUID(uuid); }
+    @Override
+    public OptOut findByUUID(String uuid) {
+        return dao.findByUUID(uuid);
+    }
 
-	@Override
-	public List<OptOut> findAllActiveOptOuts(int orderFormId)
-	{
-		return dao.findAllActiveOptOuts(orderFormId);
-	}
-	
-	@Override
-	public List<OptOut> findAllOptOutsByUserAndOrderForm(User user, OrderForm orderForm)
-	{
-		return dao.findAllOptOutsByUserAndOrderForm(user, orderForm);
-	}
-	
-	@Override
-	public void save(OptOut optOut)
-	{
-		dao.save(optOut);
-	}
+    @Override
+    public List<OptOut> findAllOptOuts() {
+        return dao.findAllOptOuts();
+    }
 
-	@Override
-	public void deleteById(int id)
-	{
-		dao.deleteById(id);
-	}
-	
-	@Override
-	public void deleteByUUID(String uuid)
-	{
-		dao.deleteByUUID(uuid);
-	}
+    @Override
+    public List<OptOut> findAllOptOutsByUsername(String username) {
+        return dao.findAllOptOutsByUsername(username);
+    }
 
-	@Override
-	public int countByActiveOrderForm(int id) {
-		return dao.countByActiveOrderForm(id);
-	}
+    @Override
+    public List<OptOut> findAllOptOutsByUserUUID(String uuid) {
+        return dao.findAllOptOutsByUserUUID(uuid);
+    }
+
+    @Override
+    public List<OptOut> findAllActiveOptOuts(int orderFormId) {
+        return dao.findAllActiveOptOuts(orderFormId);
+    }
+
+    @Override
+    public List<OptOut> findAllOptOutsByUserAndOrderForm(User user, OrderForm orderForm) {
+        return dao.findAllOptOutsByUserAndOrderForm(user, orderForm);
+    }
+
+    @Override
+    public void save(OptOut optOut) {
+        dao.save(optOut);
+    }
+
+    @Override
+    public void deleteById(int id) {
+        dao.deleteById(id);
+    }
+
+    @Override
+    public void deleteByUUID(String uuid) {
+        dao.deleteByUUID(uuid);
+    }
+
+    @Override
+    public int countByActiveOrderForm(int id) {
+        return dao.countByActiveOrderForm(id);
+    }
 }

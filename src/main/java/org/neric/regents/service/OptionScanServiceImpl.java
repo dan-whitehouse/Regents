@@ -1,114 +1,89 @@
-/**
- * @author      Andrew Pieniezny <andrew.pieniezny@neric.org>
- * @version     x.x.x
- * @since       Nov 2, 2016
- * @filename	OptionScanServiceImpl.java
- */
 package org.neric.regents.service;
 
-import java.util.List;
-
 import org.neric.regents.dao.OptionScanDao;
-import org.neric.regents.model.OptionPrint;
 import org.neric.regents.model.OptionScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service("optionScanService")
 @Transactional
-public class OptionScanServiceImpl implements OptionScanService
-{
+public class OptionScanServiceImpl implements OptionScanService {
 
-	@Autowired
-	private OptionScanDao dao;
-	
-	public OptionScan findById(int id)
-	{
-		return dao.findById(id);
-	}
+    @Autowired
+    private OptionScanDao dao;
 
-	@Override
-	public OptionScan findByUUID(String uuid)
-	{
-		return dao.findByUUID(uuid);
-	}
-	
-	public List<OptionScan> findAllOptionScans()
-	{
-		return dao.findAllOptionScans();
-	}
-	
-	@Override
-	public List<OptionScan> findAllActivelOptionScans()
-	{
-		return dao.findAllActiveOptionScans();
-	}
+    public OptionScan findById(int id) {
+        return dao.findById(id);
+    }
 
-	public void save(OptionScan optionScan)
-	{
-		dao.save(optionScan);
-		
-	}
+    @Override
+    public OptionScan findByUUID(String uuid) {
+        return dao.findByUUID(uuid);
+    }
 
-	public void update(OptionScan optionScan)
-	{
-		OptionScan entity = dao.findById(optionScan.getId());
-		if(entity != null)
-		{
-			entity.setName(optionScan.getName());
-		}
-	}
+    public List<OptionScan> findAllOptionScans() {
+        return dao.findAllOptionScans();
+    }
 
-	public void delete(int id)
-	{
-		dao.delete(id);
-	}
-	
-	@Override
-	public void deleteByUUID(String uuid)
-	{
-		dao.deleteByUUID(uuid);
-	}
-	
-	@Override
-	public void lockByOptionScanId(int id, Boolean isLocked)
-	{
-		OptionScan entity = dao.findById(id);
-		if(entity != null)
-		{
-			entity.setLocked(isLocked);
-		}
-	}
-	
-	@Override
-	public void lockByOptionScanUUID(String uuid, Boolean isLocked)
-	{
-		OptionScan entity = dao.findByUUID(uuid);
-		if(entity != null)
-		{
-			entity.setLocked(isLocked);
-		}
-	}
+    @Override
+    public List<OptionScan> findAllActivelOptionScans() {
+        return dao.findAllActiveOptionScans();
+    }
 
-	@Override
-	public void hideByOptionScanId(int id, Boolean isHidden)
-	{
-		OptionScan entity = dao.findById(id);
-		if(entity != null)
-		{
-			entity.setVisible(isHidden);
-		}
-	}
+    public void save(OptionScan optionScan) {
+        dao.save(optionScan);
 
-	@Override
-	public void hideByOptionScanUUID(String uuid, Boolean isHidden)
-	{
-		OptionScan entity = dao.findByUUID(uuid);
-		if(entity != null)
-		{
-			entity.setVisible(isHidden);
-		}
-		
-	}
+    }
+
+    public void update(OptionScan optionScan) {
+        OptionScan entity = dao.findById(optionScan.getId());
+        if(entity != null) {
+            entity.setName(optionScan.getName());
+        }
+    }
+
+    public void delete(int id) {
+        dao.delete(id);
+    }
+
+    @Override
+    public void deleteByUUID(String uuid) {
+        dao.deleteByUUID(uuid);
+    }
+
+    @Override
+    public void lockByOptionScanId(int id, Boolean isLocked) {
+        OptionScan entity = dao.findById(id);
+        if(entity != null) {
+            entity.setLocked(isLocked);
+        }
+    }
+
+    @Override
+    public void lockByOptionScanUUID(String uuid, Boolean isLocked) {
+        OptionScan entity = dao.findByUUID(uuid);
+        if(entity != null) {
+            entity.setLocked(isLocked);
+        }
+    }
+
+    @Override
+    public void hideByOptionScanId(int id, Boolean isHidden) {
+        OptionScan entity = dao.findById(id);
+        if(entity != null) {
+            entity.setVisible(isHidden);
+        }
+    }
+
+    @Override
+    public void hideByOptionScanUUID(String uuid, Boolean isHidden) {
+        OptionScan entity = dao.findByUUID(uuid);
+        if(entity != null) {
+            entity.setVisible(isHidden);
+        }
+
+    }
 }

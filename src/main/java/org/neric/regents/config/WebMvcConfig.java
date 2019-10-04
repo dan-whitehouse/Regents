@@ -1,10 +1,5 @@
 package org.neric.regents.config;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.servlet.MultipartConfigElement;
-import javax.servlet.ServletRegistration;
-
 import org.neric.regents.converture.RoleToUserProfileConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -16,7 +11,6 @@ import org.springframework.format.FormatterRegistry;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
@@ -26,7 +20,8 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
-import java.io.File;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
 @Configuration
 @EnableWebMvc
@@ -34,9 +29,7 @@ import java.io.File;
 @ComponentScan(basePackages = "org.neric.regents")
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
-    private final int maxUploadSizeInMb = 5 * 1024 * 1024; // 5 MB
-
-	@Autowired
+    @Autowired
 	RoleToUserProfileConverter roleToUserProfileConverter;	
 
     @Override
@@ -71,6 +64,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Bean
     public MultipartResolver multipartResolver() {
         CommonsMultipartResolver cmr = new CommonsMultipartResolver();
+        // 5 MB
+        int maxUploadSizeInMb = 5 * 1024 * 1024;
         cmr.setMaxUploadSize(maxUploadSizeInMb);
         cmr.setMaxUploadSizePerFile(maxUploadSizeInMb);
         cmr.setMaxInMemorySize(maxUploadSizeInMb);

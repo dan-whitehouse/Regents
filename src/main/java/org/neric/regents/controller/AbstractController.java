@@ -17,51 +17,48 @@ import java.util.List;
 
 public abstract class AbstractController {
 
-	@Autowired
-	UserService userService;
+    @Autowired
+    UserService userService;
 
-	@Autowired
-	UserProfileService userProfileService;
+    @Autowired
+    UserProfileService userProfileService;
 
-	@Autowired
-	PersistentTokenBasedRememberMeServices persistentTokenBasedRememberMeServices;
+    @Autowired
+    PersistentTokenBasedRememberMeServices persistentTokenBasedRememberMeServices;
 
-	@Autowired
-	AuthenticationTrustResolver authenticationTrustResolver;
+    @Autowired
+    AuthenticationTrustResolver authenticationTrustResolver;
 
-	@ModelAttribute("roles")
-	public List<UserProfile> initializeProfiles()
-	{
-		return userProfileService.findAll();
-	}
+    @ModelAttribute("roles")
+    public List<UserProfile> initializeProfiles() {
+        return userProfileService.findAll();
+    }
 
-	@ModelAttribute("loggedinuser")
-	protected User loggedInUser()
-	{
-		return userService.findByUsername(getPrincipal());
-	}
+    @ModelAttribute("loggedinuser")
+    User loggedInUser() {
+        return userService.findByUsername(getPrincipal());
+    }
 
-	@ModelAttribute("loggedinusername")
-	protected String loggedInUserName()
-	{
-		return getPrincipal();
-	}
+    @ModelAttribute("loggedinusername")
+    String loggedInUserName() {
+        return getPrincipal();
+    }
 
 
-	protected boolean isCurrentAuthenticationAnonymous() {
-		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		return authenticationTrustResolver.isAnonymous(authentication);
-	}
+    boolean isCurrentAuthenticationAnonymous() {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authenticationTrustResolver.isAnonymous(authentication);
+    }
 
-	protected String getPrincipal()
-	{
-		String userName = null;
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		if (principal instanceof UserDetails) {
-			userName = ((UserDetails)principal).getUsername();
-		} else {
-			userName = principal.toString();
-		}
-		return userName;
-	}
+    String getPrincipal() {
+        String userName;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(principal instanceof UserDetails) {
+            userName = ((UserDetails) principal).getUsername();
+        }
+        else {
+            userName = principal.toString();
+        }
+        return userName;
+    }
 }

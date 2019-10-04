@@ -8,26 +8,26 @@ import org.neric.regents.model.dashboard.DistrictOrder;
 
 public interface DistrictDAO {
 
-	District findById(int id);
-	
-	District findByUUID(String uuid);
-	
-	District findByCode(String bedsCode);
-	
-	List<District> findAllDistricts();
-	
-	void save(District district);
-	
-	void deleteByCode(String bedsCode);
-	
-	void deleteByUUID(String uuid);
+    District findById(int id);
 
-	int count();
+    District findByUUID(String uuid);
 
-	List<District> findAllUndecidedDistrictsByActiveOrderForm(String uuid);
+    District findByCode(String bedsCode);
 
-	List<DistrictOrder> findAllOrderedDistrictsByActiveOrderForm(String uuid);
+    List<District> findAllDistricts();
 
-	List<District> findAllNADistrictsByActiveOrderForm(String uuid);
+    void save(District district);
+
+    void deleteByCode(String bedsCode);
+
+    void deleteByUUID(String uuid);
+
+    int count();
+
+    List<District> findAllUndecidedDistrictsByActiveOrderForm(String uuid);
+
+    List<DistrictOrder> findAllOrderedDistrictsByActiveOrderForm(String uuid);
+
+    List<District> findAllNADistrictsByActiveOrderForm(String uuid);
 }
 

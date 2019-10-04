@@ -1,40 +1,38 @@
 package org.neric.regents.service;
 
+import org.neric.regents.model.School;
+
 import java.util.List;
 import java.util.Set;
-
-import org.neric.regents.model.District;
-import org.neric.regents.model.School;
-import org.neric.regents.model.UserProfile;
 
 
 public interface SchoolService {
 
-	School findById(int id);
-	
-	School findByUUID(String uuid);
+    School findById(int id);
 
-	List<School> findAll();
-	
-	List<School> findAllByDistrictId(int id);
-	
-	void save(School school);
-	
-	void update(School school);
+    School findByUUID(String uuid);
 
-	void updateAll(Set<School> set);
-	
-	void deleteById(int id);
-	
-	void deleteByUUID(String uuid);
-	
-	void lockById(int id, boolean isLocked);
-	
-	void lockByUUID(String uuid, boolean isLocked);
+    List<School> findAll();
 
-	void hideById(int id, boolean isHidden);
+    List<School> findAllByDistrictId(int id);
 
-	void hideByUUID(String uuid, boolean isHidden);
+    void save(School school);
 
-	int count();
+    void update(School school);
+
+    void updateAll(Set<School> set);
+
+    void deleteById(int id);
+
+    void deleteByUUID(String uuid);
+
+    void lockById(int id, boolean isLocked);
+
+    void lockByUUID(String uuid, boolean isLocked);
+
+    void hideById(int id, boolean isHidden);
+
+    void hideByUUID(String uuid, boolean isHidden);
+
+    int count();
 }

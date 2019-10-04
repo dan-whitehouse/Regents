@@ -122,47 +122,47 @@ public class OrderForm implements Serializable
 	private String period;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "startDate", unique = false, nullable = false)
+	@Column(name = "startDate", nullable = false)
 	private Date startDate;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "endDate", unique = false, nullable = false)
+	@Column(name = "endDate", nullable = false)
 	private Date endDate;
 		
-	@Column(name="visible", unique=false, nullable=true)	
+	@Column(name="visible")
 	private Boolean visible;
 	
-	@Column(name="locked", unique=false, nullable=true)	
+	@Column(name="locked")
 	private Boolean locked;
 	
-	@Column(name="active", unique=false, nullable=false)	
+	@Column(name="active", nullable=false)
 	private Boolean active;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderForm", orphanRemoval = true)
 	@Cascade(CascadeType.ALL)
-	private Set<OrderFormExam> orderFormExams = new HashSet<OrderFormExam>(0);
+	private Set<OrderFormExam> orderFormExams = new HashSet<>(0);
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderForm", orphanRemoval = true)
 	@Cascade(CascadeType.ALL)
-	private Set<OrderFormDocument> orderFormDocuments = new HashSet<OrderFormDocument>(0);
+	private Set<OrderFormDocument> orderFormDocuments = new HashSet<>(0);
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderForm", orphanRemoval = true)
 	@Cascade(CascadeType.ALL)
-	private Set<Order> orders = new HashSet<Order>(0);
+	private Set<Order> orders = new HashSet<>(0);
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderForm")
-	private Set<OptOut> orderForm = new HashSet<OptOut>(0);
+	private Set<OptOut> orderForm = new HashSet<>(0);
 	
-	@Column(name="rescanFee", unique=false, nullable=false)	
+	@Column(name="rescanFee", nullable=false)
 	private Double rescanFee;
 	
-	@Column(name="inDistrictScanFee", unique=false, nullable=false)	
+	@Column(name="inDistrictScanFee", nullable=false)
 	private Double inDistrictScanFee;
 	
-	@Column(name="nonSecureDocumentFee", unique=false, nullable=false)	
+	@Column(name="nonSecureDocumentFee", nullable=false)
 	private Double nonSecureDocumentFee;
 	
-	@Column(name="processingFee", unique=false, nullable=false)	
+	@Column(name="processingFee", nullable=false)
 	private Double processingFee;
 	
 	

@@ -10,20 +10,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("orderDocumentService")
 @Transactional
-public class OrderDocumentServiceImpl implements OrderDocumentService{
-	
-	@Autowired
-	OrderDocumentDAO dao;
-	
-	public OrderDocument findById(int id) {
-		return dao.findById(id);
-	}
+public class OrderDocumentServiceImpl implements OrderDocumentService {
+
+    @Autowired
+    OrderDocumentDAO dao;
+
+    public OrderDocument findById(int id) {
+        return dao.findById(id);
+    }
 
 //	public School findByType(String type){
 //		return dao.findByType(type);
 //	}
 
-	public List<OrderDocument> findAll() {
-		return dao.findAll();
-	}
+    public List<OrderDocument> findAll() {
+        return dao.findAll();
+    }
 }

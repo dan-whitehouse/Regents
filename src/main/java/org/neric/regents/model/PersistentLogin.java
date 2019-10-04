@@ -5,58 +5,57 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name="PERSISTENT_LOGINS")
-public class PersistentLogin implements Serializable{
+@Table(name = "PERSISTENT_LOGINS")
+public class PersistentLogin implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	private String series;
+    @Id
+    private String series;
 
-	@Column(name="USERNAME", unique=true, nullable=false)
-	private String username;
-	
-	@Column(name="TOKEN", unique=true, nullable=false)
-	private String token;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date last_used;
+    @Column(name = "USERNAME", unique = true, nullable = false)
+    private String username;
 
-	public String getSeries() {
-		return series;
-	}
+    @Column(name = "TOKEN", unique = true, nullable = false)
+    private String token;
 
-	public void setSeries(String series) {
-		this.series = series;
-	}
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date last_used;
 
-	public String getUsername() {
-		return username;
-	}
+    public String getSeries() {
+        return series;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setSeries(String series) {
+        this.series = series;
+    }
 
-	public String getToken() {
-		return token;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setToken(String token) {
-		this.token = token;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public Date getLast_used() {
-		return last_used;
-	}
+    public String getToken() {
+        return token;
+    }
 
-	public void setLast_used(Date last_used) {
-		this.last_used = last_used;
-	}
+    public void setToken(String token) {
+        this.token = token;
+    }
 
-	@Override
-	public String toString()
-	{
-		return "PersistentLogin [series=" + series + ", username=" + username + ", token=" + token + ", last_used=" + last_used + "]";
-	}
+    public Date getLast_used() {
+        return last_used;
+    }
+
+    public void setLast_used(Date last_used) {
+        this.last_used = last_used;
+    }
+
+    @Override
+    public String toString() {
+        return "PersistentLogin [series=" + series + ", username=" + username + ", token=" + token + ", last_used=" + last_used + "]";
+    }
 }

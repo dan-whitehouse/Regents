@@ -8,24 +8,24 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class FileUploadDaoImpl extends AbstractDao<Integer, UploadedFile>  implements FileUploadDao {
+public class FileUploadDaoImpl extends AbstractDao<Integer, UploadedFile> implements FileUploadDao {
 
-       @Autowired
-       private SessionFactory sessionFactory;
+    @Autowired
+    private SessionFactory sessionFactory;
 
-       public List<UploadedFile> listFiles() {
-              return getSession().createCriteria(UploadedFile.class).list();
-       }
+    public List<UploadedFile> listFiles() {
+        return getSession().createCriteria(UploadedFile.class).list();
+    }
 
-       public UploadedFile getFile(Long id) {
-              return (UploadedFile) getSession().get(UploadedFile.class, id);
-       }
+    public UploadedFile getFile(Long id) {
+        return (UploadedFile) getSession().get(UploadedFile.class, id);
+    }
 
-       public UploadedFile saveFile(UploadedFile uploadedFile) {
-              return (UploadedFile) getSession().merge(uploadedFile);
-       }
+    public UploadedFile saveFile(UploadedFile uploadedFile) {
+        return (UploadedFile) getSession().merge(uploadedFile);
+    }
 
-       private SessionFactory getSessionFactory() {
-              return sessionFactory;
-       }
+    private SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
 }

@@ -11,24 +11,24 @@ import java.util.List;
 @Service
 public class FileUploadServiceImpl implements FileUploadService {
 
-       @Autowired
-       private FileUploadDao dao;
+    @Autowired
+    private FileUploadDao dao;
 
-       @Transactional(readOnly = true)
-       public List<UploadedFile> listFiles() {
+    @Transactional(readOnly = true)
+    public List<UploadedFile> listFiles() {
 
-              return dao.listFiles();
-       }
+        return dao.listFiles();
+    }
 
-       @Transactional(readOnly = true)
-       public UploadedFile getFile(Long id) {
-              
-              return dao.getFile(id);
-       }
+    @Transactional(readOnly = true)
+    public UploadedFile getFile(Long id) {
 
-       @Transactional
-       public UploadedFile saveFile(UploadedFile uploadedFile) {
-              
-              return dao.saveFile(uploadedFile);
-       }
+        return dao.getFile(id);
+    }
+
+    @Transactional
+    public UploadedFile saveFile(UploadedFile uploadedFile) {
+
+        return dao.saveFile(uploadedFile);
+    }
 }

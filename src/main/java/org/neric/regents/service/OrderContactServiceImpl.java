@@ -10,20 +10,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("orderContactService")
 @Transactional
-public class OrderContactServiceImpl implements OrderContactService
-{	
-	@Autowired
-	OrderContactDAO dao;
-	
-	public OrderContact findById(int id) {
-		return dao.findById(id);
-	}
+public class OrderContactServiceImpl implements OrderContactService {
+    @Autowired
+    OrderContactDAO dao;
+
+    public OrderContact findById(int id) {
+        return dao.findById(id);
+    }
 
 //	public School findByType(String type){
 //		return dao.findByType(type);
 //	}
 
-	public List<OrderContact> findAll() {
-		return dao.findAll();
-	}
+    public List<OrderContact> findAll() {
+        return dao.findAll();
+    }
 }

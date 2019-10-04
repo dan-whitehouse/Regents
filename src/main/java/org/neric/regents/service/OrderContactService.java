@@ -7,10 +7,10 @@ import org.neric.regents.model.OrderContact;
 
 public interface OrderContactService {
 
-	OrderContact findById(int id);
+    OrderContact findById(int id);
 
 //	School findByType(String type);
-	
-	List<OrderContact> findAll();
-	
+
+    List<OrderContact> findAll();
+
 }

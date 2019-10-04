@@ -1,108 +1,92 @@
 package org.neric.regents.dao;
 
-import java.util.List;
-
-import org.neric.regents.model.Document;
-import org.neric.regents.model.Exam;
-import org.neric.regents.model.School;
-import org.neric.regents.model.User;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.neric.regents.model.Document;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 
 @Repository("documentDAO")
-public class DocumentDAOImpl extends AbstractDao<Integer, Document> implements DocumentDAO{
-
-	
-	public Document findById(int id) 
-	{
-		Document document = getByKey(id);
-		if(document!=null){
-			Hibernate.initialize(document.getId());
-		}
-		return document;
-	}
-	
-	@Override
-	public Document findByUUID(String uuid)
-	{
-		Criteria crit = createEntityCriteria();
-		crit.add(Restrictions.eq("uuid", uuid));
-		Document document = (Document)crit.uniqueResult();
-		if(document!=null)
-		{
-			Hibernate.initialize(document.getId());
-		}
-		return document;
-	}
-
-	
-	@SuppressWarnings("unchecked")
-	public List<Document> findAll()
-	{
-		Criteria crit = createEntityCriteria();
-		crit.addOrder(Order.asc("id"));
-		return (List<Document>)crit.list();
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Document> findAllActiveDocuments()
-	{
-		Criteria criteria = getSession().createCriteria(Document.class, "d");
-		criteria.createAlias("d.orderFormDocuments", "ofd");
-		criteria.createAlias("ofd.orderForm", "of");
-		criteria.add(Restrictions.eq("of.active", true));
-		criteria.add(Restrictions.eq("d.visible", true));
-		criteria.addOrder(Order.asc("name"));
-		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		List<Document> documents = (List<Document>) criteria.list();
-		
-		return documents;
-	}
-	
-	@Override
-	public List<Document> findAllDocumentsByOrderFormId(Integer id)
-	{
-		Criteria criteria = getSession().createCriteria(Document.class, "d");
-		criteria.createAlias("d.orderFormDocuments", "ofd");
-		criteria.createAlias("ofd.orderForm", "of");
-		criteria.add(Restrictions.eq("of.id", id));
-		criteria.addOrder(Order.asc("name"));
-		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		List<Document> documents = (List<Document>) criteria.list();
-		
-		return documents;
-	}
-	
-
-	@Override
-	public void deleteByDocumentId(int id)
-	{
-		Criteria crit = createEntityCriteria();
-		crit.add(Restrictions.eq("id", id));
-		Document document = (Document)crit.uniqueResult();
-		delete(document);
-		
-	}
-
-	@Override
-	public void save(Document document)
-	{
-		persist(document);
-	}
+public class DocumentDAOImpl extends AbstractDao<Integer, Document> implements DocumentDAO {
 
 
-	@Override
-	public void deleteByDocumentUUID(String uuid)
-	{
-		Criteria crit = createEntityCriteria();
-		crit.add(Restrictions.eq("uuid", uuid));
-		Document document = (Document)crit.uniqueResult();
-		delete(document);
-	}
+    public Document findById(int id) {
+        Document document = getByKey(id);
+        if(document != null) {
+            Hibernate.initialize(document.getId());
+        }
+        return document;
+    }
+
+    @Override
+    public Document findByUUID(String uuid) {
+        Criteria crit = createEntityCriteria();
+        crit.add(Restrictions.eq("uuid", uuid));
+        Document document = (Document) crit.uniqueResult();
+        if(document != null) {
+            Hibernate.initialize(document.getId());
+        }
+        return document;
+    }
+
+
+    @SuppressWarnings("unchecked")
+    public List<Document> findAll() {
+        Criteria crit = createEntityCriteria();
+        crit.addOrder(Order.asc("id"));
+        return (List<Document>) crit.list();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Document> findAllActiveDocuments() {
+        Criteria criteria = getSession().createCriteria(Document.class, "d");
+        criteria.createAlias("d.orderFormDocuments", "ofd");
+        criteria.createAlias("ofd.orderForm", "of");
+        criteria.add(Restrictions.eq("of.active", true));
+        criteria.add(Restrictions.eq("d.visible", true));
+        criteria.addOrder(Order.asc("name"));
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+	    return (List<Document>) criteria.list();
+    }
+
+    @Override
+    public List<Document> findAllDocumentsByOrderFormId(Integer id) {
+        Criteria criteria = getSession().createCriteria(Document.class, "d");
+        criteria.createAlias("d.orderFormDocuments", "ofd");
+        criteria.createAlias("ofd.orderForm", "of");
+        criteria.add(Restrictions.eq("of.id", id));
+        criteria.addOrder(Order.asc("name"));
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+	    return (List<Document>) criteria.list();
+    }
+
+
+    @Override
+    public void deleteByDocumentId(int id) {
+        Criteria crit = createEntityCriteria();
+        crit.add(Restrictions.eq("id", id));
+        Document document = (Document) crit.uniqueResult();
+        delete(document);
+
+    }
+
+    @Override
+    public void save(Document document) {
+        persist(document);
+    }
+
+
+    @Override
+    public void deleteByDocumentUUID(String uuid) {
+        Criteria crit = createEntityCriteria();
+        crit.add(Restrictions.eq("uuid", uuid));
+        Document document = (Document) crit.uniqueResult();
+        delete(document);
+    }
 
 }

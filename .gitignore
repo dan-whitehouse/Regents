@@ -13,6 +13,10 @@ local.properties
 .loadpath
 .adk
 
+# IntelliJ
+/.idea
+*.iml
+
 # Eclipse Core
 #.project
 

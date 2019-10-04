@@ -1,22 +1,16 @@
 package org.neric.regents.dao;
 
-import java.util.List;
-
-import javax.persistence.criteria.CriteriaBuilder;
-
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
-import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.neric.regents.model.District;
-import org.neric.regents.model.Document;
 import org.neric.regents.model.Order;
-import org.neric.regents.model.OrderContact;
 import org.neric.regents.model.OrderDocument;
 import org.neric.regents.model.OrderExam;
 import org.neric.regents.model.UserDistrict;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 
 @Repository("orderDAO")
@@ -200,8 +194,7 @@ public class OrderDAOImpl extends AbstractDao<Integer, Order> implements OrderDA
 
 	@Override
 	public int count(){
-		int count = ((Long)getSession().createQuery("select count(*) from Order").uniqueResult()).intValue();
-		return count;
+		return ((Long)getSession().createQuery("select count(*) from Order").uniqueResult()).intValue();
 	}
 
 	@Override

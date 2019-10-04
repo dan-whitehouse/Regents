@@ -80,694 +80,602 @@ import org.springframework.web.bind.support.SessionStatus;
 @Controller
 @RequestMapping("/")
 @SessionAttributes("roles")
-public class OrderController extends AbstractController
-{
-	private Validator validator;
+public class OrderController extends AbstractController {
+    private Validator validator;
 
-	public OrderController()
-	{
-		ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-		validator = validatorFactory.getValidator();
-	}
+    public OrderController() {
+        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+        validator = validatorFactory.getValidator();
+    }
 
-	@Autowired
-	UserService userService;
+    @Autowired
+    UserService userService;
 
-	@Autowired
-	SchoolService schoolService;
-	
-	@Autowired
-	SchoolService districtService;
+    @Autowired
+    SchoolService schoolService;
 
-	@Autowired
-	OrderService orderService;
-	
-	@Autowired
-	OrderFormService orderFormService;
+    @Autowired
+    SchoolService districtService;
 
-	@Autowired
-	ExamService examService;
+    @Autowired
+    OrderService orderService;
 
-	@Autowired
-	DocumentService documentService;
+    @Autowired
+    OrderFormService orderFormService;
 
-	@Autowired
-	OptionPrintService optionPrintService;
+    @Autowired
+    ExamService examService;
 
-	@Autowired
-	OptionScanService optionScanService;
+    @Autowired
+    DocumentService documentService;
 
-	@Autowired
-	OptionPrintEditor optionPrintEditor;
+    @Autowired
+    OptionPrintService optionPrintService;
 
-	@Autowired
-	OptionScanEditor optionScanEditor;
-	
-	@Autowired
-	DistrictEditor districtEditor;
-	
-	@Autowired
-	SchoolEditor schoolEditor;
-	
-	@Autowired
-	OptOutService optOutService;
+    @Autowired
+    OptionScanService optionScanService;
 
-	@InitBinder
-	public void initBinder(WebDataBinder binder)
-	{
-		binder.registerCustomEditor(OptionPrint.class, optionPrintEditor);
-		binder.registerCustomEditor(OptionScan.class, optionScanEditor);
-		binder.registerCustomEditor(District.class, districtEditor);
+    @Autowired
+    OptionPrintEditor optionPrintEditor;
+
+    @Autowired
+    OptionScanEditor optionScanEditor;
+
+    @Autowired
+    DistrictEditor districtEditor;
+
+    @Autowired
+    SchoolEditor schoolEditor;
+
+    @Autowired
+    OptOutService optOutService;
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(OptionPrint.class, optionPrintEditor);
+        binder.registerCustomEditor(OptionScan.class, optionScanEditor);
+        binder.registerCustomEditor(District.class, districtEditor);
         binder.registerCustomEditor(School.class, schoolEditor);
-        binder.registerCustomEditor(Set.class, "userDistricts", new CustomCollectionEditor(Set.class)
-		{
-			@Override
-			protected Object convertElement(Object element)
-			{
-				Integer id = null;
+        binder.registerCustomEditor(Set.class, "userDistricts", new CustomCollectionEditor(Set.class) {
+            @Override
+            protected Object convertElement(Object element) {
+                Integer id = null;
 
-				if(element instanceof String && !((String)element).equals("")){
-					try{
-						id = Integer.parseInt((String) element);
-					}
-					catch (NumberFormatException e) {
-						e.printStackTrace();
-					}
-				}
-				else if(element instanceof Integer) {
-					id = (Integer) element;
-				}
+                if(element instanceof String && !element.equals("")) {
+                    try {
+                        id = Integer.parseInt((String) element);
+                    }
+                    catch(NumberFormatException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else if(element instanceof Integer) {
+                    id = (Integer) element;
+                }
 
-				return id != null ? districtService.findById(id) : null;
-			}
-		});
-	}
+                return id != null ? districtService.findById(id) : null;
+            }
+        });
+    }
 
-	@ModelAttribute("allExamOptions")
-	public List<XExamWrapper> populateExamOptions()
-	{
-		List<XExamWrapper> options = new ArrayList<>();
+    @ModelAttribute("allExamOptions")
+    public List<XExamWrapper> populateExamOptions() {
+        List<XExamWrapper> options = new ArrayList<>();
 
-		for (Exam e : examService.findAllActiveExams())
-		{
-			options.add(new XExamWrapper(new OrderExam(e)));
-		}
-		return options;
-	}
-	
-	@ModelAttribute("allDocumentOptions")
-	public List<XDocumentWrapper> populateDocumentOptions()
-	{
-		List<XDocumentWrapper> options = new ArrayList<>();
+        for(Exam e : examService.findAllActiveExams()) {
+            options.add(new XExamWrapper(new OrderExam(e)));
+        }
+        return options;
+    }
 
-		for (Document e : documentService.findAllActiveDocuments())
-		{
-			options.add(new XDocumentWrapper(new OrderDocument(e)));
-		}
-		return options;
-	}
-	
-	@ModelAttribute("allPrintOptions")
-	public List<OptionPrint> populatePrintOptions()
-	{
-		List<OptionPrint> options = optionPrintService.findAllActiveOptionPrints();
-		return options;
-	}
+    @ModelAttribute("allDocumentOptions")
+    public List<XDocumentWrapper> populateDocumentOptions() {
+        List<XDocumentWrapper> options = new ArrayList<>();
 
-	@ModelAttribute("allScanOptions")
-	public List<OptionScan> populateScanOptions()
-	{
-		List<OptionScan> options = optionScanService.findAllActivelOptionScans();
-		return options;
-	}
+        for(Document e : documentService.findAllActiveDocuments()) {
+            options.add(new XDocumentWrapper(new OrderDocument(e)));
+        }
+        return options;
+    }
 
-	@ModelAttribute("districtsByUser")
-	public List<District> populateDistrictsByUser()
-	{
-		User user = loggedInUser();
-		OrderForm orderForm = orderFormService.getActiveOrderForm();
-		
-		if(orderForm != null)
-		{
-			List<OptOut> optOuts = optOutService.findAllOptOutsByUserAndOrderForm(user, orderForm);
-			
-			
-			List<String> optOutDistrictIds = new ArrayList<>();
-			for(OptOut oo : optOuts) {
-				optOutDistrictIds.add(oo.getDistrict().getUuid());
-			}
-			
-					
-			Set<UserDistrict> userDistricts = user.getUserDistricts();
-			List<District> districts = new ArrayList<>();
-			
-			for(UserDistrict ud : userDistricts)
-			{
-				if(!optOutDistrictIds.contains(ud.getDistrict().getUuid()))
-				{
-					if(ud.getDistrict().getVisible())
-					{
-						districts.add(ud.getDistrict());
-					}
-				}	
-			}
-			return districts;
-		}
-		else return new ArrayList<>();
-	}
-		
-	@ModelAttribute("schoolsByDistrict")
-	public List<School> populateSchoolsByDistrict()
-	{	
-		Set<UserDistrict> userDistricts = loggedInUser().getUserDistricts();
-		List<School> schools = new ArrayList<>();
-		
-		for(UserDistrict ud : userDistricts)
-		{
-			if(ud.getDistrict().getVisible())
-			{
-				schools.addAll(schoolService.findAllByDistrictId(ud.getDistrict().getId()));
-				
-			}
-		}
-		return schools;
-	}
+    @ModelAttribute("allPrintOptions")
+    public List<OptionPrint> populatePrintOptions() {
+        return optionPrintService.findAllActiveOptionPrints();
+    }
 
-	@RequestMapping(value = { "/admin/orders" }, method = RequestMethod.GET)
-	public String listAllOrders(ModelMap model)
-	{
-		List<Order> orders = orderService.findAllOrders();
+    @ModelAttribute("allScanOptions")
+    public List<OptionScan> populateScanOptions() {
+        return optionScanService.findAllActivelOptionScans();
+    }
 
-		model.addAttribute("orders", orders);
-		model.addAttribute("AdminOrdersForm", new AdminOrdersForm());
-		model.addAttribute("loggedinuser", getPrincipal());
-		return "order/ordersAdmin";
-	}
-	
-	@RequestMapping(value = { "/admin/orders" }, method = RequestMethod.POST)
-	public String postUpdateOrders(@ModelAttribute("AdminOrdersForm") AdminOrdersForm adminOrdersForm, BindingResult result, SessionStatus status)
-	{
-		List<String> uuids = adminOrdersForm.getSelectedOrders().stream().filter(f -> f.isSelected()).map(SelectedAction::getUuid).collect(Collectors.toList());
-		
-		
-		orderService.updateStatus(uuids, adminOrdersForm.getAction());
-		return "order/ordersAdmin";
-	}
-	
-	@RequestMapping(value = { "/orders" }, method = RequestMethod.GET)
-	public String listOrdersByUser(ModelMap model)
-	{
-		List<Order> orders = orderService.findAllOrdersByUsername(loggedInUserName());
-		model.addAttribute("orders", orders);
-		model.addAttribute("loggedinuser", getPrincipal());
-		return "order/orders";
-	}
+    @ModelAttribute("districtsByUser")
+    public List<District> populateDistrictsByUser() {
+        User user = loggedInUser();
+        OrderForm orderForm = orderFormService.getActiveOrderForm();
 
-	@RequestMapping(value = { "/order" }, method = RequestMethod.GET)
-	public String getOrder(Model model)
-	{
-		if(orderFormService.hasActiveOrderForm())
-		{
-			List<District> districts = populateDistrictsByUser();
-			
-			if(CollectionUtils.isNotEmpty(districts) && districts.size() > 0)
-			{
-				List<District> activeOptOutDistricts = new ArrayList<>();
-				List<District> selectableDistricts = new ArrayList<>();
-				OrderForm orderForm = orderFormService.getActiveOrderForm();
-
-				if(orderForm.isExpiredPeriod())
-				{
-					model.addAttribute("error_message", "It appears the active Regents period has expired.");
-					return "message/403";
-				}
-				else if(orderForm.isActivePeriod() && orderForm.getVisible() && !orderForm.getLocked())
-				{
-					//Populated selectable districts with districts associated to the user.
-					selectableDistricts.addAll(populateDistrictsByUser());
-
-					//Add all districts currently opted out.
-					List<OptOut> optOuts = optOutService.findAllActiveOptOuts(orderForm.getId());
-					for(OptOut o : optOuts)
-					{
-						activeOptOutDistricts.add(o.getDistrict());
-					}
-
-					//If selectableDistricts contains an activeOptOutDistrict we need to remove it from the selectableDistricts list.
-					for(District d : activeOptOutDistricts)
-					{
-						for (Iterator<District> iterator = selectableDistricts.iterator(); iterator.hasNext();) {
-							District district = iterator.next();
-							if (district.getUuid().equalsIgnoreCase(d.getUuid())) {
-								iterator.remove();
-							}
-						}
-					}
-
-					//Sort SelectableDistricts by Name
-					Collections.sort(selectableDistricts, new Comparator<District>() {
-						public int compare(District one, District other) {
-							return one.getName().compareTo(other.getName());
-						}
-					});
-
-					if(CollectionUtils.isNotEmpty(selectableDistricts))
-					{
-						XForm2 xForm = new XForm2();
-						model.addAttribute("xForm2", xForm);
-						model.addAttribute("orderForm", orderForm);
-						model.addAttribute("period", orderForm.getPeriod());
-						return "order/order";
-					}
-					else if(wasOptedOutByOtherUser(optOuts))
-					{
-						model.addAttribute("error_message", "It appears another user may have already marked all of the districts associated with this account as 'Not Administering'.");
-						return "message/204";
-					}
-					else
-					{
-						model.addAttribute("error_message", "It appears you are not administering this Regents period.");
-						return "message/204";
-					}
-				}
-				else if(!orderForm.isActivePeriod())
-				{
-					model.addAttribute("error_message", "No active Regents period.");
-					return "message/204";
-				}
-				else if(orderForm.getLocked())
-				{
-					model.addAttribute("error_message", "The Regents period has been locked.");
-					return "message/403";
-				}
-				else if(!orderForm.getVisible())
-				{
-					model.addAttribute("error_message", "...");
-					return "message/403";
-				}
-				else
-				{
-					model.addAttribute("error_message", "Not expired, and is visible...");
-					return "message/403";
-				}	
-			}
-			else
-			{
-				model.addAttribute("error_message", "It appears you are not administering this Regents period.");
-				return "message/204";
-			}
-		}
-		else
-		{
-			model.addAttribute("error_message", "No active Regents period.");
-			return "message/204"; //No Active OrderForm
-		}
-	}
-
-	@RequestMapping(value = { "/order" }, method = RequestMethod.POST)
-	public String postOrder(@ModelAttribute("xForm2") XForm2 xForm, BindingResult result, SessionStatus status)
-	{
-		Set<ConstraintViolation<XForm2>> violations = validator.validate(xForm);
-
-		for (ConstraintViolation<XForm2> violation : violations)
-		{
-			String propertyPath = violation.getPropertyPath().toString();
-			String message = violation.getMessage();
-
-			// Add JSR-303 errors to BindingResult
-			// This allows Spring to display them in view via a FieldError
-			result.addError(new FieldError("xForm2", propertyPath, "Invalid " + propertyPath + "(" + message + ")"));
-		}
-
-		if (result.hasErrors())
-		{
-			for(ObjectError x : result.getAllErrors())
-			{
-				System.out.println(x.getCode() + " | " + x.getObjectName() + " | " + x.getDefaultMessage());
-			}
-			return "message/error";
-		}
-
-		
-			Order order = new Order();
-			order.setOrderDate(DateUtils.asDate(LocalDateTime.now()));
-			order.setOrderPrint(xForm.getSelectedOptionPrint());
-			order.setOrderScan(xForm.getSelectedOptionScan());
-			order.setReportToLevelOne(xForm.isReportingOption());
-			order.setOrderStatus("Processing");
-			order.setUuid(UUID.randomUUID().toString());
-			order.setUser(loggedInUser());
-			order.setDistrict(xForm.getDistrict());
-			order.setSchool(xForm.getSchool());
-			order.setSpecialRequests(xForm.getSpecialRequests());
-			
-			for (XExamWrapper ew : xForm.getSelectedExams())
-			{
-				if (ew.isSelected())
-				{
-					OrderExam oe = ew.getOrderExam();
-					oe.setOrder(order);
-					order.getOrderExams().add(oe);
-				}
-			}
-
-			for (XDocumentWrapper dw : xForm.getSelectedDocuments())
-			{
-				if (dw.isSelected())
-				{
-					OrderDocument od = dw.getOrderDocument();
-					od.setOrder(order);
-					order.getOrderDocuments().add(od);
-				}
-			}
-			
-			OrderContact oc = xForm.getOrderContact();
-			oc.setOrder(order);
-			order.setOrderContact(oc);
-			
-			OrderForm orderForm = orderFormService.getActiveOrderForm();
-			order.setOrderForm(orderForm);
-			
-			orderService.saveOrder(order);
-		
-
-		// Mark Session Complete
-		status.setComplete();
-		return "redirect:orderSuccess";
-	}
-
-	@RequestMapping(value = "/orderSuccess", method = RequestMethod.GET)
-	public String success(Model model)
-	{
-		return "order/orderSuccess";
-	}
-
-	@RequestMapping(value = { "order/{uuid}" }, method = RequestMethod.GET)
-	public String orderByUUID(@PathVariable String uuid, ModelMap model)
-	{
-		Order order = orderService.findByUUID(uuid);
-		OrderForm orderForm = orderFormService.findById(order.getOrderForm().getId());
-		List<OrderExam> sortedExamList = new ArrayList<OrderExam>(order.getOrderExams());
-		List<OrderDocument> sortedDocumentList = new ArrayList<OrderDocument>(order.getOrderDocuments());
-		
-		//Sort Order Exams by Name
-		Collections.sort(sortedExamList, new Comparator<OrderExam>() {
-		    public int compare(OrderExam one, OrderExam other) {
-		        return one.getExam().getName().compareTo(other.getExam().getName());
-		    }
-		}); 
-		
-		//Sort Order Documents by Name
-		Collections.sort(sortedDocumentList, new Comparator<OrderDocument>() {
-		    public int compare(OrderDocument one, OrderDocument other) {
-		        return one.getDocument().getName().compareTo(other.getDocument().getName());
-		    }
-		}); 
-		
-
-		if(order.getUser().getUsername().equalsIgnoreCase(getPrincipal()) || isAdmin(getPrincipal())) //IDK IF THIS IS THE BEST THING TO DO
-		{
-			model.addAttribute("order", order);
-			model.addAttribute("period", order.getOrderForm().getPeriod());
-			model.addAttribute("sortedExamList", sortedExamList);
-			model.addAttribute("sortedDocumentList", sortedDocumentList);
-			model.addAttribute("orderForm", orderForm);
-			return "order/invoice";
-		}
-		else
-		{
-			return "message/403";
-		}
-	}
-
-	
-	@RequestMapping(value = { "order/{uuid}/edit" }, method = RequestMethod.GET)
-	public String getEditOrder(@PathVariable String uuid, ModelMap model)
-	{
-		Order order = orderService.findByUUID(uuid);
-		OrderForm orderForm = orderFormService.findById(order.getOrderForm().getId());
-		
-		if(canUserEditOrder(order, orderForm) || isAdmin(getPrincipal())) //IDK IF THIS IS THE BEST THING TO DO
-		{
-			XForm2 xForm = new XForm2();		
-			xForm.setSelectedDocuments(findAllDocumentsByOrderFormId(orderForm.getId()));
-			xForm.setSelectedExams(findAllExamsByOrderFormId(orderForm.getId()));
-					
-			for(XExamWrapper ew : xForm.getSelectedExams())
-			{
-				for(OrderExam e : order.getOrderExams())
-				{
-					if(e.getExam().getId() == ew.getOrderExam().getExam().getId())
-					{
-						ew.setSelected(true);
-						ew.setOrderExam(e);
-					}
-				}
-			}
-				
-			for(XDocumentWrapper dw : xForm.getSelectedDocuments())
-			{
-				for(OrderDocument d : order.getOrderDocuments())
-				{
-					if(d.getDocument().getId() == dw.getOrderDocument().getDocument().getId())
-					{
-						dw.setSelected(true);
-						dw.setOrderDocument(d);
-					}
-				}
-			}
-
-			xForm.setSelectedOptionScan(order.getOrderScan());
-			xForm.setReportingOption(order.getReportToLevelOne());
-			xForm.setSelectedOptionPrint(order.getOrderPrint());
-			xForm.setOrderContact(order.getOrderContact());
-			xForm.setOrderForm(order.getOrderForm());
-			xForm.setDistrict(order.getDistrict());
-			xForm.setSchool(order.getSchool());
-			xForm.setSpecialRequests(order.getSpecialRequests());
+        if(orderForm != null) {
+            List<OptOut> optOuts = optOutService.findAllOptOutsByUserAndOrderForm(user, orderForm);
 
 
+            List<String> optOutDistrictIds = new ArrayList<>();
+            for(OptOut oo : optOuts) {
+                optOutDistrictIds.add(oo.getDistrict().getUuid());
+            }
 
-			List<District> userDistricts = new ArrayList<>();
-			order.getUser().getUserDistricts().forEach(userDistrict -> {
-				userDistricts.add(userDistrict.getDistrict());
-			});
+
+            Set<UserDistrict> userDistricts = user.getUserDistricts();
+            List<District> districts = new ArrayList<>();
+
+            for(UserDistrict ud : userDistricts) {
+                if(!optOutDistrictIds.contains(ud.getDistrict().getUuid())) {
+                    if(ud.getDistrict().getVisible()) {
+                        districts.add(ud.getDistrict());
+                    }
+                }
+            }
+            return districts;
+        }
+        else return new ArrayList<>();
+    }
+
+    @ModelAttribute("schoolsByDistrict")
+    public List<School> populateSchoolsByDistrict() {
+        Set<UserDistrict> userDistricts = loggedInUser().getUserDistricts();
+        List<School> schools = new ArrayList<>();
+
+        for(UserDistrict ud : userDistricts) {
+            if(ud.getDistrict().getVisible()) {
+                schools.addAll(schoolService.findAllByDistrictId(ud.getDistrict().getId()));
+
+            }
+        }
+        return schools;
+    }
+
+    @RequestMapping(value = {"/admin/orders"}, method = RequestMethod.GET)
+    public String listAllOrders(ModelMap model) {
+        List<Order> orders = orderService.findAllOrders();
+
+        model.addAttribute("orders", orders);
+        model.addAttribute("AdminOrdersForm", new AdminOrdersForm());
+        model.addAttribute("loggedinuser", getPrincipal());
+        return "order/ordersAdmin";
+    }
+
+    @RequestMapping(value = {"/admin/orders"}, method = RequestMethod.POST)
+    public String postUpdateOrders(@ModelAttribute("AdminOrdersForm") AdminOrdersForm adminOrdersForm, BindingResult result, SessionStatus status) {
+        List<String> uuids = adminOrdersForm.getSelectedOrders().stream().filter(f -> f.isSelected()).map(SelectedAction::getUuid).collect(Collectors.toList());
 
 
-			model.addAttribute("xForm2", xForm);
-			model.addAttribute("order", order);
-			model.addAttribute("period", order.getOrderForm().getPeriod());
-			model.addAttribute("schoolId", order.getSchool().getId());
-			model.addAttribute("userDistricts", userDistricts);
-			model.addAttribute("edit", true);
-			
-			model.addAttribute("allDocumentOptionsByOrderForm", findAllDocumentsByOrderFormId(orderForm.getId()));
-			model.addAttribute("allExamOptionsByOrderForm", findAllExamsByOrderFormId(orderForm.getId()));
-			model.addAttribute("schoolsByOrderUserDistrict", findSchoolsByOrderUserDistrict(order));
+        orderService.updateStatus(uuids, adminOrdersForm.getAction());
+        return "order/ordersAdmin";
+    }
 
-			return "order/createOrEditOrder";
-		}
-		else if(order.isComplete())
-		{
-			model.addAttribute("error_message", "This order has been marked as complete.");
-			return "message/403";
-		}
-		if(orderForm.isExpiredPeriod())
-		{
-			model.addAttribute("error_message", "It appears the associated Regents period has expired.");
-			return "message/403";
-		}
-		else if(!orderForm.isActivePeriod())
-		{
-			model.addAttribute("error_message", "No active Regents period.");
-			return "message/204";
-		}
-		else
-		{
-			model.addAttribute("error_message", "It appears the associated Regents period has expired.");
-			return "message/403";
-		}
-	}
-	
+    @RequestMapping(value = {"/orders"}, method = RequestMethod.GET)
+    public String listOrdersByUser(ModelMap model) {
+        List<Order> orders = orderService.findAllOrdersByUsername(loggedInUserName());
+        model.addAttribute("orders", orders);
+        model.addAttribute("loggedinuser", getPrincipal());
+        return "order/orders";
+    }
 
-	
-	@RequestMapping(value = { "order/{uuid}/edit" }, method = RequestMethod.POST)
-	public String postEditOrder(@ModelAttribute("xForm2") XForm2 xForm, BindingResult result, SessionStatus status, @PathVariable String uuid, ModelMap model)
-	{
-		if (result.hasErrors())
-		{
-			return "order/createOrEditOrder";
-		}
+    @RequestMapping(value = {"/order"}, method = RequestMethod.GET)
+    public String getOrder(Model model) {
+        if(orderFormService.hasActiveOrderForm()) {
+            List<District> districts = populateDistrictsByUser();
 
-		try
-		{
-			Order order = orderService.findByUUID(uuid);		
-			order.setOrderPrint(xForm.getSelectedOptionPrint());
-			order.setOrderScan(xForm.getSelectedOptionScan());
-			order.setReportToLevelOne(xForm.isReportingOption());
-			order.setOrderStatus("Processing");
-			order.setDistrict(xForm.getDistrict());
-			order.setSchool(xForm.getSchool());
-			order.setSpecialRequests(xForm.getSpecialRequests());
-			
-			order.getOrderExams().clear();
-			order.getOrderDocuments().clear();
+            if(CollectionUtils.isNotEmpty(districts) && districts.size() > 0) {
+                List<District> activeOptOutDistricts = new ArrayList<>();
+                List<District> selectableDistricts = new ArrayList<>();
+                OrderForm orderForm = orderFormService.getActiveOrderForm();
 
-			for (XExamWrapper ew : xForm.getSelectedExams())
-			{
-				if (ew.isSelected())
-				{
-					OrderExam oe = ew.getOrderExam();		
-					oe.setOrder(order);
-					order.getOrderExams().add(oe);
-				}
-			}
+                if(orderForm.isExpiredPeriod()) {
+                    model.addAttribute("error_message", "It appears the active Regents period has expired.");
+                    return "message/403";
+                }
+                else if(orderForm.isActivePeriod() && orderForm.getVisible() && !orderForm.getLocked()) {
+                    //Populated selectable districts with districts associated to the user.
+                    selectableDistricts.addAll(populateDistrictsByUser());
 
-			for (XDocumentWrapper dw : xForm.getSelectedDocuments())
-			{
-				if (dw.isSelected())
-				{
-					OrderDocument od = dw.getOrderDocument();
-					od.setOrder(order);
-					order.getOrderDocuments().add(od);
-				}
-			}
+                    //Add all districts currently opted out.
+                    List<OptOut> optOuts = optOutService.findAllActiveOptOuts(orderForm.getId());
+                    for(OptOut o : optOuts) {
+                        activeOptOutDistricts.add(o.getDistrict());
+                    }
 
-			//Update OrderContact data associated to Order
-			OrderContact oc = xForm.getOrderContact();
-			order.getOrderContact().setFirstName(oc.getFirstName());
-			order.getOrderContact().setMiddleName(oc.getMiddleName());
-			order.getOrderContact().setLastName(oc.getLastName());
-			order.getOrderContact().setTitle(oc.getTitle());
-			order.getOrderContact().setEmail(oc.getEmail());
-			order.getOrderContact().setAltContactInfo(oc.getAltContactInfo());
-			order.getOrderContact().setPhone(oc.getPhone());
-			order.getOrderContact().setOrder(order);
-			
+                    //If selectableDistricts contains an activeOptOutDistrict we need to remove it from the selectableDistricts list.
+                    for(District d : activeOptOutDistricts) {
+                        for(Iterator<District> iterator = selectableDistricts.iterator(); iterator.hasNext(); ) {
+                            District district = iterator.next();
+                            if(district.getUuid().equalsIgnoreCase(d.getUuid())) {
+                                iterator.remove();
+                            }
+                        }
+                    }
 
-			//Attach OrderForm to Order
-			OrderForm of = orderFormService.getActiveOrderForm();
-			order.setOrderForm(of);
-			
-			orderService.updateOrder(order);
-			model.addAttribute("success", "Order: " + order.getUuid() + " - " + " was updated successfully.");
-			if(isAdmin(loggedInUser().getUsername()))
-			{
-				model.addAttribute("returnLink", "/admin/orders");
-			}
-			else
-			{
-				model.addAttribute("returnLink", "/orders");
-			}
-			model.addAttribute("returnLinkText", "Orders");
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
+                    //Sort SelectableDistricts by Name
+                    Collections.sort(selectableDistricts, new Comparator<District>() {
+                        public int compare(District one, District other) {
+                            return one.getName().compareTo(other.getName());
+                        }
+                    });
 
-		return "message/success";
-	}
+                    if(CollectionUtils.isNotEmpty(selectableDistricts)) {
+                        XForm2 xForm = new XForm2();
+                        model.addAttribute("xForm2", xForm);
+                        model.addAttribute("orderForm", orderForm);
+                        model.addAttribute("period", orderForm.getPeriod());
+                        return "order/order";
+                    }
+                    else if(wasOptedOutByOtherUser(optOuts)) {
+                        model.addAttribute("error_message", "It appears another user may have already marked all of the districts associated with this account as 'Not Administering'.");
+                        return "message/204";
+                    }
+                    else {
+                        model.addAttribute("error_message", "It appears you are not administering this Regents period.");
+                        return "message/204";
+                    }
+                }
+                else if(!orderForm.isActivePeriod()) {
+                    model.addAttribute("error_message", "No active Regents period.");
+                    return "message/204";
+                }
+                else if(orderForm.getLocked()) {
+                    model.addAttribute("error_message", "The Regents period has been locked.");
+                    return "message/403";
+                }
+                else if(!orderForm.getVisible()) {
+                    model.addAttribute("error_message", "...");
+                    return "message/403";
+                }
+                else {
+                    model.addAttribute("error_message", "Not expired, and is visible...");
+                    return "message/403";
+                }
+            }
+            else {
+                model.addAttribute("error_message", "It appears you are not administering this Regents period.");
+                return "message/204";
+            }
+        }
+        else {
+            model.addAttribute("error_message", "No active Regents period.");
+            return "message/204"; //No Active OrderForm
+        }
+    }
 
-	@RequestMapping(value = { "order/{uuid}/delete" }, method = RequestMethod.GET)
-	public String getDeleteOrder(@PathVariable String uuid, ModelMap model)
-	{
-		orderService.deleteOrder(uuid);
-		
-		return "redirect:/orders";
-	}
-	
-	@RequestMapping(value = { "order/{uuid}/complete/{isComplete}" }, method = RequestMethod.GET)
-	public String getCompleteOrder(@PathVariable String uuid, @PathVariable boolean isComplete) 
-	{
-		orderService.updateStatus(uuid, isComplete);
-		return "redirect:/orders";
-	}
+    @RequestMapping(value = {"/order"}, method = RequestMethod.POST)
+    public String postOrder(@ModelAttribute("xForm2") XForm2 xForm, BindingResult result, SessionStatus status) {
+        Set<ConstraintViolation<XForm2>> violations = validator.validate(xForm);
 
-	@RequestMapping(value = { "admin/order/{uuid}/delete" }, method = RequestMethod.GET)
-	public String getDeleteOrderAdmin(@PathVariable String uuid, ModelMap model)
-	{
-		orderService.deleteOrder(uuid);
-		
-		return "redirect:/admin/orders";
-	}
-	
-	@RequestMapping(value = { "admin/order/{uuid}/complete/{isComplete}" }, method = RequestMethod.GET)
-	public String getCompleteOrderAdmin(@PathVariable String uuid, @PathVariable boolean isComplete) 
-	{
-		orderService.updateStatus(uuid, isComplete);
-		return "redirect:/admin/orders";
-	}
+        for(ConstraintViolation<XForm2> violation : violations) {
+            String propertyPath = violation.getPropertyPath().toString();
+            String message = violation.getMessage();
 
-	
-	public List<XDocumentWrapper> findAllDocumentsByOrderFormId(Integer id)
-	{
-		List<XDocumentWrapper> options = new ArrayList<>();
+            // Add JSR-303 errors to BindingResult
+            // This allows Spring to display them in view via a FieldError
+            result.addError(new FieldError("xForm2", propertyPath, "Invalid " + propertyPath + "(" + message + ")"));
+        }
 
-		for (Document e : documentService.findAllDocumentsByOrderFormId(id))
-		{
-			options.add(new XDocumentWrapper(new OrderDocument(e)));
-		}
-		return options;
-	}
+        if(result.hasErrors()) {
+            for(ObjectError x : result.getAllErrors()) {
+                System.out.println(x.getCode() + " | " + x.getObjectName() + " | " + x.getDefaultMessage());
+            }
+            return "message/error";
+        }
 
-	public List<XExamWrapper> findAllExamsByOrderFormId(Integer id)
-	{
-		List<XExamWrapper> options = new ArrayList<>();
 
-		for (Exam e : examService.findAllExamsByOrderFormId(id))
-		{
-			options.add(new XExamWrapper(new OrderExam(e)));
-		}
-		return options;
-	}
-	
-	public List<School> findSchoolsByOrderUserDistrict(Order order)
-	{	
-		Set<UserDistrict> userDistricts = order.getUser().getUserDistricts();
-		List<School> schools = new ArrayList<>();
-		
-		for(UserDistrict ud : userDistricts)
-		{
-			if(ud.getDistrict().getVisible())
-			{
-				schools.addAll(schoolService.findAllByDistrictId(ud.getDistrict().getId()));
-				
-			}
-		}
-		return schools;
-	}
-	
-	private boolean isAdmin(String username)
-	{
-		User user = userService.findByUsername(username);
-		for(UserProfile up : user.getUserProfiles())
-		{
-			if("Admin".equalsIgnoreCase(up.getType()))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
+        Order order = new Order();
+        order.setOrderDate(DateUtils.asDate(LocalDateTime.now()));
+        order.setOrderPrint(xForm.getSelectedOptionPrint());
+        order.setOrderScan(xForm.getSelectedOptionScan());
+        order.setReportToLevelOne(xForm.isReportingOption());
+        order.setOrderStatus("Processing");
+        order.setUuid(UUID.randomUUID().toString());
+        order.setUser(loggedInUser());
+        order.setDistrict(xForm.getDistrict());
+        order.setSchool(xForm.getSchool());
+        order.setSpecialRequests(xForm.getSpecialRequests());
 
-	private boolean canUserEditOrder(Order order, OrderForm orderForm)
-	{
-		return (order.getUser().getUsername().equalsIgnoreCase(getPrincipal()) && orderForm.getActive() && !order.isComplete() && !orderForm.isExpiredPeriod());
-	}
-	
-	private boolean wasOptedOutByOtherUser(List<OptOut> optOuts)
-	{
-		boolean isOptedOut = false;
-		for(OptOut o : optOuts)
-		{
-			//If current user does not equal the username of the person who opted out
-			if(!getPrincipal().equalsIgnoreCase(o.getOptOutUser().getUsername()))
-			{
-				return true;
-			}
-		}
-		return isOptedOut;
-	}
+        for(XExamWrapper ew : xForm.getSelectedExams()) {
+            if(ew.isSelected()) {
+                OrderExam oe = ew.getOrderExam();
+                oe.setOrder(order);
+                order.getOrderExams().add(oe);
+            }
+        }
+
+        for(XDocumentWrapper dw : xForm.getSelectedDocuments()) {
+            if(dw.isSelected()) {
+                OrderDocument od = dw.getOrderDocument();
+                od.setOrder(order);
+                order.getOrderDocuments().add(od);
+            }
+        }
+
+        OrderContact oc = xForm.getOrderContact();
+        oc.setOrder(order);
+        order.setOrderContact(oc);
+
+        OrderForm orderForm = orderFormService.getActiveOrderForm();
+        order.setOrderForm(orderForm);
+
+        orderService.saveOrder(order);
+
+
+        // Mark Session Complete
+        status.setComplete();
+        return "redirect:orderSuccess";
+    }
+
+    @RequestMapping(value = "/orderSuccess", method = RequestMethod.GET)
+    public String success(Model model) {
+        return "order/orderSuccess";
+    }
+
+    @RequestMapping(value = {"order/{uuid}"}, method = RequestMethod.GET)
+    public String orderByUUID(@PathVariable String uuid, ModelMap model) {
+        Order order = orderService.findByUUID(uuid);
+        OrderForm orderForm = orderFormService.findById(order.getOrderForm().getId());
+        List<OrderExam> sortedExamList = new ArrayList<OrderExam>(order.getOrderExams());
+        List<OrderDocument> sortedDocumentList = new ArrayList<OrderDocument>(order.getOrderDocuments());
+
+        //Sort Order Exams by Name
+        Collections.sort(sortedExamList, new Comparator<OrderExam>() {
+            public int compare(OrderExam one, OrderExam other) {
+                return one.getExam().getName().compareTo(other.getExam().getName());
+            }
+        });
+
+        //Sort Order Documents by Name
+        Collections.sort(sortedDocumentList, new Comparator<OrderDocument>() {
+            public int compare(OrderDocument one, OrderDocument other) {
+                return one.getDocument().getName().compareTo(other.getDocument().getName());
+            }
+        });
+
+
+        if(order.getUser().getUsername().equalsIgnoreCase(getPrincipal()) || isAdmin(getPrincipal())) //IDK IF THIS IS THE BEST THING TO DO
+        {
+            model.addAttribute("order", order);
+            model.addAttribute("period", order.getOrderForm().getPeriod());
+            model.addAttribute("sortedExamList", sortedExamList);
+            model.addAttribute("sortedDocumentList", sortedDocumentList);
+            model.addAttribute("orderForm", orderForm);
+            return "order/invoice";
+        }
+        else {
+            return "message/403";
+        }
+    }
+
+
+    @RequestMapping(value = {"order/{uuid}/edit"}, method = RequestMethod.GET)
+    public String getEditOrder(@PathVariable String uuid, ModelMap model) {
+        Order order = orderService.findByUUID(uuid);
+        OrderForm orderForm = orderFormService.findById(order.getOrderForm().getId());
+
+        if(canUserEditOrder(order, orderForm) || isAdmin(getPrincipal())) //IDK IF THIS IS THE BEST THING TO DO
+        {
+            XForm2 xForm = new XForm2();
+            xForm.setSelectedDocuments(findAllDocumentsByOrderFormId(orderForm.getId()));
+            xForm.setSelectedExams(findAllExamsByOrderFormId(orderForm.getId()));
+
+            for(XExamWrapper ew : xForm.getSelectedExams()) {
+                for(OrderExam e : order.getOrderExams()) {
+                    if(Objects.equals(e.getExam().getId(), ew.getOrderExam().getExam().getId())) {
+                        ew.setSelected(true);
+                        ew.setOrderExam(e);
+                    }
+                }
+            }
+
+            for(XDocumentWrapper dw : xForm.getSelectedDocuments()) {
+                for(OrderDocument d : order.getOrderDocuments()) {
+                    if(Objects.equals(d.getDocument().getId(), dw.getOrderDocument().getDocument().getId())) {
+                        dw.setSelected(true);
+                        dw.setOrderDocument(d);
+                    }
+                }
+            }
+
+            xForm.setSelectedOptionScan(order.getOrderScan());
+            xForm.setReportingOption(order.getReportToLevelOne());
+            xForm.setSelectedOptionPrint(order.getOrderPrint());
+            xForm.setOrderContact(order.getOrderContact());
+            xForm.setOrderForm(order.getOrderForm());
+            xForm.setDistrict(order.getDistrict());
+            xForm.setSchool(order.getSchool());
+            xForm.setSpecialRequests(order.getSpecialRequests());
+
+
+            List<District> userDistricts = new ArrayList<>();
+            order.getUser().getUserDistricts().forEach(userDistrict -> {
+                userDistricts.add(userDistrict.getDistrict());
+            });
+
+
+            model.addAttribute("xForm2", xForm);
+            model.addAttribute("order", order);
+            model.addAttribute("period", order.getOrderForm().getPeriod());
+            model.addAttribute("schoolId", order.getSchool().getId());
+            model.addAttribute("userDistricts", userDistricts);
+            model.addAttribute("edit", true);
+
+            model.addAttribute("allDocumentOptionsByOrderForm", findAllDocumentsByOrderFormId(orderForm.getId()));
+            model.addAttribute("allExamOptionsByOrderForm", findAllExamsByOrderFormId(orderForm.getId()));
+            model.addAttribute("schoolsByOrderUserDistrict", findSchoolsByOrderUserDistrict(order));
+
+            return "order/createOrEditOrder";
+        }
+        else if(order.isComplete()) {
+            model.addAttribute("error_message", "This order has been marked as complete.");
+            return "message/403";
+        }
+        if(orderForm.isExpiredPeriod()) {
+            model.addAttribute("error_message", "It appears the associated Regents period has expired.");
+            return "message/403";
+        }
+        else if(!orderForm.isActivePeriod()) {
+            model.addAttribute("error_message", "No active Regents period.");
+            return "message/204";
+        }
+        else {
+            model.addAttribute("error_message", "It appears the associated Regents period has expired.");
+            return "message/403";
+        }
+    }
+
+
+    @RequestMapping(value = {"order/{uuid}/edit"}, method = RequestMethod.POST)
+    public String postEditOrder(@ModelAttribute("xForm2") XForm2 xForm, BindingResult result, SessionStatus status, @PathVariable String uuid, ModelMap model) {
+        if(result.hasErrors()) {
+            return "order/createOrEditOrder";
+        }
+
+        try {
+            Order order = orderService.findByUUID(uuid);
+            order.setOrderPrint(xForm.getSelectedOptionPrint());
+            order.setOrderScan(xForm.getSelectedOptionScan());
+            order.setReportToLevelOne(xForm.isReportingOption());
+            order.setOrderStatus("Processing");
+            order.setDistrict(xForm.getDistrict());
+            order.setSchool(xForm.getSchool());
+            order.setSpecialRequests(xForm.getSpecialRequests());
+
+            order.getOrderExams().clear();
+            order.getOrderDocuments().clear();
+
+            for(XExamWrapper ew : xForm.getSelectedExams()) {
+                if(ew.isSelected()) {
+                    OrderExam oe = ew.getOrderExam();
+                    oe.setOrder(order);
+                    order.getOrderExams().add(oe);
+                }
+            }
+
+            for(XDocumentWrapper dw : xForm.getSelectedDocuments()) {
+                if(dw.isSelected()) {
+                    OrderDocument od = dw.getOrderDocument();
+                    od.setOrder(order);
+                    order.getOrderDocuments().add(od);
+                }
+            }
+
+            //Update OrderContact data associated to Order
+            OrderContact oc = xForm.getOrderContact();
+            order.getOrderContact().setFirstName(oc.getFirstName());
+            order.getOrderContact().setMiddleName(oc.getMiddleName());
+            order.getOrderContact().setLastName(oc.getLastName());
+            order.getOrderContact().setTitle(oc.getTitle());
+            order.getOrderContact().setEmail(oc.getEmail());
+            order.getOrderContact().setAltContactInfo(oc.getAltContactInfo());
+            order.getOrderContact().setPhone(oc.getPhone());
+            order.getOrderContact().setOrder(order);
+
+
+            //Attach OrderForm to Order
+            OrderForm of = orderFormService.getActiveOrderForm();
+            order.setOrderForm(of);
+
+            orderService.updateOrder(order);
+            model.addAttribute("success", "Order: " + order.getUuid() + " - " + " was updated successfully.");
+            if(isAdmin(loggedInUser().getUsername())) {
+                model.addAttribute("returnLink", "/admin/orders");
+            }
+            else {
+                model.addAttribute("returnLink", "/orders");
+            }
+            model.addAttribute("returnLinkText", "Orders");
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return "message/success";
+    }
+
+    @RequestMapping(value = {"order/{uuid}/delete"}, method = RequestMethod.GET)
+    public String getDeleteOrder(@PathVariable String uuid, ModelMap model) {
+        orderService.deleteOrder(uuid);
+
+        return "redirect:/orders";
+    }
+
+    @RequestMapping(value = {"order/{uuid}/complete/{isComplete}"}, method = RequestMethod.GET)
+    public String getCompleteOrder(@PathVariable String uuid, @PathVariable boolean isComplete) {
+        orderService.updateStatus(uuid, isComplete);
+        return "redirect:/orders";
+    }
+
+    @RequestMapping(value = {"admin/order/{uuid}/delete"}, method = RequestMethod.GET)
+    public String getDeleteOrderAdmin(@PathVariable String uuid, ModelMap model) {
+        orderService.deleteOrder(uuid);
+
+        return "redirect:/admin/orders";
+    }
+
+    @RequestMapping(value = {"admin/order/{uuid}/complete/{isComplete}"}, method = RequestMethod.GET)
+    public String getCompleteOrderAdmin(@PathVariable String uuid, @PathVariable boolean isComplete) {
+        orderService.updateStatus(uuid, isComplete);
+        return "redirect:/admin/orders";
+    }
+
+
+    private List<XDocumentWrapper> findAllDocumentsByOrderFormId(Integer id) {
+        List<XDocumentWrapper> options = new ArrayList<>();
+
+        for(Document e : documentService.findAllDocumentsByOrderFormId(id)) {
+            options.add(new XDocumentWrapper(new OrderDocument(e)));
+        }
+        return options;
+    }
+
+    private List<XExamWrapper> findAllExamsByOrderFormId(Integer id) {
+        List<XExamWrapper> options = new ArrayList<>();
+
+        for(Exam e : examService.findAllExamsByOrderFormId(id)) {
+            options.add(new XExamWrapper(new OrderExam(e)));
+        }
+        return options;
+    }
+
+    private List<School> findSchoolsByOrderUserDistrict(Order order) {
+        Set<UserDistrict> userDistricts = order.getUser().getUserDistricts();
+        List<School> schools = new ArrayList<>();
+
+        for(UserDistrict ud : userDistricts) {
+            if(ud.getDistrict().getVisible()) {
+                schools.addAll(schoolService.findAllByDistrictId(ud.getDistrict().getId()));
+
+            }
+        }
+        return schools;
+    }
+
+    private boolean isAdmin(String username) {
+        User user = userService.findByUsername(username);
+        for(UserProfile up : user.getUserProfiles()) {
+            if("Admin".equalsIgnoreCase(up.getType())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean canUserEditOrder(Order order, OrderForm orderForm) {
+        return (order.getUser().getUsername().equalsIgnoreCase(getPrincipal()) && orderForm.getActive() && !order.isComplete() && !orderForm.isExpiredPeriod());
+    }
+
+    private boolean wasOptedOutByOtherUser(List<OptOut> optOuts) {
+        boolean isOptedOut = false;
+        for(OptOut o : optOuts) {
+            //If current user does not equal the username of the person who opted out
+            if(!getPrincipal().equalsIgnoreCase(o.getOptOutUser().getUsername())) {
+                return true;
+            }
+        }
+        return isOptedOut;
+    }
 
 }

@@ -7,24 +7,24 @@ import org.neric.regents.model.Exam;
 
 public interface ExamDao {
 
-	Exam findById(int id);
-	
-	Exam findByUUID(String uuid);
-	
-	Exam findByName(String examName);
-	
-	List<Exam> findAllExams();
-	
-	List<Exam> findAllActiveExams();
-	
-	List<Exam> findAllExamsByOrderFormId(Integer id);
-	
-	void save(Exam exam);
-	
-	void deleteByExamName(String examName);
-	
-	void deleteByExamId(int id);
+    Exam findById(int id);
 
-	void deleteByExamUUID(String uuid);
+    Exam findByUUID(String uuid);
+
+    Exam findByName(String examName);
+
+    List<Exam> findAllExams();
+
+    List<Exam> findAllActiveExams();
+
+    List<Exam> findAllExamsByOrderFormId(Integer id);
+
+    void save(Exam exam);
+
+    void deleteByExamName(String examName);
+
+    void deleteByExamId(int id);
+
+    void deleteByExamUUID(String uuid);
 }
 

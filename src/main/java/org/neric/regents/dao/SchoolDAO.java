@@ -6,19 +6,19 @@ import org.neric.regents.model.School;
 
 public interface SchoolDAO {
 
-	List<School> findAll();
-	
-	List<School> findAllByDistrictId(int id);
-	
-	School findById(int id);
-	
-	School findByUUID(String uuid);
-	
-	void save(School school);
+    List<School> findAll();
 
-	void deleteById(int id);
+    List<School> findAllByDistrictId(int id);
 
-	void deleteByUUID(String uuid);
+    School findById(int id);
 
-	int count();
+    School findByUUID(String uuid);
+
+    void save(School school);
+
+    void deleteById(int id);
+
+    void deleteByUUID(String uuid);
+
+    int count();
 }
