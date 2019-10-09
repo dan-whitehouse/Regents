@@ -88,6 +88,7 @@
 													<c:forEach items="${sortedExamList}" var="orderExam">
 														<tr>
 															<td class="col-xs-6">${orderExam.exam.name} - ${orderExam.exam.code}</td>
+
 															<c:if test="${orderForm.period eq 'June'}">
 																<td>${orderExam.examAmount}</td>
 															</c:if>

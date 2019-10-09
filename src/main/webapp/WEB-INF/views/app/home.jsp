@@ -33,7 +33,7 @@
 								<div class="bs-example" data-example-id="simple-jumbotron">
 									<div class="jumbotron">
 										<h1>Welcome!</h1>
-										<p>For support, please contact the Testing and Evaluations Services team.</p>
+										<p>For support, please contact the Testing and Data Reports team.</p>
 									</div>
 								</div>
 								<!-- <div class="row top_tiles">
@@ -70,7 +70,7 @@
 							<div class="col-md-4 col-lg-4 col-sm-5">
 								<ul class="list-unstyled msg_list">
 									<li>
-										<a>
+										<a href="mailto:annemarie.bertram@neric.org">
 										<span>
 										<span>Anne Marie Bertram</span>
 										</span>
@@ -80,7 +80,7 @@
 										</a>
 									</li>
 									<li>
-										<a>
+										<a href="mailto:matthew.coleman@neric.org">
 										<span>
 										<span>Matthew Coleman</span>
 										</span>
@@ -90,9 +90,19 @@
 										</a>
 									</li>
 									<li>
-										<a>
+										<a href="mailto:kristin.ocallaghan@neric.org">
 										<span>
-										<span>Testing and Evaluation Services</span>
+										<span>Kristin O'Callaghan</span>
+										</span>
+											<span class="message">
+										kristin.ocallaghan@neric.org
+										</span>
+										</a>
+									</li>
+									<li>
+										<a href="mailto:testing@neric.org">
+										<span>
+										<span>Testing and Data Reports</span>
 										</span>
 										<span class="message">
 										Phone: (518) 862-5314<br />
