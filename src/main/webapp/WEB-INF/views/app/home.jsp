@@ -33,7 +33,7 @@
 								<div class="bs-example" data-example-id="simple-jumbotron">
 									<div class="jumbotron">
 										<h1>Welcome!</h1>
-										<p>For support, please contact the Testing and Evaluations Services team.</p>
+										<p>For support, please contact the Testing and Data Reports team.</p>
 									</div>
 								</div>
 								<!-- <div class="row top_tiles">
