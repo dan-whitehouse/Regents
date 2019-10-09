@@ -265,13 +265,16 @@ public class OrderController extends AbstractController
 	}
 	
 	@RequestMapping(value = { "/admin/orders" }, method = RequestMethod.POST)
-	public String postUpdateOrders(@ModelAttribute("AdminOrdersForm") AdminOrdersForm adminOrdersForm, BindingResult result, SessionStatus status)
+	public String postUpdateOrders(@ModelAttribute("AdminOrdersForm") AdminOrdersForm adminOrdersForm, BindingResult result, SessionStatus status, ModelMap model)
 	{
 		List<String> uuids = adminOrdersForm.getSelectedOrders().stream().filter(f -> f.isSelected()).map(SelectedAction::getUuid).collect(Collectors.toList());
 		
-		
 		orderService.updateStatus(uuids, adminOrdersForm.getAction());
-		return "order/ordersAdmin";
+		
+		model.addAttribute("success", "Orders" + uuids + " were updated successfully.");
+		model.addAttribute("returnLink", "/admin/orders");
+		model.addAttribute("returnLinkText", "Orders");
+		return "message/success";
 	}
 	
 	@RequestMapping(value = { "/orders" }, method = RequestMethod.GET)

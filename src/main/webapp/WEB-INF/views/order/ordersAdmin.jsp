@@ -22,9 +22,14 @@
 									<li class="dropdown">
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
 										<ul class="dropdown-menu" role="menu">
+											<form:hidden path="action" id="menuAction" value=""/>
 											<li><a href="${orderLink}">Create Order</a></li>
-											<li><a href="${orderLink}" onclick="setAction('Complete'); document.getElementById('AdminOrdersForm').submit(); return false;">Set Selected As Complete</a></li>
-											<li><a href="${orderLink}" onclick="setAction('Bullshit'); document.getElementById('AdminOrdersForm').submit(); return false;">Set Selected As Processing</a></li>
+											<li>
+												<input type="submit" value="Set Selected As Complete" onclick="setAction('Complete');"/>
+											</li>
+											<li>
+												<input type="submit" value="Set Selected As Processing" onclick="setAction('Processing');"/>
+											</li>
 										</ul>
 									</li>
 								</ul>
@@ -65,15 +70,12 @@
 												<td>${order.user.firstName} ${order.user.lastName}</td>
 												<td>${order.orderStatus}</td>
 												<sec:authorize access="hasRole('ADMIN')">
-												
-												
 													<td width="150px">
-														<form:hidden path="action" value="action();"  />
 														<form:hidden path="selectedOrders[${status.index}].uuid" value="${order.uuid}"/>
 														<a href="<c:url value='/order/${order.uuid}/edit' />" class="btn btn-success custom-width" data-toggle="tooltip" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
 														<a type="button" class="btn btn-danger custom-width" data-toggle="modal" data-target=".modal-sm-${order.uuid}"><i class="fa fa-trash"></i></a>
-														<span class="btn btn-default custom-width">
-															<form:checkbox path="selectedOrders[${status.index}].selected" class="orderForm"/>
+														<span class="btn btn-default custom-width checkbox_option">
+															<form:checkbox path="selectedOrders[${status.index}].selected" class="orderForm "/>
 														</span>
 													</td>
 												</sec:authorize>
@@ -113,22 +115,34 @@
 				</div>
 			</div>
 		</div>
-		
-		<script>
-			var action = "";
-			
-			function getAction() {
-				alert(action);
-				return action;
-			}
-			
-			function setAction(action) {
-				this.action = action;
-			}
-		</script>
-		
-		
 	</form:form>
 	</sec:authorize>
+	<div class="clearfix"><br/></div>
 	<jsp:include page="../fragments/footer.jsp" />
+	<script>
+			function setAction(action) {
+				$('#menuAction').val(action);
+			}
+		</script>
+		<script>
+			$('#datatable').DataTable( {
+				 "lengthMenu": [ [10, 25, 50, 100, 250, -1], [10, 25, 50, 100, 250, "All"] ],
+				 "pageLength": 50
+			} );
+		
+			$('.checkbox_option').click(function() {
+			        var cb = $(this).find(":checkbox")[0];
+
+			        if (!$(cb).attr("checked")) {
+			            $(cb).attr("checked", "checked");
+			            $(cb).prop("checked", true);
+			        } 
+			        else {
+			            $(cb).removeAttr("checked");
+			            $(cb).prop("checked", false);
+			        }
+			            
+			    }
+			);
+		</script>
 </html>

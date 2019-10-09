@@ -1409,6 +1409,7 @@ ul.msg_list li a .message {
 .dropdown-menu>li>a {
     color: #5A738E
 }
+
 .navbar-nav .open .dropdown-menu {
     position: absolute;
     background: #fff;
@@ -4420,4 +4421,27 @@ ul.notifications {
 }
 span.break-word {
     word-wrap: break-word;
+}
+
+
+/* Custom Submit Button In Dropdown Menu */
+.dropdown-menu>li>input[type="submit"] {
+	width:100%;
+	text-align: start;
+	background: none!important;
+  	border: none;
+    color: #5A738E;
+    display: block!important;
+    padding: 3px 20px!important;
+    clear: both!important;
+    font-weight: 400!important;
+    line-height: 1.42857143!important;
+    white-space: nowrap!important;
+    
+}
+.dropdown-menu>li>input[type="submit"]:focus,
+.dropdown-menu>li>input[type="submit"]:hover {
+	color: #262626!important;
+    text-decoration: none!important;
+    background-color: #f5f5f5!important;
 }
