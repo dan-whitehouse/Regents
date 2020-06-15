@@ -15,7 +15,7 @@
 		
 		<!-- spring -->
 		<springsecurity.version>4.0.4.RELEASE</springsecurity.version>
-		<spring-version>4.2.5.RELEASE</spring-version>
+		<spring-version>5.2.7.RELEASE</spring-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<log4j-version>1.2.17</log4j-version>
 		
