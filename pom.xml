@@ -23,7 +23,7 @@
 		<hibernate.version>4.3.8.Final</hibernate.version>
 		
 		<!-- mysql -->
-		<mysql.connector.version>5.1.35</mysql.connector.version>
+		<mysql.connector.version>8.0.16</mysql.connector.version>
 		<commons.dbcp.version>1.4</commons.dbcp.version>
 		<servletapi.version>3.1.0</servletapi.version>
 		<logback.version>1.1.3</logback.version>
