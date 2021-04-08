@@ -271,20 +271,13 @@
 										<div class="col-md-12 well">
 											<div class="form-group col-xs-12">
 												<label class="control-label col-md-6 col-sm-6 col-xs-12">Reporting Option: 
-												<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="For January and June Regents NERIC will load scores in L1. NERIC will NOT load score for August." >
+												<span class="badge bg-black" data-toggle="tooltip" data-placement="top" title="" data-original-title="NERIC will load scores to L1 for all administrations." >
 												<span class=" fa fa-info"></span>
 												</span>
 												</label>
 												<div class="col-md-6 col-sm-6 col-xs-12">
 													<div class="checkbox">
-														<c:choose>
-															<c:when test="${orderForm.period eq 'August'}">
-																<form:checkbox path="reportingOption" name="reportingOption" cssClass="form-control has-feedback-left flat " label="NERIC will load scores into Level 1" disabled="true"/>
-															</c:when>
-															<c:otherwise>
-																<form:checkbox path="reportingOption" name="reportingOption" cssClass="form-control has-feedback-left flat" label="NERIC will load scores into Level 1" disabled="true" checked="checked"/>
-															</c:otherwise>
-														</c:choose>
+														<form:checkbox path="reportingOption" name="reportingOption" cssClass="form-control has-feedback-left flat" label="NERIC will load scores into Level 1" disabled="true" checked="checked"/>
 													</div>
 												</div>
 											</div>
